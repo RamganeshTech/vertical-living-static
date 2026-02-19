@@ -226,7 +226,7 @@ const Packages = () => {
   const currentPlans = activeTab === 'full' ? fullPlans : subPlans;
 
   return (
-    <section id="portfolio" className="py-24 bg-white font-inter">
+    <section id="service" className="py-24 bg-white font-inter">
       <div className="container mx-auto px-4">
 
         {/* <div className="mb-12 text-center">
