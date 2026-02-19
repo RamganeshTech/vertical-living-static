@@ -3,10 +3,10 @@ import logo from '../assets/images/logo.png'; // Import the image file
 import { Link } from 'react-router-dom';
 
 const navLinks = [
-    { id: 'home', label: 'Home', link: "/" },
-    { id: 'about', label: 'About Us', link: "/" },
-    { id: 'portfolio', label: 'Our Portfolio', link: "/" },
-    { id: 'contact', label: 'Contact Us', link: "/" },
+    { id: 'home', label: 'Home', link: "/#home" },
+    { id: 'about', label: 'About Us', link: "/#about" },
+    { id: 'portfolio', label: 'Our Portfolio', link: "/#portfolio" },
+    { id: 'contact', label: 'Contact Us', link: "/#contact" },
     { id: 'form', label: 'Form', link: "/form" },
 ];
 const Header: React.FC = () => {
@@ -20,9 +20,9 @@ const Header: React.FC = () => {
             <div className="container mx-auto px-4">
                 <nav className="flex items-center justify-between flex-wrap">
                     {/* Logo */}
-                    <a href="/" className="shrink-0">
+                    <Link to="/" className="shrink-0">
                         <img src={logo} alt="Logo" className="h-12 w-auto" />
-                    </a>
+                    </Link>
 
                     {/* Mobile Toggle */}
                     <button
@@ -38,8 +38,8 @@ const Header: React.FC = () => {
             lg:flex lg:w-auto lg:items-center lg:max-h-full lg:opacity-100
             ${isOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0 lg:opacity-100'}
           `}>
-                        {/* <ul className="flex flex-col lg:flex-row list-none ml-auto text-sm font-medium uppercase tracking-wider py-4 lg:py-0">
-                            {navLinks.map((item) => (
+                        <ul className="flex flex-col lg:flex-row list-none ml-auto text-sm font-medium uppercase tracking-wider py-4 lg:py-0">
+                            {/* {navLinks.map((item) => (
                                 <li key={item.id} className="nav-item">
                                     <a
                                         href={`#${item.id}`}
@@ -48,14 +48,25 @@ const Header: React.FC = () => {
                                         {item.label}
                                     </a>
                                 </li>
-                            ))}
-                        </ul> */}
+                            ))} */}
 
-                        <ul className="flex flex-col lg:flex-row list-none ml-auto text-sm font-medium uppercase tracking-wider py-4 lg:py-0">
+                            {navLinks.map((item) => (
+                                <li key={item.id} className="nav-item">
+                                    <Link
+                                        to={item.link}
+                                        className="block py-2 px-5 text-gray-700 hover:text-[#ffc000] transition-colors"
+                                        onClick={() => setIsOpen(false)}
+                                    >
+                                        {item.label}
+                                    </Link>
+                                </li>
+                            ))}
+                        </ul>
+
+                        {/* <ul className="flex flex-col lg:flex-row list-none ml-auto text-sm font-medium uppercase tracking-wider py-4 lg:py-0">
                             {navLinks.map((item) => (
                                 <li key={item.id} className="nav-item">
                                     {item.id === 'form' ? (
-                                        /* Use Link for the /form page to prevent reloading */
                                         <Link
                                             to={item.link}
                                             className="block py-2 px-5 text-gray-700 hover:text-black transition-colors"
@@ -64,7 +75,6 @@ const Header: React.FC = () => {
                                             {item.label}
                                         </Link>
                                     ) : (
-                                        /* Use a standard anchor for section IDs on the same page */
                                         <a
                                             href={`#${item.id}`}
                                             className="block py-2 px-5 text-gray-700 hover:text-black transition-colors"
@@ -75,7 +85,7 @@ const Header: React.FC = () => {
                                     )}
                                 </li>
                             ))}
-                        </ul>
+                        </ul> */}
                     </div>
                 </nav>
             </div>

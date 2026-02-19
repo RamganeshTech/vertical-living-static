@@ -1,29 +1,39 @@
 import React from 'react';
 import logo from '../assets/images/logo.png'; // Import the image file
+import { Link } from 'react-router-dom';
 
 const socialLinks = [
-    { 
-      icon: 'facebook', 
-      link: 'https://www.facebook.com/photo/?fbid=122102241110267512&set=a.122102237984267512' 
-    },
-    { 
-      icon: 'instagram', 
-      link: 'https://www.instagram.com/living.vertical/' 
-    },
-    { 
-      icon: 'youtube', 
-      link: 'https://youtube.com/@Verticalliving-Lifestyle?si=YAXRXVs5H6EuZOmg' 
-    },
-    { 
-      icon: 'linkedin', 
-      link: '' // Added LinkedIn placeholder as requested
-    },
-    { 
-      icon: 'envelope', 
-      link: '/cdn-cgi/l/email-protection#147d7a727b54607c71627166607d777578787d627d7a733a777b79' 
-    }
-  ];
+  {
+    icon: 'facebook',
+    link: 'https://www.facebook.com/photo/?fbid=122102241110267512&set=a.122102237984267512'
+  },
+  {
+    icon: 'instagram',
+    link: 'https://www.instagram.com/living.vertical/'
+  },
+  {
+    icon: 'youtube',
+    link: 'https://youtube.com/@Verticalliving-Lifestyle?si=YAXRXVs5H6EuZOmg'
+  },
+  {
+    icon: 'linkedin',
+    link: 'https://www.linkedin.com/company/theverticalliving' // Added LinkedIn placeholder as requested
+  },
+  {
+    icon: 'envelope',
+    link: 'mailto:info@theverticalliving.com'
+  }
+];
 
+
+
+const navLinks = [
+  { id: 'home', label: 'Home', link: "/#home" },
+  { id: 'about', label: 'About Us', link: "/#about" },
+  { id: 'portfolio', label: 'Our Portfolio', link: "/#portfolio" },
+  { id: 'contact', label: 'Contact Us', link: "/#contact" },
+  // { id: 'form', label: 'Form', link: "/form" },
+];
 
 const Footer: React.FC = () => {
   return (
@@ -36,13 +46,13 @@ const Footer: React.FC = () => {
             <div>
               <div className="flex space-x-4 mb-8">
                 {socialLinks.map((social) => (
-                  <a 
+                  <Link
                     key={social.icon}
-                    href={social.link} 
+                    to={social.link}
                     className="w-10 h-10 rounded-full bg-black text-white flex items-center justify-center hover:bg-[#ffc000] hover:text-black duration-300 transition-all"
                   >
                     <i className={`fa fa-${social.icon}`}></i>
-                  </a>
+                  </Link>
                 ))}
               </div>
               <p className="text-sm">© {new Date().getFullYear()} VERTICAL LIVING.</p>
@@ -53,10 +63,21 @@ const Footer: React.FC = () => {
           <div>
             <h4 className="font-luxe font-bold uppercase mb-6">Useful Links</h4>
             <ul className="space-y-4 uppercase text-sm">
-              <li><a href="#home" className="hover:text-[#ffc000] hover:pl-2 duration-300 transition-all">Home</a></li>
+              {/* <li><a href="#home" className="hover:text-[#ffc000] hover:pl-2 duration-300 transition-all">Home</a></li>
               <li><a href="#about" className="hover:text-[#ffc000] hover:pl-2 duration-300 transition-all">About Us</a></li>
               <li><a href="#portfolio" className="hover:text-[#ffc000] hover:pl-2 duration-300 transition-all">Our Portfolio</a></li>
-              <li><a href="#contact" className="hover:text-[#ffc000] hover:pl-2 duration-300 transition-all">Contact Us</a></li>
+              <li><a href="#contact" className="hover:text-[#ffc000] hover:pl-2 duration-300 transition-all">Contact Us</a></li> */}
+
+              {navLinks.map((item) => (
+                <li key={item.id}>
+                  <Link
+                    to={item.link}
+                    className="hover:text-[#ffc000] hover:pl-2 duration-300 transition-all block"
+                  >
+                    {item.label}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
 
@@ -72,7 +93,7 @@ const Footer: React.FC = () => {
               <li className="flex gap-3">
                 <span className="font-bold">Sat</span> Closed
               </li>
-               <li className="flex gap-3">
+              <li className="flex gap-3">
                 <span className="font-bold">Sun</span> Closed
               </li>
             </ul>

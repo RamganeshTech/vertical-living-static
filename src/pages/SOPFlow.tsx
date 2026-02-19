@@ -319,10 +319,10 @@ const sopSteps = [
 
 export const SOPFlow = () => {
   return (
-    <section className="py-24 bg-white font-inter">
+    <section className="py-10 bg-white font-inter">
       <div className="container mx-auto px-4">
         <div className="mb-24 text-center">
-          <h2 className="text-4xl font-[500] uppercase tracking-tighter text-[#1a1a1a]">
+          <h2 className="text-2xl md:text-4xl font-[500] uppercase tracking-tighter text-[#1a1a1a]">
             Our <span className="text-[#ffc000]">Process</span>
           </h2>
           <div className="w-26 h-1.5 bg-[#ffc000] mx-auto mt-4 rounded-full"></div>

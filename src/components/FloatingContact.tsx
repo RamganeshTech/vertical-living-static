@@ -136,9 +136,9 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
+export const phoneNumber = "+919363993814";
 const FloatingContact: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const phoneNumber = "+919363993814";
 
   return (
     <div className="fixed right-[30px] bottom-[30px] z-[9999] flex flex-col items-center">
@@ -206,103 +206,3 @@ export default FloatingContact;
 
 
 
-
-// import React, { useState } from 'react';
-// import { motion, AnimatePresence, type Variants } from 'framer-motion';
-
-// const FloatingContact: React.FC = () => {
-//   const [isOpen, setIsOpen] = useState(false);
-//   const phoneNumber = "+919363993814";
-
-//   const bubbleVariants: Variants = {
-//     hidden: { 
-//       opacity: 0, 
-//       x: 0, 
-//       y: 0, 
-//       scale: 0.5 // Start slightly smaller for a "pop" feel
-//     },
-//     visible: (custom: { x: number, y: number }) => ({
-//       opacity: 1,
-//       x: custom.x,
-//       y: custom.y,
-//       scale: 1,
-//       transition: { 
-//         type: "spring", 
-//         stiffness: 400, // Very fast
-//         damping: 25,    // Smooth settling without too much bounce
-//         mass: 0.5      // Makes it feel very lightweight
-//       }
-//     }),
-//     exit: { 
-//       opacity: 0, 
-//       x: 0, 
-//       y: 0, 
-//       scale: 0,
-//       transition: { 
-//         duration: 0.15, 
-//         ease: "anticipate" // Sucks back into the button
-//       } 
-//     }
-//   };
-
-//   return (
-//     <div className="fixed right-[30px] bottom-[30px] z-[9999] flex items-center justify-center">
-//       <AnimatePresence>
-//         {isOpen && (
-//           <>
-//             {/* Call Bubble */}
-//             <motion.a
-//               href={`tel:${phoneNumber}`}
-//               custom={{ x: 0, y: -85 }} 
-//               variants={bubbleVariants}
-//               initial="hidden"
-//               animate="visible"
-//               exit="exit"
-//               className="absolute w-14 h-14 bg-[#2563eb] text-white rounded-full shadow-xl flex items-center justify-center cursor-pointer hover:scale-110 transition-transform z-0"
-//             >
-//               <i className="fa fa-phone text-2xl"></i>
-//             </motion.a>
-
-//             {/* WhatsApp Bubble */}
-//             <motion.a
-//               href={`https://wa.me/${phoneNumber}`}
-//               target="_blank"
-//               rel="noreferrer"
-//               custom={{ x: -75, y: -45 }} 
-//               variants={bubbleVariants}
-//               initial="hidden"
-//               animate="visible"
-//               exit="exit"
-//               className="absolute w-14 h-14 bg-[#25D366] text-white rounded-full shadow-xl flex items-center justify-center cursor-pointer hover:scale-110 transition-transform z-0"
-//             >
-//               <i className="fa fa-whatsapp text-3xl"></i>
-//             </motion.a>
-//           </>
-//         )}
-//       </AnimatePresence>
-
-//       {/* Main Toggle Button */}
-//       <motion.button
-//         onClick={() => setIsOpen(!isOpen)}
-//         className={`relative z-10 w-16 h-16 rounded-full shadow-2xl flex items-center justify-center text-white cursor-pointer outline-none transition-colors duration-200 ${
-//           isOpen ? 'bg-[#ff3b30]' : 'bg-[#ffc000]'
-//         }`}
-//         whileTap={{ scale: 0.9 }}
-//       >
-//         <motion.div
-//           animate={{ rotate: isOpen ? 135 : 0 }} // Rotates to a clean 'X'
-//           transition={{ type: "spring", stiffness: 400, damping: 20 }}
-//           className="flex items-center justify-center"
-//         >
-//           {isOpen ? (
-//             <i className="fa fa-times text-2xl"></i>
-//           ) : (
-//             <i className="fa fa-comments text-2xl text-black"></i> 
-//           )}
-//         </motion.div>
-//       </motion.button>
-//     </div>
-//   );
-// };
-
-// export default FloatingContact;

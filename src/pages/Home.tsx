@@ -1,20 +1,21 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import StatBox from '../components/StatBox';
 
 
 // Asset Imports
 import bannerBg from '../assets/images/banner-01-bg.jpg';
-import feature01 from '../assets/images/feature-01.png';
-import feature02 from '../assets/images/feature-02.png';
 
 import { motion, type Variants } from 'framer-motion';
 import Portfolio from './Portfolio';
 import InstagramFeed from './InstagramFeed';
-import FloatingContact from '../components/FloatingContact';
+// import FloatingContact from '../components/FloatingContact';
 import InquiryFormNew from './Inquiry/InquiryFormNew';
 import { SOPFlow } from './SOPFlow';
-import PlanCards from './Plans';
 import WorkCarousel from './WorkCarousel';
+import { useLocation } from 'react-router-dom';
+import ConnectSection from './ConnectSection';
+import Packages from './Packages';
+import StickySideContact from '../components/StickySideContact';
 
 
 
@@ -23,6 +24,7 @@ import WorkCarousel from './WorkCarousel';
 //   hidden: { opacity: 0, y: 40 },
 //   visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } }
 // };
+
 // Explicitly type the variants as 'Variants'
 const fadeInLeft: Variants = {
   hidden: {
@@ -56,11 +58,29 @@ const fadeInRight: Variants = {
 
 
 const Home: React.FC = () => {
+
+
+  const { hash } = useLocation();
+
+  useEffect(() => {
+    if (hash) {
+      const id = hash?.replace('#', '');
+      const element = document.getElementById(id);
+      if (element) {
+        // Short timeout to ensure the DOM is ready
+        setTimeout(() => {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }, 100);
+      }
+    }
+  }, [hash]);
+
+
   return (
     <div className="min-h-screen bg-white">
 
-     
-     <InquiryFormNew />
+
+      <InquiryFormNew />
 
 
       {/* HERO SECTION */}
@@ -153,33 +173,37 @@ const Home: React.FC = () => {
           </motion.div>
 
           {/* Feature Row 1: Services */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-10 mb-[40px] items-center">
+          {/* <div className="grid grid-cols-1 md:grid-cols-2 gap-10 mb-[40px] items-center">
             <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInLeft} className="max-w-[570px]">
               <img src={feature01} alt="Services" className="w-full h-auto" />
             </motion.div>
             <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInRight} className="md:pl-[70px]">
               <h3 className="font-luxe text-[40px] font-bold mb-[25px] leading-[1]">Our Services</h3>
               <p className="text-[18px] leading-[33px] text-black">
-                {/* At VERTICAL LIVING, we are passionate about creating beautiful and functional spaces... */}
                 At VERTICAL LIVING, we are passionate about creating beautiful and functional spaces that reflect our clients' unique personalities and lifestyles. With over 10 years of experience in the industry, we have developed a keen eye for design and a commitment to exceptional customer service.
               </p>
             </motion.div>
-          </div>
+          </div> */}
+
+
+          <Packages />
 
           {/* Feature Row 2: Portfolio */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-10 mb-[40px] items-center">
+          {/* <div className="grid grid-cols-1 md:grid-cols-2 gap-10 mb-[40px] items-center">
             <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInLeft} className="md:pr-[70px] order-2 md:order-1">
               <h3 className="font-luxe text-[40px] font-bold mb-[25px] leading-[1]">Our Portfolio</h3>
               <p className="text-[18px] leading-[33px] text-black">
-                {/* Take a peek at some of our recent projects and see how we have transformed spaces into stunning works of art... */}
                 Take a peek at some of our recent projects and see how we have transformed spaces into stunning, functional works of art. From cozy living rooms to sleek kitchens and everything in between, our portfolio showcases our versatility and attention to detail.
               </p>
             </motion.div>
             <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInRight} className="max-w-[570px] order-1 md:order-2">
               <img src={feature02} alt="Portfolio" className="w-full h-auto" />
             </motion.div>
-          </div>
-        </div>
+          </div> */}
+
+
+          <WorkCarousel />
+        </div> 
       </section>
 
 
@@ -187,11 +211,14 @@ const Home: React.FC = () => {
 
       <SOPFlow />
 
-      <PlanCards />
+      {/* <Packages />
 
-      <WorkCarousel />
+      <WorkCarousel /> */}
 
       <InstagramFeed />
+
+
+      <ConnectSection />
 
 
 
@@ -203,7 +230,8 @@ const Home: React.FC = () => {
       </div> */}
 
       {/* MULTI-ACTION FLOATING BUTTON */}
-      <FloatingContact />
+      {/* <FloatingContact /> */}
+      <StickySideContact />
 
     </div>
   );

@@ -9,6 +9,7 @@ import 'swiper/css/navigation';
 import 'swiper/css/bundle'; // This includes all effects like coverflow
 
 import 'swiper/swiper-bundle.css';
+import NotFound from './pages/NotFound/NotFound'
 
 
 function App() {
@@ -27,7 +28,7 @@ function App() {
       <Route path="/form" element={<InquiryForm />} />
 
       {/* Future Backend/Dashboard routes can be added here */}
-      <Route path="*" element={<div className="p-10 text-center">Page Not Found</div>} />
+      <Route path="*" element={<NotFound />} />
 
       </Routes>
       <Footer />
