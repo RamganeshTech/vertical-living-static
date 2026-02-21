@@ -10,6 +10,9 @@ import 'swiper/css/bundle'; // This includes all effects like coverflow
 
 import 'swiper/swiper-bundle.css';
 import NotFound from './pages/NotFound/NotFound'
+import PaymentSuccess from './pages/Payment/PaymentSuccess'
+import PaymentFailure from './pages/Payment/PaymentFailure'
+import Chatbot from './components/Chatbot'
 
 
 function App() {
@@ -21,16 +24,21 @@ function App() {
       <Routes>
 
 
-      {/* Main Landing Page */}
-      <Route path="/" element={<Home />} />
+        {/* Main Landing Page */}
+        <Route path="/" element={<Home />} />
 
-      {/* The new form point you wanted to create */}
-      <Route path="/form" element={<InquiryForm />} />
+        {/* The new form point you wanted to create */}
+        <Route path="/form" element={<InquiryForm />} />
 
-      {/* Future Backend/Dashboard routes can be added here */}
-      <Route path="*" element={<NotFound />} />
+        <Route path="/payment-success" element={<PaymentSuccess />} />
+        <Route path="/payment-failed" element={<PaymentFailure />} />
+
+        {/* Future Backend/Dashboard routes can be added here */}
+        <Route path="*" element={<NotFound />} />
 
       </Routes>
+
+      <Chatbot />
       <Footer />
 
     </>

@@ -211,9 +211,9 @@ import consultant from '../assets/images/consultation.jpg';
 import design from '../assets/images/design.jpg';
 
 const fullPlans = [
-  { name: "Basic", price: "4 Lakhs", img: img1, features: ["Kitchen", "Wardrobe", "Loft"] },
-  { name: "Premium", price: "8 Lakhs", img: img2, features: ["Full Modular Kitchen", "2 Wardrobes", "TV Unit", "False Ceiling"] },
-  { name: "Luxury", price: "12 Lakhs", img: img3, features: ["Complete Interiors", "Home Automation", "Lighting Design"] }
+  { name: "Basic", price: "4 - 6 Lakhs", img: img1, features: ["Kitchen", "Wardrobe", "Loft"] },
+  { name: "2 BHK", price: "6 - 8 Lakhs", img: img2, features: ["Full Modular Kitchen", "2 Wardrobes", "TV Unit", "False Ceiling"] },
+  { name: "3 BHK", price: "8 -10 Lakhs", img: img3, features: ["Complete Interiors", "Home Automation", "Lighting Design"] }
 ];
 
 const subPlans = [
