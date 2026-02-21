@@ -9,5 +9,5 @@ export default defineConfig({
     tailwindcss(),
 
   ],
-  base: '/vertical-living-static/', // Must match your repo name exactly
+  // base: '/vertical-living-static/', // Must match your repo name exactly
 })

@@ -1,18 +1,19 @@
 import './App.css'
 import { Route, Routes } from 'react-router-dom'
-import Home from './pages/Home'
-import InquiryForm from './pages/Inquiry/InquiryForm'
-import Header from './components/Header'
-import Footer from './components/Footer'
+const Home  = lazy(()=> import('./pages/Home'))
+const InquiryForm = lazy(()=> import('./pages/Inquiry/InquiryForm'))
+const Header = lazy(()=> import('./components/Header'))
+const Footer = lazy(()=> import('./components/Footer'))
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/bundle'; // This includes all effects like coverflow
 
 import 'swiper/swiper-bundle.css';
-import NotFound from './pages/NotFound/NotFound'
-import PaymentSuccess from './pages/Payment/PaymentSuccess'
-import PaymentFailure from './pages/Payment/PaymentFailure'
-import Chatbot from './components/Chatbot'
+import { lazy } from 'react'
+const NotFound = lazy(()=> import('./pages/NotFound/NotFound')) 
+const PaymentSuccess = lazy(()=> import('./pages/Payment/PaymentSuccess')) 
+const PaymentFailure = lazy(()=> import('./pages/Payment/PaymentFailure')) 
+const Chatbot = lazy(()=> import('./components/Chatbot')) 
 
 
 function App() {
