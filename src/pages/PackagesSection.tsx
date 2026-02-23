@@ -72,7 +72,7 @@ const PackagesSection: React.FC = () => {
                             <div className="max-h-0 opacity-0 group-hover:max-h-[100px] group-hover:opacity-100 transition-all duration-500 ease-in-out overflow-hidden">
                                 <button
                                     onClick={() => navigate(`/singlepackage/${pkg.id}`)}
-                                    className="w-full bg-[#ffc000] text-[#1a1a1a] py-3.5 rounded-xl font-bold uppercase text-[11px] tracking-[2px] hover:bg-white transition-all duration-300"
+                                    className="w-full cursor-pointer bg-[#ffc000] text-[#1a1a1a] py-3.5 rounded-xl font-bold uppercase text-[11px] tracking-[2px] hover:bg-white transition-all duration-300"
                                 >
                                     Book
                                 </button>

@@ -347,14 +347,25 @@
 
 //  FOURTH VERSION
 
-import React from 'react';
+import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { PACKAGES } from '../constants/constants';
 import Booking from './Payment/Booking';
+import { motion } from 'framer-motion';
 
 const PackageSectionSingle: React.FC = () => {
     const { planId } = useParams<{ planId: string }>();
     const selectedPackage = PACKAGES.find(p => p.id === planId);
+
+    
+    const [isCopied, setIsCopied] = useState<boolean>(false);
+
+    // Function to handle Copying Link
+    const handleCopyLink = () => {
+        navigator.clipboard.writeText(window.location.href);
+        setIsCopied(true);
+        setTimeout(() => setIsCopied(false), 2000); // Reset after 2s
+    };
 
     if (!selectedPackage) {
         return (
@@ -363,6 +374,12 @@ const PackageSectionSingle: React.FC = () => {
             </div>
         );
     }
+
+   // Function to handle WhatsApp Sharing
+    const handleWhatsAppShare = () => {
+        const shareText = `Check out the ${selectedPackage.name} at Vertical Living: ${window.location.href}`;
+        window.open(`https://wa.me/?text=${encodeURIComponent(shareText)}`, '_blank');
+    };
 
     return (
         <section className="min-h-screen bg-white font-inter">
@@ -461,7 +478,7 @@ const PackageSectionSingle: React.FC = () => {
                 </div>
 
                 {/* 5. Direct Payment Portal */}
-                <div className="bg-[#1a1a1a] rounded-[80px] p-10 md:p-24 text-white">
+                <div className="bg-[#1a1a1a] rounded-[80px] p-10 md:p-10 text-white">
                     <div className="flex flex-col items-center">
                         <div className="text-center mb-16">
                             <h2 className="text-4xl md:text-6xl font-bold uppercase mb-4 ">Secure Your Booking</h2>
@@ -473,6 +490,54 @@ const PackageSectionSingle: React.FC = () => {
                         </div>
                     </div>
                 </div>
+
+                {/* 6. Professional Share Section */}
+                <div className="border-gray-100">
+                    <div className="max-w-4xl mx-auto text-center">
+                        <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.6 }}
+                        >
+                            <h2 className="text-xl md:text-3xl font-bold uppercase  text-[#1a1a1a]">
+                                Share This <span className="text-[#ffc000]">Package</span>
+                            </h2>
+                            <div className="w-12 h-1 bg-[#ffc000] mx-auto mt-3 rounded-full"></div>
+                            <p className="text-gray-500 text-[11px] md:text-xs mt-4 max-w-md mx-auto leading-relaxed font-bold uppercase tracking-[2px]">
+                                Share these details with your partner or client to discuss the design further.
+                            </p>
+                        </motion.div>
+
+                        {/* Action Buttons Container */}
+                        <div className="mt-12 flex flex-col sm:flex-row items-center justify-center gap-6">
+                            
+                            {/* WhatsApp Button */}
+                            <motion.button
+                                onClick={handleWhatsAppShare}
+                                whileHover={{ y: -5, scale: 1.02 }}
+                                whileTap={{ scale: 0.98 }}
+                                className="w-full cursor-pointer sm:w-auto flex items-center justify-center gap-3 bg-white border-2 border-[#eee] text-[#1a1a1a] px-10 py-5 rounded-full font-bold uppercase tracking-[2px] text-[12px] shadow-sm hover:border-[#25D366] hover:text-[#25D366] transition-all duration-300"
+                            >
+                                <i className="fa fa-whatsapp text-xl text-[#25D366]"></i>
+                                Share on WhatsApp
+                            </motion.button>
+
+                            {/* Copy Link Button */}
+                            <motion.button
+                                onClick={handleCopyLink}
+                                whileHover={{ y: -5, scale: 1.02 }}
+                                whileTap={{ scale: 0.98 }}
+                                className="w-full cursor-pointer sm:w-auto flex items-center justify-center gap-3 bg-[#1a1a1a] text-white px-10 py-5 rounded-full font-bold uppercase tracking-[2px] text-[12px] shadow-xl hover:bg-[#ffc000] hover:text-black transition-all duration-300"
+                            >
+                                <i className={`fa ${isCopied ? 'fa-check' : 'fa-link'} text-lg`}></i>
+                                {isCopied ? 'Link Copied!' : 'Copy Package Link'}
+                            </motion.button>
+                        </div>
+                    </div>
+                </div>
+
+
             </div>
         </section>
     );
