@@ -472,12 +472,23 @@ const InquiryFormNew: React.FC = () => {
                 {/* Fixed: Removed overflow-hidden to allow dropdown to visible outside */}
                 <div className="max-w-[650px] mx-auto bg-white rounded-[35px] shadow-[0_20px_50px_-15px_rgba(0,0,0,0.05)] border border-gray-100 p-8 md:p-12 relative">
 
+                    <div className="mb-10 text-left border-b border-gray-50 pb-6">
+                        <h1 className="text-[20px] md:text-[24px] font-black uppercase tracking-tight text-[#1a1a1a]">
+                            Tell Us About Your Project
+                        </h1>
+                        <div className="w-12 h-1.5 bg-[#ffc000] rounded-full mt-2"></div>
+                        <p className="text-gray-400 text-[13px] mt-3 font-medium tracking-wide">
+                            Bring your vision to life with bespoke interior solutions.
+                        </p>
+                    </div>
+
+
                     <div className="absolute top-0 right-0 w-20 h-20 bg-[#ffc000]" style={{ clipPath: 'polygon(100% 0, 0 0, 100% 100%)' }}></div>
 
                     <div className="mb-10">
                         <div className="flex justify-between mb-3 px-2">
                             {stepTitles.map((title, i) => (
-                                <span key={i} className={`text-[9px] font-bold uppercase tracking-[1px] ${step >= i + 1 ? 'text-[#ffc000]' : 'text-gray-300'}`}>
+                                <span key={i} className={`text-[9px] font-bold uppercase tracking-[1px] ${step >= i + 1 ? 'text-[#ffc000]' : 'text-gray-800'}`}>
                                     {title}
                                 </span>
                             ))}
@@ -551,7 +562,7 @@ const InquiryFormNew: React.FC = () => {
 
 
                                         placeholder="Select Timeline" error={errors.timeline} />
-                                        
+
                                     <ModernDropdown label="What kind of service are you looking for? *" name="Service Type" value={formData["Service Type"]} onChange={(val) => handleDropdownChange("Service Type", val)}
                                         //  options={["Design + Execution", "Design Support", "Execution Only"]} 
                                         options={["Design + Execution (Flexible Budget)", "Design Support + Execution (Fixed Budget)", "Execution only (Designs Ready)"]}
