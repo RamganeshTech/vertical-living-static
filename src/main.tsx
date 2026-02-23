@@ -22,7 +22,7 @@ const queryClient = new QueryClient({
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <QueryClientProvider client={queryClient}>
-      <BrowserRouter basename="/vertical-living-static">
+      <BrowserRouter>
         <App />
       </BrowserRouter>
     </QueryClientProvider>
