@@ -1,4 +1,5 @@
 import './App.css'
+import { lazy } from 'react'
 import { Route, Routes } from 'react-router-dom'
 const Home  = lazy(()=> import('./pages/Home'))
 const InquiryForm = lazy(()=> import('./pages/Inquiry/InquiryForm'))
@@ -9,7 +10,6 @@ import 'swiper/css/navigation';
 import 'swiper/css/bundle'; // This includes all effects like coverflow
 
 import 'swiper/swiper-bundle.css';
-import { lazy } from 'react'
 const NotFound = lazy(()=> import('./pages/NotFound/NotFound')) 
 const PaymentSuccess = lazy(()=> import('./pages/Payment/PaymentSuccess')) 
 const PaymentFailure = lazy(()=> import('./pages/Payment/PaymentFailure')) 
