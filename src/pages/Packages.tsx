@@ -244,7 +244,7 @@ const Packages = () => {
           <div className="w-24 h-1.5 bg-[#ffc000] mx-auto mt-6 rounded-full shadow-[0_5px_15px_rgba(255,192,0,0.3)]"></div>
 
           {/* Brand Statement - Presented for Maximum Readability */}
-          <motion.p
+          {/* <motion.p
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -255,7 +255,7 @@ const Packages = () => {
             that reflect our clients' unique personalities and lifestyles. With over 10 years of
             experience in the industry, we have developed a keen eye for design and a commitment
             to exceptional customer service.
-          </motion.p>
+          </motion.p> */}
         </div>
 
         {/* Tab Switcher */}

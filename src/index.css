@@ -14,3 +14,8 @@
 html {
     scroll-behavior: smooth;
 }
+
+/* This targets the internal Elfsight header title to hide the #yummy text */
+[class*="WidgetTitle__WidgetTitleComponent"] {
+    display: none !important;
+}

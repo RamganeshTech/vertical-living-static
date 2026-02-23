@@ -10,6 +10,8 @@ import 'swiper/css/navigation';
 import 'swiper/css/bundle'; // This includes all effects like coverflow
 
 import 'swiper/swiper-bundle.css';
+import BookingPage from './pages/Payment/BookingPage'
+import PackageSectionSingle from './pages/PackageSectionSingle'
 const NotFound = lazy(()=> import('./pages/NotFound/NotFound')) 
 const PaymentSuccess = lazy(()=> import('./pages/Payment/PaymentSuccess')) 
 const PaymentFailure = lazy(()=> import('./pages/Payment/PaymentFailure')) 
@@ -31,6 +33,10 @@ function App() {
         {/* The new form point you wanted to create */}
         <Route path="/form" element={<InquiryForm />} />
 
+        <Route path="/singlepackage/:planId" element={<PackageSectionSingle />} />
+
+        <Route path="/booking/:planId" element={<BookingPage />} />
+        
         <Route path="/payment-success" element={<PaymentSuccess />} />
         <Route path="/payment-failed" element={<PaymentFailure />} />
 

@@ -1,42 +1,120 @@
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 
-// src/hooks/useRazorpay.ts
+// // src/hooks/useRazorpay.ts
+// export const useRazorpay = () => {
+//   const navigate = useNavigate();
+
+//   const RAZORPAYID = import.meta.env.VITE_RAZORPAY_KEY_ID
+
+//   const initiatePayment = async (plan: any) => {
+//     // 1. CALL YOUR BACKEND TO GET ORDER_ID (Crucial for security)
+//     const orderResponse = await fetch('YOUR_BACKEND_URL/create-order', {
+//       method: 'POST',
+//       body: JSON.stringify({ amount: plan.price })
+//     });
+//     const order = await orderResponse.json();
+
+//     const options = {
+//     //   key: "YOUR_KEY_ID",
+//       key: RAZORPAYID,
+//       amount: order.amount,
+//       order_id: order.id, // This links the payment to your backend order
+//       name: "Vertical Living",
+//       handler: (response: any) => {
+//         // Redirect to success on successful capture
+//         navigate(`/payment-success?id=${response.razorpay_payment_id}`);
+//       },
+//       modal: {
+//         ondismiss: () => navigate('/payment-failed')
+//       },
+//       theme: { color: "#ffc000" }
+//     };
+
+//     const rzp = new (window as any).Razorpay(options);
+//     rzp.open();
+//   };
+
+//   return { initiatePayment };
+// };
+
+
+
+
+//  SECOND VERSION
+
+import { useNavigate } from "react-router-dom";
+import { useCreatePublicOrder, useVerifyPublicPayment } from "../api/ApiLists/publicPaymentapi";
+// import { useCreatePublicOrder, useVerifyPublicPayment } from "./usePublicPayment";
+
 export const useRazorpay = () => {
   const navigate = useNavigate();
+  const createOrderMutation = useCreatePublicOrder();
+  const verifyPaymentMutation = useVerifyPublicPayment();
 
-  const RAZORPAYID = import.meta.env.VITE_RAZORPAY_KEY_ID
+  const RAZORPAY_KEY = import.meta.env.VITE_RAZORPAY_KEY_ID;
 
-  const initiatePayment = async (plan: any) => {
-    // 1. CALL YOUR BACKEND TO GET ORDER_ID (Crucial for security)
-    const orderResponse = await fetch('YOUR_BACKEND_URL/create-order', {
-      method: 'POST',
-      body: JSON.stringify({ amount: plan.price })
-    });
-    const order = await orderResponse.json();
+  const initiatePayment = async (amount: number, customerDetails: any) => {
+    try {
+      // Step 1: Create the Order via Backend
+      const orderData = await createOrderMutation.mutateAsync({
+        amount,
+        customerDetails
+      });
 
-    const options = {
-    //   key: "YOUR_KEY_ID",
-      key: RAZORPAYID,
-      amount: order.amount,
-      order_id: order.id, // This links the payment to your backend order
-      name: "Vertical Living",
-      handler: (response: any) => {
-        // Redirect to success on successful capture
-        navigate(`/payment-success?id=${response.razorpay_payment_id}`);
-      },
-      modal: {
-        ondismiss: () => navigate('/payment-failed')
-      },
-      theme: { color: "#ffc000" }
-    };
+      console.log("orderData", orderData)
 
-    const rzp = new (window as any).Razorpay(options);
-    rzp.open();
+
+      // CHECK: Your backend sends 'order_id', not 'id'
+      if (!orderData.order_id) {
+        console.error("No order_id received from backend");
+        return;
+      }
+
+
+      const options = {
+        key: RAZORPAY_KEY,
+        amount: orderData.amount, // already in paise from backend
+        currency: "INR",
+        name: "Vertical Living",
+        description: "Bespoke Interior Design Consultation",
+        order_id: orderData.order_id,
+        handler: async (response: any) => {
+          // Step 2: Verify the Payment immediately after success
+          try {
+            await verifyPaymentMutation.mutateAsync({
+              razorpay_order_id: response.razorpay_order_id,
+              razorpay_payment_id: response.razorpay_payment_id,
+              razorpay_signature: response.razorpay_signature,
+            });
+
+            navigate(`/payment-success?id=${response.razorpay_payment_id}`);
+          } catch (err) {
+            navigate("/payment-failed?reason=verification_failed");
+          }
+        },
+        modal: {
+          ondismiss: () => console.log("Payment modal closed by user"),
+        },
+        prefill: {
+          name: customerDetails.name,
+          email: customerDetails.email,
+          contact: customerDetails.phone,
+        },
+        theme: { color: "#ffc000" },
+      };
+
+      const rzp = new (window as any).Razorpay(options);
+      rzp.open();
+    } catch (error) {
+      console.error("Order creation failed", error);
+    }
   };
 
-  return { initiatePayment };
+  return {
+    initiatePayment,
+    isLoading: createOrderMutation.isPending || verifyPaymentMutation.isPending
+  };
 };
-
 
 
 //  need to keep in houseofram

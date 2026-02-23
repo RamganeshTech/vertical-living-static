@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import StatBox from '../components/StatBox';
+// import StatBox from '../components/StatBox';
 
 
 // Asset Imports
@@ -16,6 +16,7 @@ import { useLocation } from 'react-router-dom';
 import ConnectSection from './ConnectSection';
 import Packages from './Packages';
 import StickySideContact from '../components/StickySideContact';
+import PackagesSection from './PackagesSection';
 
 
 
@@ -103,14 +104,26 @@ const Home: React.FC = () => {
             viewport={{ once: true }}
             variants={fadeInLeft}
           >
-            <h1 className="font-luxe text-white text-[50px] md:text-[90px] font-[700] leading-[1]">
-              <span className="text-[#ffc000]">Interio</span> The Modern Art of Simplicity.
+            <h1 className="font-luxe text-white text-[50px] md:text-[80px] font-[700] leading-[1]">
+              <span className="text-[#ffc000]">Design,</span> Build, Deliver
             </h1>
-            <p className="text-white text-[20px] md:text-[25px] pt-[37px] pb-[40px] leading-[1.2] font-medium">
-              Elevate your home or office with our expert interior design services.
+            <p className="text-white text-[20px] md:text-[25px] pt-[37px] pb-[40px] leading-[1.2] font-semibold">
+              End-to-end interior design for homes & offices.
             </p>
+
+            {/* <p className="text-white text-[20px] md:text-[25px] pt-[37px] pb-[40px] leading-[1.2] font-medium">
+              From 3D design to execution with clear pricing & timeline.
+            </p> */}
+
+            {/* Supporting Detail - Smaller and more refined */}
+            <div className="flex justify-center items-center gap-3  pb-[40px]">
+              {/* <div className="w-8 h-[1px] bg-[#ffc000]"></div> Small accent line */}
+              <p className="text-gray-300 text-[14px] md:text-[16px] uppercase tracking-[2px] font-medium ">
+                From 3D design to execution with <span className="text-white">clear pricing & timeline.</span>
+              </p>
+            </div>
             <a
-              href="#"
+              href="#service"
               className="bg-[#ffc000] hover:bg-white text-black px-[40px] py-[18px] uppercase font-bold tracking-[1px] transition-all duration-500 inline-block shadow-lg"
             >
               Explore More
@@ -120,7 +133,7 @@ const Home: React.FC = () => {
       </section>
 
       {/* STATIC/METRICS SECTION - Exact Padding from CSS */}
-      <section className="bg-[#ffc000] py-[50px] relative z-20">
+      {/* <section className="bg-[#ffc000] py-[50px] relative z-20">
         <div className="container mx-auto px-4  grid grid-cols-1 md:grid-cols-3 gap-10">
           <motion.div
             initial="hidden"
@@ -151,8 +164,91 @@ const Home: React.FC = () => {
             <StatBox icon="4.5%" text={<>Average client ratings is <span className="underline font-bold">4.5 out 5 from 100+ reviews</span>.</>} />
           </motion.div>
         </div>
-      </section>
+      </section> */}
 
+      <section className="bg-[#ffc000] py-[60px] relative z-20">
+        <div className="container mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-10">
+
+          {/* Feature 1: Dedicated Design Team */}
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={fadeInRight}
+            className="flex items-start gap-5 group"
+          >
+            {/* Icon sized to match the text block height */}
+            {/* <div className="text-4xl md:text-5xl text-black pt-1 flex-shrink-0"> */}
+            {/* <div className="text-xl rounded-full text-center w-10 h-10 bg-[#ffda6a] text-black flex-shrink-0">
+        <i className="fa fa-pencil "></i>
+      </div> */}
+
+            {/* Icon Container: Ensure internal centering */}
+            <div className="text-xl rounded-full w-12 h-12 bg-[#ffda6a] text-black flex items-center justify-center flex-shrink-0 shadow-sm">
+              <i className="fa fa-pencil"></i>
+            </div>
+            <div className="flex flex-col">
+              <h3 className="text-[18px] md:text-[20px] font-bold uppercase tracking-tight text-black leading-tight mb-1">
+                Dedicated Design Team
+              </h3>
+              <p className="text-black/80 text-[14px] md:text-[15px] font-medium leading-snug">
+                From planning to final handover.
+              </p>
+            </div>
+          </motion.div>
+
+          {/* Feature 2: Single-Window Execution */}
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={fadeInRight}
+            transition={{ delay: 0.2 }}
+            className="flex items-start gap-5 group"
+          >
+            {/* <div className="text-4xl md:text-5xl text-black pt-1 flex-shrink-0"> */}
+            {/* <div className="text-xl rounded-full bg-[#ffda6a] md:text-xl text-black p-3 flex-shrink-0"> */}
+            <div className="text-xl rounded-full w-12 h-12 bg-[#ffda6a] text-black flex items-center justify-center flex-shrink-0 shadow-sm">
+
+
+              <i className="fa fa-user"></i>
+            </div>
+            <div className="flex flex-col">
+              <h3 className="text-[18px] md:text-[20px] font-bold uppercase tracking-tight text-black leading-tight mb-1">
+                Single-Window Execution
+              </h3>
+              <p className="text-black/80 text-[14px] md:text-[15px] font-medium leading-snug">
+                No multiple vendors. One accountable team.
+              </p>
+            </div>
+          </motion.div>
+
+          {/* Feature 3: Trusted by Clients */}
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={fadeInRight}
+            transition={{ delay: 0.4 }}
+            className="flex items-start gap-3 group"
+          >
+            {/* <div className="text-xl rounded-full bg-[#ffda6a] md:text-xl text-black p-3 flex-shrink-0"> */}
+            <div className="text-xl rounded-full w-12 h-12 bg-[#ffda6a] text-black flex items-center justify-center flex-shrink-0 shadow-sm">
+
+              <i className="fa fa-handshake-o"></i>
+            </div>
+            <div className="flex flex-col">
+              <h3 className="text-[18px] md:text-[20px] font-bold uppercase tracking-tight text-black leading-tight mb-1">
+                Trusted by Clients
+              </h3>
+              <p className="text-black/80 text-[14px] md:text-[15px] font-medium leading-snug">
+                Homes & offices delivered with care.
+              </p>
+            </div>
+          </motion.div>
+
+        </div>
+      </section>
       {/* ABOUT SECTION: Exact padding and headings */}
       <section id="about" className="pt-[100px] pb-[20px]">
         <div className="container mx-auto px-4">
@@ -186,6 +282,9 @@ const Home: React.FC = () => {
           </div> */}
 
 
+          <PackagesSection />
+
+
           <Packages />
 
           {/* Feature Row 2: Portfolio */}
@@ -203,7 +302,7 @@ const Home: React.FC = () => {
 
 
           <WorkCarousel />
-        </div> 
+        </div>
       </section>
 
 

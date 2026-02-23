@@ -454,9 +454,11 @@ const InquiryFormNew: React.FC = () => {
             setShowSuccess(true);
             // setFormData({ fullName: "", mobileNumber: "", projectCategory: "", propertyType: "", budget: "", location: "", timeline: "", serviceType: "" });
             setFormData({ "Full Name": "", "Mobile Number": "", "Project Category": "", "Property Type": "", "Budget": "", "Location": "", "Timeline": "", "Service Type": "" });
-            // setStep(1);
             setErrors({});
-            setTimeout(() => setShowSuccess(false), 4000);
+            setStep(1);
+            setTimeout(() => {
+                setShowSuccess(false)
+            }, 5000);
         } catch (error) {
             alert("Submission failed. Check your connection.");
         } finally {
@@ -593,7 +595,7 @@ const InquiryFormNew: React.FC = () => {
 
                         {showSuccess && (
                             <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} className="bg-green-50 text-[#28a745] font-semibold text-center text-[10px] uppercase p-3 rounded-xl border border-green-100 mt-4">
-                                Information Received! We will call you soon.
+                                Thank you. We have received your information. Our team will call you soon.
                             </motion.div>
                         )}
                     </form>
