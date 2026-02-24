@@ -236,11 +236,18 @@ import { useGeneratePublicQuote } from '../../api/ApiLists/publicQuoteCalculator
 import { downloadImage } from '../../api/ApiLists/downloadFile';
 
 const ESTIMATION_CONFIG = {
-    LABOUR_DAILY_SALARY: 2000,
+    STANDARD_SQFT: {
+        '1 BHK': 600,  // Mid-range of 500-700
+        '2 BHK': 1000, // Mid-range of 800-1200
+        '3 BHK': 1500, // Mid-range of 1200-1800
+        'Villa': 2200  // Standard for 1800+
+    },
+    // LABOUR_DAILY_SALARY: 1500,
+    LABOUR_RATE_PER_SQFT: 100, // This is your new "Source of Truth"
     PROFIT_MARGIN: 1.30,
-    LABOUR_DAYS_PER_SQFT: 0.125,
+    // LABOUR_DAYS_PER_SQFT: 0.125,
     MATERIAL_BASE_RATES: { 'Standard': 950, 'Premium': 1400, 'Luxury': 2100 },
-    COMPLEXITY_MULTIPLIERS: { '1 BHK': 1.0, '2 BHK': 1.15, '3 BHK': 1.25, 'Villa': 1.45 }
+    COMPLEXITY_MULTIPLIERS: { '1 BHK': 1.0, '2 BHK': 1.05, '3 BHK': 1.15, 'Villa': 1.25 }
 };
 
 const CostCalculatorMain: React.FC<{ isOpen: boolean; onClose: () => void }> = ({ isOpen, onClose }) => {
@@ -254,6 +261,11 @@ const CostCalculatorMain: React.FC<{ isOpen: boolean; onClose: () => void }> = (
     const modalRef = useRef<HTMLDivElement>(null);
 
 
+    const handleClear = () => {
+        setFormData({ carpetArea: 0, homeType: '2 BHK', finish: 'Premium' })
+        setClientInfo({ name: '', phone: '', location: '' })
+    }
+
     const { mutate: generateQuote, isPending } = useGeneratePublicQuote();
 
     const validate = () => {
@@ -265,13 +277,29 @@ const CostCalculatorMain: React.FC<{ isOpen: boolean; onClose: () => void }> = (
         return Object.keys(newErrors).length === 0;
     };
 
+    // const estimate = useMemo(() => {
+    //     const area = Number(formData.carpetArea) || 0;
+    //     const materialBase = ESTIMATION_CONFIG.MATERIAL_BASE_RATES[formData.finish as keyof typeof ESTIMATION_CONFIG.MATERIAL_BASE_RATES];
+    //     const totalLabourCost = area * ESTIMATION_CONFIG.LABOUR_DAYS_PER_SQFT * ESTIMATION_CONFIG.LABOUR_DAILY_SALARY;
+    //     const configMult = ESTIMATION_CONFIG.COMPLEXITY_MULTIPLIERS[formData.homeType as keyof typeof ESTIMATION_CONFIG.COMPLEXITY_MULTIPLIERS];
+    //     return Math.round((area * materialBase + totalLabourCost) * configMult * ESTIMATION_CONFIG.PROFIT_MARGIN);
+    // }, [formData]);
+
     const estimate = useMemo(() => {
-        const area = Number(formData.carpetArea) || 0;
-        const materialBase = ESTIMATION_CONFIG.MATERIAL_BASE_RATES[formData.finish as keyof typeof ESTIMATION_CONFIG.MATERIAL_BASE_RATES];
-        const totalLabourCost = area * ESTIMATION_CONFIG.LABOUR_DAYS_PER_SQFT * ESTIMATION_CONFIG.LABOUR_DAILY_SALARY;
-        const configMult = ESTIMATION_CONFIG.COMPLEXITY_MULTIPLIERS[formData.homeType as keyof typeof ESTIMATION_CONFIG.COMPLEXITY_MULTIPLIERS];
-        return Math.round((area * materialBase + totalLabourCost) * configMult * ESTIMATION_CONFIG.PROFIT_MARGIN);
-    }, [formData]);
+        // We use the FIXED area based on the BHK type, not the user input
+        const calcArea = ESTIMATION_CONFIG.STANDARD_SQFT[formData.homeType as keyof typeof ESTIMATION_CONFIG.STANDARD_SQFT];
+        const matRate = ESTIMATION_CONFIG.MATERIAL_BASE_RATES[formData.finish as keyof typeof ESTIMATION_CONFIG.MATERIAL_BASE_RATES];
+        const complexity = ESTIMATION_CONFIG.COMPLEXITY_MULTIPLIERS[formData.homeType as keyof typeof ESTIMATION_CONFIG.COMPLEXITY_MULTIPLIERS];
+
+        // Simple, clean calculation:
+        const materialTotal = calcArea * matRate;
+        const labourTotal = calcArea * ESTIMATION_CONFIG.LABOUR_RATE_PER_SQFT;
+
+        const total = (materialTotal + labourTotal) * complexity * ESTIMATION_CONFIG.PROFIT_MARGIN;
+
+        return Math.round(total);
+    }, [formData.homeType, formData.finish]);
+
 
     const handleNext = () => {
         if (formData.carpetArea) {
@@ -344,7 +372,12 @@ const CostCalculatorMain: React.FC<{ isOpen: boolean; onClose: () => void }> = (
     return (
         <AnimatePresence>
             {isOpen && (
-                <div onClick={onClose} className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/90 backdrop-blur-md">
+                <div onClick={() => {
+                    setStep(1)
+                    handleClear()
+                    onClose()
+
+                }} className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/90 backdrop-blur-md">
                     <motion.div
                         ref={modalRef}
                         onClick={(e) => e.stopPropagation()}
@@ -357,7 +390,15 @@ const CostCalculatorMain: React.FC<{ isOpen: boolean; onClose: () => void }> = (
                         <div className="p-10 pb-0">
                             <div className="flex justify-between items-center mb-8">
                                 <h2 className="text-2xl font-bold uppercase tracking-tighter text-[#1a1a1a]">Cost <span className="text-[#ffc000]">Calculator</span></h2>
-                                <button onClick={onClose} className="text-gray-800 cursor-pointer hover:text-black transition-colors p-2">
+                                <button onClick={() => {
+                                    setStep(1)
+                                    handleClear()
+
+                                    onClose()
+
+                                }}
+
+                                    className="text-gray-800 cursor-pointer hover:text-black transition-colors p-2">
                                     <i className="fa fa-times text-2xl"></i>
                                 </button>
                             </div>
@@ -530,7 +571,13 @@ const CostCalculatorMain: React.FC<{ isOpen: boolean; onClose: () => void }> = (
                                         <button onClick={() => window.open(`https://wa.me/919363993814?text=Hi Vertical Living, I just generated a quote for my ${formData.homeType} in ${clientInfo.location}. Area: ${formData.carpetArea} sqft, Finish: ${formData.finish}. Estimate: ₹${estimate.toLocaleString('en-IN')}.`, '_blank')} className="w-full bg-[#25D366] text-white py-5 rounded-2xl font-bold uppercase tracking-widest text-[11px] flex items-center justify-center gap-4 shadow-xl shadow-green-100">
                                             <i className="fa fa-whatsapp text-2xl"></i> Connect for Technical BOQ
                                         </button>
-                                        <button onClick={onClose} className="w-full text-gray-800 font-bold uppercase tracking-widest text-[9px] hover:text-black cursor-pointer">Close Report</button>
+                                        <button onClick={() => {
+                                            setStep(1)
+                                            handleClear()
+
+                                            onClose()
+
+                                        }} className="w-full text-gray-800 font-bold uppercase tracking-widest text-[9px] hover:text-black cursor-pointer">Close Report</button>
                                     </div>
                                 </div>
                             )}
