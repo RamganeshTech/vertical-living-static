@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useRazorpay } from '../../hooks/useRazorpay';
 
-const Booking = ({planId, PLANS}: {planId:string, PLANS:any[]}) => {
+const Booking = ({ planId, PLANS }: { planId: string, PLANS: any[] }) => {
     // const navigate = useNavigate();
     const { initiatePayment, isLoading } = useRazorpay();
 
@@ -12,6 +12,7 @@ const Booking = ({planId, PLANS}: {planId:string, PLANS:any[]}) => {
         email: '',
         phone: ''
     });
+    const [acceptedTerms, setAcceptedTerms] = useState(false);
     const [errors, setErrors] = useState<Record<string, string>>({});
 
     if (!selectedPlan) {
@@ -23,6 +24,8 @@ const Booking = ({planId, PLANS}: {planId:string, PLANS:any[]}) => {
         if (!formData.name) newErrors.name = "Full name is required";
         if (!formData.email.includes('@')) newErrors.email = "Valid email is required";
         if (formData.phone.length !== 10) newErrors.phone = "10-digit phone number is required";
+        if (!acceptedTerms) newErrors.terms = "You must accept Terms & Conditions";
+
         setErrors(newErrors);
         return Object.keys(newErrors).length === 0;
     };
@@ -92,6 +95,29 @@ const Booking = ({planId, PLANS}: {planId:string, PLANS:any[]}) => {
                             />
                             {errors.phone && <p className="text-[10px] text-red-500 ml-4 italic">{errors.phone}</p>}
                         </div>
+
+                        {/* Terms & Conditions */}
+                        <div className="flex items-start gap-3 pt-2">
+                            <input
+                                type="checkbox"
+                                id='terms'
+                                checked={acceptedTerms}
+                                onChange={(e) => setAcceptedTerms(e.target.checked)}
+                                className="mt-1 w-4 h-4 accent-[#ffc000] cursor-pointer"
+                            />
+                            <label htmlFor="terms" className="text-[11px] cursor-pointer text-gray-500 leading-relaxed">
+                                I have read and agree to the{' '}
+                                <span className="text-[#1a1a1a] font-semibold underline cursor-pointer">
+                                    Terms & Conditions
+                                </span>
+                            </label>
+                        </div>
+
+                        {errors.terms && (
+                            <p className="text-[10px] text-red-500 ml-6 italic">
+                                {errors.terms}
+                            </p>
+                        )}
 
                         <div className="pt-4">
                             <button

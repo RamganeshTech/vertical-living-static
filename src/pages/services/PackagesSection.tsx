@@ -1,13 +1,13 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { PACKAGES } from '../constants/constants';
+import { PACKAGES } from '../../constants/constants';
 import { motion } from 'framer-motion';
 
 const PackagesSection: React.FC = () => {
     const navigate = useNavigate();
 
     return (
-        <section className="py-20 bg-white">
+        <section id="service" className="py-20 bg-white">
             <div className="mx-auto px-4 mb-12 text-center">
                 {/* <h2 className="text-3xl md:text-5xl font-black uppercase tracking-tighter text-[#1a1a1a]">
                     Our <span className="text-[#ffc000]">Service Packages</span>
@@ -71,7 +71,7 @@ const PackagesSection: React.FC = () => {
                             {/* Action Button - Simplified to 'Book' */}
                             <div className="max-h-0 opacity-0 group-hover:max-h-[100px] group-hover:opacity-100 transition-all duration-500 ease-in-out overflow-hidden">
                                 <button
-                                    onClick={() => navigate(`/singlepackage/${pkg.id}`)}
+                                    onClick={() => navigate(`/singleservice/${pkg.id}`)}
                                     className="w-full cursor-pointer bg-[#ffc000] text-[#1a1a1a] py-3.5 rounded-xl font-bold uppercase text-[11px] tracking-[2px] hover:bg-white transition-all duration-300"
                                 >
                                     Book

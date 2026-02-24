@@ -12,9 +12,6 @@ const navLinks = [
 const Header: React.FC = () => {
     const [isOpen, setIsOpen] = useState(false);
 
-
-
-
     return (
         <header className="sticky top-0 z-50 w-full bg-white py-4 shadow-sm font-inter">
             <div className="container mx-auto px-4">

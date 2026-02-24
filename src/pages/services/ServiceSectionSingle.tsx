@@ -2,7 +2,7 @@
 // import { useParams } from 'react-router-dom';
 // import { PACKAGES } from '../constants/constants';
 // import Booking from './Payment/Booking';
-// const PackageSectionSingle: React.FC = () => {
+// const ServiceSectionSingle: React.FC = () => {
 //     const { planId } = useParams<{ planId: string }>();
 //     const selectedPackage = PACKAGES.find(p => p.id === planId);
 
@@ -80,7 +80,7 @@
 //     );
 // };
 
-// export default PackageSectionSingle;
+// export default ServiceSectionSingle;
 
 
 
@@ -92,7 +92,7 @@
 // import { PACKAGES } from '../constants/constants';
 // import Booking from './Payment/Booking';
 
-// const PackageSectionSingle: React.FC = () => {
+// const ServiceSectionSingle: React.FC = () => {
 //     const { planId } = useParams<{ planId: string }>();
 //     const selectedPackage = PACKAGES.find(p => p.id === planId);
 
@@ -193,7 +193,7 @@
 //     );
 // };
 
-// export default PackageSectionSingle;
+// export default ServiceSectionSingle;
 
 
 
@@ -204,7 +204,7 @@
 // import { PACKAGES } from '../constants/constants';
 // import Booking from './Payment/Booking';
 
-// const PackageSectionSingle: React.FC = () => {
+// const ServiceSectionSingle: React.FC = () => {
 //     const { planId } = useParams<{ planId: string }>();
 //     const selectedPackage = PACKAGES.find(p => p.id === planId);
 
@@ -341,7 +341,7 @@
 //     );
 // };
 
-// export default PackageSectionSingle;
+// export default ServiceSectionSingle;
 
 
 
@@ -349,15 +349,15 @@
 
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { PACKAGES } from '../constants/constants';
-import Booking from './Payment/Booking';
+import { PACKAGES } from '../../constants/constants';
+import Booking from '../Payment/Booking';
 import { motion } from 'framer-motion';
 
-const PackageSectionSingle: React.FC = () => {
+const ServiceSectionSingle: React.FC = () => {
     const { planId } = useParams<{ planId: string }>();
     const selectedPackage = PACKAGES.find(p => p.id === planId);
 
-    
+
     const [isCopied, setIsCopied] = useState<boolean>(false);
 
     // Function to handle Copying Link
@@ -375,7 +375,7 @@ const PackageSectionSingle: React.FC = () => {
         );
     }
 
-   // Function to handle WhatsApp Sharing
+    // Function to handle WhatsApp Sharing
     const handleWhatsAppShare = () => {
         const shareText = `Check out the ${selectedPackage.name} at Vertical Living: ${window.location.href}`;
         window.open(`https://wa.me/?text=${encodeURIComponent(shareText)}`, '_blank');
@@ -391,7 +391,7 @@ const PackageSectionSingle: React.FC = () => {
                     className="w-full h-full object-cover"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#000] via-black/20 to-transparent flex flex-col justify-end p-8 md:p-20">
-                    <h1 className="text-4xl md:text-8xl font-bold text-white uppercase leading-none tracking-tighter">
+                    <h1 className="text-4xl md:text-7xl font-bold text-white uppercase leading-none">
                         {selectedPackage.name}
                     </h1>
                     <div className="flex flex-col md:flex-row md:items-center gap-6 mt-8">
@@ -511,7 +511,7 @@ const PackageSectionSingle: React.FC = () => {
 
                         {/* Action Buttons Container */}
                         <div className="mt-12 flex flex-col sm:flex-row items-center justify-center gap-6">
-                            
+
                             {/* WhatsApp Button */}
                             <motion.button
                                 onClick={handleWhatsAppShare}
@@ -543,4 +543,4 @@ const PackageSectionSingle: React.FC = () => {
     );
 };
 
-export default PackageSectionSingle;
+export default ServiceSectionSingle;

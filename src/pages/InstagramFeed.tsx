@@ -45,7 +45,8 @@ const InstagramFeed: React.FC = () => {
 
         <div className="mb-0 text-center">
           <a
-            href="https://www.instagram.com/explore/tags/interiors/"
+            href="https://www.instagram.com/living.vertical/"
+            
             target="_blank"
             rel="noopener noreferrer"
             className="inline-block group cursor-pointer"

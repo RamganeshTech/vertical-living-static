@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useAskChatbot, type ChatMessage } from '../api/ApiLists/chatbotApi';
 // import { useAskChatbot, ChatMessage } from '../api/chatbotApi';
 
+
 const Chatbot = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [input, setInput] = useState('');
@@ -161,7 +162,7 @@ const Chatbot = () => {
                             Chat with <span className="text-[#ffc000]">Vertical AI</span>
                         </p>
                         {/* Small arrow pointing to the button */}
-                        <div className="absolute -right-2 top-1/2 -translate-y-1/2 w-0 h-0 border-t-[6px] border-t-transparent border-l-[8px] border-l-white border-b-[6px] border-b-transparent"></div>
+                        {/* <div className="absolute -right-2 top-1/2 -translate-y-1/2 w-0 h-0 border-t-[6px] border-t-transparent border-l-[8px] border-l-white border-b-[6px] border-b-transparent"></div> */}
                     </motion.div>
                 )}
             </AnimatePresence>
@@ -201,7 +202,7 @@ const Chatbot = () => {
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
                         </svg>
                     )}
-                    <div className="absolute inset-0 bg-gradient-to-tr from-[#ffc000]/10 to-transparent pointer-events-none"></div>
+                    <div className="absolute inset-0 bg-gradient-to-tr  pointer-events-none"></div>
                 </motion.button>
             </div>
         </div>

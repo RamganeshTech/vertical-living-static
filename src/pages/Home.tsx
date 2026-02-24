@@ -14,9 +14,11 @@ import { SOPFlow } from './SOPFlow';
 import WorkCarousel from './WorkCarousel';
 import { useLocation } from 'react-router-dom';
 import ConnectSection from './ConnectSection';
-import Packages from './Packages';
+// import Packages from './Packages';
 import StickySideContact from '../components/StickySideContact';
-import PackagesSection from './PackagesSection';
+import PackagesSection from './services/PackagesSection';
+import PackagesNew from './packages/PakagesNew';
+// import CostCalculatorMain from './calculator/CostCalculatorMain';
 
 
 
@@ -63,6 +65,26 @@ const Home: React.FC = () => {
 
   const { hash } = useLocation();
 
+  // const [isPopupOpen, setIsPopupOpen] = useState<boolean>(false);
+  // const [hasTriggered, setHasTriggered] = useState<boolean>(false);
+
+  // useEffect(() => {
+  //   const handleScroll = () => {
+  //     const contactSection = document.getElementById('contact'); // Ensure your Inquiry section has this ID
+  //     if (contactSection && !hasTriggered) {
+  //       const rect = contactSection.getBoundingClientRect();
+  //       // Trigger when user scrolls past the bottom of the Inquiry section
+  //       if (rect.bottom < 0) {
+  //         setIsPopupOpen(true);
+  //         setHasTriggered(true);
+  //       }
+  //     }
+  //   };
+
+  //   window.addEventListener('scroll', handleScroll);
+  //   return () => window.removeEventListener('scroll', handleScroll);
+  // }, [hasTriggered]);
+
   useEffect(() => {
     if (hash) {
       const id = hash?.replace('#', '');
@@ -82,6 +104,11 @@ const Home: React.FC = () => {
 
 
       <InquiryFormNew />
+
+      {/* <CostCalculatorMain
+        isOpen={isPopupOpen}
+        onClose={() => setIsPopupOpen(false)}
+      /> */}
 
 
       {/* HERO SECTION */}
@@ -249,6 +276,8 @@ const Home: React.FC = () => {
 
         </div>
       </section>
+
+
       {/* ABOUT SECTION: Exact padding and headings */}
       <section id="about" className="pt-[100px] pb-[20px]">
         <div className="container mx-auto px-4">
@@ -285,7 +314,8 @@ const Home: React.FC = () => {
           <PackagesSection />
 
 
-          <Packages />
+          {/* <Packages /> */}
+          <PackagesNew />
 
           {/* Feature Row 2: Portfolio */}
           {/* <div className="grid grid-cols-1 md:grid-cols-2 gap-10 mb-[40px] items-center">

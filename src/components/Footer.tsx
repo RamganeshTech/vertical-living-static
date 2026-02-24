@@ -32,6 +32,8 @@ const navLinks = [
   { id: 'about', label: 'About Us', link: "/#about" },
   { id: 'portfolio', label: 'Our Portfolio', link: "/#portfolio" },
   { id: 'contact', label: 'Contact Us', link: "/#contact" },
+  { id: 'privacyPolicy', label: 'Privacy Policy', link: "/privacy-policy" },
+  { id: 'accountDeletion', label: 'Account Deletion', link: "/account-deletion" },
   // { id: 'form', label: 'Form', link: "/form" },
 ];
 

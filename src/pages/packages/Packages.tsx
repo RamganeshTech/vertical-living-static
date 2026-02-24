@@ -204,11 +204,11 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import img1 from '../assets/images/1.jpg';
-import img2 from '../assets/images/2.jpg';
-import img3 from '../assets/images/3.jpg';
-import consultant from '../assets/images/consultation.jpg';
-import design from '../assets/images/design.jpg';
+import img1 from '../../assets/images/1.jpg';
+import img2 from '../../assets/images/2.jpg';
+import img3 from '../../assets/images/3.jpg';
+import consultant from '../../assets/images/consultation.jpg';
+import design from '../../assets/images/design.jpg';
 
 const fullPlans = [
   { name: "Basic", price: "4 - 6 Lakhs", img: img1, features: ["Kitchen", "Wardrobe", "Loft"] },
@@ -220,7 +220,7 @@ const subPlans = [
   { id: "consultation", name: "Consultation", price: "4,999", img: consultant, features: ["1-on-1 with Expert", "Material Selection Guide", "Moodboard Creation"] },
   { id: "design", name: "Design Only", price: "19,999", img: design, features: ["Detailed 2D/3D Plans", "Electrical & Plumbing Layout", "Furniture Layouts"] }
 ];
-
+//  NOT USED CURRENLTY
 const Packages = () => {
   const [activeTab, setActiveTab] = useState<'full' | 'sub'>('full');
   const currentPlans = activeTab === 'full' ? fullPlans : subPlans;
@@ -229,12 +229,7 @@ const Packages = () => {
     <section id="service" className="py-24 bg-white font-inter">
       <div className="container mx-auto px-4">
 
-        {/* <div className="mb-12 text-center">
-          <h2 className="text-3xl md:text-5xl font-bold tracking-tight text-[#1a1a1a]">
-            Our <span className="text-[#ffc000]">Services</span>
-          </h2>
-          <div className="w-24 h-1.5 bg-[#ffc000] mx-auto mt-3 rounded-full shadow-[0_5px_15px_rgba(255,192,0,0.3)]"></div>
-        </div> */}
+      
 
         {/* Section Header */}
         <div className="mb-16 text-center">
