@@ -294,33 +294,6 @@ const StepVideo = ({ src }: { src: string }) => {
   );
 };
 
-// const sopSteps = [
-//   { 
-//     title: "Consultation", 
-//     desc: "Talk to our Interior Designer & Get an Estimate. We discuss your vision and budget to create a roadmap.", 
-//     video: "https://assets.mixkit.co/videos/preview/mixkit-interior-designer-working-on-a-layout-41225-large.mp4"
-//   },
-//   { 
-//     title: "Design", 
-//     desc: "Detailed Drawing and Final Approval. Our experts create 3D renders so you can see your home before it's built.", 
-//     video: "https://assets.mixkit.co/videos/preview/mixkit-architect-working-on-a-project-41221-large.mp4"
-//   },
-//   { 
-//     title: "Production", 
-//     desc: "Crafting at Our Specialized Factories. Precision engineering meets high-quality materials.", 
-//     video: "https://assets.mixkit.co/videos/preview/mixkit-carpenter-cutting-a-piece-of-wood-with-a-circular-saw-43403-large.mp4"
-//   },
-//   { 
-//     title: "Execution", 
-//     desc: "Material Delivery & On-site Execution. Our team ensures a seamless installation process.", 
-//     video: "https://assets.mixkit.co/videos/preview/mixkit-workers-loading-a-truck-with-boxes-41235-large.mp4"
-//   },
-//   { 
-//     title: "Handover", 
-//     desc: "On Time Project Hand Over. Step into your dream home, exactly as promised.", 
-//     video: "https://assets.mixkit.co/videos/preview/mixkit-couple-entering-their-new-luxury-home-41228-large.mp4"
-//   }
-// ];
 // 2. Update your array to use the imported variables
 const sopSteps = [
   { 
@@ -365,82 +338,7 @@ export const SOPFlow = () => {
           {sopSteps.map((step, idx) => {
             const isEven = idx % 2 === 0;
             
-            // return (
-            //   <div key={idx} className="relative mb-32 last:mb-0">
-            //     {/* <div className={`flex flex-col ${isEven ? 'md:flex-row' : 'md:flex-row-reverse'} items-center gap-12 md:gap-24`}> */}
-            //     <div className={`flex flex-col ${isEven ? 'md:flex-row' : 'md:flex-row-reverse'} items-center gap-12 md:gap-24`}>
-                  
-            //       {/* VIDEO SIDE */}
-            //       <motion.div 
-            //         initial={{ opacity: 0, x: isEven ? -50 : 50 }}
-            //         whileInView={{ opacity: 1, x: 0 }}
-            //         viewport={{ once: true, margin: "-100px" }}
-            //         transition={{ duration: 0.8, ease: "easeOut" }}
-            //         className="w-full md:w-1/2"
-            //       >
-            //         <div className="aspect-video md:aspect-square rounded-[40px] overflow-hidden shadow-2xl border-4 border-white ring-1 ring-gray-100 relative group">
-            //             <StepVideo src={step.video} />
-            //             <div className="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-all duration-700"></div>
-            //         </div>
-            //       </motion.div>
-
-            //       {/* TEXT SIDE */}
-            //       <motion.div 
-            //         initial={{ opacity: 0, x: isEven ? 50 : -50 }}
-            //         whileInView={{ opacity: 1, x: 0 }}
-            //         viewport={{ once: true, margin: "-100px" }}
-            //         transition={{ duration: 0.8, ease: "easeOut" }}
-            //         className="w-full md:w-1/2 text-center md:text-left"
-            //       >
-            //         <div className={`inline-flex items-center justify-center w-12 h-12 rounded-full bg-[#1a1a1a] text-[#ffc000] font-black text-sm mb-6 shadow-xl`}>
-            //             0{idx + 1}
-            //         </div>
-            //         <h3 className="text-2xl md:text-4xl font-bold text-[#1a1a1a] mb-4 uppercase tracking-tight">
-            //             {step.title}
-            //         </h3>
-            //         <p className="text-gray-500 text-lg leading-relaxed max-w-md mx-auto md:mx-0 font-medium">
-            //             {step.desc}
-            //         </p>
-            //       </motion.div>
-            //     </div>
-
-            //     {/* CONNECTING ARROW (ZIG-ZAG) */}
-            //     {idx < sopSteps.length - 1 && (
-            //       <div className={`hidden md:block absolute -bottom-24 ${isEven ? 'right-1/4' : 'left-1/4'} z-0`}>
-            //         <motion.svg 
-            //           width="120" height="100" viewBox="0 0 120 100" fill="none"
-            //           initial={{ opacity: 0 }}
-            //           whileInView={{ opacity: 1 }}
-            //           viewport={{ once: true }}
-            //         >
-            //           <motion.path 
-            //             d={isEven 
-            //               ? "M10 10 Q 60 50, 110 90" // Simple curve logic
-            //               : "M110 10 Q 60 50, 10 90"
-            //             }
-            //             stroke="#1a1a1a" // Default Black
-            //             strokeWidth="4"
-            //             strokeLinecap="round"
-            //             initial={{ pathLength: 0, stroke: "#1a1a1a" }}
-            //             whileInView={{ pathLength: 1, stroke: "#ffc000" }} // Transitions to Yellow
-            //             transition={{ duration: 1.2, ease: "easeInOut" }}
-            //           />
-            //           {/* Arrowhead */}
-            //           <motion.path 
-            //             d={isEven ? "M100 90 L 110 90 L 110 80" : "M20 90 L 10 90 L 10 80"}
-            //             stroke="#ffc000"
-            //             strokeWidth="4"
-            //             initial={{ opacity: 0 }}
-            //             whileInView={{ opacity: 1 }}
-            //             transition={{ delay: 1.2 }}
-            //           />
-            //         </motion.svg>
-            //       </div>
-            //     )}
-            //   </div>
-            // );
-         
-         
+          
          return (
               <div key={idx} className="relative mb-32 last:mb-0">
                 {/* KEY CHANGE: 

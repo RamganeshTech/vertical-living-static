@@ -83,7 +83,7 @@ const PrivacyPolicy: React.FC = () => {
                                     <li>Design requirements</li>
                                 </ul>
                             </div>
-                            <div>
+                            {/* <div>
                                 <h3 className="font-bold text-[#1a1a1a] mb-3 uppercase tracking-wider text-sm">c) Technical & Usage Information</h3>
                                 <ul className="list-disc pl-6 space-y-2 marker:text-[#ffc000]">
                                     <li>IP address</li>
@@ -91,12 +91,12 @@ const PrivacyPolicy: React.FC = () => {
                                     <li>Browser type</li>
                                     <li>Cookies and tracking pixels (including Meta Pixel)</li>
                                 </ul>
-                            </div>
+                            </div> */}
                             <div>
                                 <h3 className="font-bold text-[#1a1a1a] mb-3 uppercase tracking-wider text-sm">d) Marketing & Lead Information</h3>
                                 <ul className="list-disc pl-6 space-y-2 marker:text-[#ffc000]">
                                     <li>Information submitted via Meta Ads, Google Ads, website forms, or app forms</li>
-                                    <li>Communication preferences</li>
+                                    {/* <li>Communication preferences</li> */}
                                 </ul>
                             </div>
                         </div>
@@ -169,7 +169,7 @@ const PrivacyPolicy: React.FC = () => {
                         <h2 className="text-2xl font-bold text-[#1a1a1a] mb-6">8. Data Security</h2>
                         <p className="mb-4">We implement reasonable administrative, technical, and physical safeguards to protect personal data against:</p>
                         <ul className="list-disc pl-6 space-y-2 marker:text-[#ffc000]">
-                            <li>Unauthorized access</li>
+                            {/* <li>Unauthorized access</li> */}
                             <li>Loss</li>
                             <li>Misuse</li>
                             <li>Alteration or disclosure</li>

@@ -2,14 +2,17 @@ import React, { useEffect, useRef, useState } from 'react';
 import { motion, AnimatePresence, type Variants } from 'framer-motion';
 
 // Asset Imports
-import img1 from '../assets/images/1.jpg';
-import img2 from '../assets/images/2.jpg';
-import img3 from '../assets/images/3.jpg';
-import img4 from '../assets/images/4.jpg';
-import img5 from '../assets/images/5.jpg';
+// import img1 from '../assets/images/image1.jpeg';
+import img2 from '../assets/images/image2.jpeg';
+import img3 from '../assets/images/image3.jpeg';
+import img4 from '../assets/images/image4.jpeg';
+import img5 from '../assets/images/image5.jpeg';
+import img6 from '../assets/images/image6.jpeg';
+import img7 from '../assets/images/image7.jpeg';
+import img8 from '../assets/images/image8.jpeg';
 import portfolioBg from '../assets/images/portfolio-bg.jpg';
 
-const images = [img1, img2, img3, img4, img5];
+const images = [ img2, img3, img4, img5, img6, img7, img8];
 const infiniteImages = [...images, ...images, ...images];
 
 // Animation for the "WOW" scroll effect
