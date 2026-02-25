@@ -102,8 +102,90 @@ const Home: React.FC = () => {
   return (
     <div className="min-h-screen bg-white">
 
+      <section className="relative min-h-[900px] flex items-center justify-center overflow-hidden bg-white py-20 font-poppins">
+        {/* LEFT SIDE: High-Visibility Architectural Line & Diamond Textures */}
+        <div className="absolute left-0 top-0 bottom-0 w-[25%] pointer-events-none hidden xl:block">
 
-      <InquiryFormNew />
+          {/* 1. Solid Black Horizontal Technical Lines - High Opacity */}
+          <div className="absolute left-0 top-1/2 -translate-y-1/2 flex flex-col gap-6 w-32">
+            {[...Array(5)].map((_, i) => (
+              <motion.div
+                key={i}
+                initial={{ width: 0, opacity: 0 }}
+                whileInView={{ width: i % 2 === 0 ? "100%" : "60%", opacity: 0.4 }} // Increased to 0.4
+                transition={{ delay: i * 0.1, duration: 1 }}
+                className="h-[3px] bg-[#1a1a1a]" // Thicker line
+              />
+            ))}
+          </div>
+
+          {/* 2. Bold Gold Diamond Structural Frames - High Visibility */}
+          <div className="absolute -left-10 top-1/4 flex flex-col gap-4">
+            <motion.div
+              animate={{ rotate: [45, 50, 45] }}
+              transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
+              className="w-40 h-40 border-[3px] border-[#ffc000] opacity-50 rotate-45 shadow-[0_0_15px_rgba(255,192,0,0.2)]" // Thicker border + higher opacity
+            />
+            <motion.div
+              animate={{ rotate: [45, 40, 45] }}
+              transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
+              className="w-24 h-24 border-[2px] border-[#ffc000] opacity-40 rotate-45 ml-20 -mt-10"
+            />
+          </div>
+
+          {/* 3. Solid Black Vertical Accent - Clearly Visible */}
+          <motion.div
+            initial={{ scaleY: 0 }}
+            whileInView={{ scaleY: 1 }}
+            transition={{ duration: 1.2, ease: "circOut" }}
+            className="absolute left-0 top-1/3 bottom-1/3 w-2 bg-[#1a1a1a] rounded-r-3xl" // Increased width and opacity
+          />
+
+          {/* 4. Bold Architectural Angle (Black) */}
+
+        </div>
+
+
+        {/* RIGHT SIDE: Brand Gold Grid & Technical Shapes */}
+        <div className="absolute right-0 top-0 bottom-0 w-[25%] pointer-events-none hidden xl:block">
+          {/* Solid Gold Dot Matrix Grid - Very visible */}
+          <div className="absolute right-10 top-1/2 -translate-y-1/2 grid grid-cols-5 gap-6">
+            {[...Array(25)].map((_, i) => (
+              <motion.div
+                key={i}
+                initial={{ scale: 0 }}
+                whileInView={{ scale: 1 }}
+                transition={{ delay: i * 0.02 }}
+                className="w-2 h-2 bg-[#ffc000] rounded-full shadow-[0_0_10px_rgba(255,192,0,0.3)]"
+              />
+            ))}
+          </div>
+
+          {/* Gold Technical Circle Segment */}
+          <div className="absolute -right-20 top-1/4 w-80 h-80 border-[2px] border-[#ffc000] rounded-full opacity-20" />
+
+          {/* Solid Black accent at the very edge */}
+          <div className="absolute right-0 top-1/3 bottom-1/3 w-2 bg-[#1a1a1a] rounded-l-full" />
+        </div>
+
+        {/* MAIN FORM CONTENT */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          className="relative z-10 w-full max-w-7xl px-4 flex justify-center"
+        >
+          <div className="relative">
+            {/* A strong Gold shadow under the form to ground it */}
+            <div className="absolute -inset-4 bg-[#ffc000]/10 blur-[60px] rounded-[40px] -z-10" />
+            <InquiryFormNew />
+          </div>
+        </motion.div>
+
+      </section>
+
+      {/* <InquiryFormNew /> */}
+
 
       {/* <CostCalculatorMain
         isOpen={isPopupOpen}
@@ -279,9 +361,9 @@ const Home: React.FC = () => {
 
 
       {/* ABOUT SECTION: Exact padding and headings */}
-      <section id="about" className="pt-[100px] pb-[20px]">
+      <section  className="pt-[100px] pb-[20px]">
         <div className="container mx-auto px-4">
-          <motion.div
+          {/* <motion.div
             className="mb-[80px]"
             initial="hidden"
             whileInView="visible"
@@ -295,7 +377,7 @@ const Home: React.FC = () => {
             <div className="text-[18px] leading-[33px] text-black max-w-full font-normal">
               At VERTICAL LIVING, we are passionate about creating beautiful and functional spaces that reflect our clients' unique personalities and lifestyles. With over 10 years of experience in the industry, we have developed a keen eye for design and a commitment to exceptional customer service.
             </div>
-          </motion.div>
+          </motion.div> */}
 
           {/* Feature Row 1: Services */}
           {/* <div className="grid grid-cols-1 md:grid-cols-2 gap-10 mb-[40px] items-center">
@@ -343,6 +425,37 @@ const Home: React.FC = () => {
       {/* <Packages />
 
       <WorkCarousel /> */}
+
+      <div id="about" className="container mx-auto px-4 py-20">
+        <motion.div
+          className="mb-[80px] max-w-4xl"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          variants={fadeInRight}
+        >
+          {/* Heading Style: Matching your other sections */}
+          <div className="mb-10">
+            <h2 className="font-poppins text-[25px] md:text-[35px] font-light uppercase leading-[0.9] text-[#1a1a1a]">
+              About <br />
+              <span className="text-[#ffc000] font-semibold text-[45px]">Vertical Living</span>
+            </h2>
+          </div>
+
+          {/* Content: Using your new Residential & Commercial focus */}
+          <div className="font-poppins text-[18px] md:text-[22px] leading-[1.6] text-gray-800 font-medium">
+            Vertical Living provides <span className="text-[#1a1a1a] font-bold">bespoke interior design solutions</span> for residential and commercial projects.
+            We are dedicated to transforming your vision into reality with precision and architectural excellence.
+          </div>
+
+          {/* Call to Action line inside the About section */}
+          <div className="mt-8 pt-8 border-t border-gray-100">
+            <p className="font-poppins text-[14px] uppercase tracking-widest font-bold text-gray-400">
+              Get an instant valuation and technical quote for your dream project today.
+            </p>
+          </div>
+        </motion.div>
+      </div>
 
       <InstagramFeed />
 

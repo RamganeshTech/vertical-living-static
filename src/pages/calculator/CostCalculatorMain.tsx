@@ -1,234 +1,3 @@
-// import React, { useState, useMemo } from 'react';
-// import { motion, AnimatePresence } from 'framer-motion';
-
-// const ESTIMATION_CONFIG = {
-//     LABOUR_DAILY_SALARY: 2000,
-//     PROFIT_MARGIN: 1.30, 
-//     LABOUR_DAYS_PER_SQFT: 0.125,
-//     MATERIAL_BASE_RATES: { 'Standard': 950, 'Premium': 1400, 'Luxury': 2100 },
-//     COMPLEXITY_MULTIPLIERS: { '1 BHK': 1.0, '2 BHK': 1.15, '3 BHK': 1.25, 'Villa': 1.45 }
-// };
-
-// const CostCalculatorMain: React.FC<{ isOpen: boolean; onClose: () => void }> = ({ isOpen, onClose }) => {
-//     const [step, setStep] = useState(1);
-//     const [formData, setFormData] = useState({ carpetArea: '', homeType: '2 BHK', finish: 'Premium' });
-//     const [clientInfo, setClientInfo] = useState({ name: '', phone: '', location: '' });
-//     const [errors, setErrors] = useState<Record<string, string>>({});
-
-//     const validate = () => {
-//         const newErrors: Record<string, string> = {};
-//         if (clientInfo.name.trim().length < 3) newErrors.name = "Full name required";
-//         if (!/^\d{10}$/.test(clientInfo.phone)) newErrors.phone = "Valid 10-digit number required";
-//         if (clientInfo.location.trim().length < 2) newErrors.location = "Location required";
-//         setErrors(newErrors);
-//         return Object.keys(newErrors).length === 0;
-//     };
-
-//     const estimate = useMemo(() => {
-//         const area = Number(formData.carpetArea) || 0;
-//         const materialBase = ESTIMATION_CONFIG.MATERIAL_BASE_RATES[formData.finish as keyof typeof ESTIMATION_CONFIG.MATERIAL_BASE_RATES];
-//         const totalLabourCost = area * ESTIMATION_CONFIG.LABOUR_DAYS_PER_SQFT * ESTIMATION_CONFIG.LABOUR_DAILY_SALARY;
-//         const configMult = ESTIMATION_CONFIG.COMPLEXITY_MULTIPLIERS[formData.homeType as keyof typeof ESTIMATION_CONFIG.COMPLEXITY_MULTIPLIERS];
-//         return Math.round((area * materialBase + totalLabourCost) * configMult * ESTIMATION_CONFIG.PROFIT_MARGIN);
-//     }, [formData]);
-
-//     const handleNext = () => {
-//         if (formData.carpetArea && Number(formData.carpetArea) > 100) {
-//             setStep(2);
-//         } else {
-//             setErrors({ carpetArea: "Please enter a valid area (>100 sqft)" });
-//         }
-//     };
-
-//     return (
-//         <AnimatePresence>
-//             {isOpen && (
-//                 <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/90 backdrop-blur-md">
-//                     <motion.div 
-//                         initial={{ y: 50, opacity: 0 }}
-//                         animate={{ y: 0, opacity: 1 }}
-//                         exit={{ y: 50, opacity: 0 }}
-//                         // Modal width increased to 600px
-//                         className="bg-white w-full max-w-[600px] rounded-[40px] overflow-hidden shadow-2xl relative flex flex-col"
-//                     >
-//                         {/* Header & Progress Bar */}
-//                         <div className="p-10 pb-0">
-//                             <div className="flex justify-between items-center mb-8">
-//                                 <h2 className="text-2xl font-bold uppercase tracking-tighter text-[#1a1a1a]">Cost <span className="text-[#ffc000]">Calculator</span></h2>
-//                                 <button onClick={onClose} className="text-gray-400 hover:text-black transition-colors p-2">
-//                                     <i className="fa fa-times text-2xl"></i>
-//                                 </button>
-//                             </div>
-//                             <div className="flex gap-3">
-//                                 {[1, 2, 3].map((s) => (
-//                                     <div key={s} className={`h-1.5 flex-1 rounded-full transition-all duration-700 ${step >= s ? "bg-[#ffc000]" : "bg-gray-100"}`} />
-//                                 ))}
-//                             </div>
-//                         </div>
-
-//                         <div className="p-10 md:p-12">
-//                             {step === 1 && (
-//                                 <div className="space-y-10 animate-in fade-in slide-in-from-bottom-4">
-//                                     {/* 1. Carpet Area (Now First) */}
-//                                     <div className="space-y-4">
-//                                         <label className="text-[11px] font-bold uppercase tracking-[4px] text-gray-400">01. Carpet Area</label>
-//                                         <div className="relative">
-//                                             <input 
-//                                                 type="number" 
-//                                                 placeholder="Enter sqft"
-//                                                 className={`w-full bg-gray-50 rounded-2xl p-6 text-2xl font-bold outline-none border-2 transition-all ${errors.carpetArea ? 'border-red-500' : 'border-transparent focus:border-[#ffc000]'}`}
-//                                                 value={formData.carpetArea}
-//                                                 onChange={(e) => {
-//                                                     setFormData({...formData, carpetArea: e.target.value});
-//                                                     setErrors({});
-//                                                 }}
-//                                             />
-//                                             <span className="absolute right-6 top-1/2 -translate-y-1/2 text-gray-300 font-bold text-sm tracking-widest">SQFT</span>
-//                                         </div>
-//                                         {errors.carpetArea && <p className="text-red-500 text-[10px] font-bold uppercase tracking-widest ml-2">{errors.carpetArea}</p>}
-//                                     </div>
-
-//                                     {/* 2. BHK Configuration */}
-//                                     <div className="space-y-4">
-//                                         <label className="text-[11px] font-bold uppercase tracking-[4px] text-gray-400">02. Configuration</label>
-//                                         <div className="grid grid-cols-4 gap-3">
-//                                             {['1 BHK', '2 BHK', '3 BHK', 'Villa'].map(type => (
-//                                                 <button 
-//                                                     key={type}
-//                                                     onClick={() => setFormData({...formData, homeType: type})}
-//                                                     className={`py-4 rounded-xl border-2 font-bold text-[11px] uppercase transition-all ${formData.homeType === type ? 'border-[#ffc000] bg-[#ffc000]/5 text-[#1a1a1a]' : 'border-gray-50 text-gray-400'}`}
-//                                                 >
-//                                                     {type}
-//                                                 </button>
-//                                             ))}
-//                                         </div>
-//                                     </div>
-
-//                                     {/* 3. Finish Style (Rates Removed) */}
-//                                     <div className="space-y-4">
-//                                         <label className="text-[11px] font-bold uppercase tracking-[4px] text-gray-400">03. Execution Finish</label>
-//                                         <div className="grid grid-cols-3 gap-3">
-//                                             {Object.keys(ESTIMATION_CONFIG.MATERIAL_BASE_RATES).map((finish) => (
-//                                                 <button 
-//                                                     key={finish}
-//                                                     onClick={() => setFormData({...formData, finish: finish})}
-//                                                     className={`py-4 rounded-xl border-2 font-bold text-[11px] uppercase transition-all ${formData.finish === finish ? 'border-[#ffc000] bg-[#ffc000]/5 text-[#1a1a1a]' : 'border-gray-50 text-gray-400'}`}
-//                                                 >
-//                                                     {finish}
-//                                                 </button>
-//                                             ))}
-//                                         </div>
-//                                     </div>
-
-//                                     <button 
-//                                         onClick={handleNext}
-//                                         className="w-full bg-[#ffc000] text-[#1a1a1a] py-6 rounded-2xl font-bold uppercase tracking-[4px] text-xs shadow-xl shadow-[#ffc000]/20 hover:scale-[1.01] active:scale-95 transition-all"
-//                                     >
-//                                         Next: Client Details
-//                                     </button>
-//                                 </div>
-//                             )}
-
-//                             {step === 2 && (
-//                                 <div className="space-y-10 animate-in fade-in slide-in-from-bottom-4">
-//                                     <div className="space-y-2">
-//                                         <h3 className="text-2xl font-bold text-[#1a1a1a]">Client Information</h3>
-//                                         <p className="text-gray-400 text-xs font-medium uppercase tracking-widest">Verify identity to unlock your quote</p>
-//                                     </div>
-
-//                                     <div className="space-y-5">
-//                                         <div className="space-y-1">
-//                                             <input 
-//                                                 type="text" placeholder="Your Full Name" 
-//                                                 className={`w-full p-6 rounded-2xl bg-gray-50 border-2 outline-none font-bold ${errors.name ? 'border-red-500' : 'border-transparent focus:border-[#ffc000]'}`}
-//                                                 value={clientInfo.name}
-//                                                 onChange={(e) => setClientInfo({...clientInfo, name: e.target.value})}
-//                                             />
-//                                             {errors.name && <p className="text-red-500 text-[10px] font-bold uppercase tracking-widest ml-4">{errors.name}</p>}
-//                                         </div>
-
-//                                         <div className="space-y-1">
-//                                             <input 
-//                                                 type="tel" placeholder="WhatsApp Number (10 digits)" 
-//                                                 className={`w-full p-6 rounded-2xl bg-gray-50 border-2 outline-none font-bold ${errors.phone ? 'border-red-500' : 'border-transparent focus:border-[#ffc000]'}`}
-//                                                 value={clientInfo.phone}
-//                                                 onChange={(e) => setClientInfo({...clientInfo, phone: e.target.value})}
-//                                             />
-//                                             {errors.phone && <p className="text-red-500 text-[10px] font-bold uppercase tracking-widest ml-4">{errors.phone}</p>}
-//                                         </div>
-
-//                                         <div className="space-y-1">
-//                                             <input 
-//                                                 type="text" placeholder="Project Location (City)" 
-//                                                 className={`w-full p-6 rounded-2xl bg-gray-50 border-2 outline-none font-bold ${errors.location ? 'border-red-500' : 'border-transparent focus:border-[#ffc000]'}`}
-//                                                 value={clientInfo.location}
-//                                                 onChange={(e) => setClientInfo({...clientInfo, location: e.target.value})}
-//                                             />
-//                                             {errors.location && <p className="text-red-500 text-[10px] font-bold uppercase tracking-widest ml-4">{errors.location}</p>}
-//                                         </div>
-//                                     </div>
-
-//                                     <div className="pt-4 space-y-4">
-//                                         <button 
-//                                             onClick={() => { if(validate()) setStep(3); }}
-//                                             className="w-full bg-[#1a1a1a] text-[#ffc000] py-6 rounded-2xl font-bold uppercase tracking-[4px] text-xs shadow-2xl shadow-black/20 hover:scale-[1.01] active:scale-95 transition-all"
-//                                         >
-//                                             Generate Final Quote
-//                                         </button>
-//                                         <button onClick={() => setStep(1)} className="w-full text-gray-400 font-bold uppercase tracking-widest text-[9px] hover:text-black">Modify project specs</button>
-//                                     </div>
-//                                 </div>
-//                             )}
-
-//                             {step === 3 && (
-//                                 <div className="text-center space-y-10 animate-in fade-in zoom-in-95">
-//                                     <div className="w-24 h-24 bg-green-50 text-green-500 rounded-full flex items-center justify-center mx-auto text-4xl shadow-sm border border-green-100">
-//                                         <i className="fa fa-check-circle"></i>
-//                                     </div>
-//                                     <div>
-//                                         <span className="text-[10px] font-bold uppercase tracking-[8px] text-[#ffc000]">Valuation Certified</span>
-//                                         <div className="text-6xl md:text-7xl font-bold tracking-tighter text-[#1a1a1a] mt-4 leading-none">
-//                                             ₹{estimate.toLocaleString('en-IN')}
-//                                         </div>
-//                                         <p className="text-gray-400 text-[10px] uppercase font-bold tracking-[4px] mt-6 opacity-60">Estimated for {formData.carpetArea} Sqft {formData.homeType}</p>
-//                                     </div>
-
-//                                     <div className="bg-gray-50 rounded-3xl p-8 text-left space-y-5 border border-gray-100">
-//                                         <div className="flex justify-between border-b border-gray-200 pb-4">
-//                                             <span className="text-[10px] text-gray-400 font-bold uppercase tracking-widest">Execution Type</span>
-//                                             <span className="text-xs text-[#1a1a1a] font-bold uppercase">{formData.homeType} | {formData.finish}</span>
-//                                         </div>
-//                                         <div className="flex justify-between">
-//                                             <span className="text-[10px] text-gray-400 font-bold uppercase tracking-widest">Location</span>
-//                                             <span className="text-xs text-[#1a1a1a] font-bold uppercase">{clientInfo.location}</span>
-//                                         </div>
-//                                     </div>
-
-//                                     <div className="space-y-4 pt-4">
-//                                         <button 
-//                                             onClick={() => window.open(`https://wa.me/919363993814?text=Hi Vertical Living, I just generated a quote for my ${formData.homeType} in ${clientInfo.location}. Area: ${formData.carpetArea} sqft, Finish: ${formData.finish}. Estimate: ₹${estimate.toLocaleString('en-IN')}.`, '_blank')}
-//                                             className="w-full bg-[#25D366] text-white py-5 rounded-2xl font-bold uppercase tracking-widest text-[11px] flex items-center justify-center gap-4 shadow-xl shadow-green-100"
-//                                         >
-//                                             <i className="fa fa-whatsapp text-2xl"></i>
-//                                             Connect for Technical BOQ
-//                                         </button>
-//                                         <button onClick={onClose} className="w-full text-gray-400 font-bold uppercase tracking-widest text-[9px] hover:text-black">Close Report</button>
-//                                     </div>
-//                                 </div>
-//                             )}
-//                         </div>
-//                     </motion.div>
-//                 </div>
-//             )}
-//         </AnimatePresence>
-//     );
-// };
-
-// export default CostCalculatorMain;
-
-
-
-//  SECOND VERSION
 
 import React, { useState, useMemo, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -376,8 +145,7 @@ const CostCalculatorMain: React.FC<{ isOpen: boolean; onClose: () => void }> = (
                     setStep(1)
                     handleClear()
                     onClose()
-
-                }} className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/90 backdrop-blur-md">
+                }} className="fixed  inset-0 z-[100] flex items-center justify-center p-4 bg-black/90 backdrop-blur-md">
                     <motion.div
                         ref={modalRef}
                         onClick={(e) => e.stopPropagation()}
@@ -389,7 +157,7 @@ const CostCalculatorMain: React.FC<{ isOpen: boolean; onClose: () => void }> = (
                         {/* Header & Progress Bar */}
                         <div className="p-10 pb-0">
                             <div className="flex justify-between items-center mb-8">
-                                <h2 className="text-2xl font-bold uppercase tracking-tighter text-[#1a1a1a]">Cost <span className="text-[#ffc000]">Calculator</span></h2>
+                                <h2 className="text-2xl font-bold uppercase  text-[#1a1a1a]">Cost <span className="text-[#ffc000]">Calculator</span></h2>
                                 <button onClick={() => {
                                     setStep(1)
                                     handleClear()
@@ -413,7 +181,7 @@ const CostCalculatorMain: React.FC<{ isOpen: boolean; onClose: () => void }> = (
                             {step === 1 && (
                                 <div className="space-y-10 animate-in fade-in slide-in-from-bottom-4">
                                     <div className="space-y-4">
-                                        <label className="text-[14px] font-bold uppercase tracking-[4px] text-gray-800">01. Carpet Area</label>
+                                        <label className="text-[14px] font-bold uppercase tracking-[1px] text-gray-800">1. Carpet Area</label>
                                         <div className="relative">
                                             <input
                                                 type="number"
@@ -431,7 +199,7 @@ const CostCalculatorMain: React.FC<{ isOpen: boolean; onClose: () => void }> = (
                                     </div>
 
                                     <div className="space-y-4">
-                                        <label className="text-[14px] font-bold uppercase tracking-[4px] text-gray-800">02. Configuration</label>
+                                        <label className="text-[14px] font-bold uppercase tracking-[1px]  text-gray-800">2. Configuration</label>
                                         <div className="grid grid-cols-4 gap-3">
                                             {['1 BHK', '2 BHK', '3 BHK', 'Villa'].map(type => (
                                                 <button key={type} onClick={() => setFormData({ ...formData, homeType: type })} className={`py-4 rounded-xl border-2 font-bold text-[14px] uppercase transition-all ${formData.homeType === type ? 'border-[#ffc000] bg-[#ffc000]/5 text-[#1a1a1a]' : 'border-gray-50 text-gray-800'}`}>
@@ -442,7 +210,7 @@ const CostCalculatorMain: React.FC<{ isOpen: boolean; onClose: () => void }> = (
                                     </div>
 
                                     <div className="space-y-4">
-                                        <label className="text-[14px] font-bold uppercase tracking-[4px] text-gray-800">03. Execution Finish</label>
+                                        <label className="text-[14px] font-bold uppercase tracking-[1px] text-gray-800">3. Execution Finish</label>
                                         <div className="grid grid-cols-3 gap-3">
                                             {Object.keys(ESTIMATION_CONFIG.MATERIAL_BASE_RATES).map((finish) => (
                                                 <button key={finish} onClick={() => setFormData({ ...formData, finish: finish })} className={`py-4 rounded-xl border-2 font-bold text-[14px] uppercase transition-all ${formData.finish === finish ? 'border-[#ffc000] bg-[#ffc000]/5 text-[#1a1a1a]' : 'border-gray-50 text-gray-800'}`}>
@@ -550,7 +318,7 @@ const CostCalculatorMain: React.FC<{ isOpen: boolean; onClose: () => void }> = (
                                     </div>
                                     <div>
                                         <span className="text-[10px] font-bold uppercase tracking-[8px] text-[#ffc000]">Valuation Certified</span>
-                                        <div className="text-6xl md:text-5xl font-bold tracking-tighter text-[#1a1a1a] mt-4 leading-none">
+                                        <div className="text-6xl md:text-5xl font-bold  text-[#1a1a1a] mt-4 leading-none">
                                             ₹{estimate.toLocaleString('en-IN')}
                                         </div>
                                         {/* <p className="text-gray-900 text-[10px] uppercase font-bold tracking-[4px] mt-3 opacity-60">Estimated for {formData.carpetArea} Sqft {formData.homeType}</p> */}
