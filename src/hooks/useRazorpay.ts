@@ -87,6 +87,35 @@ export const useRazorpay = () => {
               razorpay_signature: response.razorpay_signature,
             });
 
+            // TRIGGER CONVERSION: Payment Successful
+            // if (typeof window.gtag === 'function') {
+            //   window.gtag('event', 'conversion', {
+            //     'send_to': 'AW-17955936522/DMRXCNqK0vobEIqyh_JC',
+            //     'value': orderData.amount / 100, // Convert paise to INR
+            //     'currency': 'INR'
+            //   });
+            // }
+
+            // TRIGGER CONVERSION: Actual Revenue Generated
+            if (typeof window.gtag === 'function') {
+              window.gtag('event', 'conversion', {
+                'send_to': 'AW-17955936522/DMRXCNqK0vobEIqyh_JC',
+                'value': orderData.amount / 100, // Convert paise to INR for the dashboard
+                'currency': 'INR',
+                // 'transaction_id': response.razorpay_payment_id, // Important to prevent duplicate counting
+
+                // 1. User Identification (Enhanced Conversions)
+
+                'user_name': customerDetails.name,
+                'email': customerDetails.email,
+                'phone_number': customerDetails.phone,
+
+                // 2. Metadata for MD
+                // 'payment_status': 'success',
+                // 'order_id': response.razorpay_order_id
+              });
+            }
+
             navigate(`/payment-success?id=${response.razorpay_payment_id}`);
           } catch (err) {
             navigate("/payment-failed?reason=verification_failed");

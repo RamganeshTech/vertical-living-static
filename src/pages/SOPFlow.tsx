@@ -81,7 +81,7 @@
 //         {/* Single Row Container */}
 //         <div className="relative overflow-x-auto pb-10 scrollbar-hide md:overflow-visible">
 //           <div className="flex flex-row justify-between items-start min-w-[900px] md:min-w-full relative px-10">
-            
+
 //             {/* Animated Connection Line */}
 //             <div className="absolute top-16 left-0 w-full h-[4px] bg-[#f0f0f0] z-0">
 //               <motion.div 
@@ -89,7 +89,7 @@
 //                 className="absolute top-0 left-0 w-full h-full bg-[#ffc000] origin-left shadow-[0_0_15px_rgba(255,192,0,0.5)]"
 //               />
 //             </div>
-            
+
 //             {sopSteps.map((step, idx) => (
 //               <motion.div 
 //                 key={idx}
@@ -196,7 +196,7 @@
 //         {/* Single Row Container with Horizontal Scroll on Mobile */}
 //         <div className="relative overflow-x-auto pb-10 scrollbar-hide md:overflow-visible">
 //           <div className="flex flex-row justify-between items-start min-w-[1000px] md:min-w-full relative px-10">
-            
+
 //             {/* PROGRESS LINE: Fills with #ffc000 when scrolled into view */}
 //             <div className="absolute top-16 left-0 w-full h-[4px] bg-[#f0f0f0] z-0">
 //               <motion.div 
@@ -207,10 +207,10 @@
 //                 className="absolute top-0 left-0 w-full h-full bg-[#ffc000] origin-left shadow-[0_0_15px_rgba(255,192,0,0.6)]"
 //               />
 //             </div>
-            
+
 //             {sopSteps.map((step, idx) => (
 //               <div key={idx} className="relative z-10 flex flex-col items-center text-center w-[200px] group">
-                
+
 //                 {/* SVG ILLUSTRATION BUBBLE: Fills yellow automatically */}
 //                 <motion.div 
 //                   initial={{ backgroundColor: "#ffffff", borderColor: "#f0f0f0" }}
@@ -276,7 +276,7 @@ const StepVideo = ({ src }: { src: string }) => {
           entry.isIntersecting ? videoRef.current.play() : videoRef.current.pause();
         }
       },
-      { threshold: 0.5 }
+      { threshold: 0.2 }
     );
     if (videoRef.current) observer.observe(videoRef.current);
     return () => observer.disconnect();
@@ -289,36 +289,38 @@ const StepVideo = ({ src }: { src: string }) => {
       muted
       loop
       playsInline
+      preload="none"
       className="w-full h-full object-cover"
+      style={{ willChange: 'transform', transform: 'translateZ(0)' }} // Tells the GPU to prepare for animation
     />
   );
 };
 
 // 2. Update your array to use the imported variables
 const sopSteps = [
-  { 
-    title: "Consultation", 
-    desc: "Talk to our Interior Designer & Get an Estimate. We discuss your vision and budget to create a roadmap.", 
+  {
+    title: "Consultation",
+    desc: "Talk to our Interior Designer & Get an Estimate. We discuss your vision and budget to create a roadmap.",
     video: consultationVid
   },
-  { 
-    title: "Design", 
-    desc: "Detailed Drawing and Final Approval. Our experts create 3D renders so you can see your home before it's built.", 
+  {
+    title: "Design",
+    desc: "Detailed Drawing and Final Approval. Our experts create 3D renders so you can see your home before it's built.",
     video: designVid
   },
-  { 
-    title: "Production", 
-    desc: "Crafting at Our Specialized Factories. Precision engineering meets high-quality materials.", 
+  {
+    title: "Production",
+    desc: "Crafting at Our Specialized Factories. Precision engineering meets high-quality materials.",
     video: productionVid
   },
-  { 
-    title: "Execution", 
-    desc: "Material Delivery & On-site Execution. Our team ensures a seamless installation process.", 
+  {
+    title: "Execution",
+    desc: "Material Delivery & On-site Execution. Our team ensures a seamless installation process.",
     video: executionVid
   },
-  { 
-    title: "Handover", 
-    desc: "On Time Project Hand Over. Step into your dream home, exactly as promised.", 
+  {
+    title: "Handover",
+    desc: "On Time Project Hand Over. Step into your dream home, exactly as promised.",
     video: handoverVid
   }
 ];
@@ -337,22 +339,22 @@ export const SOPFlow = () => {
         <div className="relative max-w-6xl mx-auto">
           {sopSteps.map((step, idx) => {
             const isEven = idx % 2 === 0;
-            
-          
-         return (
+
+
+            return (
               <div key={idx} className="relative mb-32 last:mb-0">
                 {/* KEY CHANGE: 
                    The default is 'flex-col' (Mobile: Video then Text).
                    The 'md:flex-row-reverse' or 'md:flex-row' only kicks in on larger screens.
                 */}
                 <div className={`flex flex-col ${isEven ? 'md:flex-row' : 'md:flex-row-reverse'} items-center gap-12 md:gap-24`}>
-                  
+
                   {/* VIDEO SIDE - Always appears first in vertical stack */}
-                  <motion.div 
+                  <motion.div
                     initial={{ opacity: 0, y: 20, x: 0 }} // Base mobile state
-                    whileInView={{ 
-                      opacity: 1, 
-                      y: 0, 
+                    whileInView={{
+                      opacity: 1,
+                      y: 0,
                       x: window.innerWidth > 768 ? (isEven ? -50 : 50) : 0 // Responsive side-slide
                     }}
                     viewport={{ once: true, margin: "-100px" }}
@@ -360,31 +362,31 @@ export const SOPFlow = () => {
                     className="w-full md:w-1/2"
                   >
                     <div className="aspect-video md:aspect-square rounded-[40px] overflow-hidden shadow-2xl border-4 border-white ring-1 ring-gray-100 relative group">
-                        <StepVideo src={step.video} />
-                        <div className="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-all duration-700"></div>
+                      <StepVideo src={step.video} />
+                      <div className="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-all duration-700"></div>
                     </div>
                   </motion.div>
 
                   {/* TEXT SIDE */}
-                  <motion.div 
+                  <motion.div
                     initial={{ opacity: 0, y: 20, x: 0 }}
-                    whileInView={{ 
-                      opacity: 1, 
-                      y: 0, 
-                      x: window.innerWidth > 768 ? (isEven ? 50 : -50) : 0 
+                    whileInView={{
+                      opacity: 1,
+                      y: 0,
+                      x: window.innerWidth > 768 ? (isEven ? 50 : -50) : 0
                     }}
                     viewport={{ once: true, margin: "-100px" }}
                     transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
                     className="w-full md:w-1/2 text-center md:text-left"
                   >
                     <div className={`inline-flex items-center justify-center w-12 h-12 rounded-full bg-[#1a1a1a] text-[#ffc000] font-black text-sm mb-6 shadow-xl`}>
-                        0{idx + 1}
+                      0{idx + 1}
                     </div>
                     <h3 className="text-2xl md:text-4xl font-bold text-[#1a1a1a] mb-4 uppercase tracking-tight">
-                        {step.title}
+                      {step.title}
                     </h3>
                     <p className="text-gray-500 text-lg leading-relaxed max-w-md mx-auto md:mx-0 font-medium">
-                        {step.desc}
+                      {step.desc}
                     </p>
                   </motion.div>
                 </div>
@@ -392,13 +394,13 @@ export const SOPFlow = () => {
                 {/* CONNECTING ARROW (ZIG-ZAG) - Remains desktop only */}
                 {idx < sopSteps.length - 1 && (
                   <div className={`hidden md:block absolute -bottom-24 ${isEven ? 'right-1/4' : 'left-1/4'} z-0`}>
-                    <motion.svg 
+                    <motion.svg
                       width="120" height="100" viewBox="0 0 120 100" fill="none"
                       initial={{ opacity: 0 }}
                       whileInView={{ opacity: 1 }}
                       viewport={{ once: true }}
                     >
-                      <motion.path 
+                      <motion.path
                         d={isEven ? "M10 10 Q 60 50, 110 90" : "M110 10 Q 60 50, 10 90"}
                         stroke="#1a1a1a"
                         strokeWidth="4"
@@ -407,7 +409,7 @@ export const SOPFlow = () => {
                         whileInView={{ pathLength: 1, stroke: "#ffc000" }}
                         transition={{ duration: 1.2, ease: "easeInOut" }}
                       />
-                      <motion.path 
+                      <motion.path
                         d={isEven ? "M100 90 L 110 90 L 110 80" : "M20 90 L 10 90 L 10 80"}
                         stroke="#ffc000"
                         strokeWidth="4"
@@ -420,7 +422,7 @@ export const SOPFlow = () => {
                 )}
               </div>
             );
-         })}
+          })}
         </div>
       </div>
     </section>

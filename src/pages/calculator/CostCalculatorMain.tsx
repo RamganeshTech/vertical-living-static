@@ -119,6 +119,30 @@ const CostCalculatorMain: React.FC<{ isOpen: boolean; onClose: () => void }> = (
                 onSuccess: (data) => {
                     // Check if backend returned 'ok'
                     if (data.ok && data.url) {
+
+                        // TRIGGER CONVERSION: Quote Generated
+                        if (typeof window.gtag === 'function') {
+                            window.gtag('event', 'conversion', {
+                                'send_to': 'AW-17955936522/DMRXCNqK0vobEIqyh_JC',
+                                // 'value': estimate, // Pass the calculated estimate value
+                                // 'currency': 'INR'
+
+                                'value': 1.0,      // Fixed small value to indicate a lead
+                                'currency': 'INR', // Required when sending a value
+
+                                // 2. Project Metadata (Calculator Specifics)
+
+                                'carpet_area': formData.carpetArea,
+                                'home_type': formData.homeType,
+                                'finish_quality': formData.finish,
+                                'user_name': clientInfo.name,
+                                'location': clientInfo.location,
+                                'whatsapp_number': clientInfo.phone,
+                                'estimated_value': estimate // We send this as a custom label, not a "Transaction Value"
+                            });
+                        }
+
+
                         // Trigger immediate download
                         downloadImage({ src: data.url, alt: `${clientInfo.name}_Quotation.pdf` });
                     }

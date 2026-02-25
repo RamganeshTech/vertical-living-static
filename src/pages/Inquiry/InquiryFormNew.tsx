@@ -452,6 +452,25 @@ const InquiryFormNew: React.FC = () => {
         try {
             await fetch(actionUrl, { method: 'POST', body: finalData });
             setShowSuccess(true);
+
+            // TRIGGER CONVERSION: Lead Form Submitted
+            if (typeof window.gtag === 'function') {
+                window.gtag('event', 'conversion', {
+                    'send_to': 'AW-17955936522/DMRXCNqK0vobEIqyh_JC',
+                    'value': 1.0,
+                    'currency': 'INR',
+                    'user_name': formData["Full Name"],
+                    'location': formData["Location"],
+                    "phone_number": formData["Mobile Number"],
+                    'project_category': formData["Project Category"],
+                    'property_type': formData["Property Type"],
+                    'budget': formData["Budget"],
+                    'timeline': formData["Timeline"],
+                    'service_type': formData["Service Type"]
+                });
+            }
+
+
             // setFormData({ fullName: "", mobileNumber: "", projectCategory: "", propertyType: "", budget: "", location: "", timeline: "", serviceType: "" });
             setFormData({ "Full Name": "", "Mobile Number": "", "Project Category": "", "Property Type": "", "Budget": "", "Location": "", "Timeline": "", "Service Type": "" });
             setErrors({});
