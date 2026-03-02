@@ -1,31 +1,75 @@
 
-import React from 'react';
+import React, { useRef } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Autoplay, EffectCoverflow } from 'swiper/modules';
+import { Swiper as SwiperType } from 'swiper';
 
 // Import Swiper styles
 
-// import img1 from '../assets/images/1.jpg';
-// import img2 from '../assets/images/2.jpg';
-// import img3 from '../assets/images/3.jpg';
-// import img4 from '../assets/images/4.jpg';
-// import img5 from '../assets/images/5.jpg';
+import img1 from '../assets/images/1.jpg';
+import img2 from '../assets/images/2.jpg';
+import img3 from '../assets/images/3.jpg';
+import img4 from '../assets/images/4.jpg';
+import img5 from '../assets/images/5.jpg';
 
 
 
-import img1 from '../assets/images/image1.jpeg';
-import img2 from '../assets/images/image2.jpeg';
-import img3 from '../assets/images/image3.jpeg';
-import img4 from '../assets/images/image4.jpeg';
-import img5 from '../assets/images/image5.jpeg';
-import img6 from '../assets/images/image6.jpeg';
-import img7 from '../assets/images/image7.jpeg';
-import img8 from '../assets/images/image8.jpeg';
+// import img1 from '../assets/images/image1.jpeg';
+// import img2 from '../assets/images/image2.jpeg';
+// import img3 from '../assets/images/image3.jpeg';
+// import img4 from '../assets/images/image4.jpeg';
+// import img5 from '../assets/images/image5.jpeg';
+// import img6 from '../assets/images/image6.jpeg';
+// import img7 from '../assets/images/image7.jpeg';
+// import img8 from '../assets/images/image8.jpeg';
+import img8 from '../assets/images/image10.jpeg';
+import video1 from '../assets/videos/video1.mp4';
+import video2 from '../assets/videos/video2.mp4';
+
 import { motion } from 'framer-motion';
 
-const images = [img1, img2, img3, img4, img5, img6, img7, img8];
+// const images = [img1, img2, img3, img4, img5, img6, img7, img8];
+// const images = [img1, img2, img3, img4, img5, img8, video1,video2, img8];
+const portfolioItems = [
+    { src: img1, type: 'image' },
+    { src: img2, type: 'image' },
+    { src: video1, type: 'video' }, // Video added
+    { src: img3, type: 'image' },
+    { src: img4, type: 'image' },
+    { src: video2, type: 'video' }, // Video added
+    { src: img5, type: 'image' },
+    { src: img8, type: 'image' },
+];
 
 const WorkCarousel: React.FC = () => {
+    const swiperRef = useRef<SwiperType | null>(null);
+
+
+    const handleSlideChange = (swiper: SwiperType) => {
+        // 1. Find all videos in the carousel
+        const allVideos = document.querySelectorAll<HTMLVideoElement>('#portfolio video');
+
+        // 2. Pause and reset all videos
+        allVideos.forEach((video) => {
+            video.pause();
+            video.currentTime = 0;
+        });
+
+        // 3. Get the active slide element
+        const activeSlide = swiper.slides[swiper.activeIndex];
+        const activeVideo = activeSlide?.querySelector('video');
+
+        if (activeVideo) {
+            // 4. If center is a video, stop autoplay and play video
+            swiper.autoplay.stop();
+            activeVideo.play().catch(err => console.log("Autoplay blocked:", err));
+        } else {
+            // 5. If center is an image, restart the 3-second timer
+            swiper.autoplay.start();
+        }
+    };
+
+
     return (
         <section id="portfolio" className="py-24 bg-white font-inter overflow-hidden">
             {/* <div className="container mx-auto px-4 mb-16 text-center">
@@ -66,6 +110,8 @@ const WorkCarousel: React.FC = () => {
             </div>
             <div className="relative w-full max-w-[1400px] mx-auto px-10">
                 <Swiper
+                    onSwiper={(swiper) => (swiperRef.current = swiper)}
+                    onSlideChange={handleSlideChange} // Trigger logic on change
                     modules={[Navigation, Autoplay, EffectCoverflow]}
                     effect={'coverflow'}
                     grabCursor={true}
@@ -84,7 +130,7 @@ const WorkCarousel: React.FC = () => {
                         slideShadows: false,
                     }}
                     autoplay={{
-                        delay: 2000,
+                        delay: 3000,
                         disableOnInteraction: false,
                     }}
                     navigation={{
@@ -93,14 +139,40 @@ const WorkCarousel: React.FC = () => {
                     }}
                     className="w-full py-10"
                 >
-                    {images.map((img, index) => (
+                    {portfolioItems.map((item, index) => (
                         <SwiperSlide key={index} className="px-4">
                             <div className="w-full h-[400px] md:h-[550px] rounded-[40px] overflow-hidden shadow-2xl transition-transform duration-500">
-                                <img
+                                {/* <img
                                     src={img}
                                     alt={`Project ${index + 1}`}
                                     className="w-full h-full object-cover"
-                                />
+                                /> */}
+
+                                {item.type === 'video' ? (
+                                    <video
+                                        src={item.src}
+                                        className="w-full h-full object-cover"
+                                        disablePictureInPicture   // Disables the 'Pop-out' icon
+                                        // autoPlay
+                                        muted
+                                        playsInline
+                                        preload="auto"
+                                        // onEnded={() => swiperRef.current?.slideNext()}
+                                        onEnded={() => {
+                                            // When video ends, move to next and restart autoplay
+                                            swiperRef.current?.autoplay.start();
+                                            swiperRef.current?.slideNext();
+                                        }}
+                                        // onPlay={() => swiperRef.current?.autoplay.stop()}
+                                        // onPause={() => swiperRef.current?.autoplay.start()}
+                                    />
+                                ) : (
+                                    <img
+                                        src={item.src}
+                                        alt={`Project ${index + 1}`}
+                                        className="w-full h-full object-cover"
+                                    />
+                                )}
                             </div>
                         </SwiperSlide>
                     ))}

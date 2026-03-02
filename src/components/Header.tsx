@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import logo from '../assets/images/logo.png'; // Import the image file
 import { Link } from 'react-router-dom';
 
@@ -7,10 +7,44 @@ const navLinks = [
     { id: 'about', label: 'About Us', link: "/#about" },
     { id: 'portfolio', label: 'Our Portfolio', link: "/#portfolio" },
     { id: 'contact', label: 'Contact Us', link: "/#contact" },
-    { id: 'form', label: 'Form', link: "/form" },
+    // { id: 'form', label: 'Form', link: "/form" },
+    // { id: 'costcalculator', label: 'Cost Calculation', link: "/cost-calculation" },
+
+    {
+        id: 'tools',
+        label: 'Calculate',
+        link: "#",
+        subLinks: [
+            { id: 'form', label: 'Project Planner', link: "/form", icon: 'fa-edit' },
+            { id: 'cost', label: 'Cost Calculator', link: "/cost-calculation", icon: 'fa-calculator' },
+        ]
+    },
 ];
+
 const Header: React.FC = () => {
     const [isOpen, setIsOpen] = useState(false);
+    const [showDropdown, setShowDropdown] = useState(false); // For mobile click
+
+
+    // 1. Create a ref for the dropdown container
+    const dropdownRef = useRef<HTMLLIElement>(null);
+
+    // 2. Add the Click Outside Logic
+    useEffect(() => {
+        const handleClickOutside = (event: MouseEvent) => {
+            // If the dropdown is open and the click is NOT inside the ref element
+            if (showDropdown && dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+                setShowDropdown(false);
+            }
+        };
+
+        // Bind the event listener
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => {
+            // Unbind the event listener on clean up
+            document.removeEventListener("mousedown", handleClickOutside);
+        };
+    }, [showDropdown]);
 
     return (
         <header className="sticky top-0 z-50 w-full bg-white py-4 shadow-sm font-inter">
@@ -31,21 +65,11 @@ const Header: React.FC = () => {
 
                     {/* Nav Links */}
                     <div className={`
-            w-full overflow-hidden transition-all duration-500 ease-in-out
+            w-full  transition-all duration-500 ease-in-out
             lg:flex lg:w-auto lg:items-center lg:max-h-full lg:opacity-100
             ${isOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0 lg:opacity-100'}
           `}>
-                        <ul className="flex flex-col lg:flex-row list-none ml-auto text-sm font-medium uppercase tracking-wider py-4 lg:py-0">
-                            {/* {navLinks.map((item) => (
-                                <li key={item.id} className="nav-item">
-                                    <a
-                                        href={`#${item.id}`}
-                                        className="block py-2 px-5 text-gray-700 hover:text-black hover:bg-gray-50 lg:hover:bg-transparent transition-colors"
-                                    >
-                                        {item.label}
-                                    </a>
-                                </li>
-                            ))} */}
+                        {/* <ul className="flex flex-col lg:flex-row list-none ml-auto text-sm font-medium uppercase tracking-wider py-4 lg:py-0">
 
                             {navLinks.map((item) => (
                                 <li key={item.id} className="nav-item">
@@ -58,31 +82,70 @@ const Header: React.FC = () => {
                                     </Link>
                                 </li>
                             ))}
-                        </ul>
+                        </ul> */}
 
-                        {/* <ul className="flex flex-col lg:flex-row list-none ml-auto text-sm font-medium uppercase tracking-wider py-4 lg:py-0">
+
+                        <ul className="flex flex-col lg:flex-row list-none ml-auto text-sm font-medium uppercase tracking-wider py-4 lg:py-0">
                             {navLinks.map((item) => (
-                                <li key={item.id} className="nav-item">
-                                    {item.id === 'form' ? (
-                                        <Link
-                                            to={item.link}
-                                            className="block py-2 px-5 text-gray-700 hover:text-black transition-colors"
-                                            onClick={() => setIsOpen(false)}
-                                        >
+                                <li key={item.id}
+                                    ref={item.subLinks ? dropdownRef : null}
+                                    className={`nav-item relative group ${item.subLinks ? 'cursor-pointer' : ''}`}>
+                                    {!item.subLinks ? (
+                                        <Link to={item.link} className="block py-2 px-5 text-gray-700 hover:text-[#ffc000] transition-colors" onClick={() => setIsOpen(false)}>
                                             {item.label}
                                         </Link>
                                     ) : (
-                                        <a
-                                            href={`#${item.id}`}
-                                            className="block py-2 px-5 text-gray-700 hover:text-black transition-colors"
-                                            onClick={() => setIsOpen(false)}
-                                        >
-                                            {item.label}
-                                        </a>
+                                        <>
+                                            {/* Main Dropdown Trigger */}
+                                            <div
+                                                className="flex items-center py-2 px-5 text-gray-700 group-hover:text-[#ffc000] transition-colors"
+                                                onClick={() => setShowDropdown(!showDropdown)}
+                                            >
+                                                {item.label}
+                                                <i className={`fa fa-chevron-down ml-2 text-[10px] transition-transform ${showDropdown ? 'rotate-180' : ''}`}></i>
+                                            </div>
+
+                                            {/* Dropdown Menu */}
+                                            {/* <div className={`
+                                lg:absolute lg:top-full lg:left-0 lg:w-64 lg:bg-white lg:shadow-xl lg:rounded-xl lg:border lg:border-gray-50 lg:opacity-0 lg:invisible lg:group-hover:opacity-100 lg:group-hover:visible lg:group-hover:translate-y-2 lg:transition-all lg:duration-300
+                                ${showDropdown ? 'block bg-gray-50 rounded-lg' : 'hidden lg:block'}
+                                z-[100] py-2
+                            `}> */}
+
+                                            <div className={`
+                        lg:absolute lg:top-full lg:left-0 lg:w-64 lg:bg-white lg:shadow-xl lg:rounded-xl lg:border lg:border-gray-50 
+                        lg:transition-all lg:duration-300
+                        
+                        ${showDropdown
+                                                    ? 'block bg-gray-50 rounded-lg opacity-100 visible translate-y-0'
+                                                    : 'hidden lg:group-hover:block lg:group-hover:opacity-100 lg:group-hover:visible lg:group-hover:translate-y-0 lg:opacity-0 lg:invisible'
+                                                }
+                        z-[100] py-2
+                    `}>
+
+
+
+                                                {item.subLinks.map((sub) => (
+                                                    <Link
+                                                        key={sub.id}
+                                                        to={sub.link}
+                                                        className="flex items-center px-6 py-4 text-gray-600 hover:bg-gray-50 group/item transition-colors"
+                                                        onClick={() => { setIsOpen(false); setShowDropdown(false); }}
+                                                    >
+                                                        <div className="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center mr-4 group-hover/item:text-[#ffc000] group-hover/item:bg-[#ffc000]/10 transition-all">
+                                                            <i className={`fa ${sub.icon} text-lg`}></i>
+                                                        </div>
+                                                        <span className="normal-case font-bold tracking-normal text-sm">{sub.label}</span>
+                                                    </Link>
+                                                ))}
+                                            </div>
+                                        </>
                                     )}
                                 </li>
                             ))}
-                        </ul> */}
+                        </ul>
+
+
                     </div>
                 </nav>
             </div>

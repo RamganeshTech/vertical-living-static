@@ -1,6 +1,6 @@
 import './App.css'
-import { lazy, useEffect, useState } from 'react'
-import { Route, Routes } from 'react-router-dom'
+import { lazy, useEffect, useRef, useState } from 'react'
+import { Route, Routes, useLocation } from 'react-router-dom'
 const Home = lazy(() => import('./pages/Home'))
 const InquiryForm = lazy(() => import('./pages/Inquiry/InquiryForm'))
 const Header = lazy(() => import('./components/Header'))
@@ -17,16 +17,21 @@ import AccountDeletion from './pages/AccountDeletion'
 import PackageSectionSingle from './pages/packages/PackageSectionSingle'
 import CostCalculatorMain from './pages/calculator/CostCalculatorMain'
 import CalculatorFloatingButton from './components/CalculatorFloatingButton'
+import CostCalculatorMainPage from './pages/calculator/CostCalculatorMainPage'
 const NotFound = lazy(() => import('./pages/NotFound/NotFound'))
 const PaymentSuccess = lazy(() => import('./pages/Payment/PaymentSuccess'))
 const PaymentFailure = lazy(() => import('./pages/Payment/PaymentFailure'))
 const Chatbot = lazy(() => import('./components/Chatbot'))
+import { AnimatePresence, motion } from 'framer-motion';
 
 
 function App() {
 
   const [isCalcOpen, setIsCalcOpen] = useState(false);
   const [hasTriggered, setHasTriggered] = useState(false);
+  const modalRef = useRef<HTMLDivElement>(null);
+  const location = useLocation()
+
 
   // Automatic Scroll Trigger (Only active on Home page)
   useEffect(() => {
@@ -59,6 +64,7 @@ function App() {
 
         {/* The new form point you wanted to create */}
         <Route path="/form" element={<InquiryForm />} />
+        <Route path="/cost-calculation" element={<CostCalculatorMainPage />} />
 
         <Route path="/singleservice/:planId" element={<ServiceSectionSingle />} />
         <Route path="/singlepackage/:planId" element={<PackageSectionSingle />} />
@@ -80,16 +86,37 @@ function App() {
 
       {/* <CalculatorFloatingButton onClick={() => setIsCalcOpen(true)} /> */}
 
-      {!isCalcOpen && (
+      {(!isCalcOpen && !location.pathname.includes("cost-calculation")) && (
         <CalculatorFloatingButton onClick={() => setIsCalcOpen(true)} />
       )}
 
 
-      {/* GLOBAL COMPONENTS */}
-      <CostCalculatorMain
-        isOpen={isCalcOpen}
-        onClose={() => setIsCalcOpen(false)}
-      />
+      <AnimatePresence>
+        {isCalcOpen && (
+          <div onClick={() => {
+            // setStep(1)
+            // handleClear()
+            // onClose?.()
+            setIsCalcOpen(false)
+          }} className="fixed  inset-0 z-[100] flex items-center justify-center p-4 bg-black/90 backdrop-blur-md">
+            <motion.div
+              ref={modalRef}
+              onClick={(e) => e.stopPropagation()}
+              initial={{ y: 50, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              exit={{ y: 50, opacity: 0 }}
+              className="bg-white w-full max-w-[1200px]  max-h-[90vh] overflow-hidden rounded-[40px] shadow-2xl relative flex flex-col"
+            >
+              {/* GLOBAL COMPONENTS */}
+              <CostCalculatorMain
+                showCloseButton={true}
+              // isOpen={isCalcOpen}
+              // onClose={() => setIsCalcOpen(false)}
+              />
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
 
       {!isCalcOpen && (
         <Chatbot />
