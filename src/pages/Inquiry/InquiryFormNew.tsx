@@ -252,6 +252,7 @@
 //  SECOND VERSION
 import React, { useEffect, useRef, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useCreatePublicLead } from '../../api/ApiLists/publicLeadCollectionApi';
 
 // Constant for the Google Script
 const actionUrl = "https://script.google.com/macros/s/AKfycbzHOjt3OivmNOJq0pUYQ9MzM2XENCubYpDVwiR4qKBh_2x63YNkqD0KuEoIoa2WJ5Q/exec";
@@ -337,6 +338,8 @@ const InquiryFormNew: React.FC = () => {
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [showSuccess, setShowSuccess] = useState(false);
     const [errors, setErrors] = useState<Record<string, string>>({});
+
+    const { mutateAsync: createMutate } = useCreatePublicLead()
 
     // const [formData, setFormData] = useState({
     //     fullName: "",
@@ -451,7 +454,21 @@ const InquiryFormNew: React.FC = () => {
 
         try {
             await fetch(actionUrl, { method: 'POST', body: finalData });
-            setShowSuccess(true);
+
+            const res = await createMutate({
+                fullName: formData["Full Name"],
+                mobileNumber: formData["Mobile Number"],
+                projectCategory: formData["Project Category"],
+                propertyType: formData["Property Type"],
+                budget: formData["Budget"],
+                location: formData["Location"],
+                timeline: formData["Timeline"],
+                serviceType: formData["Service Type"]
+            })
+
+            if (res.ok === true) {
+                setShowSuccess(true);
+            }
 
             // TRIGGER CONVERSION: Lead Form Submitted
             if (typeof window.gtag === 'function') {
@@ -479,7 +496,7 @@ const InquiryFormNew: React.FC = () => {
                 setShowSuccess(false)
             }, 5000);
         } catch (error) {
-            alert("Submission failed. Check your connection.");
+            // alert("Submission failed. Check your connection.");
         } finally {
             setIsSubmitting(false);
         }

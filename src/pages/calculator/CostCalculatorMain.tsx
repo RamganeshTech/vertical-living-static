@@ -1,7 +1,7 @@
 
 import React, { useState, useMemo } from 'react';
 // import { motion, AnimatePresence } from 'framer-motion';
-import { useGeneratePublicQuote } from '../../api/ApiLists/publicQuoteCalculatorApi';
+import {  useCreateCRMPublicQuote, useGeneratePublicQuote } from '../../api/ApiLists/publicQuoteCalculatorApi';
 import { downloadImage } from '../../api/ApiLists/downloadFile';
 
 
@@ -164,6 +164,7 @@ const CostCalculatorMain: React.FC<CostCalculationMainProps> = ({ showCloseButto
 
 
     const { mutate: generateQuote, isPending } = useGeneratePublicQuote();
+    const { mutateAsync: saveQuote } = useCreateCRMPublicQuote();
 
     const validate = () => {
         const newErrors: Record<string, string> = {};
@@ -340,10 +341,10 @@ const CostCalculatorMain: React.FC<CostCalculationMainProps> = ({ showCloseButto
 
 
             // 2. Call the Mutation Hook
-            generateQuote(dataToSave, {
+             generateQuote(dataToSave, {
                 onSuccess: (data) => {
                     // Check if backend returned 'ok'
-                    if (data.ok && data.url) {
+                    if (data?.ok && data?.url) {
 
                         // TRIGGER CONVERSION: Quote Generated
                         if (typeof window.gtag === 'function') {
@@ -371,15 +372,23 @@ const CostCalculatorMain: React.FC<CostCalculationMainProps> = ({ showCloseButto
                         // Trigger immediate download
                         downloadImage({ src: data.url, alt: `${clientInfo.name}_Quotation.pdf` });
                     }
-                    setStep(3); // Move to success screen
+                    setStep(5); // Move to success screen
                 },
                 onError: (error) => {
                     console.error("API Error:", error);
-                    setStep(3); // Move to Step 3 even if DB fails so user sees estimate
+                    
+                    // setStep(5); // Move to Step 3 even if DB fails so user sees estimate
                 },
             });
+
+
+            console.log("awaited here itsel")
+           await saveQuote(dataToSave)
+
+
+
             console.log("config", config)
-            setStep(5);
+            // setStep(5);
         } catch (err) {
             console.error("Sheet save failed", err);
             setStep(2); // Proceed to step 3 even if error occurs so user sees their quote
@@ -505,7 +514,7 @@ const CostCalculatorMain: React.FC<CostCalculationMainProps> = ({ showCloseButto
                         </div>
 
                         <div className='flex justify-center items-center'>
-                            <button onClick={handleNext} className={`${fromPage ? "w-1/2" : "w-full"}  px-6 cursor-pointer bg-[#ffc000] text-[#1a1a1a] py-6 rounded-2xl font-bold uppercase text-sm shadow-xl shadow-[#ffc000]/20 active:scale-95 transition-all`}>
+                            <button onClick={handleNext} className={`${fromPage ? "w-1/2" : "w-1/2"}  px-6 cursor-pointer bg-[#ffc000] text-[#1a1a1a] py-6 rounded-2xl font-bold uppercase text-sm shadow-xl shadow-[#ffc000]/20 active:scale-95 transition-all`}>
                                 Next
                             </button>
 
@@ -599,9 +608,9 @@ const CostCalculatorMain: React.FC<CostCalculationMainProps> = ({ showCloseButto
                                                                     <span className="text-[11px] font-black text-[#1a1a1a] uppercase leading-tight block">
                                                                         {prod.name}
                                                                     </span>
-                                                                    <span className="text-[9px] text-gray-400 font-bold uppercase tracking-tighter">
+                                                                    {/* <span className="text-[9px] text-gray-400 font-bold uppercase tracking-tighter">
                                                                         {prod.h}ft × {prod.w}ft
-                                                                    </span>
+                                                                    </span> */}
                                                                 </div>
                                                                 <button
                                                                     onClick={() => updateProduct(roomName, rIdx, prod, qty)}
@@ -733,7 +742,7 @@ const CostCalculatorMain: React.FC<CostCalculationMainProps> = ({ showCloseButto
                                 disabled={isSaving}
                                 className="w-full cursor-pointer bg-[#ffc000] text-[#1a1a1a] py-6 rounded-2xl font-bold uppercase tracking-[2px] text-xs shadow-2xl shadow-black/20 active:scale-95 transition-all disabled:opacity-70"
                             >
-                                {(isSaving || isPending) ? 'Processing Quote...' : 'Generate Final Quote'}
+                                {(isSaving || isPending) ? 'Processing Quote...' : 'Get Final Quote'}
                             </button>
                             {/* <button onClick={() => setStep(1)} className="w-full text-gray-400 font-bold uppercase tracking-widest text-[9px] hover:text-black">Modify project specs</button> */}
                         </div>
