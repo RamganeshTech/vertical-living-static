@@ -1,7 +1,9 @@
 
 import React, { useState, useMemo } from 'react';
 // import { motion, AnimatePresence } from 'framer-motion';
-import {  useCreateCRMPublicQuote, useGeneratePublicQuote } from '../../api/ApiLists/publicQuoteCalculatorApi';
+import { useCreateCRMPublicQuote, useGeneratePublicQuote, 
+    // useWhatsappAutomationQuoteSend 
+} from '../../api/ApiLists/publicQuoteCalculatorApi';
 import { downloadImage } from '../../api/ApiLists/downloadFile';
 
 
@@ -104,8 +106,15 @@ const ESTIMATION_CONFIG = {
         'Premium': 1600,  // ₹1,600 per sqft
         'Luxury': 2200    // ₹2,200 per sqft
     },
+
+    // SQFT_RATES: {
+    //     'Standard': 1800, // ₹1800 per sqft // Gurjan Plywood 16mm
+    //     'Premium': 2259,  // ₹2259 per sqft // Sharon Prima 710 16mm
+    //     'Luxury': 2402    // ₹2402 per sqft // Century Club Prime BWP 710 16mm
+    // },
+
+
     PROFIT_MARGIN: 1.30, // 25% overhead/profit
-    // GST_FACTOR: 1.18     // 18% GST (optional)
 };
 
 
@@ -132,7 +141,7 @@ type ConfigState = Record<string, RoomInstance>; // Key is roomCustomId
 type CostCalculationMainProps = {
     showCloseButton?: boolean
     fromPage?: boolean
-    handleClose?:()=> any
+    handleClose?: () => any
 }
 const STEP_ICONS = [
     { id: 1, icon: "fa fa-calculator", label: "Area" },
@@ -164,7 +173,8 @@ const CostCalculatorMain: React.FC<CostCalculationMainProps> = ({ showCloseButto
 
 
 
-    const { mutate: generateQuote, isPending } = useGeneratePublicQuote();
+    const { mutateAsync: generateQuote, isPending } = useGeneratePublicQuote();
+    // const { mutateAsync: sendToWhatsapp } = useWhatsappAutomationQuoteSend();
     const { mutateAsync: saveQuote } = useCreateCRMPublicQuote();
 
     const validate = () => {
@@ -342,55 +352,99 @@ const CostCalculatorMain: React.FC<CostCalculationMainProps> = ({ showCloseButto
 
 
             // 2. Call the Mutation Hook
-             generateQuote(dataToSave, {
-                onSuccess: (data) => {
-                    // Check if backend returned 'ok'
-                    if (data?.ok && data?.url) {
+            const res = await generateQuote(dataToSave)
+            // {
+            // onSuccess: (data) => {
+            //     // Check if backend returned 'ok'
+            //     if (data?.ok && data?.url) {
 
-                        // TRIGGER CONVERSION: Quote Generated
-                        if (typeof window.gtag === 'function') {
-                            window.gtag('event', 'conversion', {
-                                'send_to': 'AW-17955936522/DMRXCNqK0vobEIqyh_JC',
-                                // 'value': estimate, // Pass the calculated estimate value
-                                // 'currency': 'INR'
+            //         // TRIGGER CONVERSION: Quote Generated
+            //         if (typeof window.gtag === 'function') {
+            //             window.gtag('event', 'conversion', {
+            //                 'send_to': 'AW-17955936522/DMRXCNqK0vobEIqyh_JC',
+            //                 // 'value': estimate, // Pass the calculated estimate value
+            //                 // 'currency': 'INR'
 
-                                'value': 1.0,      // Fixed small value to indicate a lead
-                                'currency': 'INR', // Required when sending a value
+            //                 'value': 1.0,      // Fixed small value to indicate a lead
+            //                 'currency': 'INR', // Required when sending a value
 
-                                // 2. Project Metadata (Calculator Specifics)
+            //                 // 2. Project Metadata (Calculator Specifics)
 
-                                'carpet_area': formData.carpetArea,
-                                'home_type': formData.homeType,
-                                'finish_quality': formData.finish,
-                                'user_name': clientInfo.name,
-                                'location': clientInfo.location,
-                                'whatsapp_number': clientInfo.phone,
-                                'estimated_value': estimate // We send this as a custom label, not a "Transaction Value"
-                            });
-                        }
-
-
-                        // Trigger immediate download
-                        downloadImage({ src: data.url, alt: `${clientInfo.name}_Quotation.pdf` });
-                    }
-                    setStep(5); // Move to success screen
-                },
-                onError: (error) => {
-                    console.error("API Error:", error);
-                    
-                    // setStep(5); // Move to Step 3 even if DB fails so user sees estimate
-                },
-            });
+            //                 'carpet_area': formData.carpetArea,
+            //                 'home_type': formData.homeType,
+            //                 'finish_quality': formData.finish,
+            //                 'user_name': clientInfo.name,
+            //                 'location': clientInfo.location,
+            //                 'whatsapp_number': clientInfo.phone,
+            //                 'estimated_value': estimate // We send this as a custom label, not a "Transaction Value"
+            //             });
+            //         }
 
 
-            // console.log("awaited here itsel")
-           await saveQuote(dataToSave)
+            //         // Trigger immediate download
+            //         downloadImage({ src: data.url, alt: `${clientInfo.name}_Quotation.pdf` });
+            //     }
+            //     setStep(5); // Move to success screen
+            // },
+            // onError: (error) => {
+            //     console.error("API Error:", error);
 
-            // console.log("config", config)
+            //     // setStep(5); // Move to Step 3 even if DB fails so user sees estimate
+            // },
+            // });
+
+            console.log("ressulte of the cost calculator", res, "res.ok", res.ok)
+
+            if (res?.ok && res?.url) {
+
+                // 🔥 Google Conversion
+                if (typeof window.gtag === 'function') {
+                    window.gtag('event', 'conversion', {
+                        'send_to': 'AW-17955936522/DMRXCNqK0vobEIqyh_JC',
+                        'value': 1.0,
+                        'currency': 'INR',
+                        'carpet_area': formData.carpetArea,
+                        'home_type': formData.homeType,
+                        'finish_quality': formData.finish,
+                        'user_name': clientInfo.name,
+                        'location': clientInfo.location,
+                        'whatsapp_number': clientInfo.phone,
+                        'estimated_value': estimate
+                    });
+                }
+
+                await saveQuote({
+                    ...dataToSave,
+                    quotationPdf: res?.data?.quotationPdf
+                })
+
+                // Download PDF
+                downloadImage({
+                    src: res.url,
+                    alt: `${clientInfo.name}_Quotation.pdf`
+                });
+
+
+
+               // // if ((res as any)?.url) { // successfully we have that url here
+               // //  res.url is the pdf link it willbe https://vertical.....
+
+                // await sendToWhatsapp({ clientName: dataToSave.name, clientPhone: dataToSave.phone, pdfUrl: res?.url })
+
+               // // }
+
+
+                // console.log("awaited here itsel")
+
+                // console.log("config", config)
+            setStep(5);
+
+            }
             // setStep(5);
-        } catch (err) {
+        }
+        catch (err) {
             console.error("Sheet save failed", err);
-            setStep(2); // Proceed to step 3 even if error occurs so user sees their quote
+            // setStep(2); // Proceed to step 3 even if error occurs so user sees their quote
         } finally {
             setIsSaving(false);
         }
@@ -439,8 +493,8 @@ const CostCalculatorMain: React.FC<CostCalculationMainProps> = ({ showCloseButto
                             return (
                                 <div key={item.id} className="relative z-10 flex flex-col items-center">
                                     <div className={`w-12 h-12 rounded-full flex items-center justify-center transition-all duration-500 border-4 ${isActive
-                                            ? "bg-[#ffc000] border-[#ffc000] text-[#1a1a1a] shadow-lg shadow-[#ffc000]/30"
-                                            : "bg-white border-gray-100 text-gray-300"
+                                        ? "bg-[#ffc000] border-[#ffc000] text-[#1a1a1a] shadow-lg shadow-[#ffc000]/30"
+                                        : "bg-white border-gray-100 text-gray-300"
                                         }`}>
                                         <i className={` ${item.icon} ${isActive ? "text-lg" : "text-sm"}`}></i>
                                     </div>
@@ -577,10 +631,10 @@ const CostCalculatorMain: React.FC<CostCalculationMainProps> = ({ showCloseButto
                                             <div className="bg-gray-50/50 mb-4 px-8 py-6 border-b border-gray-100 flex justify-between rounded-2xl items-center">
                                                 <div >
                                                     <h4 className="text-[#1a1a1a] font-black uppercase text-sm tracking-[2px]">
-                                                       <span className="text-[#ffc000] ml-1">{rIdx + 1})</span>
-                                                       {/* <span className="text-[#1a1a1a] ml-1">{rIdx + 1})</span> */}
-                                                       {" "}
-                                                         {roomName}
+                                                        <span className="text-[#ffc000] ml-1">{rIdx + 1})</span>
+                                                        {/* <span className="text-[#1a1a1a] ml-1">{rIdx + 1})</span> */}
+                                                        {" "}
+                                                        {roomName}
                                                     </h4>
                                                     {/* <p className="text-[10px] text-gray-400 font-bold uppercase tracking-widest mt-1">Instance ID: {roomKey}</p> */}
                                                 </div>
@@ -601,10 +655,10 @@ const CostCalculatorMain: React.FC<CostCalculationMainProps> = ({ showCloseButto
                                                     const qty = prodInstances.length;
 
                                                     return (
-                                                        <div key={prod.id} className={`p-4 rounded-2xl border-2 transition-all ${qty > 0 ? 'border-[#ffc000] bg-[#ffc000]/5 shadow-md shadow-[#ffc000]/10' : 'border-2 bg-white hover:border-gray-200'}`}>
-                                                            <div className="flex justify-between items-center mb-3">
+                                                        <div key={prod.id} className={`px-2 py-4 rounded-2xl border-2 transition-all ${qty > 0 ? 'border-[#ffc000] bg-[#ffc000]/5 shadow-md shadow-[#ffc000]/10' : 'border-2 bg-white hover:border-gray-200'}`}>
+                                                            <div className="flex justify-between   items-center mb-3">
                                                                 {/* <span className="text-[10px] font-bold text-[#1a1a1a] uppercase leading-tight block">{prod.name}</span> */}
-                                                                <div className="space-y-1">
+                                                                <div className="flex-1">
                                                                     <span className="text-[11px] font-black text-[#1a1a1a] uppercase leading-tight block">
                                                                         {prod.name}
                                                                     </span>
@@ -612,11 +666,43 @@ const CostCalculatorMain: React.FC<CostCalculationMainProps> = ({ showCloseButto
                                                                         {prod.h}ft × {prod.w}ft
                                                                     </span> */}
                                                                 </div>
-                                                                <button
+                                                                {/* <button
                                                                     onClick={() => updateProduct(roomName, rIdx, prod, qty)}
                                                                     className="bg-[#ffc000] cursor-pointer text-[#1a1a1a] w-7 h-7 rounded-lg font-bold flex items-center justify-center"
-                                                                // className="bg-[#1a1a1a] text-[#ffc000] w-8 h-8 rounded-xl font-bold flex items-center justify-center cursor-pointer hover:scale-110 active:scale-90 transition-all shadow-lg shadow-black/10"
-                                                                >+</button>
+                                                                >+</button> */}
+
+                                                                <div className="flex items-center bg-[#f8f9fa] rounded-full p-1 border border-gray-200 shadow-sm w-fit mx-auto">
+                                                                    {/* Minus Button - Compact but clear */}
+                                                                    <button
+                                                                        onClick={() => {
+                                                                            if (qty > 0) {
+                                                                                removeProduct(roomName, rIdx, prod.id, prodInstances[qty - 1].instanceIndex);
+                                                                            }
+                                                                        }}
+                                                                        disabled={qty === 0}
+                                                                        className={`w-7 h-7 rounded-full flex items-center justify-center transition-all
+                                                                                
+                                                                                 bg-white text-red-500 shadow-sm cursor-pointer hover:bg-red-50 border border-gray-100
+                                                                            }`}
+                                                                    >
+                                                                        <span className="text-lg font-bold leading-none">−</span>
+                                                                    </button>
+
+                                                                    {/* Quantity Display - Balanced spacing */}
+                                                                    <div className="px-3 min-w-[32px] flex justify-center items-center">
+                                                                        <span className={`text-sm font-black transition-colors ${qty > 0 ? 'text-[#1a1a1a]' : 'text-gray-700'}`}>
+                                                                            {qty}
+                                                                        </span>
+                                                                    </div>
+
+                                                                    {/* Plus Button - Brand Yellow */}
+                                                                    <button
+                                                                        onClick={() => updateProduct(roomName, rIdx, prod, qty)}
+                                                                        className="bg-[#ffc000] text-[#1a1a1a] w-7 h-7 rounded-full flex items-center justify-center cursor-pointer shadow-sm"
+                                                                    >
+                                                                        <span className="text-lg font-bold leading-none">+</span>
+                                                                    </button>
+                                                                </div>
                                                             </div>
 
                                                             {/* {prodInstances.map((inst, pIdx) => (
@@ -634,12 +720,12 @@ const CostCalculatorMain: React.FC<CostCalculationMainProps> = ({ showCloseButto
                                                                         className="flex items-center justify-between bg-white border border-gray-100 p-2 rounded-xl text-[9px] font-bold shadow-sm"
                                                                     >
                                                                         <span className="text-[#1a1a1a] opacity-60">{prod.name} {pIdx + 1}</span>
-                                                                        <button
+                                                                        {/* <button
                                                                             onClick={() => removeProduct(roomName, rIdx, prod.id, inst.instanceIndex)}
                                                                             className="text-red-500 hover:text-red-700 transition-colors uppercase text-[8px] font-black tracking-tighter"
                                                                         >
                                                                             Remove
-                                                                        </button>
+                                                                        </button> */}
                                                                     </div>
                                                                 ))}
                                                             </div>

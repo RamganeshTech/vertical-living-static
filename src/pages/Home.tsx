@@ -18,6 +18,8 @@ import ConnectSection from './ConnectSection';
 import StickySideContact from '../components/StickySideContact';
 import PackagesSection from './services/PackagesSection';
 import PackagesNew from './packages/PakagesNew';
+import { Testimonials } from './Testimonials';
+// import CaseStudies from './CaseStudies';
 // import CostCalculatorMain from './calculator/CostCalculatorMain';
 
 
@@ -361,7 +363,7 @@ const Home: React.FC = () => {
 
 
       {/* ABOUT SECTION: Exact padding and headings */}
-      <section  className="pt-[100px] pb-[20px]">
+      <section className="pt-[100px] pb-[20px]">
         <div className="container mx-auto px-4">
           {/* <motion.div
             className="mb-[80px]"
@@ -426,6 +428,10 @@ const Home: React.FC = () => {
 
       <WorkCarousel /> */}
 
+      <Testimonials showLink={true} />
+      {/* <CaseStudies  /> */}
+
+
       <div id="about" className="container mx-auto px-4 py-20">
         <motion.div
           className="mb-[80px] max-w-4xl"
@@ -456,6 +462,8 @@ const Home: React.FC = () => {
           </div>
         </motion.div>
       </div>
+
+
 
       <InstagramFeed />
 

@@ -27,6 +27,10 @@ import PortfolioStatic from './pages/StaticPages/PortfolioStatic'
 import ServicePackagesStatic from './pages/StaticPages/ServicePackagesStatic'
 import OurPackagesStatic from './pages/StaticPages/OurPackagesStatic'
 import SOPFlowStatic from './pages/StaticPages/SOPFlowStatic'
+import Disclaimer from './pages/Disclaimer'
+import TestimonialStatic from './pages/StaticPages/TestiMonialsStatic'
+import CaseStudiesMain from './pages/CaseStudiesMain'
+import CaseStudiesSingle from './pages/CaseStudiesSingle'
 
 
 function App() {
@@ -79,6 +83,10 @@ function App() {
         <Route path="/service-packages" element={<ServicePackagesStatic />} />
         <Route path="/portfolio" element={<PortfolioStatic />} />
         <Route path="/process" element={<SOPFlowStatic />} />
+        <Route path="/testimonials" element={<TestimonialStatic />} />
+        <Route path="/disclaimer" element={<Disclaimer />} />
+        <Route path="/case-studies" element={<CaseStudiesMain />} />
+        <Route path="/case-studies/:id" element={<CaseStudiesSingle />} />
 
         <Route path="/payment-success" element={<PaymentSuccess />} />
         <Route path="/payment-failed" element={<PaymentFailure />} />

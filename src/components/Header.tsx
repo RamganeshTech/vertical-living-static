@@ -9,6 +9,7 @@ const navLinks = [
     // { id: 'packages', label: 'Packages', link: "/packages" },
     // { id: 'services', label: 'Services', link: "/service-packages" },
     {
+
         id: 'solutions',
         label: 'Our Services', // You can also use "Offerings" or "Work"
         link: "#",
@@ -16,6 +17,9 @@ const navLinks = [
             { id: 'services', label: 'Service Packages', link: "/service-packages", icon: 'fa-swatchbook' },
             { id: 'packages', label: 'Pricing Packages', link: "/packages", icon: 'fa-gem' },
             { id: 'process', label: 'Our Process', link: "/process", icon: 'fa-project-diagram' },
+            { id: 'testimonials', label: 'Testimonials', link: "/testimonials", icon: 'fa-quote-left' },
+            { id: 'case-studies', label: 'Case Studies', link: "/case-studies", icon: 'fa-book' },
+
         ]
     },
     {
@@ -111,7 +115,7 @@ const Header: React.FC = () => {
                                         <>
                                             {/* Main Dropdown Trigger */}
                                             <div
-                                                className="flex items-center py-2 px-5 text-gray-700 group-hover:text-[#ffc000] transition-colors"
+                                                className="flex items-center py-2 px-2 text-gray-700 group-hover:text-[#ffc000] transition-colors"
                                                 onClick={() => setShowDropdown(!showDropdown)}
                                             >
                                                 {item.label}

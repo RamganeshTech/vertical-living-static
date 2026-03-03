@@ -36,8 +36,8 @@ export const generatePublicQuote = async (
  */
 export const useGeneratePublicQuote = () => {
     return useMutation({
-        mutationFn: (payload: IPayload) =>
-            generatePublicQuote(payload),
+        mutationFn: async (payload: IPayload ) =>
+            await generatePublicQuote(payload),
 
         onSuccess: (data) => {
             console.log("Quotation Generated:", data.url);
@@ -74,7 +74,7 @@ export const createPublicCostCalculationForCRM = async (
 
 export const useCreateCRMPublicQuote = () => {
     return useMutation({
-        mutationFn: async (payload: IPayload) =>
+        mutationFn: async (payload: IPayload & {quotationPdf:any}) =>
             await createPublicCostCalculationForCRM(payload),
 
         onSuccess: (data) => {
@@ -87,6 +87,50 @@ export const useCreateCRMPublicQuote = () => {
 
         onError: (error: any) => {
             console.error("Database Save Error:", error.message);
+        },
+    });
+};
+
+
+
+//  whatsapp automation
+
+
+/**
+ * Generate Public Cost Calculator Quote
+ */
+export const whatsappAutomationCostCalculator = async (
+    payload: {pdfUrl:string, clientName: string, clientPhone:string}
+):Promise<any> => {
+    const { data } = await api.post(
+        "api/v1/calculator/whatsapp/send",
+        payload
+    );
+
+    if (!data.ok) {
+        throw new Error(data.message || "Failed to generate quotation");
+    }
+
+    return data;
+};
+
+
+/**
+ * Custom Hook for Public Cost Calculator
+ */
+export const useWhatsappAutomationQuoteSend = () => {
+    return useMutation({
+        mutationFn: (payload: {pdfUrl:string, clientName: string, clientPhone:string}) =>
+            whatsappAutomationCostCalculator(payload),
+
+        onSuccess: (data) => {
+            console.log("Quotation Generated:", data.url);
+            // You can auto-open PDF:
+            // window.open(data.url, "_blank");
+        },
+
+        onError: (error: any) => {
+            console.error("Quotation API Error:", error.message);
         },
     });
 };
