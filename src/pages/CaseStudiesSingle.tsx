@@ -1,66 +1,213 @@
-import React from 'react';
+// import React from 'react';
+// import { useParams, useNavigate } from 'react-router-dom';
+// import { CASE_STUDIES_DATA } from '../constants/constants';
+// // import { CASE_STUDIES_DATA } from '../constants/caseStudies';
+
+// const CaseStudiesSingle: React.FC = () => {
+//     const { id } = useParams<{ id: string }>();
+//     const navigate = useNavigate();
+//     const study = CASE_STUDIES_DATA.find(s => s.id === id);
+
+//     if (!study) return <div className="p-20 text-center font-bold">Case Study Not Found</div>;
+
+//     return (
+//         <div className="min-h-screen bg-white">
+//             {/* Hero Image */}
+//             <div className="h-[50vh] w-full relative">
+//                 <img src={study.image} className="w-full h-full object-cover" alt={study.title} />
+//                 <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
+//                     <h1 className="text-white text-5xl md:text-7xl font-bold text-center px-6">
+//                         {study.title}
+//                     </h1>
+//                 </div>
+//                 <button 
+//                     onClick={() => navigate(-1)}
+//                     className="absolute top-10 left-10 bg-white/20 backdrop-blur-md text-white p-4 rounded-full hover:bg-[#ffc000] transition-colors"
+//                 >
+//                     <i className="fa-solid fa-arrow-left"></i>
+//                 </button>
+//             </div>
+
+//             <article className="max-w-[900px] mx-auto px-6 py-20">
+//                 <div className="space-y-16">
+//                     <section>
+//                         <h2 className="text-3xl font-bold text-[#1a1a1a] mb-6 border-l-4 border-[#ffc000] pl-6 uppercase tracking-tight">Introduction</h2>
+//                         <p className="text-xl text-gray-600 leading-loose">{study.fullContent.introduction}</p>
+//                     </section>
+
+//                     <section className="bg-gray-50 p-12 rounded-[40px]">
+//                         <h2 className="text-3xl font-bold text-[#1a1a1a] mb-6 uppercase tracking-tight">The Selection Process</h2>
+//                         <p className="text-lg text-gray-700 leading-relaxed mb-4">{study.fullContent.selectionProcess}</p>
+//                     </section>
+
+//                     <section>
+//                         <h2 className="text-3xl font-bold text-[#1a1a1a] mb-6 uppercase tracking-tight">Material & Durability</h2>
+//                         <p className="text-lg text-gray-700 leading-relaxed">{study.fullContent.materialScience}</p>
+//                     </section>
+
+//                     <section className="border-t border-gray-100 pt-16">
+//                         <h2 className="text-3xl font-bold text-[#1a1a1a] mb-6 uppercase tracking-tight">Technical Execution</h2>
+//                         <p className="text-lg text-gray-700 leading-relaxed">{study.fullContent.technicalInsights}</p>
+//                     </section>
+//                 </div>
+//             </article>
+
+//             {/* Footer Contact CTA */}
+//             <section className="bg-[#1a1a1a] py-20 text-center text-white mt-20">
+//                 <h3 className="text-3xl font-bold mb-6">Inspired by this project?</h3>
+//                 <button 
+//                     onClick={() => navigate('/calculator')}
+//                     className="bg-[#ffc000] text-[#1a1a1a] px-10 py-5 rounded-full font-bold uppercase tracking-widest hover:scale-105 transition-transform"
+//                 >
+//                     Get Your Estimate
+//                 </button>
+//             </section>
+//         </div>
+//     );
+// };
+
+// export default CaseStudiesSingle;
+
+
+import React, { useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { CASE_STUDIES_DATA } from '../constants/constants';
-// import { CASE_STUDIES_DATA } from '../constants/caseStudies';
 
 const CaseStudiesSingle: React.FC = () => {
     const { id } = useParams<{ id: string }>();
     const navigate = useNavigate();
     const study = CASE_STUDIES_DATA.find(s => s.id === id);
 
-    if (!study) return <div className="p-20 text-center font-bold">Case Study Not Found</div>;
+    // Scroll to top on load
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, [id]);
+
+    if (!study) return (
+        <div className="min-h-screen flex items-center justify-center">
+            <h1 className="text-2xl font-bold">Case Study Not Found</h1>
+        </div>
+    );
 
     return (
-        <div className="min-h-screen bg-white">
-            {/* Hero Image */}
-            <div className="h-[50vh] w-full relative">
-                <img src={study.image} className="w-full h-full object-cover" alt={study.title} />
-                <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
-                    <h1 className="text-white text-5xl md:text-7xl font-bold text-center px-6">
+        <div className="min-h-screen bg-white font-sans text-[#333]">
+            {/* Immersive Hero Section */}
+            <div className="relative h-[80vh] w-full overflow-hidden">
+                <img 
+                    src={study.image} 
+                    className="w-full h-full object-cover scale-105" 
+                    alt={study.title} 
+                />
+                <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-[#1a1a1a]" />
+                
+                <button 
+                    onClick={() => navigate(-1)}
+                    className="absolute top-10 left-10 z-20 flex items-center gap-3 text-white font-bold uppercase tracking-widest text-[10px] bg-white/10 backdrop-blur-xl px-8 py-4 rounded-full hover:bg-[#ffc000] hover:text-[#1a1a1a] transition-all border border-white/20"
+                >
+                    <i className="fa-solid fa-arrow-left"></i> Gallery
+                </button>
+
+                <div className="absolute bottom-24 left-0 w-full px-6 md:px-24">
+                    <div className="flex items-center gap-4 mb-6">
+                        <div className="h-[2px] w-12 bg-[#ffc000]"></div>
+                        <p className="text-[#ffc000] font-bold uppercase tracking-[8px] text-xs md:text-sm">Technical Study</p>
+                    </div>
+                    <h1 className="text-white text-6xl md:text-9xl font-bold leading-[0.85] tracking-tighter max-w-5xl">
                         {study.title}
                     </h1>
                 </div>
-                <button 
-                    onClick={() => navigate(-1)}
-                    className="absolute top-10 left-10 bg-white/20 backdrop-blur-md text-white p-4 rounded-full hover:bg-[#ffc000] transition-colors"
-                >
-                    <i className="fa-solid fa-arrow-left"></i>
-                </button>
             </div>
 
-            <article className="max-w-[900px] mx-auto px-6 py-20">
-                <div className="space-y-16">
-                    <section>
-                        <h2 className="text-3xl font-bold text-[#1a1a1a] mb-6 border-l-4 border-[#ffc000] pl-6 uppercase tracking-tight">Introduction</h2>
-                        <p className="text-xl text-gray-600 leading-loose">{study.fullContent.introduction}</p>
-                    </section>
+            {/* Content Layout */}
+            <article className="max-w-[1400px] mx-auto px-6 py-40">
+                <div className="flex flex-col lg:flex-row gap-24">
+                    
+                    {/* Left Aspect: High-Level Narrative */}
+                    <div className="lg:w-1/3 space-y-16 lg:sticky lg:top-32 h-fit">
+                        <div>
+                            <h2 className="text-[#1a1a1a] text-xs font-bold uppercase tracking-[5px] mb-8 flex items-center gap-3">
+                                <span className="w-2 h-2 bg-[#ffc000] rounded-full"></span>
+                                Introduction
+                            </h2>
+                            <p className="text-xl md:text-2xl text-gray-400 leading-relaxed font-medium italic pr-10">
+                                {study.fullContent.introduction}
+                            </p>
+                        </div>
 
-                    <section className="bg-gray-50 p-12 rounded-[40px]">
-                        <h2 className="text-3xl font-bold text-[#1a1a1a] mb-6 uppercase tracking-tight">The Selection Process</h2>
-                        <p className="text-lg text-gray-700 leading-relaxed mb-4">{study.fullContent.selectionProcess}</p>
-                    </section>
+                        {/* Summary Insight Box */}
+                        <div className="p-12 bg-[#fdfdfd] border border-gray-100 rounded-[50px] relative overflow-hidden">
+                             <div className="absolute top-0 right-0 w-32 h-32 bg-gray-50 rounded-full -mr-16 -mt-16"></div>
+                             <h3 className="text-[#1a1a1a] text-xs font-bold uppercase tracking-widest mb-6 relative z-10">Selection Insight</h3>
+                             <p className="text-lg text-gray-600 leading-relaxed relative z-10">
+                                {study.fullContent.selectionProcess.split('.')[0]}. 
+                                This fundamental approach ensures durability and aesthetic cohesion.
+                             </p>
+                        </div>
+                    </div>
 
-                    <section>
-                        <h2 className="text-3xl font-bold text-[#1a1a1a] mb-6 uppercase tracking-tight">Material & Durability</h2>
-                        <p className="text-lg text-gray-700 leading-relaxed">{study.fullContent.materialScience}</p>
-                    </section>
+                    {/* Right Aspect: Deep Technical Sections */}
+                    <div className="lg:w-2/3 space-y-40">
+                        
+                        {/* Process Section */}
+                        <section className="relative">
+                            <span className="text-[120px] md:text-[200px] font-bold text-gray-50 leading-none absolute -top-20 -left-10 select-none uppercase z-0">
+                                Step.01
+                            </span>
+                            <div className="relative z-10 pl-4">
+                                <h2 className="text-4xl md:text-5xl font-bold text-[#1a1a1a] mb-12 tracking-tight">The Selection Process</h2>
+                                <p className="text-xl md:text-2xl text-gray-600 leading-[1.8] font-light">
+                                    {study.fullContent.selectionProcess}
+                                </p>
+                            </div>
+                        </section>
 
-                    <section className="border-t border-gray-100 pt-16">
-                        <h2 className="text-3xl font-bold text-[#1a1a1a] mb-6 uppercase tracking-tight">Technical Execution</h2>
-                        <p className="text-lg text-gray-700 leading-relaxed">{study.fullContent.technicalInsights}</p>
-                    </section>
+                        {/* Material Section */}
+                        <section className="relative group">
+                            <div className="absolute -left-10 top-0 h-full w-2 bg-[#ffc000] rounded-full transition-all group-hover:w-4" />
+                            <div className="pl-6">
+                                <h2 className="text-4xl md:text-5xl font-bold text-[#1a1a1a] mb-12 tracking-tight">Material & Durability</h2>
+                                <p className="text-xl md:text-2xl text-gray-600 leading-[1.8] font-light">
+                                    {study.fullContent.materialScience}
+                                </p>
+                            </div>
+                        </section>
+
+                        {/* Technical Execution Card */}
+                        <section className="bg-[#1a1a1a] text-white p-16 md:p-24 rounded-[80px] shadow-[0_40px_80px_-20px_rgba(0,0,0,0.3)] border border-white/5">
+                            <h2 className="text-4xl md:text-5xl font-bold mb-12 text-[#ffc000] tracking-tight">Technical Execution</h2>
+                            <p className="text-xl md:text-2xl text-gray-300 leading-[1.9] font-light">
+                                {study.fullContent.technicalInsights}
+                            </p>
+                        </section>
+
+                    </div>
                 </div>
             </article>
 
-            {/* Footer Contact CTA */}
-            <section className="bg-[#1a1a1a] py-20 text-center text-white mt-20">
-                <h3 className="text-3xl font-bold mb-6">Inspired by this project?</h3>
-                <button 
-                    onClick={() => navigate('/calculator')}
-                    className="bg-[#ffc000] text-[#1a1a1a] px-10 py-5 rounded-full font-bold uppercase tracking-widest hover:scale-105 transition-transform"
-                >
-                    Get Your Estimate
-                </button>
+            {/* High-Impact CTA */}
+            <section className="bg-[#fafafa] py-24 px-6">
+                <div className="max-w-[1200px] mx-auto text-center">
+                    <div className="inline-block px-6 py-2 bg-white rounded-full border border-gray-100 mb-10 shadow-sm">
+                         <p className="text-[#ffc000] font-bold uppercase tracking-[8px] text-[10px]">Start Your Project</p>
+                    </div>
+                    <h3 className="text-6xl md:text-9xl font-bold text-[#1a1a1a] mb-20 tracking-tighter leading-[0.85]">
+                        Build your <br /> dream space.
+                    </h3>
+                    <div className="flex flex-col md:flex-row gap-8 justify-center items-center">
+                        <button 
+                            onClick={() => navigate('/cost-calculation')}
+                            className="bg-[#1a1a1a] cursor-pointer text-white px-16 py-8 rounded-full font-bold uppercase tracking-widest hover:bg-[#ffc000] hover:text-[#1a1a1a] transition-all shadow-2xl hover:-translate-y-2"
+                        >
+                            Start Calculation
+                        </button>
+                        <button 
+                            onClick={() => navigate('/#contact')}
+                            className="text-[#1a1a1a] cursor-pointer px-16 py-8 rounded-full font-bold uppercase tracking-widest hover:bg-gray-100 transition-all flex items-center gap-4"
+                        >
+                            Contact Designer <i className="fa-solid fa-arrow-right-long"></i>
+                        </button>
+                    </div>
+                </div>
             </section>
         </div>
     );

@@ -1,46 +1,142 @@
+// import React from 'react';
+// import { useNavigate } from 'react-router-dom';
+// import { CASE_STUDIES_DATA } from '../constants/constants';
+// // import { CASE_STUDIES_DATA } from '../constants/caseStudies';
+
+// const CaseStudiesMain: React.FC = () => {
+//     const navigate = useNavigate();
+
+//     return (
+//         <div className="min-h-screen bg-white">
+//             <main className="max-w-[1400px] mx-auto px-6 py-24">
+//                 <div className="text-center mb-20">
+//                     <h1 className="text-4xl md:text-6xl font-bold text-[#1a1a1a] tracking-tight mb-4">
+//                         Expert <span className="text-[#ffc000]">Case Studies</span>
+//                     </h1>
+//                     <p className="text-gray-500 max-w-2xl mx-auto">
+//                         Deep dives into our design philosophy and technical execution across various interior categories.
+//                     </p>
+//                 </div>
+
+//                 <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+//                     {CASE_STUDIES_DATA.map((study) => (
+//                         <div 
+//                             key={study.id} 
+//                             onClick={() => navigate(`/case-studies/${study.id}`)}
+//                             className="group cursor-pointer bg-gray-50 rounded-[40px] overflow-hidden border border-gray-100 hover:shadow-2xl transition-all duration-500"
+//                         >
+//                             <div className="h-72 overflow-hidden">
+//                                 <img src={study.image} alt={study.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+//                             </div>
+//                             <div className="p-10">
+//                                 <h3 className="text-2xl font-bold text-[#1a1a1a] mb-4">{study.title}</h3>
+//                                 <p className="text-gray-600 mb-8 leading-relaxed line-clamp-2">
+//                                     {study.preview}
+//                                 </p>
+//                                 <button className="text-[#1a1a1a] font-bold text-sm uppercase tracking-widest flex items-center gap-2 group-hover:text-[#ffc000] transition-colors">
+//                                     View Full Study <i className="fa-solid fa-arrow-right"></i>
+//                                 </button>
+//                             </div>
+//                         </div>
+//                     ))}
+//                 </div>
+//             </main>
+//         </div>
+//     );
+// };
+
+// export default CaseStudiesMain;
+
+
+//  SECOND VERSION
+
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { CASE_STUDIES_DATA } from '../constants/constants';
-// import { CASE_STUDIES_DATA } from '../constants/caseStudies';
 
 const CaseStudiesMain: React.FC = () => {
     const navigate = useNavigate();
 
     return (
-        <div className="min-h-screen bg-white">
+        <div className="min-h-screen bg-white font-sans">
             <main className="max-w-[1400px] mx-auto px-6 py-24">
-                <div className="text-center mb-20">
-                    <h1 className="text-4xl md:text-6xl font-bold text-[#1a1a1a] tracking-tight mb-4">
-                        Expert <span className="text-[#ffc000]">Case Studies</span>
-                    </h1>
-                    <p className="text-gray-500 max-w-2xl mx-auto">
-                        Deep dives into our design philosophy and technical execution across various interior categories.
-                    </p>
+                {/* Modern Minimalist Header */}
+                <div className="mb-24 flex flex-col md:flex-row md:items-end md:justify-between gap-8">
+                    <div className="max-w-2xl">
+                        <h1 className="text-5xl md:text-8xl font-bold text-[#1a1a1a] tracking-tighter leading-[0.9] mb-8">
+                            Design <br /> 
+                            <span className="text-[#ffc000]">Excellence.</span>
+                        </h1>
+                        <div className="w-20 h-2 bg-[#ffc000] mb-8"></div>
+                        <p className="text-gray-500 text-lg md:text-xl font-medium leading-relaxed">
+                            A curation of our most challenging and rewarding interior projects, 
+                            detailing the technical precision behind every vertical inch.
+                        </p>
+                    </div>
+                    <div className="hidden md:block">
+                        <span className="text-[140px] font-bold text-gray-100 leading-none select-none">
+                            STUDIES
+                        </span>
+                    </div>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-                    {CASE_STUDIES_DATA.map((study) => (
+                {/* Refined Card Grid */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-16">
+                    {CASE_STUDIES_DATA.map((study, index) => (
                         <div 
                             key={study.id} 
                             onClick={() => navigate(`/case-studies/${study.id}`)}
-                            className="group cursor-pointer bg-gray-50 rounded-[40px] overflow-hidden border border-gray-100 hover:shadow-2xl transition-all duration-500"
+                            className={`group relative cursor-pointer transition-all duration-700 ${
+                                index % 2 !== 0 ? 'md:mt-24' : '' // Staggered Masonry effect
+                            }`}
                         >
-                            <div className="h-72 overflow-hidden">
-                                <img src={study.image} alt={study.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+                            {/* Image Container with Floating Label */}
+                            <div className="relative aspect-[16/10] overflow-hidden rounded-2xl shadow-2xl mb-8">
+                                <img 
+                                    src={study.image} 
+                                    alt={study.title} 
+                                    className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110" 
+                                />
+                                
+                                {/* Image Overlay Fade */}
+                                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                                
+                                {/* Category Badge */}
+                                <div className="absolute top-6 left-6">
+                                    <span className="bg-white/90 backdrop-blur-md px-5 py-2 rounded-full text-[10px] font-bold uppercase tracking-[3px] text-[#1a1a1a] shadow-sm">
+                                        Interior Architecture
+                                    </span>
+                                </div>
                             </div>
-                            <div className="p-10">
-                                <h3 className="text-2xl font-bold text-[#1a1a1a] mb-4">{study.title}</h3>
-                                <p className="text-gray-600 mb-8 leading-relaxed line-clamp-2">
+
+                            {/* Content Section */}
+                            <div className="px-2">
+                                <div className="flex items-center gap-4 mb-4">
+                                    <span className="text-[#ffc000] font-bold text-lg">0{index + 1}</span>
+                                    <div className="h-[1px] w-12 bg-gray-200 group-hover:w-20 group-hover:bg-[#ffc000] transition-all duration-500"></div>
+                                </div>
+                                
+                                <h3 className="text-3xl font-bold text-[#1a1a1a] mb-4 group-hover:text-[#ffc000] transition-colors duration-300">
+                                    {study.title}
+                                </h3>
+                                
+                                <p className="text-gray-500 text-lg leading-relaxed mb-6 line-clamp-2 max-w-md">
                                     {study.preview}
                                 </p>
-                                <button className="text-[#1a1a1a] font-bold text-sm uppercase tracking-widest flex items-center gap-2 group-hover:text-[#ffc000] transition-colors">
-                                    View Full Study <i className="fa-solid fa-arrow-right"></i>
-                                </button>
+
+                                <div className="flex items-center gap-2 text-[#1a1a1a] font-bold text-xs uppercase tracking-[4px] group-hover:gap-4 transition-all duration-300">
+                                    Explore Case <i className="fa-solid fa-chevron-right text-[10px] mt-0.5"></i>
+                                </div>
                             </div>
                         </div>
                     ))}
                 </div>
             </main>
+
+            {/* Aesthetic Footer Background Element */}
+            <div className="absolute -z-10 bottom-0 right-0 opacity-5 pointer-events-none">
+                <img src="/logo.png" alt="" className="w-96 grayscale" />
+            </div>
         </div>
     );
 };

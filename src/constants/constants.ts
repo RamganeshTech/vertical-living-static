@@ -230,7 +230,8 @@ export const CASE_STUDIES_DATA = [
         id: "wardrobe",
         title: "Wardrobe Design & Selection",
         preview: "A comprehensive guide on selecting the right materials, mechanisms, and layouts for modern storage solutions.",
-        image: "https://images.unsplash.com/photo-1595428774223-ef52624120d2?q=80&w=800",
+        // image: "https://images.unsplash.com/photo-1595428774223-ef52624120d2?q=80&w=800",
+        image: "https://www.squareyards.com/blog/wp-content/uploads/2023/11/Wardrobe-Design-with-Panelling.jpg",
         fullContent: {
             introduction: "Wardrobes are more than just storage; they are a critical element of bedroom aesthetics and daily organization. Choosing the right one requires a balance between available space and lifestyle needs.",
             selectionProcess: "Our selection process begins with a 'Spatial Audit.' We analyze the floor area to determine if a sliding or hinged door system is appropriate. For compact Chennai apartments, we typically recommend sliding systems with slim aluminum profiles to save clearance space.",
