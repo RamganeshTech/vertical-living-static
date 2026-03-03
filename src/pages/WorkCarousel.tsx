@@ -27,6 +27,7 @@ import video1 from '../assets/videos/video1.mp4';
 import video2 from '../assets/videos/video2.mp4';
 
 import { motion } from 'framer-motion';
+import { useNavigate } from 'react-router-dom';
 
 // const images = [img1, img2, img3, img4, img5, img6, img7, img8];
 // const images = [img1, img2, img3, img4, img5, img8, video1,video2, img8];
@@ -41,8 +42,15 @@ const portfolioItems = [
     { src: img8, type: 'image' },
 ];
 
-const WorkCarousel: React.FC = () => {
+
+type WorkCarouseltype = {
+    showLink?:boolean
+}
+
+const WorkCarousel: React.FC<WorkCarouseltype> = ({showLink}) => {
     const swiperRef = useRef<SwiperType | null>(null);
+    const navigate = useNavigate();
+
 
 
     const handleSlideChange = (swiper: SwiperType) => {
@@ -82,8 +90,10 @@ const WorkCarousel: React.FC = () => {
 
             <div className="container mx-auto px-4 mb-16 text-center">
                 {/* Refined Header */}
-                <h2 className="text-3xl md:text-5xl font-bold tracking-tight text-[#1a1a1a]">
+                <h2 onClick={() => navigate('/portfolio')} className="text-3xl flex items-center justify-center gap-3 cursor-pointer md:text-5xl font-bold tracking-tight text-[#1a1a1a]">
                     Our <span className="text-[#ffc000]">Portfolio</span>
+                    {showLink && <i className="fa-solid fa-link text-xl md:text-2xl text-[#ffc000] mt-1 group-hover:scale-110 transition-transform"></i>}
+                    
                 </h2>
                 <div className="w-26 h-1.5 bg-[#ffc000] mx-auto mt-3 rounded-full shadow-[0_5px_15px_rgba(255,192,0,0.3)]"></div>
 
@@ -163,8 +173,8 @@ const WorkCarousel: React.FC = () => {
                                             swiperRef.current?.autoplay.start();
                                             swiperRef.current?.slideNext();
                                         }}
-                                        // onPlay={() => swiperRef.current?.autoplay.stop()}
-                                        // onPause={() => swiperRef.current?.autoplay.start()}
+                                    // onPlay={() => swiperRef.current?.autoplay.stop()}
+                                    // onPause={() => swiperRef.current?.autoplay.start()}
                                     />
                                 ) : (
                                     <img

@@ -4,12 +4,20 @@ import { Link } from 'react-router-dom';
 
 const navLinks = [
     { id: 'home', label: 'Home', link: "/#home" },
-    { id: 'about', label: 'About Us', link: "/#about" },
-    { id: 'portfolio', label: 'Our Portfolio', link: "/#portfolio" },
-    { id: 'contact', label: 'Contact Us', link: "/#contact" },
-    // { id: 'form', label: 'Form', link: "/form" },
-    // { id: 'costcalculator', label: 'Cost Calculation', link: "/cost-calculation" },
-
+    { id: 'portfolio', label: 'Our Portfolio', link: "/portfolio" },
+    // { id: 'process', label: 'Process', link: "/process" },
+    // { id: 'packages', label: 'Packages', link: "/packages" },
+    // { id: 'services', label: 'Services', link: "/service-packages" },
+    {
+        id: 'solutions',
+        label: 'Our Services', // You can also use "Offerings" or "Work"
+        link: "#",
+        subLinks: [
+            { id: 'services', label: 'Service Packages', link: "/service-packages", icon: 'fa-swatchbook' },
+            { id: 'packages', label: 'Pricing Packages', link: "/packages", icon: 'fa-gem' },
+            { id: 'process', label: 'Our Process', link: "/process", icon: 'fa-project-diagram' },
+        ]
+    },
     {
         id: 'tools',
         label: 'Calculate',
@@ -19,6 +27,11 @@ const navLinks = [
             { id: 'cost', label: 'Cost Calculator', link: "/cost-calculation", icon: 'fa-calculator' },
         ]
     },
+    { id: 'about', label: 'About Us', link: "/#about" },
+    { id: 'contact', label: 'Contact Us', link: "/#contact" },
+    // { id: 'form', label: 'Form', link: "/form" },
+    // { id: 'costcalculator', label: 'Cost Calculation', link: "/cost-calculation" },
+
 ];
 
 const Header: React.FC = () => {
@@ -47,7 +60,7 @@ const Header: React.FC = () => {
     }, [showDropdown]);
 
     return (
-        <header className="sticky top-0 z-50 w-full bg-white py-4 shadow-sm font-inter">
+        <header className="sticky  top-0 z-50 w-full bg-white py-4 shadow-sm font-inter">
             <div className="container mx-auto px-4">
                 <nav className="flex items-center justify-between flex-wrap">
                     {/* Logo */}
@@ -91,7 +104,7 @@ const Header: React.FC = () => {
                                     ref={item.subLinks ? dropdownRef : null}
                                     className={`nav-item relative group ${item.subLinks ? 'cursor-pointer' : ''}`}>
                                     {!item.subLinks ? (
-                                        <Link to={item.link} className="block py-2 px-5 text-gray-700 hover:text-[#ffc000] transition-colors" onClick={() => setIsOpen(false)}>
+                                        <Link to={item.link} className="block py-2 px-2 text-gray-700 hover:text-[#ffc000] transition-colors" onClick={() => setIsOpen(false)}>
                                             {item.label}
                                         </Link>
                                     ) : (

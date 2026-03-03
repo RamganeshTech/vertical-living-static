@@ -23,6 +23,10 @@ const PaymentSuccess = lazy(() => import('./pages/Payment/PaymentSuccess'))
 const PaymentFailure = lazy(() => import('./pages/Payment/PaymentFailure'))
 const Chatbot = lazy(() => import('./components/Chatbot'))
 import { AnimatePresence, motion } from 'framer-motion';
+import PortfolioStatic from './pages/StaticPages/PortfolioStatic'
+import ServicePackagesStatic from './pages/StaticPages/ServicePackagesStatic'
+import OurPackagesStatic from './pages/StaticPages/OurPackagesStatic'
+import SOPFlowStatic from './pages/StaticPages/SOPFlowStatic'
 
 
 function App() {
@@ -70,6 +74,11 @@ function App() {
         <Route path="/singlepackage/:planId" element={<PackageSectionSingle />} />
 
         <Route path="/booking/:planId" element={<BookingPage />} />
+        
+        <Route path="/packages" element={<OurPackagesStatic />} />
+        <Route path="/service-packages" element={<ServicePackagesStatic />} />
+        <Route path="/portfolio" element={<PortfolioStatic />} />
+        <Route path="/process" element={<SOPFlowStatic />} />
 
         <Route path="/payment-success" element={<PaymentSuccess />} />
         <Route path="/payment-failed" element={<PaymentFailure />} />
@@ -110,6 +119,7 @@ function App() {
               {/* GLOBAL COMPONENTS */}
               <CostCalculatorMain
                 showCloseButton={true}
+                handleClose={()=> setIsCalcOpen(false)}
               // isOpen={isCalcOpen}
               // onClose={() => setIsCalcOpen(false)}
               />

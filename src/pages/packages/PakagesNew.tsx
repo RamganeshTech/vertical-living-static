@@ -4,7 +4,7 @@
 //  second version
 
 import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import img1 from '../../assets/images/1.jpg';
 import img2 from '../../assets/images/2.jpg';
 import img3 from '../../assets/images/3.jpg';
@@ -59,7 +59,15 @@ export const allPackages = [
     }
 ];
 
-const PackagesNew = () => {
+
+type PackagesNewtype = {
+    showLink?:boolean
+}
+
+
+const PackagesNew:React.FC<PackagesNewtype> = ({showLink}) => {
+
+    const navigate = useNavigate()
 
     return (
         <section className="py-12 md:py-24 bg-white font-inter">
@@ -67,8 +75,9 @@ const PackagesNew = () => {
 
                 {/* Section Header */}
                 <div className="mb-12 md:mb-20 text-center">
-                    <h2 className="text-3xl md:text-6xl font-bold uppercase tracking-tighter text-[#1a1a1a]">
+                    <h2 onClick={() => navigate('/portfolio')} className="text-3xl flex items-center justify-center gap-3 cursor-pointer md:text-5xl font-bold tracking-tighter text-[#1a1a1a]">
                         Our <span className="text-[#ffc000]">Packages</span>
+                        {showLink && <i className="fa-solid fa-link text-xl md:text-2xl text-[#ffc000] mt-1 group-hover:scale-110 transition-transform"></i>}
                     </h2>
                     <div className="w-16 md:w-24 h-1.5 md:h-2 bg-[#ffc000] mx-auto mt-4 md:mt-6 rounded-full shadow-md"></div>
                     <p className="mt-4 md:mt-8 text-gray-500 font-bold uppercase text-[10px] md:text-xs tracking-[2px] md:tracking-[4px]">

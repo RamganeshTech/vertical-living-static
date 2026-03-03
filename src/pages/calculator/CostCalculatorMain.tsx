@@ -132,6 +132,7 @@ type ConfigState = Record<string, RoomInstance>; // Key is roomCustomId
 type CostCalculationMainProps = {
     showCloseButton?: boolean
     fromPage?: boolean
+    handleClose?:()=> any
 }
 const STEP_ICONS = [
     { id: 1, icon: "fa fa-calculator", label: "Area" },
@@ -141,7 +142,7 @@ const STEP_ICONS = [
     { id: 5, icon: "fa fa-file-text", label: "Quote" },
 ];
 
-const CostCalculatorMain: React.FC<CostCalculationMainProps> = ({ showCloseButton, fromPage }) => {
+const CostCalculatorMain: React.FC<CostCalculationMainProps> = ({ showCloseButton, fromPage, handleClose }) => {
     const [step, setStep] = useState(1);
     const [formData, setFormData] = useState({ carpetArea: 0, homeType: '2 BHK', finish: 'Premium' });
     const [roomCounts, setRoomCounts] = useState({});
@@ -382,12 +383,10 @@ const CostCalculatorMain: React.FC<CostCalculationMainProps> = ({ showCloseButto
             });
 
 
-            console.log("awaited here itsel")
+            // console.log("awaited here itsel")
            await saveQuote(dataToSave)
 
-
-
-            console.log("config", config)
+            // console.log("config", config)
             // setStep(5);
         } catch (err) {
             console.error("Sheet save failed", err);
@@ -412,6 +411,7 @@ const CostCalculatorMain: React.FC<CostCalculationMainProps> = ({ showCloseButto
                     {showCloseButton && <button onClick={() => {
                         setStep(1)
                         handleClear()
+                        handleClose?.()
 
                         // onClose?.()
 

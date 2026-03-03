@@ -265,6 +265,7 @@ import designVid from '../assets/videos/design.mp4';
 import productionVid from '../assets/videos/production.mp4';
 import executionVid from '../assets/videos/execution.mp4';
 import handoverVid from '../assets/videos/handover.mp4';
+import { useNavigate } from 'react-router-dom';
 
 const StepVideo = ({ src }: { src: string }) => {
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -325,13 +326,25 @@ const sopSteps = [
   }
 ];
 
-export const SOPFlow = () => {
+
+
+type SOPFlowtype = {
+  showLink?: boolean
+}
+
+
+
+export const SOPFlow: React.FC<SOPFlowtype> = ({ showLink }) => {
+
+  const navigate = useNavigate()
+
   return (
     <section className="py-15 bg-white font-inter overflow-hidden">
       <div className="container mx-auto px-6">
         <div className="mb-32 text-center">
-          <h2 className="text-3xl md:text-5xl font-bold tracking-tight text-[#1a1a1a]">
-            Our <span className="text-[#ffc000]">Process</span>
+          <h2 onClick={() => navigate('/process')} className="text-3xl cursor-pointer flex items-center justify-center gap-3 md:text-5xl font-bold tracking-tight text-[#1a1a1a]">
+            Our <span className="text-[#ffc000]"> Process</span>
+            {showLink &&  <i className="fa-solid fa-link text-xl md:text-2xl text-[#ffc000] mt-1 group-hover:scale-110 transition-transform"></i>}
           </h2>
           <div className="w-24 h-1.5 bg-[#ffc000] mx-auto mt-4 rounded-full shadow-[0_5px_15px_rgba(255,192,0,0.3)]"></div>
         </div>

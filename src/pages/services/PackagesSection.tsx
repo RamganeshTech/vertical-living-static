@@ -3,7 +3,13 @@ import { useNavigate } from 'react-router-dom';
 import { PACKAGES } from '../../constants/constants';
 import { motion } from 'framer-motion';
 
-const PackagesSection: React.FC = () => {
+
+type PackagesSectiontype = {
+    showLink?:boolean
+}
+
+
+const PackagesSection: React.FC<PackagesSectiontype> = ({showLink}) => {
     const navigate = useNavigate();
 
     return (
@@ -14,8 +20,10 @@ const PackagesSection: React.FC = () => {
                 </h2>
                 <div className="w-20 h-1.5 bg-[#ffc000] mt-4"></div> */}
 
-                <h2 className="text-3xl md:text-5xl font-bold tracking-tight text-[#1a1a1a]">
+                <h2 onClick={()=> navigate('/service-packages')} className="text-3xl flex items-center justify-center gap-3 cursor-pointer md:text-5xl font-bold tracking-tight text-[#1a1a1a]">
                     Our <span className="text-[#ffc000]">Service Packages</span>
+                    {showLink && <i className="fa-solid fa-link text-xl md:text-2xl text-[#ffc000] mt-1 group-hover:scale-110 transition-transform"></i>}
+
                 </h2>
                 <div className="w-24 h-1.5 bg-[#ffc000] mx-auto mt-6 rounded-full shadow-[0_5px_15px_rgba(255,192,0,0.3)]"></div>
 

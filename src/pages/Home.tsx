@@ -393,11 +393,11 @@ const Home: React.FC = () => {
           </div> */}
 
 
-          <PackagesSection />
+          <PackagesSection showLink={true} />
 
 
           {/* <Packages /> */}
-          <PackagesNew />
+          <PackagesNew showLink={true} />
 
           {/* Feature Row 2: Portfolio */}
           {/* <div className="grid grid-cols-1 md:grid-cols-2 gap-10 mb-[40px] items-center">
@@ -413,14 +413,14 @@ const Home: React.FC = () => {
           </div> */}
 
 
-          <WorkCarousel />
+          <WorkCarousel showLink={true} />
         </div>
       </section>
 
 
       <Portfolio />
 
-      <SOPFlow />
+      <SOPFlow showLink={true} />
 
       {/* <Packages />
 
