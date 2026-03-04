@@ -101,7 +101,7 @@ const CaseStudiesSingle: React.FC = () => {
                 <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-[#1a1a1a]" />
                 
                 <button 
-                    onClick={() => navigate(-1)}
+                    onClick={() => navigate("/case-studies")}
                     className="absolute top-10 left-10 z-20 flex items-center gap-3 text-white font-bold uppercase tracking-widest text-[10px] bg-white/10 backdrop-blur-xl px-8 py-4 rounded-full hover:bg-[#ffc000] hover:text-[#1a1a1a] transition-all border border-white/20"
                 >
                     <i className="fa-solid fa-arrow-left"></i> Gallery
