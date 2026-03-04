@@ -77,7 +77,7 @@ const Header: React.FC = () => {
     }, []);
 
     return (
-        <header className="sticky  top-0 !z-[9999] w-full !bg-white py-4 shadow-sm font-inter">
+        <header className="sticky  top-0 z-50 w-full !bg-white py-4 shadow-sm font-inter">
             <div className="container mx-auto px-4">
                 <nav className="flex items-center justify-between flex-wrap">
                     {/* Logo */}
