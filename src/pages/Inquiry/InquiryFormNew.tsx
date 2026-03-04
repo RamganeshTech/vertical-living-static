@@ -290,7 +290,7 @@ const ModernDropdown = ({
     }, []);
 
     return (
-        <div ref={dropdownRef} className="relative w-full space-y-1.5">
+        <div ref={dropdownRef} className="relative  w-full space-y-1.5">
             <label className="text-[10px] font-semibold uppercase tracking-[1.5px] text-[#666] ml-2 block">
                 {label}
             </label>

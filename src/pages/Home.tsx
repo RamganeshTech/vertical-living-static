@@ -102,10 +102,11 @@ const Home: React.FC = () => {
 
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen w-full max-w-full overflow-x-hidden bg-white">
 
       <section className="relative min-h-[900px] flex items-center justify-center overflow-hidden bg-white py-20 font-poppins">
         {/* LEFT SIDE: High-Visibility Architectural Line & Diamond Textures */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute left-0 top-0 bottom-0 w-[25%] pointer-events-none hidden xl:block">
 
           {/* 1. Solid Black Horizontal Technical Lines - High Opacity */}
@@ -145,6 +146,7 @@ const Home: React.FC = () => {
 
           {/* 4. Bold Architectural Angle (Black) */}
 
+        </div>
         </div>
 
 
@@ -346,7 +348,7 @@ const Home: React.FC = () => {
             {/* <div className="text-xl rounded-full bg-[#ffda6a] md:text-xl text-black p-3 flex-shrink-0"> */}
             <div className="text-xl rounded-full w-12 h-12 bg-[#ffda6a] text-black flex items-center justify-center flex-shrink-0 shadow-sm">
 
-              <i className="fa fa-handshake-o"></i>
+              <i className="fas fa-handshake"></i>
             </div>
             <div className="flex flex-col">
               <h3 className="text-[18px] md:text-[20px] font-bold uppercase tracking-tight text-black leading-tight mb-1">
@@ -472,15 +474,8 @@ const Home: React.FC = () => {
 
 
 
-      {/* Floating WhatsApp */}
-      {/* <div className="fixed left-[30px] bottom-[30px] z-[99]">
-        <a href="https://wa.me/+919363993814" target="_blank" rel="noreferrer">
-          <img src={whatsappIcon} alt="WhatsApp" className="w-16 h-16 hover:scale-110 transition-transform duration-300" />
-        </a>
-      </div> */}
 
       {/* MULTI-ACTION FLOATING BUTTON */}
-      {/* <FloatingContact /> */}
       <StickySideContact />
 
     </div>

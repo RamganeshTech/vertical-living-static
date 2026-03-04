@@ -44,10 +44,10 @@ const portfolioItems = [
 
 
 type WorkCarouseltype = {
-    showLink?:boolean
+    showLink?: boolean
 }
 
-const WorkCarousel: React.FC<WorkCarouseltype> = ({showLink}) => {
+const WorkCarousel: React.FC<WorkCarouseltype> = ({ showLink }) => {
     const swiperRef = useRef<SwiperType | null>(null);
     const navigate = useNavigate();
 
@@ -88,12 +88,12 @@ const WorkCarousel: React.FC<WorkCarouseltype> = ({showLink}) => {
       </div> */}
 
 
-            <div className="container mx-auto px-4 mb-16 text-center">
+            <div className="container mx-auto px-4  mb-16 text-center">
                 {/* Refined Header */}
                 <h2 onClick={() => navigate('/portfolio')} className="text-3xl flex items-center justify-center gap-3 cursor-pointer md:text-5xl font-bold tracking-tight text-[#1a1a1a]">
                     Our <span className="text-[#ffc000]">Portfolio</span>
                     {showLink && <i className="fa-solid fa-link text-xl md:text-2xl text-[#ffc000] mt-1 group-hover:scale-110 transition-transform"></i>}
-                    
+
                 </h2>
                 <div className="w-26 h-1.5 bg-[#ffc000] mx-auto mt-3 rounded-full shadow-[0_5px_15px_rgba(255,192,0,0.3)]"></div>
 
@@ -118,11 +118,14 @@ const WorkCarousel: React.FC<WorkCarouseltype> = ({showLink}) => {
                     our portfolio showcases our versatility and attention to detail.
                 </p> */}
             </div>
-            <div className="relative w-full max-w-[1400px] mx-auto px-10">
+            <div className="relative w-full max-w-[1400px] mx-auto px-2">
                 <Swiper
                     onSwiper={(swiper) => (swiperRef.current = swiper)}
                     onSlideChange={handleSlideChange} // Trigger logic on change
                     modules={[Navigation, Autoplay, EffectCoverflow]}
+                    observer={true}            // Forces Swiper to refresh if images change
+                    observeParents={true}
+                    watchSlidesProgress={true}     // Pre-renders slides that are "near" the view
                     effect={'coverflow'}
                     grabCursor={true}
                     centeredSlides={true} // Shows the next/prev images on sides
@@ -181,6 +184,9 @@ const WorkCarousel: React.FC<WorkCarouseltype> = ({showLink}) => {
                                         src={item.src}
                                         alt={`Project ${index + 1}`}
                                         className="w-full h-full object-cover"
+                                        loading="eager"
+                                        fetchPriority="high"
+                                        decoding="async"
                                     />
                                 )}
                             </div>

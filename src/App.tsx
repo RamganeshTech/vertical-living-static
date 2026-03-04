@@ -111,9 +111,7 @@ function App() {
       <AnimatePresence>
         {isCalcOpen && (
           <div onClick={() => {
-            // setStep(1)
-            // handleClear()
-            // onClose?.()
+          
             setIsCalcOpen(false)
           }} className="fixed  inset-0 z-[100] flex items-center justify-center p-4 bg-black/90 backdrop-blur-md">
             <motion.div
@@ -124,12 +122,10 @@ function App() {
               exit={{ y: 50, opacity: 0 }}
               className="bg-white w-full max-w-[1200px]  max-h-[90vh] overflow-hidden rounded-[40px] shadow-2xl relative flex flex-col"
             >
-              {/* GLOBAL COMPONENTS */}
               <CostCalculatorMain
                 showCloseButton={true}
                 handleClose={()=> setIsCalcOpen(false)}
-              // isOpen={isCalcOpen}
-              // onClose={() => setIsCalcOpen(false)}
+              
               />
             </motion.div>
           </div>

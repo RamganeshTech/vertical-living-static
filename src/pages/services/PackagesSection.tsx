@@ -20,7 +20,7 @@ const PackagesSection: React.FC<PackagesSectiontype> = ({showLink}) => {
                 </h2>
                 <div className="w-20 h-1.5 bg-[#ffc000] mt-4"></div> */}
 
-                <h2 onClick={()=> navigate('/service-packages')} className="text-3xl flex items-center justify-center gap-3 cursor-pointer md:text-5xl font-bold tracking-tight text-[#1a1a1a]">
+                <h2 onClick={()=> navigate('/service-packages')} className="text-3xl flex items-center justify-center gap-1.5 md:gap-3 cursor-pointer md:text-5xl font-bold tracking-tight text-[#1a1a1a]">
                     Our <span className="text-[#ffc000]">Service Packages</span>
                     {showLink && <i className="fa-solid fa-link text-xl md:text-2xl text-[#ffc000] mt-1 group-hover:scale-110 transition-transform"></i>}
 

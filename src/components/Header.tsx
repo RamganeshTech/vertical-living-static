@@ -40,31 +40,44 @@ const navLinks = [
 
 const Header: React.FC = () => {
     const [isOpen, setIsOpen] = useState(false);
-    const [showDropdown, setShowDropdown] = useState(false); // For mobile click
+    // const [showDropdown, setShowDropdown] = useState(false); // For mobile click
+    // // 1. Create a ref for the dropdown container
+    // const dropdownRef = useRef<HTMLLIElement>(null);
+
+    const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
+    const navRef = useRef<HTMLUListElement>(null); // Ref for the whole list
 
 
-    // 1. Create a ref for the dropdown container
-    const dropdownRef = useRef<HTMLLIElement>(null);
 
     // 2. Add the Click Outside Logic
+    // useEffect(() => {
+    //     const handleClickOutside = (event: MouseEvent) => {
+    //         // If the dropdown is open and the click is NOT inside the ref element
+    //         if (showDropdown && dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+    //             setShowDropdown(false);
+    //         }
+    //     };
+
+    //     // Bind the event listener
+    //     document.addEventListener("mousedown", handleClickOutside);
+    //     return () => {
+    //         // Unbind the event listener on clean up
+    //         document.removeEventListener("mousedown", handleClickOutside);
+    //     };
+    // }, [showDropdown]);
+
     useEffect(() => {
         const handleClickOutside = (event: MouseEvent) => {
-            // If the dropdown is open and the click is NOT inside the ref element
-            if (showDropdown && dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
-                setShowDropdown(false);
+            if (navRef.current && !navRef.current.contains(event.target as Node)) {
+                setActiveDropdown(null);
             }
         };
-
-        // Bind the event listener
         document.addEventListener("mousedown", handleClickOutside);
-        return () => {
-            // Unbind the event listener on clean up
-            document.removeEventListener("mousedown", handleClickOutside);
-        };
-    }, [showDropdown]);
+        return () => document.removeEventListener("mousedown", handleClickOutside);
+    }, []);
 
     return (
-        <header className="sticky  top-0 z-50 w-full bg-white py-4 shadow-sm font-inter">
+        <header className="sticky  top-0 !z-[9999] w-full !bg-white py-4 shadow-sm font-inter">
             <div className="container mx-auto px-4">
                 <nav className="flex items-center justify-between flex-wrap">
                     {/* Logo */}
@@ -102,10 +115,10 @@ const Header: React.FC = () => {
                         </ul> */}
 
 
-                        <ul className="flex flex-col lg:flex-row list-none ml-auto text-sm font-medium uppercase tracking-wider py-4 lg:py-0">
+                        <ul ref={navRef} className="flex flex-col lg:flex-row list-none ml-auto bg-white text-sm font-medium uppercase tracking-wider py-4 lg:py-0">
                             {navLinks.map((item) => (
                                 <li key={item.id}
-                                    ref={item.subLinks ? dropdownRef : null}
+                                    // ref={item.subLinks ? dropdownRef : null}
                                     className={`nav-item relative group ${item.subLinks ? 'cursor-pointer' : ''}`}>
                                     {!item.subLinks ? (
                                         <Link to={item.link} className="block py-2 px-2 text-gray-700 hover:text-[#ffc000] transition-colors" onClick={() => setIsOpen(false)}>
@@ -116,10 +129,11 @@ const Header: React.FC = () => {
                                             {/* Main Dropdown Trigger */}
                                             <div
                                                 className="flex items-center py-2 px-2 text-gray-700 group-hover:text-[#ffc000] transition-colors"
-                                                onClick={() => setShowDropdown(!showDropdown)}
+                                                // onClick={() => setShowDropdown(!showDropdown)}
+                                                onClick={() => setActiveDropdown(activeDropdown === item.id ? null : item.id)}
                                             >
                                                 {item.label}
-                                                <i className={`fa fa-chevron-down ml-2 text-[10px] transition-transform ${showDropdown ? 'rotate-180' : ''}`}></i>
+                                                <i className={`fa fa-chevron-down ml-2 text-[10px] transition-transform ${activeDropdown ? 'rotate-180' : ''}`}></i>
                                             </div>
 
                                             {/* Dropdown Menu */}
@@ -133,7 +147,7 @@ const Header: React.FC = () => {
                         lg:absolute lg:top-full lg:left-0 lg:w-64 lg:bg-white lg:shadow-xl lg:rounded-xl lg:border lg:border-gray-50 
                         lg:transition-all lg:duration-300
                         
-                        ${showDropdown
+                        ${activeDropdown === item.id
                                                     ? 'block bg-gray-50 rounded-lg opacity-100 visible translate-y-0'
                                                     : 'hidden lg:group-hover:block lg:group-hover:opacity-100 lg:group-hover:visible lg:group-hover:translate-y-0 lg:opacity-0 lg:invisible'
                                                 }
@@ -146,8 +160,8 @@ const Header: React.FC = () => {
                                                     <Link
                                                         key={sub.id}
                                                         to={sub.link}
-                                                        className="flex items-center px-6 py-4 text-gray-600 hover:bg-gray-50 group/item transition-colors"
-                                                        onClick={() => { setIsOpen(false); setShowDropdown(false); }}
+                                                        className="flex items-center px-6 py-2 text-gray-600 hover:bg-gray-50 group/item transition-colors"
+                                                        onClick={() => { setIsOpen(false); setActiveDropdown(null); }}
                                                     >
                                                         <div className="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center mr-4 group-hover/item:text-[#ffc000] group-hover/item:bg-[#ffc000]/10 transition-all">
                                                             <i className={`fa ${sub.icon} text-lg`}></i>

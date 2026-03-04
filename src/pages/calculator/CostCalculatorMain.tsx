@@ -1,10 +1,12 @@
 
 import React, { useState, useMemo } from 'react';
 // import { motion, AnimatePresence } from 'framer-motion';
-import { useCreateCRMPublicQuote, useGeneratePublicQuote, 
+import {
+    useCreateCRMPublicQuote, useGeneratePublicQuote,
     // useWhatsappAutomationQuoteSend 
 } from '../../api/ApiLists/publicQuoteCalculatorApi';
 import { downloadImage } from '../../api/ApiLists/downloadFile';
+import { phoneNumber } from '../../components/FloatingContact';
 
 
 
@@ -353,6 +355,7 @@ const CostCalculatorMain: React.FC<CostCalculationMainProps> = ({ showCloseButto
 
             // 2. Call the Mutation Hook
             const res = await generateQuote(dataToSave)
+
             // {
             // onSuccess: (data) => {
             //     // Check if backend returned 'ok'
@@ -393,7 +396,7 @@ const CostCalculatorMain: React.FC<CostCalculationMainProps> = ({ showCloseButto
             // },
             // });
 
-            console.log("ressulte of the cost calculator", res, "res.ok", res.ok)
+            // console.log("ressulte of the cost calculator", res, "res.ok", res.ok)
 
             if (res?.ok && res?.url) {
 
@@ -426,18 +429,14 @@ const CostCalculatorMain: React.FC<CostCalculationMainProps> = ({ showCloseButto
 
 
 
-               // // if ((res as any)?.url) { // successfully we have that url here
-               // //  res.url is the pdf link it willbe https://vertical.....
+                // // if ((res as any)?.url) { // successfully we have that url here
+                // //  res.url is the pdf link it willbe https://vertical.....
 
                 // await sendToWhatsapp({ clientName: dataToSave.name, clientPhone: dataToSave.phone, pdfUrl: res?.url })
 
-               // // }
+                // // }
 
-
-                // console.log("awaited here itsel")
-
-                // console.log("config", config)
-            setStep(5);
+                setStep(5);
 
             }
             // setStep(5);
@@ -836,40 +835,98 @@ const CostCalculatorMain: React.FC<CostCalculationMainProps> = ({ showCloseButto
                 )}
 
                 {step === 5 && (
-                    <div className="text-center space-y-5 animate-in fade-in zoom-in-95">
-                        <div className="w-20 h-20 bg-green-50 text-green-500 rounded-full flex items-center justify-center mx-auto text-4xl shadow-sm border border-green-100">
-                            <i className="fa fa-check-circle"></i>
-                        </div>
-                        <div>
-                            <span className="text-[10px] font-bold uppercase tracking-[8px] text-[#ffc000]">Valuation Certified</span>
-                            <div className="text-6xl md:text-5xl font-bold  text-[#1a1a1a] mt-4 leading-none">
-                                ₹{estimate.toLocaleString('en-IN')}
-                            </div>
-                            {/* <p className="text-gray-900 text-[10px] uppercase font-bold tracking-[4px] mt-3 opacity-60">Estimated for {formData.carpetArea} Sqft {formData.homeType}</p> */}
+                    // <div className="text-center space-y-5 animate-in fade-in zoom-in-95">
+                    //     <div className="w-20 h-20 bg-green-50 text-green-500 rounded-full flex items-center justify-center mx-auto text-4xl shadow-sm border border-green-100">
+                    //         <i className="fa fa-check-circle"></i>
+                    //     </div>
+                    //     <div>
+                    //         <span className="text-[10px] font-bold uppercase tracking-[8px] text-[#ffc000]">Valuation Certified</span>
+                    //         <div className="text-6xl md:text-5xl font-bold  text-[#1a1a1a] mt-4 leading-none">
+                    //             ₹{estimate.toLocaleString('en-IN')}
+                    //         </div>
+                    //         {/* <p className="text-gray-900 text-[10px] uppercase font-bold tracking-[4px] mt-3 opacity-60">Estimated for {formData.carpetArea} Sqft {formData.homeType}</p> */}
+                    //     </div>
+
+                    //     <div className="bg-gray-50 rounded-3xl p-8 text-left space-y-5 border border-gray-100">
+                    //         <div className="flex justify-between border-b border-gray-200 pb-4">
+                    //             <span className="text-[10px] text-gray-800 font-bold uppercase tracking-widest">Execution Type</span>
+                    //             <span className="text-xs text-[#1a1a1a] font-bold uppercase">{formData.homeType} | {formData.finish}</span>
+                    //         </div>
+                    //         <div className="flex justify-between">
+                    //             <span className="text-[10px] text-gray-800 font-bold uppercase tracking-widest">Location</span>
+                    //             <span className="text-xs text-[#1a1a1a] font-bold uppercase">{clientInfo.location}</span>
+                    //         </div>
+                    //     </div>
+
+                    //     <div className="space-y-4 pt-4">
+                    //         <button onClick={() => window.open(`https://wa.me/919363993814?text=Hi Vertical Living, I just generated a quote for my ${formData.homeType} in ${clientInfo.location}. Area: ${formData.carpetArea} sqft, Finish: ${formData.finish}. Estimate: ₹${estimate.toLocaleString('en-IN')}.`, '_blank')} className="w-full bg-[#25D366] text-white py-5 rounded-2xl font-bold uppercase tracking-widest text-[11px] flex items-center justify-center gap-4 shadow-xl shadow-green-100">
+                    //             <i className="fa fa-whatsapp text-2xl"></i> Connect for Technical BOQ
+                    //         </button>
+                    //         <button onClick={() => {
+                    //             setStep(1)
+                    //             handleClear()
+
+                    //             // onClose?.()
+
+                    //         }} className="w-full text-gray-800 font-bold uppercase tracking-widest text-[9px] hover:text-black cursor-pointer">Close Report</button>
+                    //     </div>
+                    // </div>
+
+
+                    <div className="text-center space-y-8 animate-in fade-in zoom-in-95 py-10">
+                        {/* Success Icon */}
+                        <div className="w-24 h-24 bg-green-50 text-green-500 rounded-full flex items-center justify-center mx-auto text-5xl shadow-sm border border-green-100">
+                            <i className="fa-solid fa-paper-plane "></i>
                         </div>
 
-                        <div className="bg-gray-50 rounded-3xl p-8 text-left space-y-5 border border-gray-100">
-                            <div className="flex justify-between border-b border-gray-200 pb-4">
-                                <span className="text-[10px] text-gray-800 font-bold uppercase tracking-widest">Execution Type</span>
-                                <span className="text-xs text-[#1a1a1a] font-bold uppercase">{formData.homeType} | {formData.finish}</span>
+                        {/* Success Text */}
+                        <div className="space-y-4">
+                            <span className="text-[10px] font-bold uppercase tracking-[8px] text-[#ffc000]">Request Received</span>
+                            <h2 className="text-3xl md:text-4xl font-bold text-[#1a1a1a] leading-tight">
+                                Quotation Sent <br /> Successfully!
+                            </h2>
+                            <p className="text-gray-500 text-sm max-w-xs mx-auto leading-relaxed">
+                                A detailed breakdown of your <span className="font-bold text-[#1a1a1a]">{formData.homeType}</span> project has been forwarded to your WhatsApp number.
+                            </p>
+                        </div>
+
+                        {/* Project Summary Card */}
+                        <div className="bg-gray-50 rounded-[32px] p-8 text-left space-y-5 border border-gray-100 max-w-sm mx-auto">
+                            <div className="flex justify-between items-center border-b border-gray-200 pb-4">
+                                <span className="text-[10px] text-gray-400 font-bold uppercase tracking-widest">Client</span>
+                                <span className="text-xs text-[#1a1a1a] font-bold uppercase">{clientInfo.name}</span>
                             </div>
-                            <div className="flex justify-between">
-                                <span className="text-[10px] text-gray-800 font-bold uppercase tracking-widest">Location</span>
+                            <div className="flex justify-between items-center border-b border-gray-200 pb-4">
+                                <span className="text-[10px] text-gray-400 font-bold uppercase tracking-widest">Project Site</span>
                                 <span className="text-xs text-[#1a1a1a] font-bold uppercase">{clientInfo.location}</span>
                             </div>
+                            {/* <div className="flex justify-between items-center">
+                                    <span className="text-[10px] text-gray-400 font-bold uppercase tracking-widest">Status</span>
+                                    <span className="flex items-center gap-2 text-[10px] text-green-600 font-bold uppercase">
+                                        <span className="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse"></span>
+                                        Processing BOQ
+                                    </span>
+                                </div> */}
                         </div>
 
-                        <div className="space-y-4 pt-4">
-                            <button onClick={() => window.open(`https://wa.me/919363993814?text=Hi Vertical Living, I just generated a quote for my ${formData.homeType} in ${clientInfo.location}. Area: ${formData.carpetArea} sqft, Finish: ${formData.finish}. Estimate: ₹${estimate.toLocaleString('en-IN')}.`, '_blank')} className="w-full bg-[#25D366] text-white py-5 rounded-2xl font-bold uppercase tracking-widest text-[11px] flex items-center justify-center gap-4 shadow-xl shadow-green-100">
-                                <i className="fa fa-whatsapp text-2xl"></i> Connect for Technical BOQ
+                        {/* Actions */}
+                        <div className="space-y-4 pt-6 max-w-sm mx-auto">
+                            <button
+                                onClick={() => window.open(`https://wa.me/${phoneNumber}?`, '_blank')}
+                                className="w-full bg-[#25D366] text-white py-6 rounded-2xl font-bold uppercase tracking-widest text-[11px] flex items-center justify-center gap-4 shadow-xl hover:scale-105 transition-transform"
+                            >
+                                <i className="fa-brands fa-whatsapp text-2xl"></i> Check WhatsApp Now
                             </button>
-                            <button onClick={() => {
-                                setStep(1)
-                                handleClear()
 
-                                // onClose?.()
-
-                            }} className="w-full text-gray-800 font-bold uppercase tracking-widest text-[9px] hover:text-black cursor-pointer">Close Report</button>
+                            <button
+                                onClick={() => {
+                                    setStep(1);
+                                    handleClear();
+                                }}
+                                className="w-full text-gray-400 font-bold uppercase tracking-widest text-[9px] hover:text-[#ffc000] transition-colors"
+                            >
+                                Create Another Estimate
+                            </button>
                         </div>
                     </div>
                 )}
