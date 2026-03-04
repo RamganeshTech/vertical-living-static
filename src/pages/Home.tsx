@@ -12,7 +12,7 @@ import InstagramFeed from './InstagramFeed';
 import InquiryFormNew from './Inquiry/InquiryFormNew';
 import { SOPFlow } from './SOPFlow';
 import WorkCarousel from './WorkCarousel';
-import { useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import ConnectSection from './ConnectSection';
 // import Packages from './Packages';
 import StickySideContact from '../components/StickySideContact';
@@ -235,12 +235,12 @@ const Home: React.FC = () => {
                 From 3D design to execution with <span className="text-white">clear pricing & timeline.</span>
               </p>
             </div>
-            <a
-              href="#service"
+            <Link
+              to="#service"
               className="bg-[#ffc000] hover:bg-white text-black px-[40px] py-[18px] uppercase font-bold tracking-[1px] transition-all duration-500 inline-block shadow-lg"
             >
               Explore More
-            </a>
+            </Link>
           </motion.div>
         </div>
       </section>

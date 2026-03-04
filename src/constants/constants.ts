@@ -5,8 +5,10 @@ import img2 from '../assets/images/2.jpg';
 import img3 from '../assets/images/3.jpg';
 import consultant from '../assets/images/consultation.jpg';
 import design from '../assets/images/design.jpg';
-import poojaunit from '../assets/images/poojaunitwithoutWM.png';
-import crockeryunit from '../assets/images/crockeryimgWithoutWM.png';
+import poojaunit from '../assets/images/poojaunitwithoutWM.webp';
+import crockeryunit from '../assets/images/crockeryimgWithoutWM.webp';
+import kitchenBaseCabinets from '../assets/images/kitchenbasecabinets.webp';
+import shoeRack from '../assets/images/shoeRack.webp';
 
 
 export const PACKAGES = [
@@ -257,7 +259,10 @@ export const CASE_STUDIES_DATA = [
         id: "kitchen-base-cabinets",
         title: "Kitchen Base Cabinets",
         preview: "Engineering heavy-duty storage with pull-out mechanisms and seamless countertop integration.",
-        image: "https://images.pexels.com/photos/3847520/pexels-photo-3847520.jpeg", fullContent: {
+        // image: "https://images.pexels.com/photos/3847520/pexels-photo-3847520.jpeg",
+        image: kitchenBaseCabinets,
+        
+        fullContent: {
             introduction: "Base cabinets form the foundation of your kitchen, bearing the weight of countertops and housing heavy cookware.",
             selectionProcess: "We emphasize ergonomic accessibility. Instead of deep, static shelves where items get lost, we implement full-extension drawers. This allows users to view the entire contents of a drawer from a standing position.",
             materialScience: "We use 18mm BWP (Boiling Water Proof) marine plywood for base units, as they are most susceptible to water exposure during floor cleaning or sink leaks.",
@@ -281,7 +286,9 @@ export const CASE_STUDIES_DATA = [
         title: "Smart Shoe Storage",
         preview: "Compact foyer solutions with ventilation and specialized organizers for various footwear types.",
         // image: "https://images.unsplash.com/photo-1620390141675-7b19803153c3?q=80&w=1200",
-        image: "https://images.pexels.com/photos/8633771/pexels-photo-8633771.jpeg", fullContent: {
+        image: shoeRack, 
+        
+        fullContent: {
             introduction: "The foyer is the first impression of your home. A well-designed shoe rack keeps the entrance organized and clutter-free.",
             selectionProcess: "We design based on footwear volume. For narrow hallways, we use 'Tilt-out' shoe drawers that require only 6-8 inches of depth. For larger spaces, we create seated benches with pull-out organizers.",
             materialScience: "The interiors are lined with easy-to-clean laminates. We incorporate louvered doors or CNC-cut vents to allow air circulation and prevent odor buildup.",
