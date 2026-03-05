@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { phoneNumber } from '../components/FloatingContact';
+import { trackConversion } from '../components/StickySideContact';
 
 const ConnectSection: React.FC = () => {
     return (
@@ -22,7 +23,7 @@ const ConnectSection: React.FC = () => {
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}  
+                        viewport={{ once: true }}
                         transition={{ duration: 0.6 }}
                     >
                         <h2 className="text-2xl md:text-4xl font-[500] uppercase tracking-tighter text-[#1a1a1a]">
@@ -43,6 +44,8 @@ const ConnectSection: React.FC = () => {
                             //   href="tel:${phoneNumber}" // Replace with actual number
                             href={`tel:${phoneNumber}`}
 
+                            onClick={() => trackConversion('phone_call_click_VL')} // 👈 Simple one-liner
+
                             whileHover={{ y: -5, scale: 1.02 }}
                             whileTap={{ scale: 0.98 }}
                             className="w-full sm:w-auto flex items-center justify-center gap-3 bg-[#1a1a1a] text-white px-10 py-5 rounded-full font-black uppercase tracking-[2px] text-sm shadow-[0_20px_40px_-10px_rgba(0,0,0,0.2)] hover:bg-[#ffc000] hover:text-black transition-all duration-300"
@@ -57,6 +60,8 @@ const ConnectSection: React.FC = () => {
                             whileHover={{ y: -5, scale: 1.02 }}
                             whileTap={{ scale: 0.98 }}
                             className="w-full sm:w-auto flex items-center justify-center gap-3 bg-white border-2 border-[#eee] text-[#1a1a1a] px-10 py-5 rounded-full font-black uppercase tracking-[2px] text-sm shadow-[0_10px_30px_rgba(0,0,0,0.05)] hover:border-[#25D366] hover:text-[#25D366] transition-all duration-300"
+                            onClick={() => trackConversion('whatsapp_click_VL')}
+
                         >
                             <i className="fab fa-whatsapp text-xl text-[#25D366]"></i>
                             WhatsApp

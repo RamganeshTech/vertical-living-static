@@ -401,10 +401,27 @@ const CostCalculatorMain: React.FC<CostCalculationMainProps> = ({ showCloseButto
             if (res?.ok && res?.url) {
 
                 // 🔥 Google Conversion
-                if (typeof window.gtag === 'function') {
-                    window.gtag('event', 'conversion', {
-                        'send_to': 'AW-17955936522/DMRXCNqK0vobEIqyh_JC',
-                        'value': 1.0,
+                // if (typeof window.gtag === 'function') {
+                //     window.gtag('event', 'conversion', {
+                //         'send_to': 'AW-17955936522/DMRXCNqK0vobEIqyh_JC',
+                //         'value': 1.0,
+                //         'currency': 'INR',
+                //         'carpet_area': formData.carpetArea,
+                //         'home_type': formData.homeType,
+                //         'finish_quality': formData.finish,
+                //         'user_name': clientInfo.name,
+                //         'location': clientInfo.location,
+                //         'whatsapp_number': clientInfo.phone,
+                //         'estimated_value': estimate
+                //     });
+                // }
+
+                // 🔥 New GTM DataLayer Conversion
+                if (window.dataLayer) {
+                console.log("getin inside the window.dataLayer")
+                    window.dataLayer.push({
+                        'event': 'cost_calculator_VL', // This must match your GTM Trigger name exactly
+                        'value': estimate || 1.0,
                         'currency': 'INR',
                         'carpet_area': formData.carpetArea,
                         'home_type': formData.homeType,
@@ -413,7 +430,10 @@ const CostCalculatorMain: React.FC<CostCalculationMainProps> = ({ showCloseButto
                         'location': clientInfo.location,
                         'whatsapp_number': clientInfo.phone,
                         'estimated_value': estimate
+                        
                     });
+                console.log("getin inside the window.dataLayer", window?.dataLayer)
+
                 }
 
                 await saveQuote({
@@ -900,7 +920,7 @@ const CostCalculatorMain: React.FC<CostCalculationMainProps> = ({ showCloseButto
                     //             <span className="text-[10px] text-gray-400 font-bold uppercase tracking-widest">Project Site</span>
                     //             <span className="text-xs text-[#1a1a1a] font-bold uppercase">{clientInfo.location}</span>
                     //         </div>
-                            
+
                     //     </div>
 
                     //     {/* Actions */}

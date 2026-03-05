@@ -335,3 +335,18 @@ export const CASE_STUDIES_DATA = [
         }
     }
 ];
+
+
+
+
+//  GTM 
+
+//  event name         |   conversion label
+// ============================================
+// inquiry_form_VL     | D7O_CLLa9oIcEIqyh_JC
+// cost_calculator_VL  | 3vRnCK2pioMcEIqyh_JC
+// whatsapp_click_VL   | cVXwCKiqioMcEIqyh_JC
+// phone_call_click_VL | J1MeCKuqioMcEIqyh_JC
+
+
+// conversionid = 17955936522

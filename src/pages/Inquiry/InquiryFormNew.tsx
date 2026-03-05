@@ -470,21 +470,41 @@ const InquiryFormNew: React.FC = () => {
                 setShowSuccess(true);
             }
 
+            // old one 
             // TRIGGER CONVERSION: Lead Form Submitted
-            if (typeof window.gtag === 'function') {
-                window.gtag('event', 'conversion', {
-                    'send_to': 'AW-17955936522/DMRXCNqK0vobEIqyh_JC',
+            // if (typeof window.gtag === 'function') {
+            //     window.gtag('event', 'conversion', {
+            //         'send_to': 'AW-17955936522/DMRXCNqK0vobEIqyh_JC',
+            //         'value': 1.0,
+            //         'currency': 'INR',
+            //         'user_name': formData["Full Name"],
+            //         'location': formData["Location"],
+            //         "phone_number": formData["Mobile Number"],
+            //         'project_category': formData["Project Category"],
+            //         'property_type': formData["Property Type"],
+            //         'budget': formData["Budget"],
+            //         'timeline': formData["Timeline"],
+            //         'service_type': formData["Service Type"]
+            //     });
+            // }
+
+            // 🔥 New GTM DataLayer Conversion: Inquiry Form
+            if (window.dataLayer) {
+                console.log("getin inside the window.dataLayer")
+                window.dataLayer.push({
+                    'event': 'inquiry_form_VL', // Must match GTM Trigger Name exactly
                     'value': 1.0,
                     'currency': 'INR',
                     'user_name': formData["Full Name"],
                     'location': formData["Location"],
-                    "phone_number": formData["Mobile Number"],
+                    'phone_number': formData["Mobile Number"],
                     'project_category': formData["Project Category"],
                     'property_type': formData["Property Type"],
                     'budget': formData["Budget"],
                     'timeline': formData["Timeline"],
                     'service_type': formData["Service Type"]
                 });
+                console.log("getin inside the window.dataLayer", window?.dataLayer)
             }
 
 

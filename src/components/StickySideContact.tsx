@@ -4,7 +4,30 @@ import { motion } from 'framer-motion';
 // Using your provided business number
 export const phoneNumber = "919363993814";
 
+
+type ConversionEvent = 
+  | 'whatsapp_click_VL' 
+  | 'phone_call_click_VL' 
+  | 'inquiry_form_VL' 
+  | 'cost_calculator_VL';
+
+export const trackConversion = (eventName: ConversionEvent, extraData?: object) => {
+  if (window.dataLayer) {
+                console.log("getin inside the window.dataLayer")
+
+    window.dataLayer.push({
+      event: eventName,
+      ...extraData
+    });
+    console.log(`✅ GTM Event Fired: ${eventName}`);
+  } else {
+    console.warn("⚠️ GTM dataLayer not found");
+  }
+};
+
 const StickySideContact: React.FC = () => {
+
+   
     return (
         <div className="fixed right-0 top-1/2 -translate-y-1/2 z-[9999] flex flex-col gap-2 pointer-events-none">
 
@@ -12,6 +35,7 @@ const StickySideContact: React.FC = () => {
             <motion.a
                 href={`https://wa.me/${phoneNumber}?text=Hi! I am interested in an interior design consultation with Vertical Living.`}
                 target="_blank"
+                onClick={() => trackConversion('whatsapp_click_VL')}
                 rel="noreferrer"
                 initial={{ x: 50, opacity: 0 }}
                 animate={{ x: 0, opacity: 1 }}
@@ -37,6 +61,7 @@ const StickySideContact: React.FC = () => {
             <motion.a
                 href={`tel:+${phoneNumber}`}
                 initial={{ x: 50, opacity: 0 }}
+                onClick={() => trackConversion('phone_call_click_VL')} // 👈 Simple one-liner
                 animate={{ x: 0, opacity: 1 }}
                 transition={{ delay: 0.1 }}
                 whileHover={{ x: -10 }}
