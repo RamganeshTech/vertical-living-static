@@ -9,7 +9,8 @@ type ConversionEvent =
   | 'whatsapp_click_VL' 
   | 'phone_call_click_VL' 
   | 'inquiry_form_VL' 
-  | 'cost_calculator_VL';
+  | 'cost_calculator_VL'
+  | 'phone_call_website_VL';
 
 export const trackConversion = (eventName: ConversionEvent, extraData?: object) => {
   if (window.dataLayer) {
