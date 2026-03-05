@@ -23,8 +23,21 @@ import img5 from '../assets/images/5.webp';
 // import img7 from '../assets/images/image7.jpeg';
 // import img8 from '../assets/images/image8.jpeg';
 import img8 from '../assets/images/image10.jpeg';
+import img11 from '../assets/images/image11.jpeg';
+import img12 from '../assets/images/image12.jpeg';
+import img13 from '../assets/images/image13.jpeg';
+import img14 from '../assets/images/image14.jpeg';
+import img15 from '../assets/images/image15.jpeg';
+import img16 from '../assets/images/image16.jpeg';
+import img17 from '../assets/images/image17.jpeg';
+import img18 from '../assets/images/image18.jpeg';
+
+
+
 import video1 from '../assets/videos/video1.mp4';
 import video2 from '../assets/videos/video2.mp4';
+import video3 from '../assets/videos/video3.mp4';
+import video4 from '../assets/videos/video4.mp4';
 
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
@@ -40,6 +53,16 @@ const portfolioItems = [
     { src: video2, type: 'video' }, // Video added
     { src: img5, type: 'image' },
     { src: img8, type: 'image' },
+    { src: img11, type: 'image' },
+    { src: img12, type: 'image' },
+    { src: img13, type: 'image' },
+    { src: video3, type: 'video' }, // Video added
+    { src: img14, type: 'image' },
+    { src: img15, type: 'image' },
+    { src: img16, type: 'image' },
+    { src: video4, type: 'video' }, // Video added
+    { src: img17, type: 'image' },
+    { src: img18, type: 'image' },
 ];
 
 
