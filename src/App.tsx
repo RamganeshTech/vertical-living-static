@@ -113,14 +113,14 @@ function App() {
           <div onClick={() => {
           
             setIsCalcOpen(false)
-          }} className="fixed  inset-0 z-[100] flex items-center justify-center p-4 bg-black/90 backdrop-blur-md">
+          }} className="fixed  inset-0 z-[9999] flex items-center justify-center p-4 bg-black/90 backdrop-blur-md">
             <motion.div
               ref={modalRef}
               onClick={(e) => e.stopPropagation()}
               initial={{ y: 50, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               exit={{ y: 50, opacity: 0 }}
-              className="bg-white w-full max-w-[1200px]  max-h-[90vh] overflow-hidden rounded-[40px] shadow-2xl relative flex flex-col"
+              className="bg-white w-full max-w-[1200px]  max-h-[90vh] overflow-hidden rounded-[40px] shadow-2xl relative z-[9999] flex flex-col"
             >
               <CostCalculatorMain
                 showCloseButton={true}

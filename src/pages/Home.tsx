@@ -212,7 +212,7 @@ const Home: React.FC = () => {
             <h1 className="font-luxe text-white text-[50px] md:text-[80px] font-[700] leading-[1]">
               <span className="text-[#ffc000]">Design,</span> Build, Deliver
             </h1>
-            <p className="text-white text-[20px] md:text-[25px] pt-[37px] pb-[40px] leading-[1.2] font-semibold">
+            <p className="text-white text-[20px] md:text-[25px] pt-[37px] pb-[40px] leading-[1.2] font-semibold  ">
               End-to-end interior design for homes & offices.
             </p>
 

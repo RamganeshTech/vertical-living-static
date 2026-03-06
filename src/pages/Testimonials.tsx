@@ -92,9 +92,9 @@ export const Testimonials: React.FC<TestimonialType> = ({ showLink }) => {
     const stopDragging = () => setIsDragging(false);
 
     return (
-        <section className="py-18 bg-white overflow-hidden">
+        <section className="py-10 md:py-15 bg-white overflow-hidden">
             {/* Header - Stays exactly as you wanted */}
-            <div className="mb-10 text-center">
+            <div className="mb-5 md:mb-10 text-center">
                 <h2
                     onClick={() => navigate('/testimonials')}
                     className="text-3xl cursor-pointer flex items-center justify-center gap-3 md:text-5xl font-bold tracking-tight text-[#1a1a1a] group"
@@ -114,13 +114,13 @@ export const Testimonials: React.FC<TestimonialType> = ({ showLink }) => {
                 onMouseMove={handleMouseMove}
                 onMouseUp={stopDragging}
                 onMouseLeave={stopDragging}
-                className="testimonial-scroll-wrapper relative">
+                className="testimonial-scroll-wrapper relative overflow-x-auto no-scrollbar touch-pan-x cursor-grab active:cursor-grabbing">
 
                 <div className={`testimonial-track whitespace-nowrap py-12 ${isDragging ? 'pause-animation' : ''}`}>
                     {[...TESTIMONIAL_DATA, ...TESTIMONIAL_DATA, ...TESTIMONIAL_DATA, ...TESTIMONIAL_DATA].map((item, index) => (
                         <div
                             key={index}
-                            className="inline-block mx-4 w-[350px] md:w-[450px] bg-[#fbfbfb] border border-gray-100 p-8 rounded-[40px] shadow-sm hover:shadow-xl transition-all duration-500 whitespace-normal align-top pointer-events-none select-none group"
+                            className="inline-block mx-2 md:mx-4 w-[280px] sm:w-[350px] md:w-[450px] bg-[#fbfbfb] border border-gray-100 p-8 rounded-[40px] shadow-sm hover:shadow-xl transition-all duration-500 whitespace-normal align-top pointer-events-none select-none group"
                         >
                             {/* Star Rating */}
                             <div className="flex gap-1 mb-6">
@@ -130,12 +130,12 @@ export const Testimonials: React.FC<TestimonialType> = ({ showLink }) => {
                             </div>
 
                             {/* Text */}
-                            <p className="text-[#555]  text-lg md:text-xl leading-relaxed font-poppins">
+                            <p className="text-[#555] text-sm md:text-xl leading-relaxed font-poppins">
                                 "{item.text}"
                             </p>
 
                             {/* Client Info */}
-                            <div className="mt-8 flex items-center gap-4">
+                            <div className="mt-4  md:mt-8 flex items-center gap-4">
                                 <div className="w-12 h-12 bg-[#1a1a1a] rounded-2xl flex items-center justify-center text-[#ffc000] font-bold text-lg group-hover:bg-[#ffc000] group-hover:text-[#1a1a1a] transition-colors">
                                     {item.initials}
                                 </div>

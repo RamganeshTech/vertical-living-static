@@ -592,7 +592,7 @@ const CostCalculatorMain: React.FC<CostCalculationMainProps> = ({ showCloseButto
                 </div> */}
             </header>
 
-            <div className="p-5 md:p-10  flex-1 overflow-y-auto">
+            <div className="p-5 md:p-10 flex-1 overflow-y-auto">
                 {step === 1 && (
                     <div className="space-y-8 md:space-y-10 animate-in fade-in slide-in-from-bottom-4">
                         <div className="space-y-2">
@@ -618,7 +618,7 @@ const CostCalculatorMain: React.FC<CostCalculationMainProps> = ({ showCloseButto
                             <label className="text-[12px] md:text-[14px] font-bold uppercase tracking-[1px]  text-gray-800 mb-2 block ">2. Configuration</label>
                             <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
                                 {['1 BHK', '2 BHK', '3 BHK', 'Villa'].map(type => (
-                                    <button key={type} onClick={() => setFormData({ ...formData, homeType: type })} className={`py-3 md:py-4 rounded-xl border-2  font-bold text-[12px] md:text-[14px] uppercase transition-all ${formData.homeType === type ? 'border-[#ffc000] bg-[#ffc000]/5 text-[#1a1a1a]' : 'border-gray-50 text-gray-800'}`}>
+                                    <button key={type} onClick={() => setFormData({ ...formData, homeType: type })} className={`py-3 md:py-4 cursor-pointer rounded-xl border-2  font-bold text-[12px] md:text-[14px] uppercase transition-all ${formData.homeType === type ? 'border-[#ffc000] bg-[#ffc000]/5 text-[#1a1a1a]' : 'border-gray-50 text-gray-800'}`}>
                                         {type}
                                     </button>
                                 ))}
@@ -629,7 +629,7 @@ const CostCalculatorMain: React.FC<CostCalculationMainProps> = ({ showCloseButto
                             <label className="text-[12px] md:text-[14px] font-bold uppercase tracking-[1px] text-gray-800 mb-2 block ">3. Execution Finish</label>
                             <div className="grid grid-cols-3 gap-3">
                                 {Object.keys(ESTIMATION_CONFIG.SQFT_RATES).map((finish) => (
-                                    <button key={finish} onClick={() => setFormData({ ...formData, finish: finish })} className={`py-3 md:py-4 rounded-xl border-2 font-bold text-[12px] md:text-[14px] uppercase transition-all ${formData.finish === finish ? 'border-[#ffc000] bg-[#ffc000]/5 text-[#1a1a1a]' : 'border-gray-50 text-gray-800'}`}>
+                                    <button key={finish} onClick={() => setFormData({ ...formData, finish: finish })} className={`py-3 md:py-4 cursor-pointer rounded-xl border-2 font-bold text-[12px] md:text-[14px] uppercase transition-all ${formData.finish === finish ? 'border-[#ffc000] bg-[#ffc000]/5 text-[#1a1a1a]' : 'border-gray-50 text-gray-800'}`}>
                                         {finish}
                                     </button>
                                 ))}

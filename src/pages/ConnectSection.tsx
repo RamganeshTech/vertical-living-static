@@ -37,7 +37,8 @@ const ConnectSection: React.FC = () => {
                     </motion.div>
 
                     {/* Action Buttons Container */}
-                    <div className="mt-12 flex flex-col sm:flex-row items-center justify-center gap-6">
+                    {/* <div className="mt-12 flex flex-col sm:flex-row items-center justify-center gap-6"> */}
+                    <div className="mt-8 flex flex-row items-center justify-center gap-3 md:gap-6 px-2">
 
                         {/* Call Now Button */}
                         <motion.a
@@ -48,7 +49,8 @@ const ConnectSection: React.FC = () => {
 
                             whileHover={{ y: -5, scale: 1.02 }}
                             whileTap={{ scale: 0.98 }}
-                            className="w-full sm:w-auto flex items-center justify-center gap-3 bg-[#1a1a1a] text-white px-10 py-5 rounded-full font-black uppercase tracking-[2px] text-sm shadow-[0_20px_40px_-10px_rgba(0,0,0,0.2)] hover:bg-[#ffc000] hover:text-black transition-all duration-300"
+                            // className="w-full sm:w-auto flex items-center justify-center gap-3 bg-[#1a1a1a] text-white px-10 py-5 rounded-full font-black uppercase tracking-[2px] text-sm shadow-[0_20px_40px_-10px_rgba(0,0,0,0.2)] hover:bg-[#ffc000] hover:text-black transition-all duration-300"
+                            className="flex-1 sm:flex-none flex items-center justify-center gap-2 md:gap-3 bg-[#1a1a1a] text-white px-4 py-3 md:px-10 md:py-5 rounded-full font-black uppercase tracking-[1px] md:tracking-[2px] text-[10px] md:text-sm shadow-xl hover:bg-[#ffc000] hover:text-black transition-all duration-300"
                         >
                             <i className="fa fa-phone text-lg"></i>
                             Call Now
@@ -59,29 +61,30 @@ const ConnectSection: React.FC = () => {
                             href={`https://wa.me/${phoneNumber}`} // Replace with actual number
                             whileHover={{ y: -5, scale: 1.02 }}
                             whileTap={{ scale: 0.98 }}
-                            className="w-full sm:w-auto flex items-center justify-center gap-3 bg-white border-2 border-[#eee] text-[#1a1a1a] px-10 py-5 rounded-full font-black uppercase tracking-[2px] text-sm shadow-[0_10px_30px_rgba(0,0,0,0.05)] hover:border-[#25D366] hover:text-[#25D366] transition-all duration-300"
+                            // className="w-full sm:w-auto flex items-center justify-center gap-3 bg-white border-2 border-[#eee] text-[#1a1a1a] px-10 py-5 rounded-full font-black uppercase tracking-[2px] text-sm shadow-[0_10px_30px_rgba(0,0,0,0.05)] hover:border-[#25D366] hover:text-[#25D366] transition-all duration-300"
+                            className="flex-1 sm:flex-none flex items-center justify-center gap-2 md:gap-3 bg-white border-2 border-[#eee] text-[#1a1a1a] px-4 py-3 md:px-10 md:py-5 rounded-full font-black uppercase tracking-[1px] md:tracking-[2px] text-[10px] md:text-sm shadow-sm hover:border-[#25D366] hover:text-[#25D366] transition-all duration-300"
                             onClick={() => trackConversion('whatsapp_click_VL')}
 
                         >
-                            <i className="fab fa-whatsapp text-xl text-[#25D366]"></i>
+                            <i className="fab fa-whatsapp text-2xl text-[#25D366]"></i>
                             WhatsApp
                         </motion.a>
                     </div>
 
                     {/* Business Email Link */}
-                    <motion.div
+                    {/* <motion.div
                         initial={{ opacity: 0 }}
                         whileInView={{ opacity: 1 }}
                         transition={{ delay: 0.5 }}
                         className="mt-12"
                     >
-                        {/* <a 
-              href="mailto:admin@ramstechcircleopcpvtltd.com" 
-              className="text-[#1a1a1a] font-bold text-xs uppercase tracking-[3px] hover:text-[#ffc000] transition-colors border-b-2 border-[#ffc000] pb-1"
-            >
-              admin@ramstechcircleopcpvtltd.com
-            </a> */}
-                    </motion.div>
+                        <a
+                            href="mailto:admin@ramstechcircleopcpvtltd.com"
+                            className="text-[#1a1a1a] font-bold text-xs uppercase tracking-[3px] hover:text-[#ffc000] transition-colors border-b-2 border-[#ffc000] pb-1"
+                        >
+                            admin@ramstechcircleopcpvtltd.com
+                        </a>
+                    </motion.div> */}
 
                 </div>
             </div>

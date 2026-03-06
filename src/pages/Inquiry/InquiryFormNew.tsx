@@ -296,7 +296,7 @@ const ModernDropdown = ({
             </label>
             <div
                 onClick={() => setIsOpen(!isOpen)}
-                className={`w-full h-[50px] bg-white border-2 rounded-full px-5 flex items-center justify-between cursor-pointer transition-all duration-300 ${isOpen ? 'border-[#ffc000] shadow-[0_0_10px_rgba(255,192,0,0.1)]' : error ? 'border-red-400' : 'border-[#eee] hover:border-[#ffc000]'
+                className={`w-full h-[40px] md:h-[50px]  bg-white border-2 rounded-full px-5 flex items-center justify-between cursor-pointer transition-all duration-300 ${isOpen ? 'border-[#ffc000] shadow-[0_0_10px_rgba(255,192,0,0.1)]' : error ? 'border-red-400' : 'border-[#eee] hover:border-[#ffc000]'
                     }`}
             >
                 <span className={`text-[13px] ${value ? 'text-black font-medium' : 'text-gray-400'}`}>
@@ -315,7 +315,7 @@ const ModernDropdown = ({
                         initial={{ opacity: 0, y: -10 }}
                         animate={{ opacity: 1, y: 5 }}
                         exit={{ opacity: 0, y: -10 }}
-                        className="absolute z-[999] w-full bg-white border border-[#eee] rounded-[20px] shadow-2xl py-1"
+                        className="absolute z-[999] w-full bg-white border border-[#eee] rounded-[20px] shadow-2xl py-0.5 md:py-1"
                     >
                         {options.map((opt) => (
                             <div
@@ -525,13 +525,13 @@ const InquiryFormNew: React.FC = () => {
     const stepTitles = ["Basic Details", "Property Info", "Final Details"];
 
     return (
-        <section id="contact" className="w-full bg-[#fcfcfc] py-16 md:py-24 font-inter flex items-center">
-            <div className="container mx-auto px-4">
+        <section id="contact" className="w-full bg-[#fcfcfc] py-8 md:py-24 font-inter flex items-center">
+            <div className="container mx-auto px-2 md:px-4">
                 {/* Fixed: Removed overflow-hidden to allow dropdown to visible outside */}
-                <div className="max-w-[650px] mx-auto bg-white rounded-[35px] shadow-[0_20px_50px_-15px_rgba(0,0,0,0.05)] border border-gray-100 p-8 md:p-12 relative">
+                <div className="max-w-[650px] mx-auto bg-white rounded-[35px] shadow-[0_20px_50px_-15px_rgba(0,0,0,0.05)] border border-gray-100 p-4 md:p-12 relative">
 
                     <div className="mb-10 text-left border-b border-gray-50 pb-6">
-                        <h1 className="text-[20px] md:text-[24px] font-black uppercase tracking-tight text-[#1a1a1a]">
+                        <h1 className="text-[16px] md:text-[24px] font-bold uppercase tracking-tight text-[#1a1a1a]">
                             Tell Us About Your Project
                         </h1>
                         <div className="w-12 h-1.5 bg-[#ffc000] rounded-full mt-2"></div>
@@ -541,7 +541,7 @@ const InquiryFormNew: React.FC = () => {
                     </div>
 
 
-                    <div className="absolute top-0 right-0 w-20 h-20 bg-[#ffc000]" style={{ clipPath: 'polygon(100% 0, 0 0, 100% 100%)' }}></div>
+                    <div className="absolute top-0 right-0 w-10 h-10 md:w-20 md:h-20 bg-[#ffc000]" style={{ clipPath: 'polygon(100% 0, 0 0, 100% 100%)' }}></div>
 
                     <div className="mb-10">
                         <div className="flex justify-between mb-3 px-2">
@@ -569,12 +569,12 @@ const InquiryFormNew: React.FC = () => {
                                 <motion.div key="step1" initial={{ opacity: 0, x: 15 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -15 }} className="space-y-4">
                                     <div className="space-y-1.5">
                                         <label className="text-[10px] font-semibold uppercase tracking-[1.5px] text-[#666] ml-2 block">Your Full Name *</label>
-                                        <input type="text" name="Full Name" value={formData["Full Name"]} onChange={handleInputChange} placeholder="Ex: Arun" className={`w-full h-[50px] bg-white border-2 ${errors.fullName ? 'border-red-400' : 'border-[#eee]'} rounded-full px-6 text-[13px] outline-none transition-all focus:border-[#ffc000]`} />
+                                        <input type="text" name="Full Name" value={formData["Full Name"]} onChange={handleInputChange} placeholder="Ex: Arun" className={`w-full h-[40px] md:h-[50px] px-6 text-[13px] bg-white border-2 ${errors.fullName ? 'border-red-400' : 'border-[#eee]'} rounded-full  outline-none transition-all focus:border-[#ffc000]`} />
                                         {errors.fullName && <p className="text-[10px] text-red-500 ml-4 italic">{errors.fullName}</p>}
                                     </div>
                                     <div className="space-y-1.5">
                                         <label className="text-[10px] font-semibold uppercase tracking-[1.5px] text-[#666] ml-2 block">Your Mobile Number * (we will call to confirm your project details)</label>
-                                        <input type="tel" name="Mobile Number" value={formData["Mobile Number"]} onChange={handleInputChange} maxLength={10} minLength={10} placeholder="10-digit number" className={`w-full h-[50px] bg-white border-2 ${errors.mobileNumber ? 'border-red-400' : 'border-[#eee]'} rounded-full px-6 text-[13px] outline-none transition-all focus:border-[#ffc000]`} onInput={(e) => (e.currentTarget.value = e.currentTarget.value.replace(/[^0-9]/g, ''))} />
+                                        <input type="tel" name="Mobile Number" value={formData["Mobile Number"]} onChange={handleInputChange} maxLength={10} minLength={10} placeholder="10-digit number" className={`w-full h-[40px] md:h-[50px]  bg-white border-2 ${errors.mobileNumber ? 'border-red-400' : 'border-[#eee]'} rounded-full px-6 text-[13px] outline-none transition-all focus:border-[#ffc000]`} onInput={(e) => (e.currentTarget.value = e.currentTarget.value.replace(/[^0-9]/g, ''))} />
                                         {errors.mobileNumber && <p className="text-[10px] text-red-500 ml-4 italic">{errors.mobileNumber}</p>}
                                     </div>
                                     <ModernDropdown label="Residential or Commercial project? *" name="Project Category" value={formData["Project Category"]} onChange={(val) => handleDropdownChange("Project Category", val)}
@@ -633,17 +633,17 @@ const InquiryFormNew: React.FC = () => {
 
                         <div className="flex gap-4 pt-4">
                             {step > 1 && (
-                                <button type="button" onClick={prevStep} className="flex-1 h-[50px] border border-gray-300 text-[#333] rounded-full text-[11px] font-semibold uppercase tracking-widest hover:bg-gray-50 transition-all">
+                                <button type="button" onClick={prevStep} className="flex-1 cursor-pointer h-[50px] border border-gray-300 text-[#333] rounded-full text-[11px] font-semibold uppercase tracking-widest hover:bg-gray-50 transition-all">
                                     Back
                                 </button>
                             )}
 
                             {step < 3 ? (
-                                <button type="button" onClick={nextStep} className="flex-1 h-[50px] bg-[#ffc000] text-black rounded-full text-[11px] font-bold uppercase tracking-widest shadow-sm hover:shadow-md transition-all">
+                                <button type="button" onClick={nextStep} className="flex-1 cursor-pointer h-[50px] bg-[#ffc000] text-black rounded-full text-[11px] font-bold uppercase tracking-widest shadow-sm hover:shadow-md transition-all">
                                     Next Step
                                 </button>
                             ) : (
-                                <button type="submit" disabled={isSubmitting} className="flex-1 h-[50px] bg-[#1a1a1a] text-white rounded-full text-[11px] font-bold uppercase tracking-widest shadow-md hover:bg-[#ffc000] hover:text-black transition-all disabled:opacity-50">
+                                <button type="submit" disabled={isSubmitting} className="flex-1 cursor-pointer h-[50px] bg-[#1a1a1a] text-white rounded-full text-[11px] font-bold uppercase tracking-widest shadow-md hover:bg-[#ffc000] hover:text-black transition-all disabled:opacity-50">
                                     {isSubmitting ? "Sending..." : "Submit"}
                                 </button>
                             )}

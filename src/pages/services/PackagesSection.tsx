@@ -100,7 +100,7 @@ const PackagesSection: React.FC<PackagesSectiontype> = ({ showLink }) => {
                     // Loop ensures infinite scrolling
                     loop={true}
                     autoplay={{
-                        delay: 1000,
+                        delay: 2000,
                         disableOnInteraction: false, // Keep scrolling after user interaction
                         pauseOnMouseEnter: true,      // Pause when user hovers to read
                     }}
@@ -127,7 +127,7 @@ const PackagesSection: React.FC<PackagesSectiontype> = ({ showLink }) => {
                     {PACKAGES.map((pkg) => (
                         <SwiperSlide key={pkg.id}>
                             <motion.div
-                                whileHover={{ y: -10 }}
+                                // whileHover={{ y: -10 }}
                                 onClick={() => navigate(`/singleservice/${pkg.id}`)}
                                 className="w-full h-[350px]  md:h-[450px] group relative rounded-[35px] overflow-hidden shadow-xl border border-gray-100"
                             >

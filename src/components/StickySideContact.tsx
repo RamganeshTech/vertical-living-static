@@ -30,7 +30,7 @@ const StickySideContact: React.FC = () => {
 
    
     return (
-        <div className="fixed right-0 top-1/2 -translate-y-1/2 z-[9999] flex flex-col gap-2 pointer-events-none">
+        <div className="fixed right-0 top-1/2 -translate-y-1/2 z-[9998] flex flex-col gap-2 pointer-events-none">
 
             {/* WhatsApp Button - Middle Right Style */}
             <motion.a
