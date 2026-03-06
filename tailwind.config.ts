@@ -12,6 +12,7 @@ export default {
       fontFamily: {
         luxe: ['Luxe Uno', 'serif'],
         inter: ['Inter', 'sans-serif'],
+        // poppins: ['Poppins', 'sans-serif'],
       },
     },
   },

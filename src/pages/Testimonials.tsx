@@ -130,7 +130,7 @@ export const Testimonials: React.FC<TestimonialType> = ({ showLink }) => {
                             </div>
 
                             {/* Text */}
-                            <p className="text-[#555] italic text-lg md:text-xl leading-relaxed ">
+                            <p className="text-[#555]  text-lg md:text-xl leading-relaxed font-poppins">
                                 "{item.text}"
                             </p>
 

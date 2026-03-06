@@ -1,26 +1,27 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { PACKAGES } from '../../constants/constants';
 import { motion } from 'framer-motion';
-
+// Import Swiper components and modules
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Swiper as SwiperType } from 'swiper';
+import { Autoplay, Navigation, Pagination } from 'swiper/modules';
 
 type PackagesSectiontype = {
-    showLink?:boolean
+    showLink?: boolean
 }
 
 
-const PackagesSection: React.FC<PackagesSectiontype> = ({showLink}) => {
+const PackagesSection: React.FC<PackagesSectiontype> = ({ showLink }) => {
     const navigate = useNavigate();
+    const swiperRef = useRef<SwiperType | null>(null);
+
 
     return (
-        <section id="service" className="py-20 bg-white">
-            <div className="mx-auto px-4 mb-12 text-center">
-                {/* <h2 className="text-3xl md:text-5xl font-black uppercase tracking-tighter text-[#1a1a1a]">
-                    Our <span className="text-[#ffc000]">Service Packages</span>
-                </h2>
-                <div className="w-20 h-1.5 bg-[#ffc000] mt-4"></div> */}
+        <section id="service" className="py-20  bg-white">
+            <div className="mx-auto px-1 md:px-4 mb-12 text-center">
 
-                <h2 onClick={()=> navigate('/service-packages')} className="text-3xl flex items-center justify-center gap-1.5 md:gap-3 cursor-pointer md:text-5xl font-bold tracking-tight text-[#1a1a1a]">
+                <h2 onClick={() => navigate('/service-packages')} className="text-xl sm:text-3xl md:text-5xl flex items-center justify-center  gap-2 md:gap-3 cursor-pointer  font-bold tracking-tight text-[#1a1a1a]">
                     Our <span className="text-[#ffc000]">Service Packages</span>
                     {showLink && <i className="fa-solid fa-link text-xl md:text-2xl text-[#ffc000] mt-1 group-hover:scale-110 transition-transform"></i>}
 
@@ -29,13 +30,12 @@ const PackagesSection: React.FC<PackagesSectiontype> = ({showLink}) => {
 
 
 
-                <p className="mt-6 !text-center  text-gray-500 font-medium  uppercase text-xs tracking-widest">
+                <p className="mt-6 !text-center  text-gray-500 font-semibold text-[12px] md:text-[18px] tracking-widest font-poppins">
                     Available individually or as part of a larger project engagement.
                 </p>
             </div>
 
-            {/* Horizontal Scroll Container */}
-            <div className="flex overflow-x-auto no-scrollbar gap-8 px-[5%] pb-12">
+            {/* <div className="flex overflow-x-auto no-scrollbar gap-8 px-[5%] pb-12">
                 {PACKAGES.map((pkg, i) => (
                     <motion.div
                         key={pkg.id}
@@ -44,39 +44,38 @@ const PackagesSection: React.FC<PackagesSectiontype> = ({showLink}) => {
                         transition={{ duration: 0.4, delay: i * 0.1 }}
                         viewport={{ once: true }}
                         whileHover={{ y: -10 }}
-                        /* Reduced Height to 450px for a more compact, professional look */
                         className="min-w-[300px] md:min-w-[380px] h-[450px] group relative rounded-[35px] overflow-hidden shadow-xl border border-gray-100 flex-shrink-0 cursor-pointer"
                     >
-                        {/* Background Image */}
+                        
                         <img
                             src={pkg.img}
                             className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                             alt={pkg.name}
                         />
 
-                        {/* Darkened Gradient Overlay */}
+                        
                         <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent group-hover:from-black/95 transition-all duration-300"></div>
 
-                        {/* Card Content Container */}
+                        
                         <div className="absolute inset-x-0 bottom-0 p-8 text-white flex flex-col justify-end">
 
-                            {/* Package Name - Changed to font-bold */}
+                            
                             <h3 className="text-2xl md:text-3xl font-bold uppercase mb-2 group-hover:text-[#ffc000] transition-colors">
                                 {pkg.name}
                             </h3>
 
-                            {/* Price and Label */}
+                            
                             <div className="flex items-center gap-3 mb-4">
                                 <p className="text-[#ffc000] font-bold text-xl">₹{pkg.price.toLocaleString()}</p>
-                                {/* <span className="text-[9px] text-gray-400 uppercase tracking-widest font-bold">Fixed Price</span> */}
+                                
                             </div>
 
-                            {/* Suitable For - Reduced font-bold */}
+                            
                             <p className="text-[11px] text-gray-300 font-bold uppercase tracking-wider mb-6 leading-relaxed">
                                 {pkg.suitable}
                             </p>
 
-                            {/* Action Button - Simplified to 'Book' */}
+                            
                             <div className="max-h-0 opacity-0 group-hover:max-h-[100px] group-hover:opacity-100 transition-all duration-500 ease-in-out overflow-hidden">
                                 <button
                                     onClick={() => navigate(`/singleservice/${pkg.id}`)}
@@ -88,7 +87,106 @@ const PackagesSection: React.FC<PackagesSectiontype> = ({showLink}) => {
                         </div>
                     </motion.div>
                 ))}
+            </div> */}
+
+
+            {/* Swiper Container for Automatic Scrolling */}
+            <div className="px-0  md:px-[2%] relative ">
+                <Swiper
+                    onSwiper={(swiper) => (swiperRef.current = swiper)}
+                    modules={[Autoplay, Navigation, Pagination]}
+                    grabCursor={true}
+                    spaceBetween={30}
+                    // Loop ensures infinite scrolling
+                    loop={true}
+                    autoplay={{
+                        delay: 1000,
+                        disableOnInteraction: false, // Keep scrolling after user interaction
+                        pauseOnMouseEnter: true,      // Pause when user hovers to read
+                    }}
+                    // Responsive breakpoints for slide visibility
+                    slidesPerView={1}
+                    breakpoints={{
+                        320: {
+                            slidesPerView: 1.05,
+                            // spaceBetween: 10
+                        },
+                        640: { slidesPerView: 1.2 }, // Slightly peek the next card
+                        768: { slidesPerView: 1.8 }, // Gives each card more "breathing room"
+                        1024: { slidesPerView: 2.2 }, // Best for readability; cards feel wide and premium
+                        1440: { slidesPerView: 3.2 }, // Prevents cards from becoming too skinny on huge monitors
+                    }}
+                    navigation={{
+                        nextEl: '.swiper-button-next-custom',
+                        prevEl: '.swiper-button-prev-custom',
+                    }}
+                    // Standard slide transition speed
+                    speed={800}
+                    className="pb-14 "
+                >
+                    {PACKAGES.map((pkg) => (
+                        <SwiperSlide key={pkg.id}>
+                            <motion.div
+                                whileHover={{ y: -10 }}
+                                onClick={() => navigate(`/singleservice/${pkg.id}`)}
+                                className="w-full h-[350px]  md:h-[450px] group relative rounded-[35px] overflow-hidden shadow-xl border border-gray-100"
+                            >
+                                {/* Background Image */}
+                                <img
+                                    src={pkg.img}
+                                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                                    alt={pkg.name}
+                                />
+
+                                {/* Darkened Gradient Overlay */}
+                                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent group-hover:from-black/95 transition-all duration-300"></div>
+
+                                {/* Card Content Container */}
+                                <div className="absolute inset-x-0 bottom-0 p-8 text-white flex flex-col justify-end">
+                                    <h3 className="text-2xl md:text-3xl font-bold uppercase mb-2 group-hover:text-[#ffc000] transition-colors">
+                                        {pkg.name}
+                                    </h3>
+
+                                    <div className="flex items-center gap-3 mb-4">
+                                        <p className="text-[#ffc000] font-bold text-xl">₹{pkg.price.toLocaleString()}</p>
+                                    </div>
+
+                                    <p className="text-[11px] text-gray-300 font-bold uppercase tracking-wider mb-6 leading-relaxed">
+                                        {pkg.suitable}
+                                    </p>
+
+                                    <div className="max-h-0 opacity-0 group-hover:max-h-[100px] group-hover:opacity-100 transition-all duration-500 ease-in-out overflow-hidden">
+                                        <button
+                                            className="w-full cursor-pointer bg-[#ffc000] text-[#1a1a1a] py-3.5 rounded-xl font-bold uppercase text-[11px] tracking-[2px] hover:bg-white transition-all duration-300"
+                                        >
+                                            Book
+                                        </button>
+                                    </div>
+                                </div>
+                            </motion.div>
+                        </SwiperSlide>
+                    ))}
+                </Swiper>
+
+                {/* Custom Navigation Arrows (No progress dots provided) */}
+                <div className="absolute top-1/2 -translate-y-1/2 left-0  z-30 swiper-button-prev-custom cursor-pointer translate-x-[-50%]">
+                    <div className="w-9 h-9 md:w-12 md:h-12 bg-white shadow-xl rounded-full flex items-center justify-center hover:bg-[#ffc000] transition-all">
+                        <i className="fa fa-chevron-left text-black"></i>
+                    </div>
+                </div>
+                <div className="absolute top-1/2 -translate-y-1/2 right-0 z-30 swiper-button-next-custom cursor-pointer translate-x-[50%]">
+                    <div className="w-9 h-9 md:w-12 md:h-12 bg-white shadow-xl rounded-full flex items-center justify-center hover:bg-[#ffc000] transition-all">
+                        <i className="fa fa-chevron-right text-black"></i>
+                    </div>
+                </div>
             </div>
+
+            {/* Optional: Add custom CSS for pagination color if you want dots at the bottom */}
+            <style>{`
+                .swiper-pagination-bullet-active {
+                    background: #ffc000 !important;
+                }
+            `}</style>
         </section>
     );
 };

@@ -41,7 +41,7 @@ const StickySideContact: React.FC = () => {
                 initial={{ x: 50, opacity: 0 }}
                 animate={{ x: 0, opacity: 1 }}
                 whileHover={{ x: -10 }}
-                className="pointer-events-auto w-14 h-14 md:w-16 md:h-16 bg-[#25D366] text-white rounded-l-2xl shadow-xl flex items-center justify-center cursor-pointer hover:bg-[#128C7E] transition-all duration-300 group"
+                className="pointer-events-auto w-11 h-11 md:w-13 md:h-13 bg-[#25D366] text-white rounded-l-2xl shadow-xl flex items-center justify-center cursor-pointer hover:bg-[#128C7E] transition-all duration-300 group"
                 title="WhatsApp Us"
             >
                 {/* <i className="fas fa-whatsapp text-3xl"></i> */}
@@ -66,7 +66,7 @@ const StickySideContact: React.FC = () => {
                 animate={{ x: 0, opacity: 1 }}
                 transition={{ delay: 0.1 }}
                 whileHover={{ x: -10 }}
-                className="pointer-events-auto w-14 h-14 md:w-16 md:h-16 bg-[#ff4d4d] text-white rounded-l-2xl shadow-xl flex items-center justify-center cursor-pointer hover:bg-[#e60000] transition-all duration-300 group"
+                className="pointer-events-auto w-11 h-11 md:w-13 md:h-13 bg-[#ff4d4d] text-white rounded-l-2xl shadow-xl flex items-center justify-center cursor-pointer hover:bg-[#e60000] transition-all duration-300 group"
                 title="Call Us"
             >
                 <i className="fa fa-phone text-2xl"></i>

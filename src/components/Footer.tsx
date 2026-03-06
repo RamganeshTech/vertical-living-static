@@ -4,23 +4,23 @@ import { Link } from 'react-router-dom';
 
 const socialLinks = [
   {
-    icon: 'facebook',
+    icon: 'fa-brands fa-facebook',
     link: 'https://www.facebook.com/photo/?fbid=122102241110267512&set=a.122102237984267512'
   },
   {
-    icon: 'instagram',
+    icon: 'fa-brands fa-instagram',
     link: 'https://www.instagram.com/living.vertical/'
   },
   {
-    icon: 'youtube',
+    icon: 'fa-brands fa-youtube',
     link: 'https://youtube.com/@Verticalliving-Lifestyle?si=YAXRXVs5H6EuZOmg'
   },
   {
-    icon: 'linkedin',
+    icon: 'fa-brands fa-linkedin',
     link: 'https://www.linkedin.com/company/theverticalliving' // Added LinkedIn placeholder as requested
   },
   {
-    icon: 'envelope',
+    icon: 'fa-solid fa-envelope',
     link: 'mailto:info@theverticalliving.com'
   }
 ];
@@ -34,7 +34,7 @@ const navLinks = [
   { id: 'contact', label: 'Contact Us', link: "/#contact" },
   { id: 'privacyPolicy', label: 'Privacy Policy', link: "/privacy-policy" },
   { id: 'accountDeletion', label: 'Account Deletion', link: "/account-deletion" },
-  { id: 'disclaimer', label: 'Dsiclaimer', link: "/disclaimer" },
+  { id: 'disclaimer', label: 'Disclaimer', link: "/disclaimer" },
   // { id: 'form', label: 'Form', link: "/form" },
 ];
 
@@ -54,7 +54,7 @@ const Footer: React.FC = () => {
                     to={social.link}
                     className="w-10 h-10 rounded-full bg-black text-white flex items-center justify-center hover:bg-[#ffc000] hover:text-black duration-300 transition-all"
                   >
-                    <i className={`fa fa-${social.icon}`}></i>
+                    <i className={`${social.icon}`}></i>
                   </Link>
                 ))}
               </div>

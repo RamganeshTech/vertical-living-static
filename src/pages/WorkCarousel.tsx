@@ -126,7 +126,7 @@ const WorkCarousel: React.FC<WorkCarouseltype> = ({ showLink }) => {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.8 }}
-                    className="mt-10 text-gray-600 text-[16px] md:text-[18px] leading-[1.8] max-w-4xl mx-auto font-medium italic"
+                    className="mt-10 text-gray-600 text-[16px] md:text-[18px] leading-[1.8] max-w-4xl mx-auto font-medium font-poppins"
                 >
                     Take a peek at some of our recent projects and see how we have transformed spaces into stunning,
                     functional works of art. From cozy living rooms to sleek kitchens and everything in between,

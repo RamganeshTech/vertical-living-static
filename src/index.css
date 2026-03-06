@@ -13,6 +13,12 @@
 
 html {
     scroll-behavior: smooth;
+    /* font-family: 'Poppins', sans-serif; */
+}
+
+
+.font-poppins {
+    font-family: 'Poppins', sans-serif;
 }
 /* 
 [class*="WidgetTitle__WidgetTitleComponent"] {

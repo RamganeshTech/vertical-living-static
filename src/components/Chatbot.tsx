@@ -191,18 +191,18 @@ const Chatbot = () => {
                     whileHover={{ scale: 1.1, rotate: 5 }}
                     whileTap={{ scale: 0.9 }}
                     onClick={() => setIsOpen(!isOpen)}
-                    className="w-16 cursor-pointer h-16 bg-[#1a1a1a] rounded-full flex items-center justify-center shadow-[0_15px_35px_rgba(0,0,0,0.3)] border-2 border-[#ffc000]/30 overflow-hidden"
+                    className="w-11 h-11 md:w-16 md:h-16 cursor-pointer  bg-[#1a1a1a] rounded-full flex items-center justify-center shadow-[0_15px_35px_rgba(0,0,0,0.3)] border-2 border-[#ffc000]/30 overflow-hidden"
                 >
                     {isOpen ? (
-                        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-[#ffc000]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-3 w-3 md:h-6 md:w-6 text-[#ffc000]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M19 9l-7 7-7-7" />
                         </svg>
                     ) : (
-                        <svg xmlns="http://www.w3.org/2000/svg" className="h-7 w-7 text-[#ffc000]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <svg xmlns="http://www.w3.org/2000/svg" className=" h-5 w-5  md:h-7 md:w-7 text-[#ffc000]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
                         </svg>
                     )}
-                    <div className="absolute inset-0 bg-gradient-to-tr  pointer-events-none"></div>
+                    <div className="absolute inset-0 bg-gradient-to-tr pointer-events-none"></div>
                 </motion.button>
             </div>
         </div>

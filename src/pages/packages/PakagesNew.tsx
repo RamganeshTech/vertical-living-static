@@ -80,7 +80,7 @@ const PackagesNew:React.FC<PackagesNewtype> = ({showLink}) => {
                         {showLink && <i className="fa-solid fa-link text-xl md:text-2xl text-[#ffc000] mt-1 group-hover:scale-110 transition-transform"></i>}
                     </h2>
                     <div className="w-16 md:w-24 h-1.5 md:h-2 bg-[#ffc000] mx-auto mt-4 md:mt-6 rounded-full shadow-md"></div>
-                    <p className="mt-4 md:mt-8 text-gray-500 font-bold uppercase text-[10px] md:text-xs tracking-[2px] md:tracking-[4px]">
+                    <p className="mt-4 md:mt-8 text-gray-500 font-semibold text-[16px] md:text-[18px] font-poppins">
                         Check out our comprehensive interior solutions
                     </p>
                 </div>
@@ -94,7 +94,7 @@ const PackagesNew:React.FC<PackagesNewtype> = ({showLink}) => {
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
                             whileHover={{ y: -10 }}
-                            className="group relative rounded-[30px] md:rounded-[40px] overflow-hidden shadow-xl h-[450px] md:h-[500px] cursor-pointer border border-gray-100 bg-white"
+                            className="group relative rounded-[30px] md:rounded-[40px] overflow-hidden shadow-xl h-[350px] md:h-[500px] cursor-pointer border border-gray-100 bg-white"
                         >
                             <img
                                 src={plan.img}

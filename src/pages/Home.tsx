@@ -102,9 +102,9 @@ const Home: React.FC = () => {
 
 
   return (
-    <div className="min-h-screen w-full max-w-full overflow-x-hidden bg-white">
+    <div className="min-h-screen w-full  max-w-full overflow-x-hidden bg-white">
 
-      <section className="relative min-h-[900px] flex items-center justify-center overflow-hidden bg-white py-20 font-poppins">
+      <section className="relative  min-h-[900px] flex items-center justify-center overflow-hidden bg-white py-20 font-poppins">
         {/* LEFT SIDE: High-Visibility Architectural Line & Diamond Textures */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute left-0 top-0 bottom-0 w-[25%] pointer-events-none hidden xl:block">
@@ -188,14 +188,6 @@ const Home: React.FC = () => {
 
       </section>
 
-      {/* <InquiryFormNew /> */}
-
-
-      {/* <CostCalculatorMain
-        isOpen={isPopupOpen}
-        onClose={() => setIsPopupOpen(false)}
-      /> */}
-
 
       {/* HERO SECTION */}
       <section className="relative w-full h-[600px] md:h-[800px] overflow-hidden flex items-center justify-center">
@@ -245,41 +237,9 @@ const Home: React.FC = () => {
         </div>
       </section>
 
-      {/* STATIC/METRICS SECTION - Exact Padding from CSS */}
-      {/* <section className="bg-[#ffc000] py-[50px] relative z-20">
-        <div className="container mx-auto px-4  grid grid-cols-1 md:grid-cols-3 gap-10">
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={fadeInRight}
-          >
-            <StatBox icon="08+" text={<>We have over <span className="underline font-bold">10+ expert and experienced designers</span>.</>} />
-          </motion.div>
+  
 
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={fadeInRight}
-            transition={{ delay: 0.2 }}
-          >
-            <StatBox icon="100%" text="Successful projects we have done so far." />
-          </motion.div>
-
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={fadeInRight}
-            transition={{ delay: 0.4 }}
-          >
-            <StatBox icon="4.5%" text={<>Average client ratings is <span className="underline font-bold">4.5 out 5 from 100+ reviews</span>.</>} />
-          </motion.div>
-        </div>
-      </section> */}
-
-      <section className="bg-[#ffc000] py-[60px] relative z-20">
+      <section className="bg-[#ffc000]  py-[60px] relative z-20">
         <div className="container mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-10">
 
           {/* Feature 1: Dedicated Design Team */}
@@ -366,7 +326,7 @@ const Home: React.FC = () => {
 
       {/* ABOUT SECTION: Exact padding and headings */}
       <section className="pt-[100px] pb-[20px]">
-        <div className="container mx-auto px-4">
+        <div className="mx-auto">
           {/* <motion.div
             className="mb-[80px]"
             initial="hidden"
@@ -396,8 +356,10 @@ const Home: React.FC = () => {
             </motion.div>
           </div> */}
 
+<div className='w-full h-full px-4 md:px-10'>
 
           <PackagesSection showLink={true} />
+</div>
 
 
           {/* <Packages /> */}
@@ -444,21 +406,21 @@ const Home: React.FC = () => {
         >
           {/* Heading Style: Matching your other sections */}
           <div className="mb-10">
-            <h2 className="font-poppins text-[25px] md:text-[35px] font-light uppercase leading-[0.9] text-[#1a1a1a]">
+            <h2 className="font-poppins text-[25px] md:text-[35px] font-light uppercase leading-[1.2] text-[#1a1a1a]">
               About <br />
-              <span className="text-[#ffc000] font-semibold text-[45px]">Vertical Living</span>
+              <span className="text-[#ffc000] font-semibold text-[25px] md:text-[45px]">Vertical Living</span>
             </h2>
           </div>
 
           {/* Content: Using your new Residential & Commercial focus */}
-          <div className="font-poppins text-[18px] md:text-[22px] leading-[1.6] text-gray-800 font-medium">
+          <div className="font-poppins text-[14px] md:text-[22px] leading-[1.6] text-gray-800 font-medium font-poppins">
             Vertical Living provides <span className="text-[#1a1a1a] font-bold">bespoke interior design solutions</span> for residential and commercial projects.
             We are dedicated to transforming your vision into reality with precision and architectural excellence.
           </div>
 
           {/* Call to Action line inside the About section */}
-          <div className="mt-8 pt-8 border-t border-gray-100">
-            <p className="font-poppins text-[14px] uppercase tracking-widest font-bold text-gray-400">
+          <div classNamee="mt-4 md:mt-8 pt-4 md:pt-8 border-t border-gray-100">
+            <p className="font-poppins text-[14px] uppercase md:tracking-widest font-semibold text-gray-400">
               Get an instant valuation and technical quote for your dream project today.
             </p>
           </div>

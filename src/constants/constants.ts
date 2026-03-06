@@ -351,3 +351,8 @@ export const CASE_STUDIES_DATA = [
 
 
 // conversionid = 17955936522
+
+
+
+// curl -X POST "https://graph.facebook.com/v19.0/985219248013758/register" -H "Authorization: Bearer EAANcjjXPLR8BQz9DRhGgU7WzTjYzjTRjLGZCVcmPajMX4fkh7wGKNZB8YDPtKK0VnOrYZAGbfbw9BDEpoeiyLwMrdBBntPCQlpnsvuj4FHWSTXx7riYMZBVOSc6yXZAdEibyUBMBZCG59inkysDVC8MtWwdJEzlDOlN4cDKMLZCjJoyxZB8IlDwpROalZAQF0CIYysQZDZD" -H "Content-Type: application/json" -d "{\"messaging_product\": \"whatsapp\", \"pin\": \"227854\"}"
+

@@ -25,7 +25,7 @@ const PRODUCT_CATALOG: Record<string, any[]> = {
         { id: "dining_panel", label: "dining wall panelling", name: "Dining Wall Panelling", h: 8, w: 6 },
         { id: "diamond_mirror", label: "diamond mirror wall", name: "Diamond Mirror Wall", h: 8, w: 4 },
     ],
-    "Master Bedroom": [
+    "Bedroom": [
         { id: "grand_tv", label: "tv unit", name: "TV Unit", h: 8, w: 6 },
         { id: "wardrobe", label: "wardrobe", name: "Wardrobe", h: 7, w: 6 },
         { id: "crockery", label: "crockery unit", name: "Crockery Unit", h: 7, w: 4 },
@@ -65,9 +65,13 @@ const PRODUCT_CATALOG: Record<string, any[]> = {
         { id: "temple", label: "pooja unit", name: "Pooja Unit", h: 5, w: 3 },
     ],
     "Kitchen": [
-        { id: "base_cabinets", label: "kitchen", name: "Base Cabinets", h: 2.5, w: 12 },
-        { id: "wall_cabinets", label: "kitchen", name: "Wall Cabinets", h: 2, w: 12 },
-        { id: "tall_unit", label: "tall unit", name: "Tall Unit", h: 7, w: 2 },
+        // { id: "base_cabinets", label: "kitchen", name: "Base Cabinets", h: 2.5, w: 12 },
+        // { id: "wall_cabinets", label: "kitchen", name: "Wall Cabinets", h: 2, w: 12 },
+        // { id: "tall_unit", label: "tall unit", name: "Tall Unit", h: 7, w: 2 },
+
+        { id: "base_cabinets", label: "kitchen base unit", name: "Base Cabinets", h: 2.5, w: 12 },
+        { id: "wall_cabinets", label: "kitchen wall unit", name: "Wall Cabinets", h: 2, w: 12 },
+        { id: "tall_cabinets", label: "kitchen tall unit", name: "Tall Cabinets", h: 7, w: 2 },
         { id: "breakfast_counter", label: "breakfast counter", name: "Breakfast Counter", h: 3, w: 5 },
         { id: "loft", label: "loft", name: "Loft", h: 2, w: 8 },
         { id: "temple", label: "pooja unit", name: "Pooja Unit", h: 5, w: 3 },
@@ -81,7 +85,53 @@ const PRODUCT_CATALOG: Record<string, any[]> = {
         { id: "crockery", label: "crockery unit", name: "Crockery Unit", h: 7, w: 4 },
         { id: "dressing", label: "dressing", name: "Dressing", h: 6, w: 2 },
         { id: "book_shelf", label: "book shelf", name: "Book Shelf", h: 7, w: 3 },
-    ]
+    ],
+    "Foyer Area": [
+        // { id: "base_cabinets", label: "kitchen", name: "Base Cabinets", h: 2.5, w: 12 },
+        // { id: "wall_cabinets", label: "kitchen", name: "Wall Cabinets", h: 2, w: 12 },
+        // { id: "tall_unit", label: "tall unit", name: "Tall Unit", h: 7, w: 2 },
+        // { id: "breakfast_counter", label: "breakfast counter", name: "Breakfast Counter", h: 3, w: 5 },
+        { id: "shoe_rack", label: "shoe rack", name: "Shoe Rack", h: 3, w: 4 },
+        { id: "foyer_panelling", label: "foyer wall panelling", name: "Foyer Wall Panelling", h: 8, w: 4 },
+        { id: "temple", label: "pooja unit", name: "Pooja Unit", h: 5, w: 3 },
+        { id: "loft", label: "loft", name: "Loft", h: 2, w: 8 },
+        { id: "dining_panel", label: "dining wall panelling", name: "Dining Wall Panelling", h: 8, w: 6 },
+
+        { id: "mirror_shelf", label: "mirror with shelfs behind", name: "Mirror with Shelfs Behind", h: 3, w: 2 },
+        // { id: "shower_partition", label: "shower glass partition", name: "Shower Glass Partition", h: 7, w: 3 },
+        { id: "wardrobe", label: "wardrobe", name: "Wardrobe", h: 7, w: 6 },
+        { id: "wallpaper", label: "wall paper", name: "Wall Paper", h: 10, w: 10 },
+        { id: "grand_tv", label: "tv unit", name: "TV Unit", h: 8, w: 6 },
+        // { id: "crockery", label: "crockery unit", name: "Crockery Unit", h: 7, w: 4 },
+        // { id: "dressing", label: "dressing", name: "Dressing", h: 6, w: 2 },
+        // { id: "book_shelf", label: "book shelf", name: "Book Shelf", h: 7, w: 3 },
+    ],
+    "Balcony": [
+        // { id: "base_cabinets", label: "kitchen", name: "Base Cabinets", h: 2.5, w: 12 },
+        // { id: "wall_cabinets", label: "kitchen", name: "Wall Cabinets", h: 2, w: 12 },
+        // { id: "tall_unit", label: "tall unit", name: "Tall Unit", h: 7, w: 2 },
+        { id: "storage_unit", label: "storage unit", name: "Outdoor Utility Storage", h: 7, w: 3 },
+        { id: "wardrobe", label: "wardrobe", name: "Wardrobe", h: 7, w: 6 },
+        { id: "loft", label: "loft", name: "Loft", h: 2, w: 8 },
+        { id: "temple", label: "pooja unit", name: "Pooja Unit", h: 5, w: 3 },
+        
+        // { id: "base_cabinets", label: "kitchen base unit", name: "Base Cabinets", h: 2.5, w: 12 },
+        // { id: "wall_cabinets", label: "kitchen wall unit", name: "Wall Cabinets", h: 2, w: 12 },
+
+        // { id: "tall_cabinets", label: "kitchen tall unit", name: "Tall Cabinets", h: 7, w: 2 },
+
+        // { id: "breakfast_counter", label: "breakfast counter", name: "Breakfast Counter", h: 3, w: 5 },
+        // { id: "loft", label: "loft", name: "Loft", h: 2, w: 8 },
+        { id: "dining_panel", label: "dining wall panelling", name: "Dining Wall Panelling", h: 8, w: 6 },
+        { id: "mirror_shelf", label: "mirror with shelfs behind", name: "Mirror with Shelfs Behind", h: 3, w: 2 },
+        { id: "shower_partition", label: "shower glass partition", name: "Shower Glass Partition", h: 7, w: 3 },
+        { id: "wallpaper", label: "wall paper", name: "Wall Paper", h: 10, w: 10 },
+        // { id: "grand_tv", label: "tv unit", name: "TV Unit", h: 8, w: 6 },
+        // { id: "crockery", label: "crockery unit", name: "Crockery Unit", h: 7, w: 4 },
+        // { id: "dressing", label: "dressing", name: "Dressing", h: 6, w: 2 },
+        { id: "book_shelf", label: "book shelf", name: "Book Shelf", h: 7, w: 3 },
+    ],
+
 };
 
 // OLD VERSION
@@ -418,7 +468,7 @@ const CostCalculatorMain: React.FC<CostCalculationMainProps> = ({ showCloseButto
 
                 // 🔥 New GTM DataLayer Conversion
                 if (window.dataLayer) {
-                console.log("getin inside the window.dataLayer")
+                    // console.log("getin inside the window.dataLayer")
                     window.dataLayer.push({
                         'event': 'cost_calculator_VL', // This must match your GTM Trigger name exactly
                         'value': estimate || 1.0,
@@ -430,9 +480,9 @@ const CostCalculatorMain: React.FC<CostCalculationMainProps> = ({ showCloseButto
                         'location': clientInfo.location,
                         'whatsapp_number': clientInfo.phone,
                         'estimated_value': estimate
-                        
+
                     });
-                console.log("getin inside the window.dataLayer", window?.dataLayer)
+                    // console.log("getin inside the window.dataLayer", window?.dataLayer)
 
                 }
 
@@ -471,16 +521,16 @@ const CostCalculatorMain: React.FC<CostCalculationMainProps> = ({ showCloseButto
 
     return (
 
-        <div className="w-full bg-white flex flex-col h-full overflow-hidden">
+        <div className="w-full bg-white flex flex-col h-full overflow-hidden ">
             {/* Header & Progress Bar */}
             <header
                 // className="p-10 pb-0"
-                className={`w-full pb-0 transition-all p-10
+                className={`w-full pb-0 transition-all p-5 md:p-10
                     }`}
 
             >
-                <div className={`flex items-center mb-8 ${fromPage ? "justify-center" : " justify-between"}`}>
-                    <h2 className="text-2xl font-bold uppercase text-center text-[#1a1a1a]">Cost <span className="text-[#ffc000]">Calculator</span></h2>
+                <div className={`flex items-center mb-4 md:mb-8 ${fromPage ? "justify-center" : " justify-between"}`}>
+                    <h2 className="text-xl md:text-2xl font-bold uppercase text-center text-[#1a1a1a]">Cost <span className="text-[#ffc000]">Calculator</span></h2>
                     {showCloseButton && <button onClick={() => {
                         setStep(1)
                         handleClear()
@@ -511,11 +561,11 @@ const CostCalculatorMain: React.FC<CostCalculationMainProps> = ({ showCloseButto
                             const isActive = step >= item.id;
                             return (
                                 <div key={item.id} className="relative z-10 flex flex-col items-center">
-                                    <div className={`w-12 h-12 rounded-full flex items-center justify-center transition-all duration-500 border-4 ${isActive
+                                    <div className={`w-8 h-8 md:w-12 md:h-12 rounded-full flex items-center justify-center transition-all duration-500 border-4 ${isActive
                                         ? "bg-[#ffc000] border-[#ffc000] text-[#1a1a1a] shadow-lg shadow-[#ffc000]/30"
                                         : "bg-white border-gray-100 text-gray-300"
                                         }`}>
-                                        <i className={` ${item.icon} ${isActive ? "text-lg" : "text-sm"}`}></i>
+                                        <i className={` ${item.icon} ${isActive ? "text-[14px] md:text-[18px]" : "text-[14px] md:text-[14px]"}`}></i>
                                     </div>
                                     <span className={`absolute -bottom-7 text-[9px] font-black uppercase tracking-widest transition-colors duration-500 ${isActive ? "text-[#1a1a1a]" : "text-gray-300"
                                         }`}>
@@ -542,17 +592,17 @@ const CostCalculatorMain: React.FC<CostCalculationMainProps> = ({ showCloseButto
                 </div> */}
             </header>
 
-            <div className="p-10 md:p-12  flex-1 overflow-y-auto">
+            <div className="p-5 md:p-10  flex-1 overflow-y-auto">
                 {step === 1 && (
-                    <div className="space-y-10 animate-in fade-in slide-in-from-bottom-4">
-                        <div className="space-y-4">
-                            <label className="text-[14px] font-bold uppercase tracking-[1px] text-gray-800">1. Carpet Area</label>
+                    <div className="space-y-8 md:space-y-10 animate-in fade-in slide-in-from-bottom-4">
+                        <div className="space-y-2">
+                            <label className="text-[12px] md:text-[14px] font-bold uppercase tracking-[1px] text-gray-800">1. Carpet Area</label>
                             <div className="relative">
                                 <input
                                     type="number"
                                     placeholder="Enter sqft"
                                     autoFocus
-                                    className={`w-full bg-gray-50 rounded-2xl p-6 text-2xl font-bold outline-none border-2 transition-all ${errors.carpetArea ? 'border-red-500' : 'border-transparent focus:border-[#ffc000]'}`}
+                                    className={`w-full bg-gray-50 rounded-2xl p-3  md:p-6  text-xl md:text-2xl font-bold outline-none border-2 transition-all ${errors.carpetArea ? 'border-red-500' : 'border-transparent focus:border-[#ffc000]'}`}
                                     value={formData.carpetArea || ""}
                                     onKeyDown={(e) => handleEnterKey(e, handleNext)}
                                     onChange={(e) => {
@@ -565,10 +615,10 @@ const CostCalculatorMain: React.FC<CostCalculationMainProps> = ({ showCloseButto
                         </div>
 
                         <div className="space-y-4">
-                            <label className="text-[14px] font-bold uppercase tracking-[1px]  text-gray-800">2. Configuration</label>
-                            <div className="grid grid-cols-4 gap-3">
+                            <label className="text-[12px] md:text-[14px] font-bold uppercase tracking-[1px]  text-gray-800 mb-2 block ">2. Configuration</label>
+                            <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
                                 {['1 BHK', '2 BHK', '3 BHK', 'Villa'].map(type => (
-                                    <button key={type} onClick={() => setFormData({ ...formData, homeType: type })} className={`py-4 rounded-xl border-2  font-bold text-[14px] uppercase transition-all ${formData.homeType === type ? 'border-[#ffc000] bg-[#ffc000]/5 text-[#1a1a1a]' : 'border-gray-50 text-gray-800'}`}>
+                                    <button key={type} onClick={() => setFormData({ ...formData, homeType: type })} className={`py-3 md:py-4 rounded-xl border-2  font-bold text-[12px] md:text-[14px] uppercase transition-all ${formData.homeType === type ? 'border-[#ffc000] bg-[#ffc000]/5 text-[#1a1a1a]' : 'border-gray-50 text-gray-800'}`}>
                                         {type}
                                     </button>
                                 ))}
@@ -576,10 +626,10 @@ const CostCalculatorMain: React.FC<CostCalculationMainProps> = ({ showCloseButto
                         </div>
 
                         <div className="space-y-4">
-                            <label className="text-[14px] font-bold uppercase tracking-[1px] text-gray-800">3. Execution Finish</label>
+                            <label className="text-[12px] md:text-[14px] font-bold uppercase tracking-[1px] text-gray-800 mb-2 block ">3. Execution Finish</label>
                             <div className="grid grid-cols-3 gap-3">
                                 {Object.keys(ESTIMATION_CONFIG.SQFT_RATES).map((finish) => (
-                                    <button key={finish} onClick={() => setFormData({ ...formData, finish: finish })} className={`py-4 rounded-xl border-2 font-bold text-[14px] uppercase transition-all ${formData.finish === finish ? 'border-[#ffc000] bg-[#ffc000]/5 text-[#1a1a1a]' : 'border-gray-50 text-gray-800'}`}>
+                                    <button key={finish} onClick={() => setFormData({ ...formData, finish: finish })} className={`py-3 md:py-4 rounded-xl border-2 font-bold text-[12px] md:text-[14px] uppercase transition-all ${formData.finish === finish ? 'border-[#ffc000] bg-[#ffc000]/5 text-[#1a1a1a]' : 'border-gray-50 text-gray-800'}`}>
                                         {finish}
                                     </button>
                                 ))}
@@ -587,7 +637,7 @@ const CostCalculatorMain: React.FC<CostCalculationMainProps> = ({ showCloseButto
                         </div>
 
                         <div className='flex justify-center items-center'>
-                            <button onClick={handleNext} className={`${fromPage ? "w-1/2" : "w-1/2"}  px-6 cursor-pointer bg-[#ffc000] text-[#1a1a1a] py-6 rounded-2xl font-bold uppercase text-sm shadow-xl shadow-[#ffc000]/20 active:scale-95 transition-all`}>
+                            <button onClick={handleNext} className={`${fromPage ? "w-1/2" : "w-1/2"}  px-6 cursor-pointer bg-[#ffc000] text-[#1a1a1a] py-3 md:py-6 rounded-2xl font-bold uppercase text-sm shadow-xl shadow-[#ffc000]/20 active:scale-95 transition-all`}>
                                 Next
                             </button>
 
@@ -600,20 +650,46 @@ const CostCalculatorMain: React.FC<CostCalculationMainProps> = ({ showCloseButto
                 {step === 2 && (
                     <div className="space-y-8 animate-in fade-in slide-in-from-bottom-5">
                         <div className="text-center">
-                            <h3 className="text-xl font-bold uppercase tracking-widest text-[#1a1a1a]">Select Your Rooms</h3>
-                            <p className="text-gray-400 text-xs mt-2">Add multiple instances for guest rooms or master bedrooms</p>
+                            <h3 className="text-xl font-bold uppercase tracking-[2px] md:tracking-widest text-[#1a1a1a]">Select Your Rooms</h3>
+                            <p className="text-gray-400 text-xs mt-2">Add multiple rooms</p>
                         </div>
                         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                             {(Object.keys(PRODUCT_CATALOG) as Array<keyof typeof PRODUCT_CATALOG>).map(room => {
                                 const count = (roomCounts as any)[room] || 0;
                                 return (
-                                    <div key={room} className="bg-gray-50 p-6 rounded-[30px] flex items-center justify-between border-2 border-transparent hover:border-[#ffc000] transition-all">
+                                    <div key={room} className="bg-gray-50 py-4 md:py-6 px-2  rounded-[30px] flex items-center justify-between border-2 border-transparent hover:border-[#ffc000] transition-all">
                                         <span className="font-bold text-[#1a1a1a] uppercase text-sm">{room}</span>
-                                        <div className="flex items-center gap-4 bg-white px-4 py-2 rounded-full shadow-sm">
-                                            <button onClick={() => setRoomCounts((p: Record<string, number>) => ({ ...p, [room]: Math.max(0, (p[room] || 0) - 1) }))} className="text-[#1a1a1a] bg-white/80 shadow-md flex justify-center items-center w-5 h-5 rounded-full cursor-pointer font-bold">-</button>
-                                            {/* <span className="text-[#ffc000] font-black">{roomCounts[room] || 0}</span> */}
+                                        {/* <div className="flex items-center gap-4 bg-white px-4 py-2 rounded-full shadow-sm">
+                                            <button onClick={() => setRoomCounts((p: Record<string, number>) => ({ ...p, [room]: Math.max(0, (p[room] || 0) - 1) }))} className="text-[#1a1a1a] outline-none  bg-white/80 shadow-md flex justify-center items-center w-5 h-5 rounded-full cursor-pointer font-bold">-</button>
                                             <span className="text-[#ffc000] font-black">{count}</span>
-                                            <button onClick={() => setRoomCounts((p: Record<string, number>) => ({ ...p, [room]: (p[room] || 0) + 1 }))} className="text-[#1a1a1a] bg-white/80 shadow-md flex justify-center items-center w-5 h-5 rounded-full cursor-pointer font-bold">+</button>
+                                            <button onClick={() => setRoomCounts((p: Record<string, number>) => ({ ...p, [room]: (p[room] || 0) + 1 }))} className="text-[#1a1a1a] outline-none bg-white/80 shadow-md flex justify-center items-center w-5 h-5 rounded-full cursor-pointer font-bold">+</button>
+                                        </div> */}
+
+                                        <div className="flex items-center gap-3 bg-white px-2 py-1.5 rounded-full shadow-inner border border-gray-100">
+                                            {/* Minus Button: Subtle Red/Gray theme */}
+                                            <button
+                                                onClick={() => setRoomCounts((p: Record<string, number>) => ({ ...p, [room]: Math.max(0, (p[room] || 0) - 1) }))}
+                                                className={`w-6 h-6 md:w-8 md:h-8 rounded-full flex justify-center items-center transition-all outline-none cursor-pointer font-bold
+            ${count > 0
+                                                        ? "bg-red-50 text-red-500 hover:bg-red-500 hover:text-white shadow-sm"
+                                                        : "bg-gray-50 text-gray-300 cursor-not-allowed"}`}
+                                                disabled={count === 0}
+                                            >
+                                                <span className="text-xl mb-0.5">−</span>
+                                            </button>
+
+                                            {/* Count: Bold and centered */}
+                                            <span className={`min-w-[20px] text-center font-bold transition-colors ${count > 0 ? "text-[#1a1a1a]" : "text-gray-400"}`}>
+                                                {count}
+                                            </span>
+
+                                            {/* Plus Button: Brand Yellow theme */}
+                                            <button
+                                                onClick={() => setRoomCounts((p: Record<string, number>) => ({ ...p, [room]: (p[room] || 0) + 1 }))}
+                                                className="w-6 h-6 md:w-8 md:h-8 bg-[#ffc000] text-[#1a1a1a] rounded-full flex justify-center items-center shadow-md hover:shadow-lg hover:scale-110 active:scale-95 transition-all outline-none cursor-pointer font-bold"
+                                            >
+                                                <span className="text-xl mb-0.5">+</span>
+                                            </button>
                                         </div>
                                     </div>
                                 )
@@ -621,8 +697,8 @@ const CostCalculatorMain: React.FC<CostCalculationMainProps> = ({ showCloseButto
                             )}
                         </div>
                         <section className='flex gap-2'>
-                            <button onClick={() => setStep(1)} className="w-full bg-[#1a1a1a] py-5 rounded-[25px] font-bold cursor-pointer !text-[#ffc000] uppercase shadow-lg shadow-[#ffc000]/20">Back</button>
-                            <button onClick={() => setStep(3)} className="w-full bg-[#ffc000] py-5 rounded-[25px] font-bold cursor-pointer text-[#1a1a1a] uppercase shadow-lg shadow-[#ffc000]/20">Configure Products</button>
+                            <button onClick={() => setStep(1)} className="w-full bg-[#1a1a1a] py-3 md:py-5 rounded-[25px]  text-sm font-bold cursor-pointer !text-[#ffc000] uppercase shadow-lg shadow-[#ffc000]/20">Back</button>
+                            <button onClick={() => setStep(3)} className="w-full bg-[#ffc000] py-3 md:py-5 rounded-[25px]  text-sm font-bold cursor-pointer text-[#1a1a1a] uppercase shadow-lg shadow-[#ffc000]/20">Next<span className="hidden md:inline">: Configure Products</span></button>
 
                         </section>
                     </div>
@@ -641,7 +717,7 @@ const CostCalculatorMain: React.FC<CostCalculationMainProps> = ({ showCloseButto
                                     const productsInRoom = roomData?.products || {};
 
                                     return (
-                                        <div key={roomKey} className="bg-white p-8 rounded-[40px] border border-gray-100 shadow-xl shadow-gray-200/50 overflow-hidden">
+                                        <div key={roomKey} className="bg-white p-2 md:p-8 rounded-[40px] border border-gray-100 shadow-xl shadow-gray-200/50 overflow-hidden">
                                             {/* <h4 className="text-[#ffc000] font-black uppercase text-xs mb-6 tracking-[4px]">
                                                             {roomName} Instance #{rIdx + 1} <span className="text-gray-500 ml-2">ID: {roomKey}</span>
                                                         </h4> */}
@@ -762,9 +838,9 @@ const CostCalculatorMain: React.FC<CostCalculationMainProps> = ({ showCloseButto
                             {/* <button onClick={() => setStep(1)} className="w-full bg-[#1a1a1a] py-5 rounded-[25px] font-bold cursor-pointer !text-white uppercase shadow-lg shadow-[#ffc000]/20">Back</button>
                             <button onClick={() => setStep(3)} className="w-full bg-[#ffc000] py-5 rounded-[25px] font-bold cursor-pointer text-[#1a1a1a] uppercase shadow-lg shadow-[#ffc000]/20">Configure Products</button> */}
 
-                            <button onClick={() => setStep(2)} className="w-full bg-[#1a1a1a] py-5 rounded-[25px] font-bold cursor-pointer text-[#ffc000] uppercase shadow-lg shadow-[#ffc000]/20">Back</button>
 
-                            <button onClick={() => setStep(4)} className="w-full bg-[#ffc000] py-5 rounded-[25px] font-bold cursor-pointer text-[#1a1a1a] uppercase shadow-lg shadow-[#ffc000]/20">Next: Client Details</button>
+                            <button onClick={() => setStep(2)} className="w-full bg-[#1a1a1a] py-3  md:py-5 rounded-[25px] font-bold cursor-pointer text-[#ffc000] uppercase shadow-lg shadow-[#ffc000]/20">Back</button>
+                            <button onClick={() => setStep(4)} className="w-full  bg-[#ffc000] py-3  md:py-5 rounded-[25px] font-bold cursor-pointer text-[#1a1a1a] uppercase shadow-lg shadow-[#ffc000]/20">Next<span className="hidden md:inline">: Client Info</span></button>
                         </section>
                     </div>
                 )}
@@ -772,7 +848,7 @@ const CostCalculatorMain: React.FC<CostCalculationMainProps> = ({ showCloseButto
                 {step === 4 && (
                     <div className="space-y-10 animate-in fade-in slide-in-from-bottom-4">
                         <div className="space-y-2">
-                            <h3 className="text-2xl font-bold text-[#1a1a1a]">Client Information</h3>
+                            <h3 className="text-xl md:text-2xl font-bold text-[#1a1a1a]">Client Information</h3>
                             <p className="text-gray-400 text-xs font-medium uppercase tracking-widest">Verify identity to unlock your quote</p>
                         </div>
 
@@ -783,7 +859,7 @@ const CostCalculatorMain: React.FC<CostCalculationMainProps> = ({ showCloseButto
                                 <input
                                     type="text"
                                     placeholder="Your Full Name"
-                                    className={`w-full p-6 rounded-2xl bg-gray-50 border-2 outline-none font-bold ${errors.name ? 'border-red-500' : 'border-transparent focus:border-[#ffc000]'}`}
+                                    className={`w-full p-3 md:p-6 rounded-2xl bg-gray-50 border-2 outline-none font-semibold md:font-bold ${errors.name ? 'border-red-500' : 'border-transparent focus:border-[#ffc000]'}`}
                                     value={clientInfo.name}
                                     onChange={(e) => setClientInfo({ ...clientInfo, name: e.target.value })}
                                 />
@@ -799,7 +875,7 @@ const CostCalculatorMain: React.FC<CostCalculationMainProps> = ({ showCloseButto
                                     type="tel"
                                     placeholder="WhatsApp Number (10 digits)"
                                     maxLength={10}
-                                    className={`w-full p-6 rounded-2xl bg-gray-50 border-2 outline-none font-bold ${errors.phone ? 'border-red-500' : 'border-transparent focus:border-[#ffc000]'}`}
+                                    className={`w-full p-3 md:p-6 rounded-2xl bg-gray-50 border-2 outline-none font-semibold md:font-bold ${errors.phone ? 'border-red-500' : 'border-transparent focus:border-[#ffc000]'}`}
                                     value={clientInfo.phone}
                                     onChange={(e) => {
                                         // Regex: Replace anything that is NOT a digit with an empty string
@@ -814,14 +890,14 @@ const CostCalculatorMain: React.FC<CostCalculationMainProps> = ({ showCloseButto
                                 )}
                             </div>
 
-                            {/* <input type="text" placeholder="Project Location (City)" className={`w-full p-6 rounded-2xl bg-gray-50 border-2 outline-none font-bold ${errors.location ? 'border-red-500' : 'border-transparent focus:border-[#ffc000]'}`} onChange={(e) => setClientInfo({ ...clientInfo, location: e.target.value })} /> */}
+                            {/* <input type="text" placeholder="Project Location (City)" className={`w-full p-3 md:p-6 rounded-2xl bg-gray-50 border-2 outline-none font-bold ${errors.location ? 'border-red-500' : 'border-transparent focus:border-[#ffc000]'}`} onChange={(e) => setClientInfo({ ...clientInfo, location: e.target.value })} /> */}
 
                             {/* Project Location Field */}
                             <div className="space-y-1">
                                 <input
                                     type="text"
                                     placeholder="Project Location (City)"
-                                    className={`w-full p-6 rounded-2xl bg-gray-50 border-2 outline-none font-bold ${errors.location ? 'border-red-500' : 'border-transparent focus:border-[#ffc000]'}`}
+                                    className={`w-full p-3 md:p-6 rounded-2xl bg-gray-50 border-2 outline-none font-semibold md:font-bold ${errors.location ? 'border-red-500' : 'border-transparent focus:border-[#ffc000]'}`}
                                     value={clientInfo.location}
                                     onChange={(e) => setClientInfo({ ...clientInfo, location: e.target.value })}
                                     onKeyDown={(e) => handleEnterKey(e, handleSubmit)}
@@ -836,7 +912,7 @@ const CostCalculatorMain: React.FC<CostCalculationMainProps> = ({ showCloseButto
 
                         <div className="flex gap-2 justify-between items-center">
                             <button
-                                className="w-full cursor-pointer bg-[#1a1a1a] text-[#ffc000] py-6 rounded-2xl font-bold uppercase tracking-[4px] text-xs shadow-2xl shadow-black/20 active:scale-95 transition-all disabled:opacity-70"
+                                className="w-full cursor-pointer bg-[#1a1a1a] text-[#ffc000] py-3 md:py-6 rounded-2xl font-bold uppercase tracking-[4px] text-xs shadow-2xl shadow-black/20 active:scale-95 transition-all disabled:opacity-70"
 
                                 onClick={() => setStep(3)}>
                                 Back
@@ -845,9 +921,9 @@ const CostCalculatorMain: React.FC<CostCalculationMainProps> = ({ showCloseButto
                                 onClick={handleSubmit}
                                 // onKeyDown={}
                                 disabled={isSaving}
-                                className="w-full cursor-pointer bg-[#ffc000] text-[#1a1a1a] py-6 rounded-2xl font-bold uppercase tracking-[2px] text-xs shadow-2xl shadow-black/20 active:scale-95 transition-all disabled:opacity-70"
+                                className="w-full cursor-pointer bg-[#ffc000] text-[#1a1a1a] py-3 md:py-6 rounded-2xl font-bold uppercase tracking-[2px] text-xs shadow-2xl shadow-black/20 active:scale-95 transition-all disabled:opacity-70"
                             >
-                                {(isSaving || isPending) ? 'Processing Quote...' : 'Get Final Quote'}
+                                {(isSaving || isPending) ? 'Processing Quote...' : <span >Get <span className="hidden md:inline">Final</span> Quote</span> }
                             </button>
                             {/* <button onClick={() => setStep(1)} className="w-full text-gray-400 font-bold uppercase tracking-widest text-[9px] hover:text-black">Modify project specs</button> */}
                         </div>
@@ -856,12 +932,12 @@ const CostCalculatorMain: React.FC<CostCalculationMainProps> = ({ showCloseButto
 
                 {step === 5 && (
                     <div className="text-center space-y-5 animate-in fade-in zoom-in-95">
-                        <div className="w-20 h-20 bg-green-50 text-green-500 rounded-full flex items-center justify-center mx-auto text-4xl shadow-sm border border-green-100">
+                        <div className="w-15 h-15 md:w-20 md:h-20 bg-green-50 text-green-500 rounded-full flex items-center justify-center mx-auto text-4xl shadow-sm border border-green-100">
                             <i className="fa fa-check-circle"></i>
                         </div>
                         <div>
-                            <span className="text-[10px] font-bold uppercase tracking-[8px] text-[#ffc000]">Valuation Certified</span>
-                            <div className="text-6xl md:text-5xl font-bold  text-[#1a1a1a] mt-4 leading-none">
+                            <span className="text-[10px] font-bold uppercase  tracking-widest md:tracking-[8px] text-[#ffc000]">Valuation Certified</span>
+                            <div className="text-3xl md:text-5xl font-bold  text-[#1a1a1a] mt-4 leading-none">
                                 ₹{estimate.toLocaleString('en-IN')}
                             </div>
                             {/* <p className="text-gray-900 text-[10px] uppercase font-bold tracking-[4px] mt-3 opacity-60">Estimated for {formData.carpetArea} Sqft {formData.homeType}</p> */}
@@ -880,7 +956,7 @@ const CostCalculatorMain: React.FC<CostCalculationMainProps> = ({ showCloseButto
 
                         <div className="space-y-4 pt-4">
                             <button onClick={() => window.open(`https://wa.me/919363993814?text=Hi Vertical Living, I just generated a quote for my ${formData.homeType} in ${clientInfo.location}. Area: ${formData.carpetArea} sqft, Finish: ${formData.finish}. Estimate: ₹${estimate.toLocaleString('en-IN')}.`, '_blank')} className="w-full bg-[#25D366] text-white py-5 rounded-2xl font-bold uppercase tracking-widest text-[11px] flex items-center justify-center gap-4 shadow-xl shadow-green-100">
-                                <i className="fa fa-whatsapp text-2xl"></i> Connect for Technical BOQ
+                                <i className="fa-brands fa-whatsapp text-2xl"></i> Connect for Technical BOQ
                             </button>
                             <button onClick={() => {
                                 setStep(1)
