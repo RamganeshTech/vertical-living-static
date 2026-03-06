@@ -419,7 +419,7 @@ const Home: React.FC = () => {
           </div>
 
           {/* Call to Action line inside the About section */}
-          <div classNamee="mt-4 md:mt-8 pt-4 md:pt-8 border-t border-gray-100">
+          <div className="mt-4 md:mt-8 pt-4 md:pt-8 border-t border-gray-100">
             <p className="font-poppins text-[14px] uppercase md:tracking-widest font-semibold text-gray-400">
               Get an instant valuation and technical quote for your dream project today.
             </p>
