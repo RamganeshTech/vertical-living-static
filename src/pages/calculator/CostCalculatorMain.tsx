@@ -3,6 +3,7 @@ import React, { useState, useMemo } from 'react';
 // import { motion, AnimatePresence } from 'framer-motion';
 import {
     useCreateCRMPublicQuote, useGeneratePublicQuote,
+    useWhatsappAutomationQuoteSend,
     // useWhatsappAutomationQuoteSend 
 } from '../../api/ApiLists/publicQuoteCalculatorApi';
 import { downloadImage } from '../../api/ApiLists/downloadFile';
@@ -226,7 +227,7 @@ const CostCalculatorMain: React.FC<CostCalculationMainProps> = ({ showCloseButto
 
 
     const { mutateAsync: generateQuote, isPending } = useGeneratePublicQuote();
-    // const { mutateAsync: sendToWhatsapp } = useWhatsappAutomationQuoteSend();
+    const { mutateAsync: sendToWhatsapp } = useWhatsappAutomationQuoteSend();
     const { mutateAsync: saveQuote } = useCreateCRMPublicQuote();
 
     const validate = () => {
@@ -467,25 +468,28 @@ const CostCalculatorMain: React.FC<CostCalculationMainProps> = ({ showCloseButto
                 // }
 
                 // 🔥 New GTM DataLayer Conversion
-                if (window.dataLayer) {
-                    // console.log("getin inside the window.dataLayer")
-                    window.dataLayer.push({
-                        'event': 'cost_calculator_VL', // This must match your GTM Trigger name exactly
-                        'value': estimate || 1.0,
-                        'currency': 'INR',
-                        'carpet_area': formData.carpetArea,
-                        'home_type': formData.homeType,
-                        'finish_quality': formData.finish,
-                        'user_name': clientInfo.name,
-                        'location': clientInfo.location,
-                        'whatsapp_number': clientInfo.phone,
-                        'estimated_value': estimate
+                // if (window.dataLayer) {
+                //     // console.log("getin inside the window.dataLayer")
+                //     window.dataLayer.push({
+                //         'event': 'cost_calculator_VL', // This must match your GTM Trigger name exactly
+                //         'value': estimate || 1.0,
+                //         'currency': 'INR',
+                //         'carpet_area': formData.carpetArea,
+                //         'home_type': formData.homeType,
+                //         'finish_quality': formData.finish,
+                //         'user_name': clientInfo.name,
+                //         'location': clientInfo.location,
+                //         'whatsapp_number': clientInfo.phone,
+                //         'estimated_value': estimate
 
-                    });
-                    // console.log("getin inside the window.dataLayer", window?.dataLayer)
+                //     });
+                //     // console.log("getin inside the window.dataLayer", window?.dataLayer)
 
-                }
+                // }
 
+                console.log("res.data", res)
+
+                // saving in the CRM
                 await saveQuote({
                     ...dataToSave,
                     quotationPdf: res?.data?.quotationPdf
@@ -502,7 +506,7 @@ const CostCalculatorMain: React.FC<CostCalculationMainProps> = ({ showCloseButto
                 // // if ((res as any)?.url) { // successfully we have that url here
                 // //  res.url is the pdf link it willbe https://vertical.....
 
-                // await sendToWhatsapp({ clientName: dataToSave.name, clientPhone: dataToSave.phone, pdfUrl: res?.url })
+                await sendToWhatsapp({ clientName: dataToSave.name, clientPhone: dataToSave.phone, pdfUrl: res?.url })
 
                 // // }
 
