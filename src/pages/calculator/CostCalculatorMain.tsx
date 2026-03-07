@@ -7,6 +7,7 @@ import {
     // useWhatsappAutomationQuoteSend 
 } from '../../api/ApiLists/publicQuoteCalculatorApi';
 import { downloadImage } from '../../api/ApiLists/downloadFile';
+import { phoneNumber } from '../../components/FloatingContact';
 // import { phoneNumber } from '../../components/FloatingContact';
 
 
@@ -115,7 +116,7 @@ const PRODUCT_CATALOG: Record<string, any[]> = {
         { id: "wardrobe", label: "wardrobe", name: "Wardrobe", h: 7, w: 6 },
         { id: "loft", label: "loft", name: "Loft", h: 2, w: 8 },
         { id: "temple", label: "pooja unit", name: "Pooja Unit", h: 5, w: 3 },
-        
+
         // { id: "base_cabinets", label: "kitchen base unit", name: "Base Cabinets", h: 2.5, w: 12 },
         // { id: "wall_cabinets", label: "kitchen wall unit", name: "Wall Cabinets", h: 2, w: 12 },
 
@@ -468,24 +469,24 @@ const CostCalculatorMain: React.FC<CostCalculationMainProps> = ({ showCloseButto
                 // }
 
                 // 🔥 New GTM DataLayer Conversion
-                // if (window.dataLayer) {
-                //     // console.log("getin inside the window.dataLayer")
-                //     window.dataLayer.push({
-                //         'event': 'cost_calculator_VL', // This must match your GTM Trigger name exactly
-                //         'value': estimate || 1.0,
-                //         'currency': 'INR',
-                //         'carpet_area': formData.carpetArea,
-                //         'home_type': formData.homeType,
-                //         'finish_quality': formData.finish,
-                //         'user_name': clientInfo.name,
-                //         'location': clientInfo.location,
-                //         'whatsapp_number': clientInfo.phone,
-                //         'estimated_value': estimate
+                if (window.dataLayer) {
+                    // console.log("getin inside the window.dataLayer")
+                    window.dataLayer.push({
+                        'event': 'cost_calculator_VL', // This must match your GTM Trigger name exactly
+                        'value': estimate || 1.0,
+                        'currency': 'INR',
+                        'carpet_area': formData.carpetArea,
+                        'home_type': formData.homeType,
+                        'finish_quality': formData.finish,
+                        'user_name': clientInfo.name,
+                        'location': clientInfo.location,
+                        'whatsapp_number': clientInfo.phone,
+                        'estimated_value': estimate
 
-                //     });
-                //     // console.log("getin inside the window.dataLayer", window?.dataLayer)
+                    });
+                    // console.log("getin inside the window.dataLayer", window?.dataLayer)
 
-                // }
+                }
 
                 console.log("res.data", res)
 
@@ -529,7 +530,7 @@ const CostCalculatorMain: React.FC<CostCalculationMainProps> = ({ showCloseButto
             {/* Header & Progress Bar */}
             <header
                 // className="p-10 pb-0"
-                className={`w-full pb-0 transition-all p-5 md:p-10
+                className={`w-full pb-0 transition-all p-5 md:p-8
                     }`}
 
             >
@@ -927,7 +928,7 @@ const CostCalculatorMain: React.FC<CostCalculationMainProps> = ({ showCloseButto
                                 disabled={isSaving}
                                 className="w-full cursor-pointer bg-[#ffc000] text-[#1a1a1a] py-3 md:py-6 rounded-2xl font-bold uppercase tracking-[2px] text-xs shadow-2xl shadow-black/20 active:scale-95 transition-all disabled:opacity-70"
                             >
-                                {(isSaving || isPending) ? 'Processing Quote...' : <span >Get <span className="hidden md:inline">Final</span> Quote</span> }
+                                {(isSaving || isPending) ? 'Processing Quote...' : <span >Get <span className="hidden md:inline">Final</span> Quote</span>}
                             </button>
                             {/* <button onClick={() => setStep(1)} className="w-full text-gray-400 font-bold uppercase tracking-widest text-[9px] hover:text-black">Modify project specs</button> */}
                         </div>
@@ -935,94 +936,126 @@ const CostCalculatorMain: React.FC<CostCalculationMainProps> = ({ showCloseButto
                 )}
 
                 {step === 5 && (
-                    <div className="text-center space-y-5 animate-in fade-in zoom-in-95">
-                        <div className="w-15 h-15 md:w-20 md:h-20 bg-green-50 text-green-500 rounded-full flex items-center justify-center mx-auto text-4xl shadow-sm border border-green-100">
-                            <i className="fa fa-check-circle"></i>
-                        </div>
-                        <div>
-                            <span className="text-[10px] font-bold uppercase  tracking-widest md:tracking-[8px] text-[#ffc000]">Valuation Certified</span>
-                            <div className="text-3xl md:text-5xl font-bold  text-[#1a1a1a] mt-4 leading-none">
-                                ₹{estimate.toLocaleString('en-IN')}
-                            </div>
-                            {/* <p className="text-gray-900 text-[10px] uppercase font-bold tracking-[4px] mt-3 opacity-60">Estimated for {formData.carpetArea} Sqft {formData.homeType}</p> */}
-                        </div>
 
-                        <div className="bg-gray-50 rounded-3xl p-8 text-left space-y-5 border border-gray-100">
-                            <div className="flex justify-between border-b border-gray-200 pb-4">
-                                <span className="text-[10px] text-gray-800 font-bold uppercase tracking-widest">Execution Type</span>
-                                <span className="text-xs text-[#1a1a1a] font-bold uppercase">{formData.homeType} | {formData.finish}</span>
-                            </div>
-                            <div className="flex justify-between">
-                                <span className="text-[10px] text-gray-800 font-bold uppercase tracking-widest">Location</span>
-                                <span className="text-xs text-[#1a1a1a] font-bold uppercase">{clientInfo.location}</span>
-                            </div>
-                        </div>
-
-                        <div className="space-y-4 pt-4">
-                            <button onClick={() => window.open(`https://wa.me/919363993814?text=Hi Vertical Living, I just generated a quote for my ${formData.homeType} in ${clientInfo.location}. Area: ${formData.carpetArea} sqft, Finish: ${formData.finish}. Estimate: ₹${estimate.toLocaleString('en-IN')}.`, '_blank')} className="w-full bg-[#25D366] text-white py-5 rounded-2xl font-bold uppercase tracking-widest text-[11px] flex items-center justify-center gap-4 shadow-xl shadow-green-100">
-                                <i className="fa-brands fa-whatsapp text-2xl"></i> Connect for Technical BOQ
-                            </button>
-                            <button onClick={() => {
-                                setStep(1)
-                                handleClear()
-
-                                // onClose?.()
-
-                            }} className="w-full text-gray-800 font-bold uppercase tracking-widest text-[9px] hover:text-black cursor-pointer">Close Report</button>
-                        </div>
-                    </div>
-
-
-                    // <div className="text-center space-y-8 animate-in fade-in zoom-in-95 py-10">
-                    //     {/* Success Icon */}
-                    //     <div className="w-24 h-24 bg-green-50 text-green-500 rounded-full flex items-center justify-center mx-auto text-5xl shadow-sm border border-green-100">
-                    //         <i className="fa-solid fa-paper-plane "></i>
+                    // <div className="text-center space-y-5 animate-in fade-in zoom-in-95">
+                    //     <div className="w-15 h-15 md:w-20 md:h-20 bg-green-50 text-green-500 rounded-full flex items-center justify-center mx-auto text-4xl shadow-sm border border-green-100">
+                    //         <i className="fa fa-check-circle"></i>
                     //     </div>
-
-                    //     {/* Success Text */}
-                    //     <div className="space-y-4">
-                    //         <span className="text-[10px] font-bold uppercase tracking-[8px] text-[#ffc000]">Request Received</span>
-                    //         <h2 className="text-3xl md:text-4xl font-bold text-[#1a1a1a] leading-tight">
-                    //             Quotation Sent <br /> Successfully!
-                    //         </h2>
-                    //         <p className="text-gray-500 text-sm max-w-xs mx-auto leading-relaxed">
-                    //             A detailed breakdown of your <span className="font-bold text-[#1a1a1a]">{formData.homeType}</span> project has been forwarded to your WhatsApp number.
-                    //         </p>
-                    //     </div>
-
-                    //     {/* Project Summary Card */}
-                    //     <div className="bg-gray-50 rounded-[32px] p-8 text-left space-y-5 border border-gray-100 max-w-sm mx-auto">
-                    //         <div className="flex justify-between items-center border-b border-gray-200 pb-4">
-                    //             <span className="text-[10px] text-gray-400 font-bold uppercase tracking-widest">Client</span>
-                    //             <span className="text-xs text-[#1a1a1a] font-bold uppercase">{clientInfo.name}</span>
+                    //     <div>
+                    //         <span className="text-[10px] font-bold uppercase  tracking-widest md:tracking-[8px] text-[#ffc000]">Valuation Certified</span>
+                    //         <div className="text-3xl md:text-5xl font-bold  text-[#1a1a1a] mt-4 leading-none">
+                    //             ₹{estimate.toLocaleString('en-IN')}
                     //         </div>
-                    //         <div className="flex justify-between items-center border-b border-gray-200 pb-4">
-                    //             <span className="text-[10px] text-gray-400 font-bold uppercase tracking-widest">Project Site</span>
+                    //         {/* <p className="text-gray-900 text-[10px] uppercase font-bold tracking-[4px] mt-3 opacity-60">Estimated for {formData.carpetArea} Sqft {formData.homeType}</p> */}
+                    //     </div>
+
+                    //     <div className="bg-gray-50 rounded-3xl p-8 text-left space-y-5 border border-gray-100">
+                    //         <div className="flex justify-between border-b border-gray-200 pb-4">
+                    //             <span className="text-[10px] text-gray-800 font-bold uppercase tracking-widest">Execution Type</span>
+                    //             <span className="text-xs text-[#1a1a1a] font-bold uppercase">{formData.homeType} | {formData.finish}</span>
+                    //         </div>
+                    //         <div className="flex justify-between">
+                    //             <span className="text-[10px] text-gray-800 font-bold uppercase tracking-widest">Location</span>
                     //             <span className="text-xs text-[#1a1a1a] font-bold uppercase">{clientInfo.location}</span>
                     //         </div>
-
                     //     </div>
 
-                    //     {/* Actions */}
-                    //     <div className="space-y-4 pt-6 max-w-sm mx-auto">
-                    //         <button
-                    //             onClick={() => window.open(`https://wa.me/${phoneNumber}?`, '_blank')}
-                    //             className="w-full bg-[#25D366] text-white py-6 rounded-2xl font-bold uppercase tracking-widest text-[11px] flex items-center justify-center gap-4 shadow-xl hover:scale-105 transition-transform"
-                    //         >
-                    //             <i className="fa-brands fa-whatsapp text-2xl"></i> Check WhatsApp Now
+                    //     <div className="space-y-4 pt-4">
+                    //         <button onClick={() => window.open(`https://wa.me/919363993814?text=Hi Vertical Living, I just generated a quote for my ${formData.homeType} in ${clientInfo.location}. Area: ${formData.carpetArea} sqft, Finish: ${formData.finish}. Estimate: ₹${estimate.toLocaleString('en-IN')}.`, '_blank')} className="w-full bg-[#25D366] text-white py-5 rounded-2xl font-bold uppercase tracking-widest text-[11px] flex items-center justify-center gap-4 shadow-xl shadow-green-100">
+                    //             <i className="fa-brands fa-whatsapp text-2xl"></i> Connect for Technical BOQ
                     //         </button>
+                    //         <button onClick={() => {
+                    //             setStep(1)
+                    //             handleClear()
 
-                    //         <button
-                    //             onClick={() => {
-                    //                 setStep(1);
-                    //                 handleClear();
-                    //             }}
-                    //             className="w-full text-gray-400 font-bold uppercase tracking-widest text-[9px] hover:text-[#ffc000] transition-colors"
-                    //         >
-                    //             Create Another Estimate
-                    //         </button>
+                    //             // onClose?.()
+
+                    //         }} className="w-full text-gray-800 font-bold uppercase tracking-widest text-[9px] hover:text-black cursor-pointer">Close Report</button>
                     //     </div>
                     // </div>
+
+
+                    <div className="text-center space-y-4 animate-in fade-in zoom-in-95">
+                        {/* Success Icon */}
+                        <div className="w-15 h-15 md:w-20 md:h-20 bg-green-50 text-green-500 rounded-full flex items-center justify-center mx-auto text-4xl shadow-sm border border-green-100">
+                            <i className="fa-solid fa-paper-plane "></i>
+                        </div>
+
+                        {/* Success Text */}
+                        <div className="space-y-4">
+                            <span className="text-[10px] font-bold uppercase tracking-[4px] md:tracking-[8px] text-[#ffc000]">Request Received</span>
+                            <h2 className="text-2xl md:text-4xl font-bold text-[#1a1a1a] leading-tight">
+                                Quotation Sent Successfully!
+                            </h2>
+                            <p className="text-gray-500 text-xs md:text-sm max-w-xs mx-auto md:leading-relaxed">
+                                A detailed breakdown of your <span className="font-bold text-[#1a1a1a]">{formData.homeType}</span> project cost has been sent to your WhatsApp number.
+                            </p>
+                        </div>
+
+                        {/* Project Summary Card */}
+                        <div className="bg-gray-50 rounded-[16px] md:rounded-[32px] p-4 md:p-8 text-left space-y-5 border border-gray-100 max-w-sm mx-auto">
+                            <div className="flex justify-between items-center border-b border-gray-200 pb-2 md:pb-4">
+                                <span className="text-[10px] text-gray-400 font-bold uppercase tracking-widest">Client</span>
+                                <span className="text-xs text-[#1a1a1a] font-bold uppercase">{clientInfo.name}</span>
+                            </div>
+                            <div className="flex justify-between items-center border-b border-gray-200 pb-2 md:pb-4">
+                                <span className="text-[10px] text-gray-400 font-bold uppercase tracking-widest">Project Site</span>
+                                <span className="text-xs text-[#1a1a1a] font-bold uppercase">{clientInfo.location}</span>
+                            </div>
+
+                        </div>
+
+                        <div className="text-center">
+                            <span className="text-[10px] font-bold font-poppins uppercase tracking-wide text-gray-800">
+                                Why Choose Us?
+                            </span>
+                        </div>
+                        {/* --- NEW TRUST SIGNALS SECTION --- */}
+                        <div className="grid grid-cols-3 gap-2 max-w-sm mx-auto py-6 border-y border-gray-50 mt-2">
+                            <div className="text-center space-y-1">
+                                {/* Changed to fa-city for Vertical/Building context */}
+                                <i className="fa-solid fa-city text-[#ffc000] text-lg"></i>
+                                <p className="text-[10px] font-bold text-[#1a1a1a] uppercase leading-tight">
+                                    Multiple <br />Projects
+                                </p>
+                            </div>
+                            <div className="text-center space-y-1 border-x border-gray-100">
+                                <i className="fa-solid fa-face-smile text-[#ffc000] text-lg"></i>
+                                <p className="text-[10px] font-bold text-[#1a1a1a] uppercase leading-tight">98% <br />Happy Clients</p>
+                            </div>
+                            <div className="text-center space-y-1">
+                                <i className="fa-solid fa-user-shield text-[#ffc000] text-lg"></i>
+                                <p className="text-[10px] font-bold text-[#1a1a1a] uppercase leading-tight">
+                                    Expert <br />Team
+                                </p>
+                            </div>
+                        </div>
+                        {/* ---------------------------------- */}
+
+                        {/* Actions */}
+                        <div className="space-y-4 pt-3 max-w-sm mx-auto">
+                            <button
+                                onClick={() => window.open(`https://wa.me/${phoneNumber}?`, '_blank')}
+                                className="w-full bg-[#25D366] text-white cursor-pointer py-3 md:py-6 rounded-2xl font-bold uppercase tracking-widest text-[11px] flex items-center justify-center gap-4 shadow-xl hover:scale-105 transition-transform"
+                            >
+                                {/* <i className="fa-brands fa-whatsapp text-2xl"></i> Contact Us<span className="hidden md:inline-block">through whatsapp</span> */}
+                                <i className="fa-brands fa-whatsapp text-2xl"></i>
+                                <span>
+                                    Contact Us <span className="hidden md:inline">Through WhatsApp</span>
+                                </span>
+                            </button>
+
+                            <button
+                                onClick={() => {
+                                    setStep(1);
+                                    handleClear();
+                                }}
+                                className="w-full text-gray-400 font-bold uppercase tracking-widest text-[9px] hover:text-[#ffc000] transition-colors"
+                            >
+                                Create Another Estimate
+                            </button>
+                        </div>
+                    </div>
                 )}
             </div>
         </div>
