@@ -572,11 +572,11 @@ const InquiryFormNew: React.FC<InquiryFormProps> = ({ showCalculatorLink = false
                         </div>
                     </div>
 
-                    <div className="mb-8 text-center">
+                    <div className={`${step === 4 ? "" : "mb-8"} text-center`}>
                         <h2 className="text-[22px] md:text-[26px] font-bold tracking-tight text-[#1a1a1a]">
                             {stepTitles[step - 1]}
                         </h2>
-                        <div className="w-10 h-1 bg-[#ffc000] rounded-full mt-2 mx-auto"></div>
+                       {step !== 4 && <div className="w-10 h-1 bg-[#ffc000] rounded-full mt-2 mx-auto"></div>}
                     </div>
 
                     <form onSubmit={handleSubmit} className="space-y-5">
@@ -679,8 +679,8 @@ const InquiryFormNew: React.FC<InquiryFormProps> = ({ showCalculatorLink = false
                                 animate={{ opacity: 1, scale: 1 }}
                                 className="text-center py-6 space-y-6"
                             >
-                                <div className="bg-green-50 text-[#28a745] font-semibold text-[12px] md:text-[14px] uppercase p-6 rounded-3xl border border-green-100">
-                                    <i className="fa-solid fa-circle-check text-2xl mb-2 block"></i>
+                                <div className="bg-green-50 text-[#28a745] font-semibold text-[10px] md:text-[14px] uppercase p-3 md:p-6 rounded-3xl border border-green-100">
+                                    {/* <i className="fa-solid fa-circle-check text-2xl mb-2 mr-2 block"></i> */}
                                     Thank you! We have received your information.<br />Our team will contact you soon.
                                 </div>
 
