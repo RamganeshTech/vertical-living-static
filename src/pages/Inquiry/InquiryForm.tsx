@@ -326,7 +326,7 @@ const InquiryForm = () => {
   return (
     <div>
 
-        <InquiryFormNew/>
+        <InquiryFormNew showCalculatorLink={true} />
     </div>
   )
 }

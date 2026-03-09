@@ -156,9 +156,9 @@ const PRODUCT_CATALOG: Record<string, any[]> = {
 const ESTIMATION_CONFIG = {
     // These are your fixed rates per square foot of product surface area
     SQFT_RATES: {
-        'Standard': 1100, // ₹1,100 per sqft
-        'Premium': 1600,  // ₹1,600 per sqft
-        'Luxury': 2200    // ₹2,200 per sqft
+        'Basic': 1100, // ₹1,100 per sqft
+        'Core': 1600,  // ₹1,600 per sqft
+        'Prime': 2200    // ₹2,200 per sqft
     },
 
     // SQFT_RATES: {
@@ -207,7 +207,7 @@ const STEP_ICONS = [
 
 const CostCalculatorMain: React.FC<CostCalculationMainProps> = ({ showCloseButton, fromPage, handleClose }) => {
     const [step, setStep] = useState(1);
-    const [formData, setFormData] = useState({ carpetArea: 0, homeType: '2 BHK', finish: 'Premium' });
+    const [formData, setFormData] = useState({ carpetArea: 0, homeType: '2 BHK', finish: 'Core' });
     const [roomCounts, setRoomCounts] = useState({});
     const [config, setConfig] = useState({});
     const [clientInfo, setClientInfo] = useState({ name: '', phone: '', location: '' });
@@ -218,7 +218,7 @@ const CostCalculatorMain: React.FC<CostCalculationMainProps> = ({ showCloseButto
 
 
     const handleClear = () => {
-        setFormData({ carpetArea: 0, homeType: '2 BHK', finish: 'Premium' })
+        setFormData({ carpetArea: 0, homeType: '2 BHK', finish: 'Core' })
         setRoomCounts({})
         setConfig({})
         setClientInfo({ name: '', phone: '', location: '' })
@@ -623,7 +623,7 @@ const CostCalculatorMain: React.FC<CostCalculationMainProps> = ({ showCloseButto
                             <label className="text-[12px] md:text-[14px] font-bold uppercase tracking-[1px]  text-gray-800 mb-2 block ">2. Configuration</label>
                             <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
                                 {['1 BHK', '2 BHK', '3 BHK', 'Villa'].map(type => (
-                                    <button key={type} onClick={() => setFormData({ ...formData, homeType: type })} className={`py-3 md:py-4 cursor-pointer rounded-xl border-2  font-bold text-[12px] md:text-[14px] uppercase transition-all ${formData.homeType === type ? 'border-[#ffc000] bg-[#ffc000]/5 text-[#1a1a1a]' : 'border-gray-50 text-gray-800'}`}>
+                                    <button key={type} onClick={() => setFormData({ ...formData, homeType: type })} className={`py-3 md:py-4 cursor-pointer rounded-xl border-2  font-bold text-[12px] md:text-[14px] uppercase transition-all ${formData.homeType === type ? 'border-[#ffc000] bg-[#ffc000]/5 text-[#1a1a1a]' : 'border-gray-100 text-gray-800'}`}>
                                         {type}
                                     </button>
                                 ))}
@@ -634,7 +634,7 @@ const CostCalculatorMain: React.FC<CostCalculationMainProps> = ({ showCloseButto
                             <label className="text-[12px] md:text-[14px] font-bold uppercase tracking-[1px] text-gray-800 mb-2 block ">3. Execution Finish</label>
                             <div className="grid grid-cols-3 gap-3">
                                 {Object.keys(ESTIMATION_CONFIG.SQFT_RATES).map((finish) => (
-                                    <button key={finish} onClick={() => setFormData({ ...formData, finish: finish })} className={`py-3 md:py-4 cursor-pointer rounded-xl border-2 font-bold text-[12px] md:text-[14px] uppercase transition-all ${formData.finish === finish ? 'border-[#ffc000] bg-[#ffc000]/5 text-[#1a1a1a]' : 'border-gray-50 text-gray-800'}`}>
+                                    <button key={finish} onClick={() => setFormData({ ...formData, finish: finish })} className={`py-3 md:py-4 cursor-pointer rounded-xl border-2 font-bold text-[12px] md:text-[14px] uppercase transition-all tracking-wider ${formData.finish === finish ? 'border-[#ffc000] bg-[#ffc000]/5 text-[#1a1a1a]' : 'border-gray-100 text-gray-800'}`}>
                                         {finish}
                                     </button>
                                 ))}

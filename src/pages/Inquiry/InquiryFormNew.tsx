@@ -253,9 +253,14 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useCreatePublicLead } from '../../api/ApiLists/publicLeadCollectionApi';
+import { useNavigate } from 'react-router-dom';
 
 // Constant for the Google Script
 const actionUrl = "https://script.google.com/macros/s/AKfycbzHOjt3OivmNOJq0pUYQ9MzM2XENCubYpDVwiR4qKBh_2x63YNkqD0KuEoIoa2WJ5Q/exec";
+
+interface InquiryFormProps {
+    showCalculatorLink?: boolean; // Prop to control the extra button
+}
 
 // Reusable Elegant Custom Select Component
 const ModernDropdown = ({
@@ -333,13 +338,16 @@ const ModernDropdown = ({
     );
 };
 
-const InquiryFormNew: React.FC = () => {
+
+
+const InquiryFormNew: React.FC<InquiryFormProps> = ({ showCalculatorLink = false }) => {
     const [step, setStep] = useState(1);
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [showSuccess, setShowSuccess] = useState(false);
     const [errors, setErrors] = useState<Record<string, string>>({});
 
     const { mutateAsync: createMutate } = useCreatePublicLead()
+    const navigate = useNavigate()
 
     // const [formData, setFormData] = useState({
     //     fullName: "",
@@ -511,7 +519,15 @@ const InquiryFormNew: React.FC = () => {
             // setFormData({ fullName: "", mobileNumber: "", projectCategory: "", propertyType: "", budget: "", location: "", timeline: "", serviceType: "" });
             setFormData({ "Full Name": "", "Mobile Number": "", "Project Category": "", "Property Type": "", "Budget": "", "Location": "", "Timeline": "", "Service Type": "" });
             setErrors({});
-            setStep(1);
+
+            // setStep(1);
+            if (showCalculatorLink) {
+                setStep(4);
+            }
+            else {
+                setStep(1);
+
+            }
             setTimeout(() => {
                 setShowSuccess(false)
             }, 5000);
@@ -631,7 +647,7 @@ const InquiryFormNew: React.FC = () => {
                             )}
                         </AnimatePresence>
 
-                        <div className="flex gap-4 pt-4">
+                        {step !==4 && <div className="flex gap-4 pt-4">
                             {step > 1 && (
                                 <button type="button" onClick={prevStep} className="flex-1 cursor-pointer h-[50px] border border-gray-300 text-[#333] rounded-full text-[11px] font-semibold uppercase tracking-widest hover:bg-gray-50 transition-all">
                                     Back
@@ -647,13 +663,59 @@ const InquiryFormNew: React.FC = () => {
                                     {isSubmitting ? "Sending..." : "Submit"}
                                 </button>
                             )}
-                        </div>
+                        </div>}
 
-                        {showSuccess && (
+                        {(showSuccess && !showCalculatorLink) && (
                             <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} className="bg-green-50 text-[#28a745] font-semibold text-center text-[10px] uppercase p-3 rounded-xl border border-green-100 mt-4">
-                                Thank you. We have received your information. Our team will call you soon.
+                               {" "} Thank you. We have received your information. Our team will call you soon.
                             </motion.div>
                         )}
+
+
+                        {(showCalculatorLink && step === 4) && (
+                            /* UPDATED SUCCESS VIEW WITH CALCULATOR CTA */
+                            <motion.div
+                                initial={{ opacity: 0, scale: 0.95 }}
+                                animate={{ opacity: 1, scale: 1 }}
+                                className="text-center py-6 space-y-6"
+                            >
+                                <div className="bg-green-50 text-[#28a745] font-semibold text-[12px] md:text-[14px] uppercase p-6 rounded-3xl border border-green-100">
+                                    <i className="fa-solid fa-circle-check text-2xl mb-2 block"></i>
+                                    Thank you! We have received your information.<br />Our team will contact you soon.
+                                </div>
+
+                                {showCalculatorLink && (
+                                    <motion.div
+                                        initial={{ y: 20, opacity: 0 }}
+                                        animate={{ y: 0, opacity: 1 }}
+                                        transition={{ delay: 0.3 }}
+                                        className="bg-gray-50 p-6 rounded-[30px] border border-dashed border-gray-200"
+                                    >
+                                        <p className="text-[11px] font-bold text-gray-500 uppercase tracking-widest mb-4">
+                                            Want an instant estimate?
+                                        </p>
+                                        <h3 className="text-lg font-bold text-[#1a1a1a] mb-6">
+                                            Try our Instant <br />Cost Calculator
+                                        </h3>
+                                        <button
+                                            onClick={() => navigate('/cost-calculation')}
+                                            className="w-full bg-[#ffc000] cursor-pointer text-black h-[55px] rounded-full font-bold uppercase tracking-widest text-[12px] shadow-lg hover:scale-105 transition-transform flex items-center justify-center gap-3"
+                                        >
+                                            Calculate Project Cost <i className="fa-solid fa-arrow-right"></i>
+                                        </button>
+                                    </motion.div>
+                                )}
+
+                                {/* <button
+                                    onClick={() => { setShowSuccess(false); setStep(1); }}
+                                    className="text-gray-400 text-[10px] uppercase font-bold tracking-widest hover:text-[#ffc000]"
+                                >
+                                    Edit Information
+                                </button> */}
+                            </motion.div>
+                        )
+
+                        }
                     </form>
                 </div>
             </div>
