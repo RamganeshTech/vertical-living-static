@@ -499,13 +499,17 @@ const InquiryFormNew: React.FC<InquiryFormProps> = ({ showCalculatorLink = false
             // 🔥 New GTM DataLayer Conversion: Inquiry Form
             if (window.dataLayer) {
                 console.log("getin inside the window.dataLayer")
+                // 🔥 Clean the 10-digit number and add +91
+                const rawInput = formData["Mobile Number"].replace(/\D/g, ''); // Removes any accidental spaces/dashes
+                const formattedPhone = `+91${rawInput}`;
                 window.dataLayer.push({
                     'event': 'inquiry_form_VL', // Must match GTM Trigger Name exactly
                     'value': 1.0,
                     'currency': 'INR',
                     'user_name': formData["Full Name"],
                     'location': formData["Location"],
-                    'phone_number': formData["Mobile Number"],
+                    // 'phone_number': formData["Mobile Number"],
+                    'phone_number': formattedPhone,
                     'project_category': formData["Project Category"],
                     'property_type': formData["Property Type"],
                     'budget': formData["Budget"],
@@ -576,7 +580,7 @@ const InquiryFormNew: React.FC<InquiryFormProps> = ({ showCalculatorLink = false
                         <h2 className="text-[22px] md:text-[26px] font-bold tracking-tight text-[#1a1a1a]">
                             {stepTitles[step - 1]}
                         </h2>
-                       {step !== 4 && <div className="w-10 h-1 bg-[#ffc000] rounded-full mt-2 mx-auto"></div>}
+                        {step !== 4 && <div className="w-10 h-1 bg-[#ffc000] rounded-full mt-2 mx-auto"></div>}
                     </div>
 
                     <form onSubmit={handleSubmit} className="space-y-5">
@@ -647,7 +651,7 @@ const InquiryFormNew: React.FC<InquiryFormProps> = ({ showCalculatorLink = false
                             )}
                         </AnimatePresence>
 
-                        {step !==4 && <div className="flex gap-4 pt-4">
+                        {step !== 4 && <div className="flex gap-4 pt-4">
                             {step > 1 && (
                                 <button type="button" onClick={prevStep} className="flex-1 cursor-pointer h-[50px] border border-gray-300 text-[#333] rounded-full text-[11px] font-semibold uppercase tracking-widest hover:bg-gray-50 transition-all">
                                     Back
@@ -667,7 +671,7 @@ const InquiryFormNew: React.FC<InquiryFormProps> = ({ showCalculatorLink = false
 
                         {(showSuccess && !showCalculatorLink) && (
                             <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} className="bg-green-50 text-[#28a745] font-semibold text-center text-[10px] uppercase p-3 rounded-xl border border-green-100 mt-4">
-                               {" "} Thank you. We have received your information. Our team will call you soon.
+                                {" "} Thank you. We have received your information. Our team will call you soon.
                             </motion.div>
                         )}
 

@@ -471,6 +471,9 @@ const CostCalculatorMain: React.FC<CostCalculationMainProps> = ({ showCloseButto
                 // 🔥 New GTM DataLayer Conversion
                 if (window.dataLayer) {
                     // console.log("getin inside the window.dataLayer")
+                    // 🔥 Clean the 10-digit number and add +91
+                    const rawCalcInput = clientInfo.phone.replace(/\D/g, '');
+                    const formattedCalcPhone = `+91${rawCalcInput}`;
                     window.dataLayer.push({
                         'event': 'cost_calculator_VL', // This must match your GTM Trigger name exactly
                         'value': estimate || 1.0,
@@ -480,7 +483,8 @@ const CostCalculatorMain: React.FC<CostCalculationMainProps> = ({ showCloseButto
                         'finish_quality': formData.finish,
                         'user_name': clientInfo.name,
                         'location': clientInfo.location,
-                        'whatsapp_number': clientInfo.phone,
+                        // 'whatsapp_number': clientInfo.phone,
+                        'whatsapp_number': formattedCalcPhone, // Now sends +919808080808
                         'estimated_value': estimate
 
                     });
