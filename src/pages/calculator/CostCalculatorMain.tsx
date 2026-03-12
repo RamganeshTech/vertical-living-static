@@ -6,7 +6,7 @@ import {
     useWhatsappAutomationQuoteSend,
     // useWhatsappAutomationQuoteSend 
 } from '../../api/ApiLists/publicQuoteCalculatorApi';
-import { downloadImage } from '../../api/ApiLists/downloadFile';
+// import { downloadImage } from '../../api/ApiLists/downloadFile';
 import { phoneNumber } from '../../components/FloatingContact';
 // import { phoneNumber } from '../../components/FloatingContact';
 
@@ -397,12 +397,12 @@ const CostCalculatorMain: React.FC<CostCalculationMainProps> = ({ showCloseButto
         try {
             // Using your existing Google Apps Script URL
             // await fetch('https://script.google.com/macros/s/AKfycby1za3iClzVCPFUxBfakDkhv19fLuM_KfiKFX_ZmSzvbLJ25Ml91NNRm4lT5OXmDdyJ/exec', { // pk22...
-            await fetch('https://script.google.com/macros/s/AKfycbyyPj39EazaNzcIwg2NsVbKROlqjDTJccbSHNYlgrPV827RIfsxuV9B7sl3mSh0lPUe5A/exec', { //ramstechpro....
-                method: 'POST',
-                mode: 'no-cors', // Mandatory for Google Apps Script
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(dataToSave),
-            });
+            // await fetch('https://script.google.com/macros/s/AKfycbyyPj39EazaNzcIwg2NsVbKROlqjDTJccbSHNYlgrPV827RIfsxuV9B7sl3mSh0lPUe5A/exec', { //ramstechpro....
+            //     method: 'POST',
+            //     mode: 'no-cors', // Mandatory for Google Apps Script
+            //     headers: { 'Content-Type': 'application/json' },
+            //     body: JSON.stringify(dataToSave),
+            // });
 
 
             // 2. Call the Mutation Hook
@@ -469,28 +469,28 @@ const CostCalculatorMain: React.FC<CostCalculationMainProps> = ({ showCloseButto
                 // }
 
                 // 🔥 New GTM DataLayer Conversion
-                if (window.dataLayer) {
-                    // console.log("getin inside the window.dataLayer")
-                    // 🔥 Clean the 10-digit number and add +91
-                    const rawCalcInput = clientInfo.phone.replace(/\D/g, '');
-                    const formattedCalcPhone = `+91${rawCalcInput}`;
-                    window.dataLayer.push({
-                        'event': 'cost_calculator_VL', // This must match your GTM Trigger name exactly
-                        'value': estimate || 1.0,
-                        'currency': 'INR',
-                        'carpet_area': formData.carpetArea,
-                        'home_type': formData.homeType,
-                        'finish_quality': formData.finish,
-                        'user_name': clientInfo.name,
-                        'location': clientInfo.location,
-                        // 'whatsapp_number': clientInfo.phone,
-                        'whatsapp_number': formattedCalcPhone, // Now sends +919808080808
-                        'estimated_value': estimate
+                // if (window.dataLayer) {
+                //     // console.log("getin inside the window.dataLayer")
+                //     // 🔥 Clean the 10-digit number and add +91
+                //     const rawCalcInput = clientInfo.phone.replace(/\D/g, '');
+                //     const formattedCalcPhone = `+91${rawCalcInput}`;
+                //     window.dataLayer.push({
+                //         'event': 'cost_calculator_VL', // This must match your GTM Trigger name exactly
+                //         'value': estimate || 1.0,
+                //         'currency': 'INR',
+                //         'carpet_area': formData.carpetArea,
+                //         'home_type': formData.homeType,
+                //         'finish_quality': formData.finish,
+                //         'user_name': clientInfo.name,
+                //         'location': clientInfo.location,
+                //         // 'whatsapp_number': clientInfo.phone,
+                //         'whatsapp_number': formattedCalcPhone, // Now sends +919808080808
+                //         'estimated_value': estimate
 
-                    });
-                    // console.log("getin inside the window.dataLayer", window?.dataLayer)
+                //     });
+                //     // console.log("getin inside the window.dataLayer", window?.dataLayer)
 
-                }
+                // }
 
                 console.log("res.data", res)
 
@@ -501,21 +501,24 @@ const CostCalculatorMain: React.FC<CostCalculationMainProps> = ({ showCloseButto
                 })
 
                 // Download PDF
-                downloadImage({
-                    src: res.url,
-                    alt: `${clientInfo.name}_Quotation.pdf`
-                });
+                // downloadImage({
+                //     src: res.url,
+                //     alt: `${clientInfo.name}_Quotation.pdf`
+                // });
 
 
 
                 // // if ((res as any)?.url) { // successfully we have that url here
                 // //  res.url is the pdf link it willbe https://vertical.....
 
-                await sendToWhatsapp({ clientName: dataToSave.name, clientPhone: dataToSave.phone, pdfUrl: res?.url })
-
-                // // }
+                console.log("step changed to 5");
 
                 setStep(5);
+                await sendToWhatsapp({ clientName: dataToSave.name, clientPhone: dataToSave.phone, pdfUrl: res?.url })
+                
+                // // }
+                
+                console.log("step changed to 5");
 
             }
             // setStep(5);
@@ -929,6 +932,7 @@ const CostCalculatorMain: React.FC<CostCalculationMainProps> = ({ showCloseButto
                             <button
                                 onClick={handleSubmit}
                                 // onKeyDown={}
+                                type="button"
                                 disabled={isSaving}
                                 className="w-full cursor-pointer bg-[#ffc000] text-[#1a1a1a] py-3 md:py-6 rounded-2xl font-bold uppercase tracking-[2px] text-xs shadow-2xl shadow-black/20 active:scale-95 transition-all disabled:opacity-70"
                             >
