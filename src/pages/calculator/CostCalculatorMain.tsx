@@ -397,12 +397,12 @@ const CostCalculatorMain: React.FC<CostCalculationMainProps> = ({ showCloseButto
         try {
             // Using your existing Google Apps Script URL
             // await fetch('https://script.google.com/macros/s/AKfycby1za3iClzVCPFUxBfakDkhv19fLuM_KfiKFX_ZmSzvbLJ25Ml91NNRm4lT5OXmDdyJ/exec', { // pk22...
-            // await fetch('https://script.google.com/macros/s/AKfycbyyPj39EazaNzcIwg2NsVbKROlqjDTJccbSHNYlgrPV827RIfsxuV9B7sl3mSh0lPUe5A/exec', { //ramstechpro....
-            //     method: 'POST',
-            //     mode: 'no-cors', // Mandatory for Google Apps Script
-            //     headers: { 'Content-Type': 'application/json' },
-            //     body: JSON.stringify(dataToSave),
-            // });
+            await fetch('https://script.google.com/macros/s/AKfycbyyPj39EazaNzcIwg2NsVbKROlqjDTJccbSHNYlgrPV827RIfsxuV9B7sl3mSh0lPUe5A/exec', { //ramstechpro....
+                method: 'POST',
+                mode: 'no-cors', // Mandatory for Google Apps Script
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(dataToSave),
+            });
 
 
             // 2. Call the Mutation Hook
@@ -469,28 +469,28 @@ const CostCalculatorMain: React.FC<CostCalculationMainProps> = ({ showCloseButto
                 // }
 
                 // 🔥 New GTM DataLayer Conversion
-                // if (window.dataLayer) {
-                //     // console.log("getin inside the window.dataLayer")
-                //     // 🔥 Clean the 10-digit number and add +91
-                //     const rawCalcInput = clientInfo.phone.replace(/\D/g, '');
-                //     const formattedCalcPhone = `+91${rawCalcInput}`;
-                //     window.dataLayer.push({
-                //         'event': 'cost_calculator_VL', // This must match your GTM Trigger name exactly
-                //         'value': estimate || 1.0,
-                //         'currency': 'INR',
-                //         'carpet_area': formData.carpetArea,
-                //         'home_type': formData.homeType,
-                //         'finish_quality': formData.finish,
-                //         'user_name': clientInfo.name,
-                //         'location': clientInfo.location,
-                //         // 'whatsapp_number': clientInfo.phone,
-                //         'whatsapp_number': formattedCalcPhone, // Now sends +919808080808
-                //         'estimated_value': estimate
+                if (window.dataLayer) {
+                    // console.log("getin inside the window.dataLayer")
+                    // 🔥 Clean the 10-digit number and add +91
+                    const rawCalcInput = clientInfo.phone.replace(/\D/g, '');
+                    const formattedCalcPhone = `+91${rawCalcInput}`;
+                    window.dataLayer.push({
+                        'event': 'cost_calculator_VL', // This must match your GTM Trigger name exactly
+                        'value': estimate || 1.0,
+                        'currency': 'INR',
+                        'carpet_area': formData.carpetArea,
+                        'home_type': formData.homeType,
+                        'finish_quality': formData.finish,
+                        'user_name': clientInfo.name,
+                        'location': clientInfo.location,
+                        // 'whatsapp_number': clientInfo.phone,
+                        'whatsapp_number': formattedCalcPhone, // Now sends +919808080808
+                        'estimated_value': estimate
 
-                //     });
-                //     // console.log("getin inside the window.dataLayer", window?.dataLayer)
+                    });
+                    // console.log("getin inside the window.dataLayer", window?.dataLayer)
 
-                // }
+                }
 
                 console.log("res.data", res)
 
