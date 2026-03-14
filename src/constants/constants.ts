@@ -9,7 +9,16 @@ import poojaunit from '../assets/images/poojaunitwithoutWM.webp';
 import crockeryunit from '../assets/images/crockeryimgWithoutWM.webp';
 import kitchenBaseCabinets from '../assets/images/kitchenbasecabinets.webp';
 import shoeRack from '../assets/images/shoeRack.webp';
+import vanityStorage1 from '../assets/images/vanityStorage1.jpg';
+import dressingunit from '../assets/images/dressingunit.jpg';
+import studyCabinet1 from '../assets/images/studyCabinet1.jpg';
+import bookshelf from '../assets/images/bookShelf.jpg';
+import foyerArea from '../assets/images/foyerArea.jpg';
+import windowSeating from '../assets/images/windowSeating.jpg';
+import wallpaper from '../assets/images/wallpaper.jpg';
+import roomPartition from '../assets/images/roompartition.jpg';
 
+export const COMPANY_NAME="Vertical Living"
 
 export const PACKAGES = [
     {
@@ -333,7 +342,105 @@ export const CASE_STUDIES_DATA = [
             materialScience: "Lightweight plywood cores are used to reduce the load on the wall-mounted structure. White or light-colored finishes are preferred to help the loft blend into the ceiling.",
             technicalInsights: "We use 'Push-to-Open' mechanisms to eliminate the need for handles, keeping the top section completely flush and minimalistic."
         }
+    },
+
+    {
+        id: "dressing-unit",
+        title: "Dressing Units & Vanity Mirrors",
+        preview: "Elegant grooming stations with specialized lighting and organized jewelry storage.",
+        image: dressingunit,
+        fullContent: {
+            introduction: "A dressing unit is a personal sanctuary for grooming, requiring a combination of clear reflection, ample lighting, and meticulous organization.",
+            selectionProcess: "We design based on the user's routine. Full-length mirrors are standard for wardrobe-adjacent units, while sit-down vanities are prioritized for dedicated makeup stations. We ensure the mirror height is customized to the user's eye level.",
+            materialScience: "We use high-definition, copper-free mirrors to prevent black edges (oxidation) over time. Table surfaces are often finished with scratch-resistant acrylic or quartz for easy cleanup of cosmetic spills.",
+            technicalInsights: "Integrated 'Hollywood' style LED lighting or backlit mirrors provide shadow-free illumination. We also include concealed hair-dryer holders with built-in power points for a clutter-free look."
+        }
+    },
+    {
+        id: "study-cabin",
+        title: "Study Cabins & Home Offices",
+        preview: "Ergonomic workspaces designed for focus, productivity, and tech integration.",
+        image: studyCabinet1,
+        fullContent: {
+            introduction: "With the rise of remote work, a study cabin must balance professional functionality with the comfort of home.",
+            selectionProcess: "We focus on ergonomics. Desk heights are strictly maintained at 29-30 inches. We incorporate overhead open shelving for quick-access books and closed cabinets for filing to maintain a clean visual environment.",
+            materialScience: "Matte-finish laminates are used for the tabletop to reduce glare from overhead lights. We use 25mm thick boards for the desk surface to prevent sagging under the weight of monitors and CPUs.",
+            technicalInsights: "Wire management is handled via brush-grommets and under-desk cable trays. We often integrate magnetic whiteboards or pin-boards into the wall cladding for brainstorming."
+        }
+    },
+    {
+        id: "vanity-storage",
+        title: "Bathroom Vanity Storage",
+        preview: "Moisture-proof cabinetry designed for humid environments and daily essentials.",
+        image: vanityStorage1,
+        fullContent: {
+            introduction: "Bathroom vanities must withstand high humidity while providing organized storage for toiletries and linens.",
+            selectionProcess: "We offer both wall-hung (floating) and floor-mounted designs. Floating vanities are recommended for smaller bathrooms to make the floor visible, creating an illusion of space.",
+            materialScience: "This is the most critical area for material choice. We exclusively use WPC (Wood Plastic Composite) or BWP Plywood to ensure the cabinets are 100% waterproof and termite-proof.",
+            technicalInsights: "We use 'U-shaped' drawer cutouts to navigate around sink plumbing, ensuring no storage space is wasted. Soft-close slides are mandatory to prevent damage in wet conditions."
+        }
+    },
+    {
+        id: "bookshelf",
+        title: "Custom Bookshelves & Libraries",
+        preview: "Structural storage solutions for bibliophiles, from floor-to-ceiling units to floating ledges.",
+        image: bookshelf,
+        fullContent: {
+            introduction: "A bookshelf is more than storage; it's a display of personality. Our designs focus on structural integrity and visual rhythm.",
+            selectionProcess: "We analyze the collection size. For heavy encyclopedias, we design shorter shelf spans to prevent bowing. For modern décor, we use asymmetrical open-box designs.",
+            materialScience: "We use reinforced 18mm ply with vertical supports every 2-3 feet. Finishes range from natural wood veneers to bold PU paints to create a focal point in the room.",
+            technicalInsights: "Adjustable shelf tracks are often used to accommodate books of varying heights. We also incorporate vertical LED strip lights recessed into the side panels for a library-like glow."
+        }
+    },
+    {
+        id: "room-partition",
+        title: "Wall & Dining Partitions",
+        preview: "Defining spaces without losing light, using CNC jalis, glass, and fluted panels.",
+        image: roomPartition,
+        fullContent: {
+            introduction: "Partitions allow for functional zoning between living and dining areas while maintaining an open-plan feel.",
+            selectionProcess: "We choose between 'Visual Barriers' (lightweight/see-through) and 'Storage Partitions' (functional units). Revolving TV units or breakfast counters often serve as dual-purpose dividers.",
+            materialScience: "We utilize diverse materials like metal frames, fluted glass, or CNC-cut MDF panels. Toughened glass is used for safety in high-traffic dining zones.",
+            technicalInsights: "Floor-to-ceiling partitions are anchored securely with hidden tension bolts. We often integrate planter boxes at the base to add a touch of biophilic design."
+        }
+    },
+    {
+        id: "wallpapers",
+        title: "Wallpapers & Textures",
+        preview: "Transforming surfaces with premium vinyl, fabric, and 3D textured wall coverings.",
+        image: wallpaper,
+        fullContent: {
+            introduction: "Wallpapers provide an instant personality shift to a room, offering textures and patterns that paint cannot achieve.",
+            selectionProcess: "We guide clients based on the room's light. Dark, metallic patterns are used for accent walls in bedrooms, while light, washable vinyl is recommended for hallways.",
+            materialScience: "We source non-woven and fabric-backed wallpapers for breathability, preventing mold. Our adhesives are eco-friendly and low-VOC to ensure indoor air quality.",
+            technicalInsights: "Proper wall preparation is key; we ensure a Level 5 primer finish before application. For high-moisture areas, we apply a protective clear coat over the wallpaper."
+        }
+    },
+    {
+        id: "foyer-console",
+        title: "Foyer Seating & Consoles",
+        preview: "Creating a welcoming transition with functional seating and drop-off zones.",
+        image: foyerArea,
+        fullContent: {
+            introduction: "The foyer is the bridge between the outside world and your home. It needs to be practical for 'grab-and-go' items while looking inviting.",
+            selectionProcess: "We incorporate a 'Drop Zone' for keys and mail, paired with a padded bench for comfortably wearing shoes. Wall-mounted consoles are used in narrow entries to keep floor space clear.",
+            materialScience: "High-traffic durability is key. We use stone-top consoles or high-pressure laminates that can handle heavy keys and bags without scratching.",
+            technicalInsights: "We often hide electrical hubs inside foyer drawers for charging phones and smartwatches immediately upon entering the home."
+        }
+    },
+    {
+        id: "window-seating",
+        title: "Window Seating & Bay Windows",
+        preview: "Transforming window areas into cozy reading nooks with integrated storage.",
+        image: windowSeating,
+        fullContent: {
+            introduction: "Window seating turns an underutilized space into a functional retreat, perfect for reading or enjoying the view.",
+            selectionProcess: "We measure the window sill height to ensure the seat is at a comfortable 15-18 inches from the floor. The depth is kept at 24 inches for relaxed sitting.",
+            materialScience: "The base is built with heavy-duty ply to support multiple people. We use high-density foam cushions covered in stain-resistant upholstery fabrics.",
+            technicalInsights: "The space beneath the seat is never wasted; we design it with either deep drawers for linens or 'top-lift' shutters for bulky luggage storage."
+        }
     }
+   
 ];
 
 
