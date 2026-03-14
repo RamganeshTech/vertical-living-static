@@ -32,7 +32,7 @@ const navLinks = [
         ]
     },
     { id: 'about', label: 'About Us', link: "/#about" },
-    { id: 'contact', label: 'Contact Us', link: "/#contact" },
+    { id: 'contact', label: 'Contact Us', link: "/#contact-us" },
     // { id: 'form', label: 'Form', link: "/form" },
     // { id: 'costcalculator', label: 'Cost Calculation', link: "/cost-calculation" },
 

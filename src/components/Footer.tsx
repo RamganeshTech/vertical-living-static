@@ -31,7 +31,7 @@ const navLinks = [
   { id: 'home', label: 'Home', link: "/#home" },
   { id: 'about', label: 'About Us', link: "/#about" },
   { id: 'portfolio', label: 'Our Portfolio', link: "/#portfolio" },
-  { id: 'contact', label: 'Contact Us', link: "/#contact" },
+  { id: 'contact', label: 'Contact Us', link: "/#contact-us" },
   { id: 'privacyPolicy', label: 'Privacy Policy', link: "/privacy-policy" },
   { id: 'accountDeletion', label: 'Account Deletion', link: "/account-deletion" },
   { id: 'disclaimer', label: 'Disclaimer', link: "/disclaimer" },

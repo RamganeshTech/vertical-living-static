@@ -5,7 +5,7 @@ import { trackConversion } from '../components/StickySideContact';
 
 const ConnectSection: React.FC = () => {
     return (
-        <section id="contact" className="py-24 bg-[#fafafa] font-inter relative overflow-hidden">
+        <section id="contact-us" className="py-24 bg-[#fafafa] font-inter relative overflow-hidden">
 
             {/* Decorative Architectural Elements */}
             <div className="absolute top-0 left-0 w-full h-full opacity-[0.03] pointer-events-none">
@@ -26,11 +26,11 @@ const ConnectSection: React.FC = () => {
                         viewport={{ once: true }}
                         transition={{ duration: 0.6 }}
                     >
-                        <h2 className="text-2xl md:text-4xl font-[500] uppercase tracking-tighter text-[#1a1a1a]">
+                        <h2 className="text-2xl md:text-4xl font-[500] uppercase  text-[#1a1a1a]">
                             Connect <span className="text-[#ffc000]">With Us</span>
                         </h2>
                         <div className="w-20 h-1.5 bg-[#ffc000] mx-auto mt-3 rounded-full shadow-[0_5px_15px_rgba(255,192,0,0.3)]"></div>
-                        <p className="text-gray-500 text-[12px] md:text-base mt-4 max-w-xl mx-auto leading-relaxed font-medium uppercase tracking-wide">
+                        <p className="text-gray-500 text-[12px] md:text-base mt-4 max-w-xl mx-auto leading-relaxed font-medium font-poppins tracking-wide">
                             Reach out via WhatsApp or give us a call for the best home design experience.
                             Our experts are ready to bring your vision to life.
                         </p>
