@@ -16,10 +16,16 @@ const navLinks = [
         subLinks: [
             { id: 'services', label: 'Service Packages', link: "/service-packages", icon: 'fa-swatchbook' },
             { id: 'packages', label: 'Pricing Packages', link: "/packages", icon: 'fa-gem' },
+        ]
+    },
+    {
+        id: "experience",
+        label: "Our Experience",
+        link: "#",
+        subLinks: [
             { id: 'process', label: 'Our Process', link: "/process", icon: 'fa-project-diagram' },
             { id: 'testimonials', label: 'Testimonials', link: "/testimonials", icon: 'fa-quote-left' },
-            { id: 'case-studies', label: 'Case Studies', link: "/case-studies", icon: 'fa-book' },
-
+            { id: 'case-studies', label: 'Blogs', link: "/blogs", icon: 'fa-book' },
         ]
     },
     {

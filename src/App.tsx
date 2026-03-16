@@ -85,8 +85,8 @@ function App() {
         <Route path="/process" element={<SOPFlowStatic />} />
         <Route path="/testimonials" element={<TestimonialStatic />} />
         <Route path="/disclaimer" element={<Disclaimer />} />
-        <Route path="/case-studies" element={<CaseStudiesMain />} />
-        <Route path="/case-studies/:id" element={<CaseStudiesSingle />} />
+        <Route path="/blogs" element={<CaseStudiesMain />} />
+        <Route path="/blogs/:id" element={<CaseStudiesSingle />} />
 
         <Route path="/payment-success" element={<PaymentSuccess />} />
         <Route path="/payment-failed" element={<PaymentFailure />} />

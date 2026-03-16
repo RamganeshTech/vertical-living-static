@@ -11,35 +11,35 @@ const CaseStudiesMain: React.FC = () => {
     return (
         <>
             <Helmet>
-                <title>Modern Interior Design Case Studies Chennai | {COMPANY_NAME}</title>
+                <title>Modern Interior Design Blogs Chennai | {COMPANY_NAME}</title>
 
                 <meta
                     name="description"
-                    content={`Discover how ${COMPANY_NAME} transforms homes in Chennai. Explore 16+ case studies covering modular kitchens, luxury wardrobes, and space-saving furniture.`}
+                    content={`Discover how ${COMPANY_NAME} transforms homes in Chennai. Explore 16+ Blogs covering modular kitchens, luxury wardrobes, and space-saving furniture.`}
                 />
                 {/* <meta name="keywords" content="interior design portfolio, chennai home interiors, kitchen design gallery, wardrobe design projects" /> */}
                 <meta
                     name="keywords"
                     content="interior design gallery chennai, home decor portfolio, modular kitchen designs chennai, luxury wardrobe collection, 3BHK interior ideas, best interior designers near me"
                 />
-                <meta property="og:title" content={`Interior Design Case Studies | ${COMPANY_NAME}`} />
+                <meta property="og:title" content={`Interior Design Blogs | ${COMPANY_NAME}`} />
 
                 <meta
                     property="og:description"
-                    content={`Discover how ${COMPANY_NAME} transforms homes in Chennai. Explore 16+ case studies covering modular kitchens, wardrobes, space-saving furniture projects and smart storage, and bespoke furniture.`}
+                    content={`Discover how ${COMPANY_NAME} transforms homes in Chennai. Explore 16+ Blogs covering modular kitchens, wardrobes, space-saving furniture projects and smart storage, and bespoke furniture.`}
                 />
                 <meta property="og:type" content="website" />
                 <meta property="og:image" content="https://theverticalliving.com/feature-image.jpg" />
-                <link rel="canonical" href="https://theverticalliving.com/case-studies" />
+                <link rel="canonical" href="https://theverticalliving.com/blogs" />
 
                 {/* 5. Collection Schema: Tells Google this is a list of items */}
                 <script type="application/ld+json">
                     {JSON.stringify({
                         "@context": "https://schema.org",
                         "@type": "CollectionPage",
-                        "name": "Interior Design Case Studies Gallery",
+                        "name": "Interior Design Blogs Gallery",
                         "description": "A collection of residential interior design projects in Chennai including kitchens, wardrobes, and living spaces.",
-                        "url": "https://theverticalliving.com/case-studies",
+                        "url": "https://theverticalliving.com/blogs",
                         "about": "Home Interior Design",
                         "creator": {
                             "@type": "Organization",
@@ -84,7 +84,7 @@ const CaseStudiesMain: React.FC = () => {
                         {CASE_STUDIES_DATA.map((study, index) => (
                             <div
                                 key={study.id}
-                                onClick={() => navigate(`/case-studies/${study.id}`)}
+                                onClick={() => navigate(`/blogs/${study.id}`)}
                                 className={`group relative cursor-pointer transition-all duration-700 ${index % 2 !== 0 ? 'md:mt-24' : '' // Staggered Masonry effect
                                     }`}
                             >

@@ -46,7 +46,7 @@
 //         },
 //         "mainEntityOfPage": {
 //             "@type": "WebPage",
-//             "@id": `https://theverticalliving.com/case-studies/${id}`
+//             "@id": `https://theverticalliving.com/blogs/${id}`
 //         }
 //     };
 
@@ -69,7 +69,7 @@
 //                 <meta property="og:type" content="article" />
 //                 <meta name="twitter:card" content="summary_large_image" />
 
-//                 <link rel="canonical" href={`https://theverticalliving.com/case-studies/${id}`} />
+//                 <link rel="canonical" href={`https://theverticalliving.com/blogs/${id}`} />
 
 //                 {/* --- JSON-LD Structured Data --- */}
 //                 <script type="application/ld+json">
@@ -90,7 +90,7 @@
 //                 <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-[#1a1a1a]" />
 
 //                 <button 
-//                     onClick={() => navigate("/case-studies")}
+//                     onClick={() => navigate("/blogs")}
 //                     className="absolute top-10 left-10 z-20 flex items-center gap-3 text-white font-bold uppercase tracking-widest text-[10px] bg-white/10 backdrop-blur-xl px-8 py-4 rounded-full hover:bg-[#ffc000] hover:text-[#1a1a1a] transition-all border border-white/20"
 //                 >
 //                     <i className="fa-solid fa-arrow-left"></i> Gallery
@@ -245,7 +245,7 @@ const CaseStudiesSingle: React.FC = () => {
         },
         "mainEntityOfPage": {
             "@type": "WebPage",
-            "@id": `https://theverticalliving.com/case-studies/${id}`
+            "@id": `https://theverticalliving.com/blogs/${id}`
         }
     };
 
@@ -255,7 +255,7 @@ const CaseStudiesSingle: React.FC = () => {
             {/* <Helmet>
                 <title>{study.title} Interior Design & Execution | {COMPANY_NAME}</title>
                 <meta name="description" content={study.preview} />
-                <link rel="canonical" href={`https://theverticalliving.com/case-studies/${id}`} />
+                <link rel="canonical" href={`https://theverticalliving.com/blogs/${id}`} />
                 <script type="application/ld+json">{JSON.stringify(schemaData)}</script>
             </Helmet> */}
 
@@ -274,7 +274,7 @@ const CaseStudiesSingle: React.FC = () => {
                 <meta property="og:type" content="article" />
                 <meta name="twitter:card" content="summary_large_image" />
 
-                <link rel="canonical" href={`https://theverticalliving.com/case-studies/${id}`} />
+                <link rel="canonical" href={`https://theverticalliving.com/blogs/${id}`} />
 
                 {/* --- JSON-LD Structured Data --- */}
                 <script type="application/ld+json">
@@ -295,7 +295,7 @@ const CaseStudiesSingle: React.FC = () => {
                     <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-[#1a1a1a]" />
 
                     <button
-                        onClick={() => navigate("/case-studies")}
+                        onClick={() => navigate("/blogs")}
                         className="absolute cursor-pointer top-10 left-6 md:left-10 z-20 flex items-center gap-3 text-white font-bold uppercase tracking-widest text-[8px] md:text-[10px] bg-white/10 backdrop-blur-xl px-4 md:px-8 py-2 md:py-4 rounded-full  border border-white/20"
                     >
                         <i className="fa-solid fa-arrow-left"></i> Gallery
