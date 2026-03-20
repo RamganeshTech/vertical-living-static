@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { phoneNumber } from '../components/FloatingContact';
-import { trackConversion } from '../components/StickySideContact';
+import trackConversion from '../components/StickySideContact';
 
 const ConnectSection: React.FC = () => {
     return (

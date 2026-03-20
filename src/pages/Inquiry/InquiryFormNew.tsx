@@ -535,7 +535,7 @@ const InquiryFormNew: React.FC<InquiryFormProps> = ({ showCalculatorLink = false
             setTimeout(() => {
                 setShowSuccess(false)
             }, 5000);
-        } catch (error) {
+        } catch (_error) {
             // alert("Submission failed. Check your connection.");
         } finally {
             setIsSubmitting(false);

@@ -10,27 +10,29 @@ import 'swiper/css/navigation';
 import 'swiper/css/bundle'; // This includes all effects like coverflow
 
 import 'swiper/swiper-bundle.css';
-import BookingPage from './pages/Payment/BookingPage'
-import ServiceSectionSingle from './pages/services/ServiceSectionSingle'
-import PrivacyPolicy from './pages/PrivacyPolicy'
-import AccountDeletion from './pages/AccountDeletion'
-import PackageSectionSingle from './pages/packages/PackageSectionSingle'
-import CostCalculatorMain from './pages/calculator/CostCalculatorMain'
+import { AnimatePresence, motion } from 'framer-motion';
+
+const BookingPage = lazy(()=> import('./pages/Payment/BookingPage')) 
+const ServiceSectionSingle = lazy(()=> import('./pages/services/ServiceSectionSingle')) 
+const PrivacyPolicy = lazy(()=> import('./pages/PrivacyPolicy')) 
+const AccountDeletion = lazy(()=> import('./pages/AccountDeletion')) 
+const PackageSectionSingle = lazy(()=> import('./pages/packages/PackageSectionSingle')) 
+const CostCalculatorMain = lazy(()=> import('./pages/calculator/CostCalculatorMain')) 
 import CalculatorFloatingButton from './components/CalculatorFloatingButton'
 import CostCalculatorMainPage from './pages/calculator/CostCalculatorMainPage'
 const NotFound = lazy(() => import('./pages/NotFound/NotFound'))
 const PaymentSuccess = lazy(() => import('./pages/Payment/PaymentSuccess'))
 const PaymentFailure = lazy(() => import('./pages/Payment/PaymentFailure'))
 const Chatbot = lazy(() => import('./components/Chatbot'))
-import { AnimatePresence, motion } from 'framer-motion';
-import PortfolioStatic from './pages/StaticPages/PortfolioStatic'
-import ServicePackagesStatic from './pages/StaticPages/ServicePackagesStatic'
-import OurPackagesStatic from './pages/StaticPages/OurPackagesStatic'
-import SOPFlowStatic from './pages/StaticPages/SOPFlowStatic'
-import Disclaimer from './pages/Disclaimer'
-import TestimonialStatic from './pages/StaticPages/TestiMonialsStatic'
-import CaseStudiesMain from './pages/CaseStudiesMain'
-import CaseStudiesSingle from './pages/CaseStudiesSingle'
+const  PortfolioStatic = lazy(()=> import('./pages/StaticPages/PortfolioStatic')) 
+const  ServicePackagesStatic = lazy(()=> import('./pages/StaticPages/ServicePackagesStatic')) 
+const  OurPackagesStatic = lazy(()=> import('./pages/StaticPages/OurPackagesStatic')) 
+const  SOPFlowStatic = lazy(()=> import('./pages/StaticPages/SOPFlowStatic')) 
+const  Disclaimer = lazy(()=> import('./pages/Disclaimer')) 
+const  TestimonialStatic = lazy(()=> import('./pages/StaticPages/TestiMonialsStatic')) 
+const  CaseStudiesMain = lazy(()=> import('./pages/CaseStudiesMain')) 
+const  CaseStudiesSingle = lazy(()=> import('./pages/CaseStudiesSingle')) 
+const  Career = lazy(()=> import('./pages/Carrer/Carrer')) 
 
 
 function App() {
@@ -87,6 +89,7 @@ function App() {
         <Route path="/disclaimer" element={<Disclaimer />} />
         <Route path="/blogs" element={<CaseStudiesMain />} />
         <Route path="/blogs/:id" element={<CaseStudiesSingle />} />
+        <Route path="/career" element={<Career />} />
 
         <Route path="/payment-success" element={<PaymentSuccess />} />
         <Route path="/payment-failed" element={<PaymentFailure />} />

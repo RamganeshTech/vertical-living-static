@@ -39,6 +39,7 @@ const navLinks = [
     },
     { id: 'about', label: 'About Us', link: "/#about" },
     { id: 'contact', label: 'Contact Us', link: "/#contact-us" },
+    { id: 'career', label: 'Career', link: "/career" },
     // { id: 'form', label: 'Form', link: "/form" },
     // { id: 'costcalculator', label: 'Cost Calculation', link: "/cost-calculation" },
 
@@ -54,23 +55,6 @@ const Header: React.FC = () => {
     const navRef = useRef<HTMLUListElement>(null); // Ref for the whole list
 
 
-
-    // 2. Add the Click Outside Logic
-    // useEffect(() => {
-    //     const handleClickOutside = (event: MouseEvent) => {
-    //         // If the dropdown is open and the click is NOT inside the ref element
-    //         if (showDropdown && dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
-    //             setShowDropdown(false);
-    //         }
-    //     };
-
-    //     // Bind the event listener
-    //     document.addEventListener("mousedown", handleClickOutside);
-    //     return () => {
-    //         // Unbind the event listener on clean up
-    //         document.removeEventListener("mousedown", handleClickOutside);
-    //     };
-    // }, [showDropdown]);
 
     useEffect(() => {
         const handleClickOutside = (event: MouseEvent) => {
@@ -100,26 +84,19 @@ const Header: React.FC = () => {
                     </button>
 
                     {/* Nav Links */}
-                    <div className={`
+                    {/* <div className={`
             w-full  transition-all duration-500 ease-in-out
             lg:flex lg:w-auto lg:items-center lg:max-h-full lg:opacity-100
             ${isOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0 lg:opacity-100'}
-          `}>
-                        {/* <ul className="flex flex-col lg:flex-row list-none ml-auto text-sm font-medium uppercase tracking-wider py-4 lg:py-0">
-
-                            {navLinks.map((item) => (
-                                <li key={item.id} className="nav-item">
-                                    <Link
-                                        to={item.link}
-                                        className="block py-2 px-5 text-gray-700 hover:text-[#ffc000] transition-colors"
-                                        onClick={() => setIsOpen(false)}
-                                    >
-                                        {item.label}
-                                    </Link>
-                                </li>
-                            ))}
-                        </ul> */}
-
+          `}> */}
+                    <div className={`
+    w-full transition-all duration-500 ease-in-out
+    lg:flex lg:w-auto lg:items-center lg:max-h-full lg:opacity-100
+    /* ADD 'pointer-events-none' when closed so it's "ghost-like" and clickable-through */
+    ${isOpen
+                            ? 'max-h-96 opacity-100 pointer-events-auto'
+                            : 'max-h-0 opacity-0 pointer-events-none lg:pointer-events-auto lg:opacity-100'}
+`}>
 
                         <ul ref={navRef} className="flex flex-col lg:flex-row list-none ml-auto bg-white text-sm font-medium uppercase tracking-wider py-4 lg:py-0">
                             {navLinks.map((item) => (
@@ -127,7 +104,8 @@ const Header: React.FC = () => {
                                     // ref={item.subLinks ? dropdownRef : null}
                                     className={`nav-item relative group ${item.subLinks ? 'cursor-pointer' : ''}`}>
                                     {!item.subLinks ? (
-                                        <Link to={item.link} className="block py-2 px-2 text-gray-700 hover:text-[#ffc000] transition-colors" onClick={() => setIsOpen(false)}>
+                                        <Link to={item.link} className="block py-2 px-2 text-gray-700 hover:text-[#ffc000] transition-colors"
+                                            onClick={() => setIsOpen(false)}>
                                             {item.label}
                                         </Link>
                                     ) : (

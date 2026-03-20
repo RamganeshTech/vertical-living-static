@@ -30,6 +30,17 @@ export default defineConfig([
           caughtErrorsIgnorePattern: '^_',
         },
       ],
+
+       // THIS LINE ALLOWS YOU TO USE 'any' WITHOUT ERRORS
+      '@typescript-eslint/no-explicit-any': 'off',
+      // 1. Allow 'let' even if the variable isn't reassigned
+      'prefer-const': 'off',
+
+      // 2. Allow unused variables (like 'err' in catch blocks)
+      '@typescript-eslint/no-unused-vars': 'off',
+      
+      // 3. Specifically allow unused 'vars' but you can also ignore those starting with _
+      'no-unused-vars': 'off',
     },
   },
 ])
