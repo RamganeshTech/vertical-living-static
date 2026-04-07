@@ -476,6 +476,12 @@ const InquiryFormNew: React.FC<InquiryFormProps> = ({ showCalculatorLink = false
 
             if (res.ok === true) {
                 setShowSuccess(true);
+
+                 const customMessage = "thank you for submitting";
+
+                // navigate('/thank-you?source=calculator&message=thankyou');
+                navigate(`/thank-you?source=inquiry&message=${encodeURIComponent(customMessage)}`);
+
             }
 
             // old one 

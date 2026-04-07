@@ -20,6 +20,7 @@ const PackageSectionSingle = lazy(()=> import('./pages/packages/PackageSectionSi
 const CostCalculatorMain = lazy(()=> import('./pages/calculator/CostCalculatorMain')) 
 import CalculatorFloatingButton from './components/CalculatorFloatingButton'
 import CostCalculatorMainPage from './pages/calculator/CostCalculatorMainPage'
+const ThankYouPage = lazy(()=> import('./pages/Thankyou_Page/ThankyouMain'));
 const NotFound = lazy(() => import('./pages/NotFound/NotFound'))
 const PaymentSuccess = lazy(() => import('./pages/Payment/PaymentSuccess'))
 const PaymentFailure = lazy(() => import('./pages/Payment/PaymentFailure'))
@@ -97,6 +98,7 @@ function App() {
         <Route path="/terms-and-conditions" element={<PrivacyPolicy />} />
         <Route path="/privacy-policy" element={<PrivacyPolicy />} />
         <Route path="/account-deletion" element={<AccountDeletion />} />
+        <Route path="/thank-you" element={<ThankYouPage />} />
 
         {/* Future Backend/Dashboard routes can be added here */}
         <Route path="*" element={<NotFound />} />

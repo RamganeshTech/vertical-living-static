@@ -8,6 +8,7 @@ import {
 } from '../../api/ApiLists/publicQuoteCalculatorApi';
 // import { downloadImage } from '../../api/ApiLists/downloadFile';
 import { phoneNumber } from '../../components/FloatingContact';
+import { useNavigate } from 'react-router-dom';
 // import { phoneNumber } from '../../components/FloatingContact';
 
 
@@ -213,6 +214,9 @@ const CostCalculatorMain: React.FC<CostCalculationMainProps> = ({ showCloseButto
     const [clientInfo, setClientInfo] = useState({ name: '', phone: '', location: '' });
     const [errors, setErrors] = useState<Record<string, string>>({});
     const [isSaving, setIsSaving] = useState(false);
+
+    const navigate = useNavigate()
+
     // const [pdfUrl, setPdfUrl] = useState<string | null>(null);
 
 
@@ -408,48 +412,6 @@ const CostCalculatorMain: React.FC<CostCalculationMainProps> = ({ showCloseButto
             // 2. Call the Mutation Hook
             const res = await generateQuote(dataToSave)
 
-            // {
-            // onSuccess: (data) => {
-            //     // Check if backend returned 'ok'
-            //     if (data?.ok && data?.url) {
-
-            //         // TRIGGER CONVERSION: Quote Generated
-            //         if (typeof window.gtag === 'function') {
-            //             window.gtag('event', 'conversion', {
-            //                 'send_to': 'AW-17955936522/DMRXCNqK0vobEIqyh_JC',
-            //                 // 'value': estimate, // Pass the calculated estimate value
-            //                 // 'currency': 'INR'
-
-            //                 'value': 1.0,      // Fixed small value to indicate a lead
-            //                 'currency': 'INR', // Required when sending a value
-
-            //                 // 2. Project Metadata (Calculator Specifics)
-
-            //                 'carpet_area': formData.carpetArea,
-            //                 'home_type': formData.homeType,
-            //                 'finish_quality': formData.finish,
-            //                 'user_name': clientInfo.name,
-            //                 'location': clientInfo.location,
-            //                 'whatsapp_number': clientInfo.phone,
-            //                 'estimated_value': estimate // We send this as a custom label, not a "Transaction Value"
-            //             });
-            //         }
-
-
-            //         // Trigger immediate download
-            //         downloadImage({ src: data.url, alt: `${clientInfo.name}_Quotation.pdf` });
-            //     }
-            //     setStep(5); // Move to success screen
-            // },
-            // onError: (error) => {
-            //     console.error("API Error:", error);
-
-            //     // setStep(5); // Move to Step 3 even if DB fails so user sees estimate
-            // },
-            // });
-
-            // console.log("ressulte of the cost calculator", res, "res.ok", res.ok)
-
             if (res?.ok && res?.url) {
 
                 // 🔥 Google Conversion
@@ -515,10 +477,16 @@ const CostCalculatorMain: React.FC<CostCalculationMainProps> = ({ showCloseButto
 
                 setStep(5);
                 await sendToWhatsapp({ clientName: dataToSave.name, clientPhone: dataToSave.phone, pdfUrl: res?.url })
-                
+
                 // // }
-                
+                const customMessage = "thank you for submitting";
+
+                // navigate('/thank-you?source=calculator&message=thankyou');
+                navigate(`/thank-you?source=calculator&message=${encodeURIComponent(customMessage)}`);
+
                 console.log("step changed to 5");
+            
+                handleClose?.()
 
             }
             // setStep(5);
