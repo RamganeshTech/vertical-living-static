@@ -207,6 +207,22 @@ const STEP_ICONS = [
 ];
 
 const CostCalculatorMain: React.FC<CostCalculationMainProps> = ({ showCloseButton, fromPage, handleClose }) => {
+
+    // const theme = {
+    //     text: fromPage ? "text-[#dc2626]" : "text-[#ffc000]",
+    //     bg: fromPage ? "bg-[#dc2626]" : "bg-[#ffc000]",
+    //     border: fromPage ? "border-[#dc2626]" : "border-[#ffc000]",
+    //     focusBorder: fromPage ? "focus:border-[#dc2626]" : "focus:border-[#ffc000]",
+    //     hoverBorder: fromPage ? "hover:border-[#dc2626]" : "hover:border-[#ffc000]",
+    //     hoverText: fromPage ? "hover:text-[#dc2626]" : "hover:text-[#ffc000]",
+    //     shadow: fromPage ? "shadow-[#dc2626]/30" : "shadow-[#ffc000]/30",
+    //     shadowLg: fromPage ? "shadow-[#dc2626]/20" : "shadow-[#ffc000]/20",
+    //     shadowSm: fromPage ? "shadow-[#dc2626]/10" : "shadow-[#ffc000]/10",
+    //     bgLight: fromPage ? "bg-[#dc2626]/5" : "bg-[#ffc000]/5",
+    //     buttonText: fromPage ? "text-white" : "text-[#1a1a1a]",
+    //     activeChipText: fromPage ? "text-[#dc2626]" : "text-[#1a1a1a]",
+    // };
+
     const [step, setStep] = useState(1);
     const [formData, setFormData] = useState({ carpetArea: 0, homeType: '2 BHK', finish: 'Core' });
     const [roomCounts, setRoomCounts] = useState({});
