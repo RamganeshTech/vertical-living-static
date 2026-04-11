@@ -249,7 +249,7 @@ const Home: React.FC = () => {
             <div className="relative">
               {/* A strong Gold shadow under the form to ground it */}
               <div className="absolute -inset-4 bg-[#ffc000]/10 blur-[60px] rounded-[40px] -z-10" />
-              <InquiryFormNew />
+              <InquiryFormNew fromPage={false} />
             </div>
           </motion.div>
 

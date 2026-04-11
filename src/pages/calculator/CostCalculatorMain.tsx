@@ -208,20 +208,24 @@ const STEP_ICONS = [
 
 const CostCalculatorMain: React.FC<CostCalculationMainProps> = ({ showCloseButton, fromPage, handleClose }) => {
 
-    // const theme = {
-    //     text: fromPage ? "text-[#dc2626]" : "text-[#ffc000]",
-    //     bg: fromPage ? "bg-[#dc2626]" : "bg-[#ffc000]",
-    //     border: fromPage ? "border-[#dc2626]" : "border-[#ffc000]",
-    //     focusBorder: fromPage ? "focus:border-[#dc2626]" : "focus:border-[#ffc000]",
-    //     hoverBorder: fromPage ? "hover:border-[#dc2626]" : "hover:border-[#ffc000]",
-    //     hoverText: fromPage ? "hover:text-[#dc2626]" : "hover:text-[#ffc000]",
-    //     shadow: fromPage ? "shadow-[#dc2626]/30" : "shadow-[#ffc000]/30",
-    //     shadowLg: fromPage ? "shadow-[#dc2626]/20" : "shadow-[#ffc000]/20",
-    //     shadowSm: fromPage ? "shadow-[#dc2626]/10" : "shadow-[#ffc000]/10",
-    //     bgLight: fromPage ? "bg-[#dc2626]/5" : "bg-[#ffc000]/5",
-    //     buttonText: fromPage ? "text-white" : "text-[#1a1a1a]",
-    //     activeChipText: fromPage ? "text-[#dc2626]" : "text-[#1a1a1a]",
-    // };
+    // bg-[#ffc000]
+
+    const theme = {
+        text: fromPage ? "text-[#dc2626]" : "text-[#ffc000]",
+        bg: fromPage ? "bg-[#dc2626]" : "bg-[#ffc000]",
+        border: fromPage ? "border-[#dc2626]/50" : "border-[#ffc000]",
+        focusBorder: fromPage ? "focus:border-[#dc2626]/50" : "focus:border-[#ffc000]",
+        hoverBorder: fromPage ? "hover:border-[#dc2626]" : "hover:border-[#ffc000]",
+        hoverText: fromPage ? "hover:text-[#dc2626]" : "hover:text-[#ffc000]",
+        shadow: fromPage ? "shadow-[#dc2626]/30" : "shadow-[#ffc000]/30",
+        shadowLg: fromPage ? "shadow-[#dc2626]/20" : "shadow-[#ffc000]/20",
+        shadowSm: fromPage ? "shadow-[#dc2626]/10" : "shadow-[#ffc000]/10",
+        bgLight: fromPage ? "bg-[#dc2626]/5" : "bg-[#ffc000]/5",
+        buttonText: fromPage ? "text-white" : "text-[#1a1a1a]",
+        activeChipText: fromPage ? "text-[#dc2626]" : "text-[#1a1a1a]",
+    };
+
+    const textWhiteContent = fromPage ? "text-white" : "text-[#1a1a1a]"
 
     const [step, setStep] = useState(1);
     const [formData, setFormData] = useState({ carpetArea: 0, homeType: '2 BHK', finish: 'Core' });
@@ -501,7 +505,7 @@ const CostCalculatorMain: React.FC<CostCalculationMainProps> = ({ showCloseButto
                 navigate(`/thank-you?source=calculator&message=${encodeURIComponent(customMessage)}`);
 
                 console.log("step changed to 5");
-            
+
                 handleClose?.()
 
             }
@@ -526,7 +530,7 @@ const CostCalculatorMain: React.FC<CostCalculationMainProps> = ({ showCloseButto
 
             >
                 <div className={`flex items-center mb-4 md:mb-8 ${fromPage ? "justify-center" : " justify-between"}`}>
-                    <h2 className="text-xl md:text-2xl font-bold uppercase text-center text-[#1a1a1a]">Cost <span className="text-[#ffc000]">Calculator</span></h2>
+                    <h2 className="text-xl md:text-2xl font-bold uppercase text-center text-[#1a1a1a]">Cost <span className={theme.text}>Calculator</span></h2>
                     {showCloseButton && <button onClick={() => {
                         setStep(1)
                         handleClear()
@@ -549,7 +553,7 @@ const CostCalculatorMain: React.FC<CostCalculationMainProps> = ({ showCloseButto
                         <div className="absolute top-1/2 left-0 w-full h-0.5 bg-gray-100 -translate-y-1/2 z-0" />
                         {/* Active Progress Line */}
                         <div
-                            className="absolute top-1/2 left-0 h-0.5 bg-[#ffc000] -translate-y-1/2 transition-all duration-700 z-0"
+                            className={`absolute top-1/2 left-0 h-0.5 ${theme.bg} -translate-y-1/2 transition-all duration-700 z-0`}
                             style={{ width: `${((step - 1) / (STEP_ICONS.length - 1)) * 100}%` }}
                         />
 
@@ -558,7 +562,7 @@ const CostCalculatorMain: React.FC<CostCalculationMainProps> = ({ showCloseButto
                             return (
                                 <div key={item.id} className="relative z-10 flex flex-col items-center">
                                     <div className={`w-8 h-8 md:w-12 md:h-12 rounded-full flex items-center justify-center transition-all duration-500 border-4 ${isActive
-                                        ? "bg-[#ffc000] border-[#ffc000] text-[#1a1a1a] shadow-lg shadow-[#ffc000]/30"
+                                        ? `${theme.bg} ${theme.border} ${textWhiteContent} shadow-lg ${theme.shadowLg}`
                                         : "bg-white border-gray-100 text-gray-300"
                                         }`}>
                                         <i className={` ${item.icon} ${isActive ? "text-[14px] md:text-[18px]" : "text-[14px] md:text-[14px]"}`}></i>
@@ -575,7 +579,7 @@ const CostCalculatorMain: React.FC<CostCalculationMainProps> = ({ showCloseButto
                     /* SIMPLE BAR FOR POPUP MODAL */
                     <div className="flex gap-3">
                         {[1, 2, 3, 4, 5].map((s) => (
-                            <div key={s} className={`h-1.5 flex-1 rounded-full transition-all duration-700 ${step >= s ? "bg-[#ffc000]" : "bg-gray-100"}`} />
+                            <div key={s} className={`h-1.5 flex-1 rounded-full transition-all duration-700 ${step >= s ? `${theme.bg}` : "bg-gray-100"}`} />
                         ))}
                     </div>
                 )}
@@ -598,7 +602,7 @@ const CostCalculatorMain: React.FC<CostCalculationMainProps> = ({ showCloseButto
                                     type="number"
                                     placeholder="Enter sqft"
                                     autoFocus
-                                    className={`w-full bg-gray-50 rounded-2xl p-3  md:p-6  text-xl md:text-2xl font-bold outline-none border-2 transition-all ${errors.carpetArea ? 'border-red-500' : 'border-transparent focus:border-[#ffc000]'}`}
+                                    className={`w-full bg-gray-50 rounded-2xl p-3  md:p-6  text-xl md:text-2xl font-bold outline-none border-2 transition-all ${errors.carpetArea ? 'border-red-500' : `border-transparent ${theme.focusBorder}`}`}
                                     value={formData.carpetArea || ""}
                                     onKeyDown={(e) => handleEnterKey(e, handleNext)}
                                     onChange={(e) => {
@@ -614,7 +618,7 @@ const CostCalculatorMain: React.FC<CostCalculationMainProps> = ({ showCloseButto
                             <label className="text-[12px] md:text-[14px] font-bold uppercase tracking-[1px]  text-gray-800 mb-2 block ">2. Configuration</label>
                             <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
                                 {['1 BHK', '2 BHK', '3 BHK', 'Villa'].map(type => (
-                                    <button key={type} onClick={() => setFormData({ ...formData, homeType: type })} className={`py-3 md:py-4 cursor-pointer rounded-xl border-2  font-bold text-[12px] md:text-[14px] uppercase transition-all ${formData.homeType === type ? 'border-[#ffc000] bg-[#ffc000]/5 text-[#1a1a1a]' : 'border-gray-100 text-gray-800'}`}>
+                                    <button key={type} onClick={() => setFormData({ ...formData, homeType: type })} className={`py-3 md:py-4 cursor-pointer rounded-xl border-2  font-bold text-[12px] md:text-[14px] uppercase transition-all ${formData.homeType === type ? `${theme.border} bg-[#ffc000]/5 text-[#1a1a1a]` : 'border-gray-100 text-gray-800'}`}>
                                         {type}
                                     </button>
                                 ))}
@@ -625,7 +629,7 @@ const CostCalculatorMain: React.FC<CostCalculationMainProps> = ({ showCloseButto
                             <label className="text-[12px] md:text-[14px] font-bold uppercase tracking-[1px] text-gray-800 mb-2 block ">3. Execution Finish</label>
                             <div className="grid grid-cols-3 gap-3">
                                 {Object.keys(ESTIMATION_CONFIG.SQFT_RATES).map((finish) => (
-                                    <button key={finish} onClick={() => setFormData({ ...formData, finish: finish })} className={`py-3 md:py-4 cursor-pointer rounded-xl border-2 font-bold text-[12px] md:text-[14px] uppercase transition-all tracking-wider ${formData.finish === finish ? 'border-[#ffc000] bg-[#ffc000]/5 text-[#1a1a1a]' : 'border-gray-100 text-gray-800'}`}>
+                                    <button key={finish} onClick={() => setFormData({ ...formData, finish: finish })} className={`py-3 md:py-4 cursor-pointer rounded-xl border-2 font-bold text-[12px] md:text-[14px] uppercase transition-all tracking-wider ${formData.finish === finish ? `${theme.border} bg-[#ffc000]/5 text-[#1a1a1a]` : 'border-gray-100 text-gray-800'}`}>
                                         {finish}
                                     </button>
                                 ))}
@@ -633,7 +637,9 @@ const CostCalculatorMain: React.FC<CostCalculationMainProps> = ({ showCloseButto
                         </div>
 
                         <div className='flex justify-center items-center'>
-                            <button onClick={handleNext} className={`${fromPage ? "w-1/2" : "w-1/2"}  px-6 cursor-pointer bg-[#ffc000] text-[#1a1a1a] py-3 md:py-6 rounded-2xl font-bold uppercase text-sm shadow-xl shadow-[#ffc000]/20 active:scale-95 transition-all`}>
+                            <button onClick={handleNext} className={`${fromPage ? "w-1/2" : "w-1/2"}  px-6 cursor-pointer
+                             ${theme.bg} ${textWhiteContent} py-3 md:py-6 rounded-2xl font-bold uppercase text-sm shadow-xl 
+                             ${theme.shadowLg} active:scale-95 transition-all`}>
                                 Next
                             </button>
 
@@ -653,7 +659,7 @@ const CostCalculatorMain: React.FC<CostCalculationMainProps> = ({ showCloseButto
                             {(Object.keys(PRODUCT_CATALOG) as Array<keyof typeof PRODUCT_CATALOG>).map(room => {
                                 const count = (roomCounts as any)[room] || 0;
                                 return (
-                                    <div key={room} className="bg-gray-50 py-4 md:py-6 px-2  rounded-[30px] flex items-center justify-between border-2 border-transparent hover:border-[#ffc000] transition-all">
+                                    <div key={room} className={`bg-gray-50 py-4 md:py-6 px-2  rounded-[30px] flex items-center justify-between border-2 border-transparent ${theme.hoverBorder} transition-all`}>
                                         <span className="font-bold text-[#1a1a1a] uppercase text-sm">{room}</span>
                                         {/* <div className="flex items-center gap-4 bg-white px-4 py-2 rounded-full shadow-sm">
                                             <button onClick={() => setRoomCounts((p: Record<string, number>) => ({ ...p, [room]: Math.max(0, (p[room] || 0) - 1) }))} className="text-[#1a1a1a] outline-none  bg-white/80 shadow-md flex justify-center items-center w-5 h-5 rounded-full cursor-pointer font-bold">-</button>
@@ -682,7 +688,7 @@ const CostCalculatorMain: React.FC<CostCalculationMainProps> = ({ showCloseButto
                                             {/* Plus Button: Brand Yellow theme */}
                                             <button
                                                 onClick={() => setRoomCounts((p: Record<string, number>) => ({ ...p, [room]: (p[room] || 0) + 1 }))}
-                                                className="w-6 h-6 md:w-8 md:h-8 bg-[#ffc000] text-[#1a1a1a] rounded-full flex justify-center items-center shadow-md hover:shadow-lg hover:scale-110 active:scale-95 transition-all outline-none cursor-pointer font-bold"
+                                                className={`w-6 h-6 md:w-8 md:h-8 ${theme.bg} ${textWhiteContent} rounded-full flex justify-center items-center shadow-md hover:shadow-lg hover:scale-110 active:scale-95 transition-all outline-none cursor-pointer font-bold`}
                                             >
                                                 <span className="text-xl mb-0.5">+</span>
                                             </button>
@@ -693,8 +699,8 @@ const CostCalculatorMain: React.FC<CostCalculationMainProps> = ({ showCloseButto
                             )}
                         </div>
                         <section className='flex gap-2'>
-                            <button onClick={() => setStep(1)} className="w-full bg-[#1a1a1a] py-3 md:py-5 rounded-[25px]  text-sm font-bold cursor-pointer !text-[#ffc000] uppercase shadow-lg shadow-[#ffc000]/20">Back</button>
-                            <button onClick={() => setStep(3)} className="w-full bg-[#ffc000] py-3 md:py-5 rounded-[25px]  text-sm font-bold cursor-pointer text-[#1a1a1a] uppercase shadow-lg shadow-[#ffc000]/20">Next<span className="hidden md:inline">: Configure Products</span></button>
+                            <button onClick={() => setStep(1)} className={`w-full bg-[#1a1a1a] py-3 md:py-5 rounded-[25px]  text-sm font-bold cursor-pointer  ${fromPage ? "text-white" : "text-[#ffc000]"} uppercase shadow-lg  ${theme.shadowLg}`}>Back</button>
+                            <button onClick={() => setStep(3)} className={`w-full ${theme.bg} py-3 md:py-5 rounded-[25px]  text-sm font-bold cursor-pointer  ${fromPage ? "text-white" : "text-[#1a1a1a]"} uppercase shadow-lg ${theme.shadowLg}`}>Next<span className="hidden md:inline">: Configure Products</span></button>
 
                         </section>
                     </div>
@@ -714,15 +720,13 @@ const CostCalculatorMain: React.FC<CostCalculationMainProps> = ({ showCloseButto
 
                                     return (
                                         <div key={roomKey} className="bg-white p-2 md:p-8 rounded-[40px] border border-gray-100 shadow-xl shadow-gray-200/50 overflow-hidden">
-                                            {/* <h4 className="text-[#ffc000] font-black uppercase text-xs mb-6 tracking-[4px]">
-                                                            {roomName} Instance #{rIdx + 1} <span className="text-gray-500 ml-2">ID: {roomKey}</span>
-                                                        </h4> */}
+                                           
 
                                             {/* Room Header - Light Theme */}
                                             <div className="bg-gray-50/50 mb-4 px-8 py-6 border-b border-gray-100 flex justify-between rounded-2xl items-center">
                                                 <div >
                                                     <h4 className="text-[#1a1a1a] font-black uppercase text-sm tracking-[2px]">
-                                                        <span className="text-[#ffc000] ml-1">{rIdx + 1})</span>
+                                                        <span className={`${theme.text} ml-1`}>{rIdx + 1})</span>
                                                         {/* <span className="text-[#1a1a1a] ml-1">{rIdx + 1})</span> */}
                                                         {" "}
                                                         {roomName}
@@ -746,7 +750,7 @@ const CostCalculatorMain: React.FC<CostCalculationMainProps> = ({ showCloseButto
                                                     const qty = prodInstances.length;
 
                                                     return (
-                                                        <div key={prod.id} className={`px-2 py-4 rounded-2xl border-2 transition-all ${qty > 0 ? 'border-[#ffc000] bg-[#ffc000]/5 shadow-md shadow-[#ffc000]/10' : 'border-2 bg-white hover:border-gray-200'}`}>
+                                                        <div key={prod.id} className={`px-2 py-4 rounded-2xl border-2 transition-all ${qty > 0 ? `${theme.border} bg-[#ffc000]/5 shadow-md ${theme.shadow}` : `border-2 bg-white hover:border-gray-200`}`}>
                                                             <div className="flex justify-between   items-center mb-3">
                                                                 {/* <span className="text-[10px] font-bold text-[#1a1a1a] uppercase leading-tight block">{prod.name}</span> */}
                                                                 <div className="flex-1">
@@ -789,7 +793,7 @@ const CostCalculatorMain: React.FC<CostCalculationMainProps> = ({ showCloseButto
                                                                     {/* Plus Button - Brand Yellow */}
                                                                     <button
                                                                         onClick={() => updateProduct(roomName, rIdx, prod, qty)}
-                                                                        className="bg-[#ffc000] text-[#1a1a1a] w-7 h-7 rounded-full flex items-center justify-center cursor-pointer shadow-sm"
+                                                                        className={` ${theme.bg} ${fromPage ? "text-white" : "text-[#1a1a1a]"}  w-7 h-7 rounded-full flex items-center justify-center cursor-pointer shadow-sm`}
                                                                     >
                                                                         <span className="text-lg font-bold leading-none">+</span>
                                                                     </button>
@@ -835,8 +839,8 @@ const CostCalculatorMain: React.FC<CostCalculationMainProps> = ({ showCloseButto
                             <button onClick={() => setStep(3)} className="w-full bg-[#ffc000] py-5 rounded-[25px] font-bold cursor-pointer text-[#1a1a1a] uppercase shadow-lg shadow-[#ffc000]/20">Configure Products</button> */}
 
 
-                            <button onClick={() => setStep(2)} className="w-full bg-[#1a1a1a] py-3  md:py-5 rounded-[25px] font-bold cursor-pointer text-[#ffc000] uppercase shadow-lg shadow-[#ffc000]/20">Back</button>
-                            <button onClick={() => setStep(4)} className="w-full  bg-[#ffc000] py-3  md:py-5 rounded-[25px] font-bold cursor-pointer text-[#1a1a1a] uppercase shadow-lg shadow-[#ffc000]/20">Next<span className="hidden md:inline">: Client Info</span></button>
+                            <button onClick={() => setStep(2)} className={`w-full bg-[#1a1a1a] py-3  md:py-5 rounded-[25px] font-bold cursor-pointer ${fromPage ? "text-white" : "text-[#ffc000]"} uppercase shadow-lg shadow-[#ffc000]/20`}>Back</button>
+                            <button onClick={() => setStep(4)} className={`w-full  ${theme.bg} py-3  md:py-5 rounded-[25px] font-bold cursor-pointer ${fromPage ? "text-white" : "text-[#1a1a1a]"}  uppercase shadow-lg shadow-[#ffc000]/20`}>Next<span className="hidden md:inline">: Client Info</span></button>
                         </section>
                     </div>
                 )}
@@ -855,7 +859,7 @@ const CostCalculatorMain: React.FC<CostCalculationMainProps> = ({ showCloseButto
                                 <input
                                     type="text"
                                     placeholder="Your Full Name"
-                                    className={`w-full p-3 md:p-6 rounded-2xl bg-gray-50 border-2 outline-none font-semibold md:font-bold ${errors.name ? 'border-red-500' : 'border-transparent focus:border-[#ffc000]'}`}
+                                    className={`w-full p-3 md:p-6 rounded-2xl bg-gray-50 border-2 outline-none font-semibold md:font-bold ${errors.name ? 'border-red-500' : `border-transparent ${theme.focusBorder}`}`}
                                     value={clientInfo.name}
                                     onChange={(e) => setClientInfo({ ...clientInfo, name: e.target.value })}
                                 />
@@ -871,7 +875,7 @@ const CostCalculatorMain: React.FC<CostCalculationMainProps> = ({ showCloseButto
                                     type="tel"
                                     placeholder="WhatsApp Number (10 digits)"
                                     maxLength={10}
-                                    className={`w-full p-3 md:p-6 rounded-2xl bg-gray-50 border-2 outline-none font-semibold md:font-bold ${errors.phone ? 'border-red-500' : 'border-transparent focus:border-[#ffc000]'}`}
+                                    className={`w-full p-3 md:p-6 rounded-2xl bg-gray-50 border-2 outline-none font-semibold md:font-bold ${errors.phone ? 'border-red-500' : `border-transparent ${theme.focusBorder}`}`}
                                     value={clientInfo.phone}
                                     onChange={(e) => {
                                         // Regex: Replace anything that is NOT a digit with an empty string
@@ -893,7 +897,7 @@ const CostCalculatorMain: React.FC<CostCalculationMainProps> = ({ showCloseButto
                                 <input
                                     type="text"
                                     placeholder="Project Location (City)"
-                                    className={`w-full p-3 md:p-6 rounded-2xl bg-gray-50 border-2 outline-none font-semibold md:font-bold ${errors.location ? 'border-red-500' : 'border-transparent focus:border-[#ffc000]'}`}
+                                    className={`w-full p-3 md:p-6 rounded-2xl bg-gray-50 border-2 outline-none font-semibold md:font-bold ${errors.location ? 'border-red-500' : `border-transparent ${theme.focusBorder}`}`}
                                     value={clientInfo.location}
                                     onChange={(e) => setClientInfo({ ...clientInfo, location: e.target.value })}
                                     onKeyDown={(e) => handleEnterKey(e, handleSubmit)}
@@ -908,7 +912,7 @@ const CostCalculatorMain: React.FC<CostCalculationMainProps> = ({ showCloseButto
 
                         <div className="flex gap-2 justify-between items-center">
                             <button
-                                className="w-full cursor-pointer bg-[#1a1a1a] text-[#ffc000] py-3 md:py-6 rounded-2xl font-bold uppercase tracking-[4px] text-xs shadow-2xl shadow-black/20 active:scale-95 transition-all disabled:opacity-70"
+                                className={`w-full cursor-pointer bg-[#1a1a1a] ${fromPage ? "text-white" : "text-[#ffc000]"} py-3 md:py-6 rounded-2xl font-bold uppercase tracking-[4px] text-xs shadow-2xl shadow-black/20 active:scale-95 transition-all disabled:opacity-70`}
 
                                 onClick={() => setStep(3)}>
                                 Back
@@ -918,7 +922,7 @@ const CostCalculatorMain: React.FC<CostCalculationMainProps> = ({ showCloseButto
                                 // onKeyDown={}
                                 type="button"
                                 disabled={isSaving}
-                                className="w-full cursor-pointer bg-[#ffc000] text-[#1a1a1a] py-3 md:py-6 rounded-2xl font-bold uppercase tracking-[2px] text-xs shadow-2xl shadow-black/20 active:scale-95 transition-all disabled:opacity-70"
+                                className={`w-full cursor-pointer ${theme.bg} ${fromPage ? "text-white" : "text-[#1a1a1a]"} py-3 md:py-6 rounded-2xl font-bold uppercase tracking-[2px] text-xs shadow-2xl shadow-black/20 active:scale-95 transition-all disabled:opacity-70`}
                             >
                                 {(isSaving || isPending) ? 'Processing Quote...' : <span >Get <span className="hidden md:inline">Final</span> Quote</span>}
                             </button>
@@ -975,7 +979,7 @@ const CostCalculatorMain: React.FC<CostCalculationMainProps> = ({ showCloseButto
 
                         {/* Success Text */}
                         <div className="space-y-4">
-                            <span className="text-[10px] font-bold uppercase tracking-[4px] md:tracking-[8px] text-[#ffc000]">Request Received</span>
+                            <span className={`text-[10px] font-bold uppercase tracking-[4px] md:tracking-[8px] ${theme.text} `}>Request Received</span>
                             <h2 className="text-2xl md:text-4xl font-bold text-[#1a1a1a] leading-tight">
                                 Quotation Sent Successfully!
                             </h2>
@@ -1006,17 +1010,17 @@ const CostCalculatorMain: React.FC<CostCalculationMainProps> = ({ showCloseButto
                         <div className="grid grid-cols-3 gap-2 max-w-sm mx-auto py-6 border-y border-gray-50 mt-2">
                             <div className="text-center space-y-1">
                                 {/* Changed to fa-city for Vertical/Building context */}
-                                <i className="fa-solid fa-city text-[#ffc000] text-lg"></i>
+                                <i className={`fa-solid fa-city ${fromPage ? "text-[#a5abaa]" : "text-[#1a1a1a]"} text-lg`}></i>
                                 <p className="text-[10px] font-bold text-[#1a1a1a] uppercase leading-tight">
                                     Multiple <br />Projects
                                 </p>
                             </div>
                             <div className="text-center space-y-1 border-x border-gray-100">
-                                <i className="fa-solid fa-face-smile text-[#ffc000] text-lg"></i>
+                                <i className={`fa-solid fa-face-smile ${fromPage ? "text-[#a5abaa]" : "text-[#1a1a1a]"} text-lg`}></i>
                                 <p className="text-[10px] font-bold text-[#1a1a1a] uppercase leading-tight">98% <br />Happy Clients</p>
                             </div>
                             <div className="text-center space-y-1">
-                                <i className="fa-solid fa-user-shield text-[#ffc000] text-lg"></i>
+                                <i className={`fa-solid fa-user-shield ${fromPage ? "text-[#a5abaa]" : "text-[#1a1a1a]"} text-lg`}></i>
                                 <p className="text-[10px] font-bold text-[#1a1a1a] uppercase leading-tight">
                                     Expert <br />Team
                                 </p>
@@ -1042,7 +1046,7 @@ const CostCalculatorMain: React.FC<CostCalculationMainProps> = ({ showCloseButto
                                     setStep(1);
                                     handleClear();
                                 }}
-                                className="w-full text-gray-400 font-bold uppercase tracking-widest text-[9px] hover:text-[#ffc000] transition-colors"
+                                className={`w-full text-gray-400 font-bold uppercase tracking-widest text-[9px] ${theme.hoverText} transition-colors`}
                             >
                                 Create Another Estimate
                             </button>

@@ -8,26 +8,26 @@ const navLinks = [
     // { id: 'process', label: 'Process', link: "/process" },
     // { id: 'packages', label: 'Packages', link: "/packages" },
     // { id: 'services', label: 'Services', link: "/service-packages" },
-    {
+    // {
 
-        id: 'solutions',
-        label: 'Our Services', // You can also use "Offerings" or "Work"
-        link: "#",
-        subLinks: [
-            { id: 'services', label: 'Service Packages', link: "/service-packages", icon: 'fa-swatchbook' },
-            { id: 'packages', label: 'Pricing Packages', link: "/packages", icon: 'fa-gem' },
-        ]
-    },
-    {
-        id: "experience",
-        label: "Our Experience",
-        link: "#",
-        subLinks: [
-            { id: 'process', label: 'Our Process', link: "/process", icon: 'fa-project-diagram' },
-            { id: 'testimonials', label: 'Testimonials', link: "/testimonials", icon: 'fa-quote-left' },
-            { id: 'case-studies', label: 'Blogs', link: "/blogs", icon: 'fa-book' },
-        ]
-    },
+    //     id: 'solutions',
+    //     label: 'Our Services', // You can also use "Offerings" or "Work"
+    //     link: "#",
+    //     subLinks: [
+    //         { id: 'services', label: 'Service Packages', link: "/service-packages", icon: 'fa-swatchbook' },
+    //         { id: 'packages', label: 'Pricing Packages', link: "/packages", icon: 'fa-gem' },
+    //     ]
+    // },
+    // {
+    //     id: "experience",
+    //     label: "Our Experience",
+    //     link: "#",
+    //     subLinks: [
+    //         { id: 'process', label: 'Our Process', link: "/process", icon: 'fa-project-diagram' },
+    //         { id: 'testimonials', label: 'Testimonials', link: "/testimonials", icon: 'fa-quote-left' },
+    //         { id: 'case-studies', label: 'Blogs', link: "/blogs", icon: 'fa-book' },
+    //     ]
+    // },
     {
         id: 'tools',
         label: 'Calculate',
@@ -37,9 +37,19 @@ const navLinks = [
             { id: 'cost', label: 'Cost Calculator', link: "/cost-calculation", icon: 'fa-calculator' },
         ]
     },
-    { id: 'about', label: 'About Us', link: "/#about" },
-    { id: 'contact', label: 'Contact Us', link: "/#contact-us" },
-    { id: 'career', label: 'Career', link: "/career" },
+
+     {
+        id: 'About',
+        label: 'About',
+        link: "#",
+        subLinks: [
+            { id: 'about-us', label: 'About Us', link: "/#about", icon: 'fa-circle-info' },
+            { id: 'contact', label: 'Contact Us', link: "/#contact-us", icon: 'fa-phone' },
+        ]
+    },
+    // { id: 'about', label: 'About Us', link: "/#about" },
+    // { id: 'contact', label: 'Contact Us', link: "/#contact-us" },
+    // { id: 'career', label: 'Career', link: "/career" },
     // { id: 'form', label: 'Form', link: "/form" },
     // { id: 'costcalculator', label: 'Cost Calculation', link: "/cost-calculation" },
 
@@ -68,7 +78,7 @@ const Header: React.FC = () => {
 
     return (
         <header className="sticky  top-0 z-50 w-full !bg-white py-4 shadow-sm font-inter">
-            <div className="container mx-auto px-4">
+            <div className="max-w-7xl mx-auto px-4">
                 <nav className="flex items-center justify-between flex-wrap">
                     {/* Logo */}
                     <Link to="/" className="shrink-0">
@@ -128,7 +138,7 @@ const Header: React.FC = () => {
                             `}> */}
 
                                             <div className={`
-                        lg:absolute lg:top-full lg:left-0 lg:w-64 lg:bg-white lg:shadow-xl lg:rounded-xl lg:border lg:border-gray-50 
+                        lg:absolute lg:top-full lg:left-0 lg:w-54 lg:bg-white lg:shadow-xl lg:rounded-xl lg:border lg:border-gray-50 
                         lg:transition-all lg:duration-300
                         
                         ${activeDropdown === item.id

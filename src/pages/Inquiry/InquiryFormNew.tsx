@@ -260,6 +260,7 @@ const actionUrl = "https://script.google.com/macros/s/AKfycbzHOjt3OivmNOJq0pUYQ9
 
 interface InquiryFormProps {
     showCalculatorLink?: boolean; // Prop to control the extra button
+    fromPage?:boolean
 }
 
 // Reusable Elegant Custom Select Component
@@ -270,7 +271,7 @@ const ModernDropdown = ({
     placeholder,
     value,
     onChange,
-    error
+    error, fromPage
 }: {
     label: string,
     name: string,
@@ -279,7 +280,19 @@ const ModernDropdown = ({
     value: string,
     onChange: (val: string) => void,
     error?: string
+    fromPage?: boolean
 }) => {
+
+    const theme = {
+        activeBorder: fromPage ? "border-[#dc2626]" : "border-[#ffc000]",
+        hoverBorder: fromPage ? "hover:border-[#dc2626]" : "hover:border-[#ffc000]",
+        shadow: fromPage ? "shadow-[0_0_10px_rgba(220,38,38,0.1)]" : "shadow-[0_0_10px_rgba(255,192,0,0.1)]",
+        iconText: fromPage ? "text-[#dc2626]" : "text-[#ffc000]",
+        hoverBg: fromPage ? "hover:bg-[#dc2626]" : "hover:bg-[#ffc000]",
+        hoverText: fromPage ? "hover:text-white" : "hover:text-black",
+    };
+
+
     const [isOpen, setIsOpen] = useState(false);
     const dropdownRef = useRef<HTMLDivElement>(null);
     console.log(name)
@@ -301,7 +314,8 @@ const ModernDropdown = ({
             </label>
             <div
                 onClick={() => setIsOpen(!isOpen)}
-                className={`w-full h-[40px] md:h-[50px]  bg-white border-2 rounded-full px-5 flex items-center justify-between cursor-pointer transition-all duration-300 ${isOpen ? 'border-[#ffc000] shadow-[0_0_10px_rgba(255,192,0,0.1)]' : error ? 'border-red-400' : 'border-[#eee] hover:border-[#ffc000]'
+                className={`w-full h-[40px] md:h-[50px]  bg-white border-2 rounded-full px-5 flex items-center justify-between cursor-pointer transition-all duration-300
+                     ${isOpen ? `${theme.activeBorder} ${theme.shadow}` : error ? 'border-red-400' : `border-[#eee] ${theme.hoverBorder}`
                     }`}
             >
                 <span className={`text-[13px] ${value ? 'text-black font-medium' : 'text-gray-400'}`}>
@@ -309,7 +323,7 @@ const ModernDropdown = ({
                 </span>
                 <motion.i
                     animate={{ rotate: isOpen ? 180 : 0 }}
-                    className="fa fa-chevron-down text-[#ffc000] text-[10px]"
+                    className={`fa fa-chevron-down ${theme.iconText} text-[10px]`}
                 />
             </div>
             {error && <p className="text-[10px] text-red-500 ml-4 font-medium italic">{error}</p>}
@@ -326,7 +340,8 @@ const ModernDropdown = ({
                             <div
                                 key={opt}
                                 onClick={() => { onChange(opt); setIsOpen(false); }}
-                                className="px-5 py-3 text-[13px] hover:bg-[#ffc000] hover:text-black transition-colors cursor-pointer"
+                                // className="px-5 py-3 text-[13px] hover:bg-[#ffc000] hover:text-black transition-colors cursor-pointer"
+                                className={`px-5 py-3 text-[13px] ${theme.hoverBg} ${theme.hoverText} transition-colors cursor-pointer`}
                             >
                                 {opt}
                             </div>
@@ -340,7 +355,7 @@ const ModernDropdown = ({
 
 
 
-const InquiryFormNew: React.FC<InquiryFormProps> = ({ showCalculatorLink = false }) => {
+const InquiryFormNew: React.FC<InquiryFormProps> = ({ showCalculatorLink = false, fromPage }) => {
     const [step, setStep] = useState(1);
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [showSuccess, setShowSuccess] = useState(false);
@@ -349,46 +364,16 @@ const InquiryFormNew: React.FC<InquiryFormProps> = ({ showCalculatorLink = false
     const { mutateAsync: createMutate } = useCreatePublicLead()
     const navigate = useNavigate()
 
-    // const [formData, setFormData] = useState({
-    //     fullName: "",
-    //     mobileNumber: "",
-    //     projectCategory: "",
-    //     propertyType: "",
-    //     budget: "",
-    //     location: "",
-    //     timeline: "",
-    //     serviceType: ""
-    // });
-
-    // const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    //     const { name, value } = e.target;
-    //     setFormData(prev => ({ ...prev, [name]: value }));
-    //     if (errors[name]) setErrors(prev => ({ ...prev, [name]: "" }));
-    // };
-
-    // const handleDropdownChange = (name: string, value: string) => {
-    //     setFormData(prev => ({ ...prev, [name]: value }));
-    //     if (errors[name]) setErrors(prev => ({ ...prev, [name]: "" }));
-    // };
-
-    // const validateStep = () => {
-    //     const newErrors: Record<string, string> = {};
-    //     if (step === 1) {
-    //         if (!formData.fullName.trim()) newErrors.fullName = "Full name is required";
-    //         if (formData.mobileNumber.length !== 10) newErrors.mobileNumber = "Valid 10-digit number required";
-    //         if (!formData.projectCategory) newErrors.projectCategory = "Please select a category";
-    //     } else if (step === 2) {
-    //         if (!formData.propertyType) newErrors.propertyType = "Select a property type";
-    //         if (!formData.budget) newErrors.budget = "Budget range is required";
-    //         if (!formData.location) newErrors.location = "Please select your location";
-    //     } else if (step === 3) {
-    //         if (!formData.timeline) newErrors.timeline = "Select your timeline";
-    //         if (!formData.serviceType) newErrors.serviceType = "Select service type";
-    //     }
-    //     setErrors(newErrors);
-    //     return Object.keys(newErrors).length === 0;
-    // };
-
+    // --- DYNAMIC THEME CONFIGURATION ---
+    const theme = {
+        text: fromPage ? "text-[#dc2626]" : "text-[#ffc000]",
+        bg: fromPage ? "bg-[#dc2626]" : "bg-[#ffc000]",
+        focusBorder: fromPage ? "focus:border-[#dc2626]" : "focus:border-[#ffc000]",
+        buttonText: fromPage ? "text-white" : "text-black",
+        hoverBg: fromPage ? "hover:bg-[#dc2626]" : "hover:bg-[#ffc000]",
+        hoverText: fromPage ? "hover:text-white" : "hover:text-black",
+    };
+    
     // UPDATED: Keys now match your Google Sheets doPost logic exactly
     const [formData, setFormData] = useState({
         "Full Name": "",
@@ -560,25 +545,28 @@ const InquiryFormNew: React.FC<InquiryFormProps> = ({ showCalculatorLink = false
                         <h1 className="text-[16px] md:text-[24px] font-bold uppercase tracking-tight text-[#1a1a1a]">
                             Tell Us About Your Project
                         </h1>
-                        <div className="w-12 h-1.5 bg-[#ffc000] rounded-full mt-2"></div>
+                        {/* <div className="w-12 h-1.5 bg-[#ffc000] rounded-full mt-2"></div> */}
+                        <div className={`w-12 h-1.5 ${theme.bg} rounded-full mt-2`}></div>
                         <p className="text-gray-400 text-[13px] mt-3 font-medium tracking-wide">
                             Bring your vision to life with bespoke interior solutions.
                         </p>
                     </div>
 
 
-                    <div className="absolute top-0 right-0 w-10 h-10 md:w-20 md:h-20 bg-[#ffc000]" style={{ clipPath: 'polygon(100% 0, 0 0, 100% 100%)' }}></div>
+                    {/* <div className="absolute top-0 right-0 w-10 h-10 md:w-20 md:h-20 bg-[#ffc000]" style={{ clipPath: 'polygon(100% 0, 0 0, 100% 100%)' }}></div> */}
+                    <div className={`absolute top-0 right-0 w-10 h-10 md:w-20 md:h-20 ${theme.bg}`} style={{ clipPath: 'polygon(100% 0, 0 0, 100% 100%)' }}></div>
 
                     <div className="mb-10">
                         <div className="flex justify-between mb-3 px-2">
                             {stepTitles.map((title, i) => (
-                                <span key={i} className={`text-[9px] font-bold uppercase tracking-[1px] ${step >= i + 1 ? 'text-[#ffc000]' : 'text-gray-800'}`}>
+                                // <span key={i} className={`text-[9px] font-bold uppercase tracking-[1px] ${step >= i + 1 ? 'text-[#ffc000]' : 'text-gray-800'}`}>
+                                <span key={i} className={`text-[9px] font-bold uppercase tracking-[1px] ${step >= i + 1 ? theme.text : 'text-gray-800'}`}>
                                     {title}
                                 </span>
                             ))}
                         </div>
                         <div className="w-full h-[3px] bg-gray-50 rounded-full flex">
-                            <motion.div className="h-full bg-[#ffc000] rounded-full" animate={{ width: `${(step / 3) * 100}%` }} transition={{ duration: 0.4 }} />
+                            <motion.div className={`h-full ${theme.bg} rounded-full`} animate={{ width: `${(step / 3) * 100}%` }} transition={{ duration: 0.4 }} />
                         </div>
                     </div>
 
@@ -586,7 +574,8 @@ const InquiryFormNew: React.FC<InquiryFormProps> = ({ showCalculatorLink = false
                         <h2 className="text-[22px] md:text-[26px] font-bold tracking-tight text-[#1a1a1a]">
                             {stepTitles[step - 1]}
                         </h2>
-                        {step !== 4 && <div className="w-10 h-1 bg-[#ffc000] rounded-full mt-2 mx-auto"></div>}
+                        {/* {step !== 4 && <div className="w-10 h-1 bg-[#ffc000] rounded-full mt-2 mx-auto"></div>} */}
+                        {step !== 4 && <div className={`w-10 h-1 ${theme.bg} rounded-full mt-2 mx-auto`}></div>}
                     </div>
 
                     <form onSubmit={handleSubmit} className="space-y-5">
@@ -595,15 +584,15 @@ const InquiryFormNew: React.FC<InquiryFormProps> = ({ showCalculatorLink = false
                                 <motion.div key="step1" initial={{ opacity: 0, x: 15 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -15 }} className="space-y-4">
                                     <div className="space-y-1.5">
                                         <label className="text-[10px] font-semibold uppercase tracking-[1.5px] text-[#666] ml-2 block">Your Full Name *</label>
-                                        <input type="text" name="Full Name" value={formData["Full Name"]} onChange={handleInputChange} placeholder="Ex: Arun" className={`w-full h-[40px] md:h-[50px] px-6 text-[13px] bg-white border-2 ${errors.fullName ? 'border-red-400' : 'border-[#eee]'} rounded-full  outline-none transition-all focus:border-[#ffc000]`} />
+                                        <input type="text" name="Full Name" value={formData["Full Name"]} onChange={handleInputChange} placeholder="Ex: Arun" className={`w-full h-[40px] md:h-[50px] px-6 text-[13px] bg-white border-2 ${errors.fullName ? 'border-red-400' : 'border-[#eee]'} rounded-full  outline-none transition-all ${theme.focusBorder}`} />
                                         {errors.fullName && <p className="text-[10px] text-red-500 ml-4 italic">{errors.fullName}</p>}
                                     </div>
                                     <div className="space-y-1.5">
                                         <label className="text-[10px] font-semibold uppercase tracking-[1.5px] text-[#666] ml-2 block">Your Mobile Number * (we will call to confirm your project details)</label>
-                                        <input type="tel" name="Mobile Number" value={formData["Mobile Number"]} onChange={handleInputChange} maxLength={10} minLength={10} placeholder="10-digit number" className={`w-full h-[40px] md:h-[50px]  bg-white border-2 ${errors.mobileNumber ? 'border-red-400' : 'border-[#eee]'} rounded-full px-6 text-[13px] outline-none transition-all focus:border-[#ffc000]`} onInput={(e) => (e.currentTarget.value = e.currentTarget.value.replace(/[^0-9]/g, ''))} />
+                                        <input type="tel" name="Mobile Number" value={formData["Mobile Number"]} onChange={handleInputChange} maxLength={10} minLength={10} placeholder="10-digit number" className={`w-full h-[40px] md:h-[50px]  bg-white border-2 ${errors.mobileNumber ? 'border-red-400' : 'border-[#eee]'} rounded-full px-6 text-[13px] outline-none transition-all ${theme.focusBorder}`} onInput={(e) => (e.currentTarget.value = e.currentTarget.value.replace(/[^0-9]/g, ''))} />
                                         {errors.mobileNumber && <p className="text-[10px] text-red-500 ml-4 italic">{errors.mobileNumber}</p>}
                                     </div>
-                                    <ModernDropdown label="Residential or Commercial project? *" name="Project Category" value={formData["Project Category"]} onChange={(val) => handleDropdownChange("Project Category", val)}
+                                    <ModernDropdown  fromPage={fromPage} label="Residential or Commercial project? *" name="Project Category" value={formData["Project Category"]} onChange={(val) => handleDropdownChange("Project Category", val)}
                                         // options={["Residential", "Commercial"]} 
                                         options={["Residential (Apartment / Villa)", "Commercial (Office / Cafe / Showroom)"]}
 
@@ -614,20 +603,20 @@ const InquiryFormNew: React.FC<InquiryFormProps> = ({ showCalculatorLink = false
 
                             {step === 2 && (
                                 <motion.div key="step2" initial={{ opacity: 0, x: 15 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -15 }} className="space-y-4">
-                                    <ModernDropdown label="What type of property is this project for? *" name="Property Type" value={formData["Property Type"]} onChange={(val) => handleDropdownChange("Property Type", val)}
+                                    <ModernDropdown  fromPage={fromPage} label="What type of property is this project for? *" name="Property Type" value={formData["Property Type"]} onChange={(val) => handleDropdownChange("Property Type", val)}
 
                                         // options={["3BHK Apartment", "Villa / House", "Office / Cafe"]}
                                         options={["3BHK Apartment (Residential)", "Villa / Independent House (Residential)", "Office space / Showroom / Hospital / Cafe (Commercial)"]}
 
                                         placeholder="Select Type" error={errors.propertyType} />
 
-                                    <ModernDropdown label="Mention Your Budget *" name="Budget" value={formData["Budget"]} onChange={(val) => handleDropdownChange("Budget", val)}
+                                    <ModernDropdown fromPage={fromPage} label="Mention Your Budget *" name="Budget" value={formData["Budget"]} onChange={(val) => handleDropdownChange("Budget", val)}
 
                                         // options={["5L - 8L", "9L - 12L", "12L - 16L", "20L+"]}
                                         options={["5 Lakhs - 8 lakhs", "9 lakhs - 12 lakhs", "12 lakhs - 16 lakhs", "20 lakhs above"]}
 
                                         placeholder="Select Budget" error={errors.budget} />
-                                    <ModernDropdown label="Which area is your project located in *" name="Location" value={formData["Location"]} onChange={(val) => handleDropdownChange("Location", val)}
+                                    <ModernDropdown  fromPage={fromPage} label="Which area is your project located in *" name="Location" value={formData["Location"]} onChange={(val) => handleDropdownChange("Location", val)}
 
                                         // options={["Anna nagar", "OMR", "ECR", "Adyar", "Other"]}
                                         options={["Anna nagar", "Mogappair", "OMR", "ECR", "Adyar", "T Nagar", "Ambattur", "Other Chennai location"]}
@@ -640,14 +629,14 @@ const InquiryFormNew: React.FC<InquiryFormProps> = ({ showCalculatorLink = false
 
                             {step === 3 && (
                                 <motion.div key="step3" initial={{ opacity: 0, x: 15 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -15 }} className="space-y-4">
-                                    <ModernDropdown label="When Do You Plan to Start the Project? *" name="Timeline" value={formData["Timeline"]} onChange={(val) => handleDropdownChange("Timeline", val)}
+                                    <ModernDropdown  fromPage={fromPage} label="When Do You Plan to Start the Project? *" name="Timeline" value={formData["Timeline"]} onChange={(val) => handleDropdownChange("Timeline", val)}
                                         // options={["Immediate", "1–3 months", "Just exploring"]}
                                         options={["Immediate (0–30 days)", "1–3 months", "Just exploring"]}
 
 
                                         placeholder="Select Timeline" error={errors.timeline} />
 
-                                    <ModernDropdown label="What kind of service are you looking for? *" name="Service Type" value={formData["Service Type"]} onChange={(val) => handleDropdownChange("Service Type", val)}
+                                    <ModernDropdown  fromPage={fromPage} label="What kind of service are you looking for? *" name="Service Type" value={formData["Service Type"]} onChange={(val) => handleDropdownChange("Service Type", val)}
                                         //  options={["Design + Execution", "Design Support", "Execution Only"]} 
                                         options={["Design + Execution (Flexible Budget)", "Design Support + Execution (Fixed Budget)", "Execution only (Designs Ready)"]}
 
@@ -665,11 +654,13 @@ const InquiryFormNew: React.FC<InquiryFormProps> = ({ showCalculatorLink = false
                             )}
 
                             {step < 3 ? (
-                                <button type="button" onClick={nextStep} className="flex-1 cursor-pointer h-[50px] bg-[#ffc000] text-black rounded-full text-[11px] font-bold uppercase tracking-widest shadow-sm hover:shadow-md transition-all">
+                                // <button type="button" onClick={nextStep} className="flex-1 cursor-pointer h-[50px] bg-[#ffc000] text-black rounded-full text-[11px] font-bold uppercase tracking-widest shadow-sm hover:shadow-md transition-all">
+                                <button type="button" onClick={nextStep} className={`flex-1 cursor-pointer h-[50px] ${theme.bg} ${theme.buttonText} rounded-full text-[11px] font-bold uppercase tracking-widest shadow-sm hover:shadow-md transition-all`}>
                                     Next Step
                                 </button>
                             ) : (
-                                <button type="submit" disabled={isSubmitting} className="flex-1 cursor-pointer h-[50px] bg-[#1a1a1a] text-white rounded-full text-[11px] font-bold uppercase tracking-widest shadow-md hover:bg-[#ffc000] hover:text-black transition-all disabled:opacity-50">
+                                // <button type="submit" disabled={isSubmitting} className="flex-1 cursor-pointer h-[50px] bg-[#1a1a1a] text-white rounded-full text-[11px] font-bold uppercase tracking-widest shadow-md hover:bg-[#ffc000] hover:text-black transition-all disabled:opacity-50">
+                                <button type="button" onClick={nextStep} className={`flex-1 cursor-pointer h-[50px] ${theme.bg} ${theme.buttonText} rounded-full text-[11px] font-bold uppercase tracking-widest shadow-sm hover:shadow-md transition-all`}>
                                     {isSubmitting ? "Sending..." : "Submit"}
                                 </button>
                             )}
@@ -709,7 +700,8 @@ const InquiryFormNew: React.FC<InquiryFormProps> = ({ showCalculatorLink = false
                                         </h3>
                                         <button
                                             onClick={() => navigate('/cost-calculation')}
-                                            className="w-full bg-[#ffc000] cursor-pointer text-black h-[55px] rounded-full font-bold uppercase tracking-widest text-[12px] shadow-lg hover:scale-105 transition-transform flex items-center justify-center gap-3"
+                                            // className="w-full bg-[#ffc000] cursor-pointer text-black h-[55px] rounded-full font-bold uppercase tracking-widest text-[12px] shadow-lg hover:scale-105 transition-transform flex items-center justify-center gap-3"
+                                            className={`w-full ${theme.bg} ${theme.buttonText} cursor-pointer h-[55px] rounded-full font-bold uppercase tracking-widest text-[12px] shadow-lg hover:scale-105 transition-transform flex items-center justify-center gap-3`}
                                         >
                                             Calculate Project Cost <i className="fa-solid fa-arrow-right"></i>
                                         </button>

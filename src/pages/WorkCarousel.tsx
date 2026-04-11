@@ -133,13 +133,6 @@ const WorkCarousel: React.FC<WorkCarouseltype> = ({ showLink }) => {
                     our portfolio showcases our versatility and attention to detail.
                 </motion.p>
 
-
-                {/* Portfolio Description - Presented elegantly */}
-                {/* <p className="mt-8 text-gray-500 text-[16px] md:text-[18px] leading-[1.8] max-w-3xl mx-auto font-medium">
-                    Take a peek at some of our recent projects and see how we have transformed spaces into stunning,
-                    functional works of art. From cozy living rooms to sleek kitchens and everything in between,
-                    our portfolio showcases our versatility and attention to detail.
-                </p> */}
             </div>
             <div className="relative w-full max-w-[1400px] mx-auto px-2">
                 <Swiper
@@ -175,14 +168,14 @@ const WorkCarousel: React.FC<WorkCarouseltype> = ({ showLink }) => {
                     }}
                     className="w-full py-10"
                 >
-                    {portfolioItems.map((item, index) => (
+                    {portfolioItems.map((item, index) => {
+                        // PERFORMANCE FIX: Only eagerly load the first 2 slides. Lazy load the rest.
+                        const isVisibleInitially = index <= 1;
+
+                        return(
                         <SwiperSlide key={index} className="px-4">
                             <div className="w-full h-[400px] md:h-[550px] rounded-[40px] overflow-hidden shadow-2xl transition-transform duration-500">
-                                {/* <img
-                                    src={img}
-                                    alt={`Project ${index + 1}`}
-                                    className="w-full h-full object-cover"
-                                /> */}
+                               
 
                                 {item.type === 'video' ? (
                                     <video
@@ -192,8 +185,11 @@ const WorkCarousel: React.FC<WorkCarouseltype> = ({ showLink }) => {
                                         // autoPlay
                                         muted
                                         playsInline
-                                        preload="auto"
-                                        // onEnded={() => swiperRef.current?.slideNext()}
+                                        // preload="auto"
+                                        /* PERFORMANCE FIX: Changed 'auto' to 'metadata'. 
+                                               This stops the browser from downloading the whole video immediately. */
+                                            preload="metadata"
+
                                         onEnded={() => {
                                             // When video ends, move to next and restart autoplay
                                             swiperRef.current?.autoplay.start();
@@ -207,14 +203,19 @@ const WorkCarousel: React.FC<WorkCarouseltype> = ({ showLink }) => {
                                         src={item.src}
                                         alt={`Project ${index + 1}`}
                                         className="w-full h-full object-cover"
-                                        loading="eager"
-                                        fetchPriority="high"
+                                        // loading="eager"
+                                        /* PERFORMANCE FIX: Conditional loading */
+                                            loading={isVisibleInitially ? "eager" : "lazy"}
+                                        // fetchPriority="high"
+                                        fetchPriority={isVisibleInitially ? "high" : "auto"}
                                         decoding="async"
                                     />
                                 )}
                             </div>
                         </SwiperSlide>
-                    ))}
+                    )
+                    }
+                )}
                 </Swiper>
 
                 {/* Custom Navigation Arrows (No progress dots provided) */}
