@@ -82,7 +82,10 @@ const Header: React.FC = () => {
                 <nav className="flex items-center justify-between flex-wrap">
                     {/* Logo */}
                     <Link to="/" className="shrink-0">
-                        <img src={logo} alt="Logo" className="h-12 w-auto" />
+                        <img src={logo} alt="Logo" className="h-12 w-auto"
+                        fetchPriority="high" // Tells the browser this is the most critical image
+            decoding="sync"// Ensures the browser renders it immediately
+                        />
                     </Link>
 
                     {/* Mobile Toggle */}

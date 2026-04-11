@@ -5,11 +5,11 @@
 
 import { motion } from 'framer-motion';
 import { Link, useNavigate } from 'react-router-dom';
-import img1 from '../../assets/images/1.jpg';
-import img2 from '../../assets/images/2.jpg';
-import img3 from '../../assets/images/3.jpg';
-import img9 from '../../assets/images/img9.jpg';
-import img10 from '../../assets/images/img10.jpg';
+import img1 from '../../assets/images/1.webp';
+import img2 from '../../assets/images/2.webp';
+import img3 from '../../assets/images/3.webp';
+import img9 from '../../assets/images/img9.webp';
+import img10 from '../../assets/images/img10.webp';
 
 export const allPackages = [
     {

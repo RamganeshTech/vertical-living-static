@@ -12,14 +12,14 @@ import { motion, AnimatePresence, type Variants } from 'framer-motion';
 // import img8 from '../assets/images/image8.jpeg';
 
 
-import img11 from '../assets/images/image11.jpeg';
-import img12 from '../assets/images/image12.jpeg';
-import img13 from '../assets/images/image13.jpeg';
-import img14 from '../assets/images/image14.jpeg';
-import img15 from '../assets/images/image15.jpeg';
-import img16 from '../assets/images/image16.jpeg';
-import img17 from '../assets/images/image17.jpeg';
-import img18 from '../assets/images/image18.jpeg';
+import img11 from '../assets/images/image11.webp';
+import img12 from '../assets/images/image12.webp';
+import img13 from '../assets/images/image13.webp';
+import img14 from '../assets/images/image14.webp';
+import img15 from '../assets/images/image15.webp';
+import img16 from '../assets/images/image16.webp';
+import img17 from '../assets/images/image17.webp';
+import img18 from '../assets/images/image18.webp';
 
 
 

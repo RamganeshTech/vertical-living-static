@@ -22,15 +22,15 @@ import img5 from '../assets/images/5.webp';
 // import img6 from '../assets/images/image6.jpeg';
 // import img7 from '../assets/images/image7.jpeg';
 // import img8 from '../assets/images/image8.jpeg';
-import img8 from '../assets/images/image10.jpeg';
-import img11 from '../assets/images/image11.jpeg';
-import img12 from '../assets/images/image12.jpeg';
-import img13 from '../assets/images/image13.jpeg';
-import img14 from '../assets/images/image14.jpeg';
-import img15 from '../assets/images/image15.jpeg';
-import img16 from '../assets/images/image16.jpeg';
-import img17 from '../assets/images/image17.jpeg';
-import img18 from '../assets/images/image18.jpeg';
+import img8 from '../assets/images/image10.webp';
+import img11 from '../assets/images/image11.webp';
+import img12 from '../assets/images/image12.webp';
+import img13 from '../assets/images/image13.webp';
+import img14 from '../assets/images/image14.webp';
+import img15 from '../assets/images/image15.webp';
+import img16 from '../assets/images/image16.webp';
+import img17 from '../assets/images/image17.webp';
+import img18 from '../assets/images/image18.webp';
 
 
 
@@ -93,6 +93,14 @@ const WorkCarousel: React.FC<WorkCarouseltype> = ({ showLink }) => {
         if (activeVideo) {
             // 4. If center is a video, stop autoplay and play video
             swiper.autoplay.stop();
+
+            // LAZY LOAD INJECTION: Only give it the source when it's active
+        if (!activeVideo.src) {
+            activeVideo.src = activeVideo.getAttribute('data-src') || '';
+            activeVideo.load();
+        }
+
+
             activeVideo.play().catch(err => console.log("Autoplay blocked:", err));
         } else {
             // 5. If center is an image, restart the 3-second timer
@@ -188,7 +196,8 @@ const WorkCarousel: React.FC<WorkCarouseltype> = ({ showLink }) => {
                                         // preload="auto"
                                         /* PERFORMANCE FIX: Changed 'auto' to 'metadata'. 
                                                This stops the browser from downloading the whole video immediately. */
-                                            preload="metadata"
+                                            // preload="metadata"
+                                            preload="none" // Completely stop loading until commanded
 
                                         onEnded={() => {
                                             // When video ends, move to next and restart autoplay

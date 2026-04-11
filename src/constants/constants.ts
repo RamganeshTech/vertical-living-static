@@ -1,10 +1,10 @@
 export const actionUrl = "https://script.google.com/macros/s/AKfycbzHOjt3OivmNOJq0pUYQ9MzM2XENCubYpDVwiR4qKBh_2x63YNkqD0KuEoIoa2WJ5Q/exec";
 
-import img1 from '../assets/images/1.jpg';
-import img2 from '../assets/images/2.jpg';
-import img3 from '../assets/images/3.jpg';
+import img1 from '../assets/images/1.webp';
+import img2 from '../assets/images/2.webp';
+import img3 from '../assets/images/3.webp';
 import consultant from '../assets/images/consultation.jpg';
-import design from '../assets/images/design.jpg';
+import design from '../assets/images/design.webp';
 import poojaunit from '../assets/images/poojaunitwithoutWM.webp';
 import crockeryunit from '../assets/images/crockeryimgWithoutWM.webp';
 import kitchenBaseCabinets from '../assets/images/kitchenbasecabinets.webp';
