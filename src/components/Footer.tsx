@@ -36,6 +36,8 @@ const navLinks = [
   { id: 'accountDeletion', label: 'Account Deletion', link: "/account-deletion" },
   { id: 'disclaimer', label: 'Disclaimer', link: "/disclaimer" },
   { id: 'career', label: 'Career', link: "/career" },
+  { id: 'blogs', label: 'Blogs', link: "/blogs" },
+  { id: 'house', label: 'Residential Spaces', link: "/residential-spaces" },
   // { id: 'form', label: 'Form', link: "/form" },
 ];
 

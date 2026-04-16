@@ -71,20 +71,7 @@ const ConnectSection: React.FC = () => {
                         </motion.a>
                     </div>
 
-                    {/* Business Email Link */}
-                    {/* <motion.div
-                        initial={{ opacity: 0 }}
-                        whileInView={{ opacity: 1 }}
-                        transition={{ delay: 0.5 }}
-                        className="mt-12"
-                    >
-                        <a
-                            href="mailto:admin@ramstechcircleopcpvtltd.com"
-                            className="text-[#1a1a1a] font-bold text-xs uppercase tracking-[3px] hover:text-[#ffc000] transition-colors border-b-2 border-[#ffc000] pb-1"
-                        >
-                            admin@ramstechcircleopcpvtltd.com
-                        </a>
-                    </motion.div> */}
+                    
 
                 </div>
             </div>

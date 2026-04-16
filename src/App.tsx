@@ -20,6 +20,8 @@ const PackageSectionSingle = lazy(()=> import('./pages/packages/PackageSectionSi
 const CostCalculatorMain = lazy(()=> import('./pages/calculator/CostCalculatorMain')) 
 import CalculatorFloatingButton from './components/CalculatorFloatingButton'
 import CostCalculatorMainPage from './pages/calculator/CostCalculatorMainPage'
+const HouseTypeMain  = lazy(()=> import('./pages/HouseType_Pages/HouseTypeMain'));
+const HouseTypeSingle  = lazy(()=> import('./pages/HouseType_Pages/HouseTypeSingle'));
 const ThankYouPage = lazy(()=> import('./pages/Thankyou_Page/ThankyouMain'));
 const NotFound = lazy(() => import('./pages/NotFound/NotFound'))
 const PaymentSuccess = lazy(() => import('./pages/Payment/PaymentSuccess'))
@@ -99,6 +101,8 @@ function App() {
         <Route path="/privacy-policy" element={<PrivacyPolicy />} />
         <Route path="/account-deletion" element={<AccountDeletion />} />
         <Route path="/thank-you" element={<ThankYouPage />} />
+        <Route path="/residential-spaces" element={<HouseTypeMain />} />
+        <Route path="/residential-spaces/:id" element={<HouseTypeSingle />} />
 
         {/* Future Backend/Dashboard routes can be added here */}
         <Route path="*" element={<NotFound />} />
