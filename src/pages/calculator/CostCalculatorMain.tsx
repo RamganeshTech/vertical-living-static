@@ -231,7 +231,7 @@ const CostCalculatorMain: React.FC<CostCalculationMainProps> = ({ showCloseButto
     const [formData, setFormData] = useState({ carpetArea: 0, homeType: '2 BHK', finish: 'Core' });
     const [roomCounts, setRoomCounts] = useState({});
     const [config, setConfig] = useState({});
-    const [clientInfo, setClientInfo] = useState({ name: '', phone: '', location: '' });
+    const [clientInfo, setClientInfo] = useState({ name: '', phone: '', location: '', consent: true });
     const [errors, setErrors] = useState<Record<string, string>>({});
     const [isSaving, setIsSaving] = useState(false);
 
@@ -245,7 +245,7 @@ const CostCalculatorMain: React.FC<CostCalculationMainProps> = ({ showCloseButto
         setFormData({ carpetArea: 0, homeType: '2 BHK', finish: 'Core' })
         setRoomCounts({})
         setConfig({})
-        setClientInfo({ name: '', phone: '', location: '' })
+        setClientInfo({ name: '', phone: '', location: '', consent: true })
     }
 
 
@@ -260,6 +260,7 @@ const CostCalculatorMain: React.FC<CostCalculationMainProps> = ({ showCloseButto
         if (clientInfo.name.trim().length < 3) newErrors.name = "Full name required";
         if (!/^\d{10}$/.test(clientInfo.phone)) newErrors.phone = "Valid 10-digit number required";
         if (clientInfo.location.trim().length < 2) newErrors.location = "Location required";
+        if (!clientInfo.consent) newErrors.consent = "Consent is required to send the quote";
         setErrors(newErrors);
         return Object.keys(newErrors).length === 0;
     };
@@ -415,9 +416,11 @@ const CostCalculatorMain: React.FC<CostCalculationMainProps> = ({ showCloseButto
             // The most important part:
             // detailedConfig: JSON.stringify(config),
             config: config,
+            consent:clientInfo.consent
             // timestamp: new Date().toISOString()
         };
-
+        
+        // https://script.google.com/macros/s/AKfycbyyPj39EazaNzcIwg2NsVbKROlqjDTJccbSHNYlgrPV827RIfsxuV9B7sl3mSh0lPUe5A/exec
         try {
             // Using your existing Google Apps Script URL
             // await fetch('https://script.google.com/macros/s/AKfycby1za3iClzVCPFUxBfakDkhv19fLuM_KfiKFX_ZmSzvbLJ25Ml91NNRm4lT5OXmDdyJ/exec', { // pk22...
@@ -450,29 +453,29 @@ const CostCalculatorMain: React.FC<CostCalculationMainProps> = ({ showCloseButto
                 //     });
                 // }
 
-                // 🔥 New GTM DataLayer Conversion
-                if (window.dataLayer) {
-                    // console.log("getin inside the window.dataLayer")
-                    // 🔥 Clean the 10-digit number and add +91
-                    const rawCalcInput = clientInfo.phone.replace(/\D/g, '');
-                    const formattedCalcPhone = `+91${rawCalcInput}`;
-                    window.dataLayer.push({
-                        'event': 'cost_calculator_VL', // This must match your GTM Trigger name exactly
-                        'value': estimate || 1.0,
-                        'currency': 'INR',
-                        'carpet_area': formData.carpetArea,
-                        'home_type': formData.homeType,
-                        'finish_quality': formData.finish,
-                        'user_name': clientInfo.name,
-                        'location': clientInfo.location,
-                        // 'whatsapp_number': clientInfo.phone,
-                        'whatsapp_number': formattedCalcPhone, // Now sends +919808080808
-                        'estimated_value': estimate
+                // // 🔥 New GTM DataLayer Conversion
+                // if (window.dataLayer) {
+                //     // console.log("getin inside the window.dataLayer")
+                //     // 🔥 Clean the 10-digit number and add +91
+                //     const rawCalcInput = clientInfo.phone.replace(/\D/g, '');
+                //     const formattedCalcPhone = `+91${rawCalcInput}`;
+                //     window.dataLayer.push({
+                //         'event': 'cost_calculator_VL', // This must match your GTM Trigger name exactly
+                //         'value': estimate || 1.0,
+                //         'currency': 'INR',
+                //         'carpet_area': formData.carpetArea,
+                //         'home_type': formData.homeType,
+                //         'finish_quality': formData.finish,
+                //         'user_name': clientInfo.name,
+                //         'location': clientInfo.location,
+                //         // 'whatsapp_number': clientInfo.phone,
+                //         'whatsapp_number': formattedCalcPhone, // Now sends +919808080808
+                //         'estimated_value': estimate
 
-                    });
-                    // console.log("getin inside the window.dataLayer", window?.dataLayer)
+                //     });
+                //     // console.log("getin inside the window.dataLayer", window?.dataLayer)
 
-                }
+                // }
 
                 console.log("res.data", res)
 
@@ -720,7 +723,7 @@ const CostCalculatorMain: React.FC<CostCalculationMainProps> = ({ showCloseButto
 
                                     return (
                                         <div key={roomKey} className="bg-white p-2 md:p-8 rounded-[40px] border border-gray-100 shadow-xl shadow-gray-200/50 overflow-hidden">
-                                           
+
 
                                             {/* Room Header - Light Theme */}
                                             <div className="bg-gray-50/50 mb-4 px-8 py-6 border-b border-gray-100 flex justify-between rounded-2xl items-center">
@@ -888,6 +891,11 @@ const CostCalculatorMain: React.FC<CostCalculationMainProps> = ({ showCloseButto
                                         {errors.phone}
                                     </p>
                                 )}
+
+                                {/* <p>Enter your whatsapp number, the pdf will be shared to the provided number</p> */}
+                                <p className="text-gray-400 text-[10px] md:text-xs font-medium ml-4">
+                                    * Enter your WhatsApp number. The PDF quote will be shared to your whatsapp number.
+                                </p>
                             </div>
 
                             {/* <input type="text" placeholder="Project Location (City)" className={`w-full p-3 md:p-6 rounded-2xl bg-gray-50 border-2 outline-none font-bold ${errors.location ? 'border-red-500' : 'border-transparent focus:border-[#ffc000]'}`} onChange={(e) => setClientInfo({ ...clientInfo, location: e.target.value })} /> */}
@@ -910,6 +918,28 @@ const CostCalculatorMain: React.FC<CostCalculationMainProps> = ({ showCloseButto
                             </div>
                         </div>
 
+
+                        {/* --- NEW CONSENT CHECKBOX SECTION --- */}
+                        <div className="space-y-1 mt-4">
+                            <label className="flex items-start gap-3 cursor-pointer group px-2">
+                                <input
+                                    type="checkbox"
+                                    className="mt-1 w-5 h-5 rounded border-gray-300 accent-[#ffc000] cursor-pointer"
+                                    checked={clientInfo.consent}
+                                    onChange={(e) => setClientInfo({ ...clientInfo, consent: e.target.checked })}
+                                />
+                                <span className="text-gray-500 text-xs md:text-sm font-medium leading-tight select-none group-hover:text-gray-700 transition-colors">
+                                    I agree to receive my quote and project updates via WhatsApp.
+                                </span>
+                            </label>
+                            {errors.consent && (
+                                <p className="text-red-500 text-[10px] font-bold uppercase tracking-widest ml-4">
+                                    {errors.consent}
+                                </p>
+                            )}
+                        </div>
+                        {/* -------------------------------------- */}
+
                         <div className="flex gap-2 justify-between items-center">
                             <button
                                 className={`w-full cursor-pointer bg-[#1a1a1a] ${fromPage ? "text-white" : "text-[#ffc000]"} py-3 md:py-6 rounded-2xl font-bold uppercase tracking-[4px] text-xs shadow-2xl shadow-black/20 active:scale-95 transition-all disabled:opacity-70`}
@@ -921,7 +951,8 @@ const CostCalculatorMain: React.FC<CostCalculationMainProps> = ({ showCloseButto
                                 onClick={handleSubmit}
                                 // onKeyDown={}
                                 type="button"
-                                disabled={isSaving}
+                                // disabled={isSaving}
+                                disabled={isSaving || isPending || !clientInfo.consent}
                                 className={`w-full cursor-pointer ${theme.bg} ${fromPage ? "text-white" : "text-[#1a1a1a]"} py-3 md:py-6 rounded-2xl font-bold uppercase tracking-[2px] text-xs shadow-2xl shadow-black/20 active:scale-95 transition-all disabled:opacity-70`}
                             >
                                 {(isSaving || isPending) ? 'Processing Quote...' : <span >Get <span className="hidden md:inline">Final</span> Quote</span>}
