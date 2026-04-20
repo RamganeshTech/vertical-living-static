@@ -416,10 +416,10 @@ const CostCalculatorMain: React.FC<CostCalculationMainProps> = ({ showCloseButto
             // The most important part:
             // detailedConfig: JSON.stringify(config),
             config: config,
-            consent:clientInfo.consent
+            consent: clientInfo.consent
             // timestamp: new Date().toISOString()
         };
-        
+
         // https://script.google.com/macros/s/AKfycbyyPj39EazaNzcIwg2NsVbKROlqjDTJccbSHNYlgrPV827RIfsxuV9B7sl3mSh0lPUe5A/exec
         try {
             // Using your existing Google Apps Script URL
@@ -453,29 +453,29 @@ const CostCalculatorMain: React.FC<CostCalculationMainProps> = ({ showCloseButto
                 //     });
                 // }
 
-                // // 🔥 New GTM DataLayer Conversion
-                // if (window.dataLayer) {
-                //     // console.log("getin inside the window.dataLayer")
-                //     // 🔥 Clean the 10-digit number and add +91
-                //     const rawCalcInput = clientInfo.phone.replace(/\D/g, '');
-                //     const formattedCalcPhone = `+91${rawCalcInput}`;
-                //     window.dataLayer.push({
-                //         'event': 'cost_calculator_VL', // This must match your GTM Trigger name exactly
-                //         'value': estimate || 1.0,
-                //         'currency': 'INR',
-                //         'carpet_area': formData.carpetArea,
-                //         'home_type': formData.homeType,
-                //         'finish_quality': formData.finish,
-                //         'user_name': clientInfo.name,
-                //         'location': clientInfo.location,
-                //         // 'whatsapp_number': clientInfo.phone,
-                //         'whatsapp_number': formattedCalcPhone, // Now sends +919808080808
-                //         'estimated_value': estimate
+                // 🔥 New GTM DataLayer Conversion
+                if (window.dataLayer) {
+                    // console.log("getin inside the window.dataLayer")
+                    // 🔥 Clean the 10-digit number and add +91
+                    const rawCalcInput = clientInfo.phone.replace(/\D/g, '');
+                    const formattedCalcPhone = `+91${rawCalcInput}`;
+                    window.dataLayer.push({
+                        'event': 'cost_calculator_VL', // This must match your GTM Trigger name exactly
+                        'value': estimate || 1.0,
+                        'currency': 'INR',
+                        'carpet_area': formData.carpetArea,
+                        'home_type': formData.homeType,
+                        'finish_quality': formData.finish,
+                        'user_name': clientInfo.name,
+                        'location': clientInfo.location,
+                        // 'whatsapp_number': clientInfo.phone,
+                        'whatsapp_number': formattedCalcPhone, // Now sends +919808080808
+                        'estimated_value': estimate
 
-                //     });
-                //     // console.log("getin inside the window.dataLayer", window?.dataLayer)
+                    });
+                    // console.log("getin inside the window.dataLayer", window?.dataLayer)
 
-                // }
+                }
 
                 console.log("res.data", res)
 
@@ -496,7 +496,7 @@ const CostCalculatorMain: React.FC<CostCalculationMainProps> = ({ showCloseButto
                 // // if ((res as any)?.url) { // successfully we have that url here
                 // //  res.url is the pdf link it willbe https://vertical.....
 
-                console.log("step changed to 5");
+                // console.log("step changed to 5");
 
                 setStep(5);
                 await sendToWhatsapp({ clientName: dataToSave.name, clientPhone: dataToSave.phone, pdfUrl: res?.url })
@@ -504,10 +504,11 @@ const CostCalculatorMain: React.FC<CostCalculationMainProps> = ({ showCloseButto
                 // // }
                 const customMessage = "thank you for submitting";
 
+                setTimeout(() => {
+                    navigate(`/thank-you?source=calculator&message=${encodeURIComponent(customMessage)}`);
+                }, 3000)
                 // navigate('/thank-you?source=calculator&message=thankyou');
-                navigate(`/thank-you?source=calculator&message=${encodeURIComponent(customMessage)}`);
 
-                console.log("step changed to 5");
 
                 handleClose?.()
 
@@ -595,9 +596,9 @@ const CostCalculatorMain: React.FC<CostCalculationMainProps> = ({ showCloseButto
                 </div> */}
             </header>
 
-            <div className="p-5 md:p-10 flex-1 overflow-y-auto">
+            <div className="p-5 md:px-10 flex-1 overflow-y-auto">
                 {step === 1 && (
-                    <div className="space-y-8 md:space-y-10 animate-in fade-in slide-in-from-bottom-4">
+                    <div className="space-y-5 md:space-y-10 animate-in fade-in slide-in-from-bottom-4">
                         <div className="space-y-2">
                             <label className="text-[12px] md:text-[14px] font-bold uppercase tracking-[1px] text-gray-800">1. Carpet Area</label>
                             <div className="relative">
@@ -640,6 +641,7 @@ const CostCalculatorMain: React.FC<CostCalculationMainProps> = ({ showCloseButto
                         </div>
 
                         <div className='flex justify-center items-center'>
+                            {/* <div className='flex justify-center items-center sticky bottom-0 bg-white/95 backdrop-blur-sm pt-4 pb-2 mt-auto z-20'> */}
                             <button onClick={handleNext} className={`${fromPage ? "w-1/2" : "w-1/2"}  px-6 cursor-pointer
                              ${theme.bg} ${textWhiteContent} py-3 md:py-6 rounded-2xl font-bold uppercase text-sm shadow-xl 
                              ${theme.shadowLg} active:scale-95 transition-all`}>
@@ -653,55 +655,57 @@ const CostCalculatorMain: React.FC<CostCalculationMainProps> = ({ showCloseButto
 
                 {/* STEP 2: ROOM SELECTION (Responsive Grid) */}
                 {step === 2 && (
-                    <div className="space-y-8 animate-in fade-in slide-in-from-bottom-5">
+                    <div className="space-y-5 sm:space-y-8 animate-in fade-in slide-in-from-bottom-5">
                         <div className="text-center">
-                            <h3 className="text-xl font-bold uppercase tracking-[2px] md:tracking-widest text-[#1a1a1a]">Select Your Rooms</h3>
+                            <h3 className="text-md sm:text-xl font-bold uppercase tracking-[1px] md:tracking-widest text-[#1a1a1a]">Select Your Rooms</h3>
                             <p className="text-gray-400 text-xs mt-2">Add multiple rooms</p>
                         </div>
-                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                            {(Object.keys(PRODUCT_CATALOG) as Array<keyof typeof PRODUCT_CATALOG>).map(room => {
-                                const count = (roomCounts as any)[room] || 0;
-                                return (
-                                    <div key={room} className={`bg-gray-50 py-4 md:py-6 px-2  rounded-[30px] flex items-center justify-between border-2 border-transparent ${theme.hoverBorder} transition-all`}>
-                                        <span className="font-bold text-[#1a1a1a] uppercase text-sm">{room}</span>
-                                        {/* <div className="flex items-center gap-4 bg-white px-4 py-2 rounded-full shadow-sm">
-                                            <button onClick={() => setRoomCounts((p: Record<string, number>) => ({ ...p, [room]: Math.max(0, (p[room] || 0) - 1) }))} className="text-[#1a1a1a] outline-none  bg-white/80 shadow-md flex justify-center items-center w-5 h-5 rounded-full cursor-pointer font-bold">-</button>
-                                            <span className="text-[#ffc000] font-black">{count}</span>
-                                            <button onClick={() => setRoomCounts((p: Record<string, number>) => ({ ...p, [room]: (p[room] || 0) + 1 }))} className="text-[#1a1a1a] outline-none bg-white/80 shadow-md flex justify-center items-center w-5 h-5 rounded-full cursor-pointer font-bold">+</button>
-                                        </div> */}
+                        {/* <section className=''> */}
 
-                                        <div className="flex items-center gap-3 bg-white px-2 py-1.5 rounded-full shadow-inner border border-gray-100">
-                                            {/* Minus Button: Subtle Red/Gray theme */}
-                                            <button
-                                                onClick={() => setRoomCounts((p: Record<string, number>) => ({ ...p, [room]: Math.max(0, (p[room] || 0) - 1) }))}
-                                                className={`w-6 h-6 md:w-8 md:h-8 rounded-full flex justify-center items-center transition-all outline-none cursor-pointer font-bold
+                            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 h-full max-h-[50vh] overflow-y-auto">
+                                {(Object.keys(PRODUCT_CATALOG) as Array<keyof typeof PRODUCT_CATALOG>).map(room => {
+                                    const count = (roomCounts as any)[room] || 0;
+                                    return (
+                                        <div key={room} className={`bg-gray-50 py-2 md:py-6 px-3 sm:px-2  rounded-[30px] flex items-center justify-between border-2 border-transparent ${theme.hoverBorder} transition-all`}>
+                                            <span className="font-bold text-[#1a1a1a] uppercase text-xs sm:text-sm">{room}</span>
+
+
+                                            <div className="flex items-center gap-3 bg-white px-2 py-1.5 rounded-full shadow-inner border border-gray-100">
+                                                {/* Minus Button: Subtle Red/Gray theme */}
+                                                <button
+                                                    onClick={() => setRoomCounts((p: Record<string, number>) => ({ ...p, [room]: Math.max(0, (p[room] || 0) - 1) }))}
+                                                    className={`w-6 h-6 md:w-8 md:h-8 rounded-full flex justify-center items-center transition-all outline-none cursor-pointer font-bold
             ${count > 0
-                                                        ? "bg-red-50 text-red-500 hover:bg-red-500 hover:text-white shadow-sm"
-                                                        : "bg-gray-50 text-gray-300 cursor-not-allowed"}`}
-                                                disabled={count === 0}
-                                            >
-                                                <span className="text-xl mb-0.5">−</span>
-                                            </button>
+                                                            ? "bg-red-50 text-red-500 hover:bg-red-500 hover:text-white shadow-sm"
+                                                            : "bg-gray-50 text-gray-300 cursor-not-allowed"}`}
+                                                    disabled={count === 0}
+                                                >
+                                                    <span className="text-xl mb-0.5">−</span>
+                                                </button>
 
-                                            {/* Count: Bold and centered */}
-                                            <span className={`min-w-[20px] text-center font-bold transition-colors ${count > 0 ? "text-[#1a1a1a]" : "text-gray-400"}`}>
-                                                {count}
-                                            </span>
+                                                {/* Count: Bold and centered */}
+                                                <span className={`min-w-[20px] text-center font-bold transition-colors ${count > 0 ? "text-[#1a1a1a]" : "text-gray-400"}`}>
+                                                    {count}
+                                                </span>
 
-                                            {/* Plus Button: Brand Yellow theme */}
-                                            <button
-                                                onClick={() => setRoomCounts((p: Record<string, number>) => ({ ...p, [room]: (p[room] || 0) + 1 }))}
-                                                className={`w-6 h-6 md:w-8 md:h-8 ${theme.bg} ${textWhiteContent} rounded-full flex justify-center items-center shadow-md hover:shadow-lg hover:scale-110 active:scale-95 transition-all outline-none cursor-pointer font-bold`}
-                                            >
-                                                <span className="text-xl mb-0.5">+</span>
-                                            </button>
+                                                {/* Plus Button: Brand Yellow theme */}
+                                                <button
+                                                    onClick={() => setRoomCounts((p: Record<string, number>) => ({ ...p, [room]: (p[room] || 0) + 1 }))}
+                                                    className={`w-6 h-6 md:w-8 md:h-8 ${theme.bg} ${textWhiteContent} 
+                                                rounded-full    flex justify-center items-center shadow-md hover:shadow-lg hover:scale-110 active:scale-95 transition-all outline-none cursor-pointer font-bold`}
+                                                >
+                                                    <span className="text-xl mb-0.5">+</span>
+                                                </button>
+                                            </div>
                                         </div>
-                                    </div>
-                                )
-                            }
-                            )}
-                        </div>
-                        <section className='flex gap-2'>
+                                    )
+                                }
+                                )}
+                            </div>
+                        {/* </section> */}
+
+                        {/* <section className='flex gap-2'> */}
+                        <section className='flex gap-2 sticky bottom-0 bg-white/95 backdrop-blur-sm pt-4 pb-2 mt-auto z-20'>
                             <button onClick={() => setStep(1)} className={`w-full bg-[#1a1a1a] py-3 md:py-5 rounded-[25px]  text-sm font-bold cursor-pointer  ${fromPage ? "text-white" : "text-[#ffc000]"} uppercase shadow-lg  ${theme.shadowLg}`}>Back</button>
                             <button onClick={() => setStep(3)} className={`w-full ${theme.bg} py-3 md:py-5 rounded-[25px]  text-sm font-bold cursor-pointer  ${fromPage ? "text-white" : "text-[#1a1a1a]"} uppercase shadow-lg ${theme.shadowLg}`}>Next<span className="hidden md:inline">: Configure Products</span></button>
 
@@ -712,132 +716,136 @@ const CostCalculatorMain: React.FC<CostCalculationMainProps> = ({ showCloseButto
                 {/* STEP 3: PRODUCT SELECTION (With customId Tracking) */}
                 {step === 3 && (
                     <div className="space-y-10 animate-in fade-in">
-                        {(Object.entries(roomCounts) as [string, number][]).filter(([_, count]) => count > 0).map(([roomName, count]) => (
-                            <div key={roomName} className="space-y-6">
-                                {Array.from({ length: count }).map((_, rIdx) => {
-                                    const roomKey = `${roomName}-${rIdx}`;
+                        <section className='h-full max-h-[65vh] sm:max-h-[50vh] overflow-y-auto'>
+                            {(Object.entries(roomCounts) as [string, number][]).filter(([_, count]) => count > 0).map(([roomName, count]) => (
+                                <div key={roomName} className="space-y-6">
+                                    {Array.from({ length: count }).map((_, rIdx) => {
+                                        const roomKey = `${roomName}-${rIdx}`;
 
-                                    // Safely access the room config
-                                    const roomData = (config as ConfigState)[roomKey];
-                                    const productsInRoom = roomData?.products || {};
+                                        // Safely access the room config
+                                        const roomData = (config as ConfigState)[roomKey];
+                                        const productsInRoom = roomData?.products || {};
 
-                                    return (
-                                        <div key={roomKey} className="bg-white p-2 md:p-8 rounded-[40px] border border-gray-100 shadow-xl shadow-gray-200/50 overflow-hidden">
+                                        return (
+                                            <div key={roomKey} className="bg-white p-2 md:p-8 rounded-[40px] border border-gray-100 shadow-xl shadow-gray-200/50 overflow-hidden">
 
 
-                                            {/* Room Header - Light Theme */}
-                                            <div className="bg-gray-50/50 mb-4 px-8 py-6 border-b border-gray-100 flex justify-between rounded-2xl items-center">
-                                                <div >
-                                                    <h4 className="text-[#1a1a1a] font-black uppercase text-sm tracking-[2px]">
-                                                        <span className={`${theme.text} ml-1`}>{rIdx + 1})</span>
-                                                        {/* <span className="text-[#1a1a1a] ml-1">{rIdx + 1})</span> */}
-                                                        {" "}
-                                                        {roomName}
-                                                    </h4>
-                                                    {/* <p className="text-[10px] text-gray-400 font-bold uppercase tracking-widest mt-1">Instance ID: {roomKey}</p> */}
-                                                </div>
-                                                {/* <div className="bg-white px-4 py-2 rounded-2xl border border-gray-100 shadow-sm">
+                                                {/* Room Header - Light Theme */}
+                                                <div className="bg-gray-50/50 mb-4 px-8 py-6 border-b border-gray-100 flex justify-between rounded-2xl items-center">
+                                                    <div >
+                                                        <h4 className="text-[#1a1a1a] font-bold uppercase text-sm tracking-[2px]">
+                                                            <span className={`${theme.text} ml-1`}>{rIdx + 1})</span>
+                                                            {/* <span className="text-[#1a1a1a] ml-1">{rIdx + 1})</span> */}
+                                                            {" "}
+                                                            {roomName}
+                                                        </h4>
+                                                        {/* <p className="text-[10px] text-gray-400 font-bold uppercase tracking-widest mt-1">Instance ID: {roomKey}</p> */}
+                                                    </div>
+                                                    {/* <div className="bg-white px-4 py-2 rounded-2xl border border-gray-100 shadow-sm">
                                                     <span className="text-[10px] font-black text-[#1a1a1a] uppercase">
                                                         {Object.keys(productsInRoom).length} Items Added
                                                     </span>
                                                 </div> */}
-                                            </div>
+                                                </div>
 
-                                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                                                {(PRODUCT_CATALOG[roomName as keyof typeof PRODUCT_CATALOG] || []).map((prod: any) => {
-                                                    // const prodInstances = Object.values(config[roomKey]?.products || {}).filter(p => p.id === prod.id);
-                                                    // const qty = prodInstances.length;
+                                                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                                                    {(PRODUCT_CATALOG[roomName as keyof typeof PRODUCT_CATALOG] || []).map((prod: any) => {
+                                                        // const prodInstances = Object.values(config[roomKey]?.products || {}).filter(p => p.id === prod.id);
+                                                        // const qty = prodInstances.length;
 
-                                                    // Get specific instances of this product (e.g., all wardrobes in this room)
-                                                    const prodInstances = Object.values(productsInRoom).filter(p => p.id === prod.id);
-                                                    const qty = prodInstances.length;
+                                                        // Get specific instances of this product (e.g., all wardrobes in this room)
+                                                        const prodInstances = Object.values(productsInRoom).filter(p => p.id === prod.id);
+                                                        const qty = prodInstances.length;
 
-                                                    return (
-                                                        <div key={prod.id} className={`px-2 py-4 rounded-2xl border-2 transition-all ${qty > 0 ? `${theme.border} bg-[#ffc000]/5 shadow-md ${theme.shadow}` : `border-2 bg-white hover:border-gray-200`}`}>
-                                                            <div className="flex justify-between   items-center mb-3">
-                                                                {/* <span className="text-[10px] font-bold text-[#1a1a1a] uppercase leading-tight block">{prod.name}</span> */}
-                                                                <div className="flex-1">
-                                                                    <span className="text-[11px] font-black text-[#1a1a1a] uppercase leading-tight block">
-                                                                        {prod.name}
-                                                                    </span>
-                                                                    {/* <span className="text-[9px] text-gray-400 font-bold uppercase tracking-tighter">
+                                                        return (
+                                                            <div key={prod.id} className={`px-2 py-4 rounded-2xl border-2 transition-all ${qty > 0 ? `${theme.border} bg-[#ffc000]/5 shadow-md ${theme.shadow}` : `border-2 bg-white hover:border-gray-200`}`}>
+                                                                <div className="flex justify-between items-center">
+                                                                    {/* <span className="text-[10px] font-bold text-[#1a1a1a] uppercase leading-tight block">{prod.name}</span> */}
+                                                                    <div className="flex-1">
+                                                                        <span className="text-[11px] font-bold text-[#1a1a1a] uppercase leading-tight block">
+                                                                            {prod.name}
+                                                                        </span>
+                                                                        {/* <span className="text-[9px] text-gray-400 font-bold uppercase tracking-tighter">
                                                                         {prod.h}ft × {prod.w}ft
                                                                     </span> */}
-                                                                </div>
-                                                                {/* <button
+                                                                    </div>
+                                                                    {/* <button
                                                                     onClick={() => updateProduct(roomName, rIdx, prod, qty)}
                                                                     className="bg-[#ffc000] cursor-pointer text-[#1a1a1a] w-7 h-7 rounded-lg font-bold flex items-center justify-center"
                                                                 >+</button> */}
 
-                                                                <div className="flex items-center bg-[#f8f9fa] rounded-full p-1 border border-gray-200 shadow-sm w-fit mx-auto">
-                                                                    {/* Minus Button - Compact but clear */}
-                                                                    <button
-                                                                        onClick={() => {
-                                                                            if (qty > 0) {
-                                                                                removeProduct(roomName, rIdx, prod.id, prodInstances[qty - 1].instanceIndex);
-                                                                            }
-                                                                        }}
-                                                                        disabled={qty === 0}
-                                                                        className={`w-7 h-7 rounded-full flex items-center justify-center transition-all
+                                                                    <div className="flex items-center bg-[#f8f9fa] rounded-full p-1 border border-gray-200 shadow-sm w-fit mx-auto">
+                                                                        {/* Minus Button - Compact but clear */}
+                                                                        <button
+                                                                            onClick={() => {
+                                                                                if (qty > 0) {
+                                                                                    removeProduct(roomName, rIdx, prod.id, prodInstances[qty - 1].instanceIndex);
+                                                                                }
+                                                                            }}
+                                                                            disabled={qty === 0}
+                                                                            className={`w-7 h-7 rounded-full flex items-center justify-center transition-all
                                                                                 
                                                                                  bg-white text-red-500 shadow-sm cursor-pointer hover:bg-red-50 border border-gray-100
                                                                             }`}
-                                                                    >
-                                                                        <span className="text-lg font-bold leading-none">−</span>
-                                                                    </button>
+                                                                        >
+                                                                            <span className="text-lg font-bold leading-none">−</span>
+                                                                        </button>
 
-                                                                    {/* Quantity Display - Balanced spacing */}
-                                                                    <div className="px-3 min-w-[32px] flex justify-center items-center">
-                                                                        <span className={`text-sm font-black transition-colors ${qty > 0 ? 'text-[#1a1a1a]' : 'text-gray-700'}`}>
-                                                                            {qty}
-                                                                        </span>
+                                                                        {/* Quantity Display - Balanced spacing */}
+                                                                        <div className="px-3 min-w-[32px] flex justify-center items-center">
+                                                                            <span className={`text-sm font-black transition-colors ${qty > 0 ? 'text-[#1a1a1a]' : 'text-gray-700'}`}>
+                                                                                {qty}
+                                                                            </span>
+                                                                        </div>
+
+                                                                        {/* Plus Button - Brand Yellow */}
+                                                                        <button
+                                                                            onClick={() => updateProduct(roomName, rIdx, prod, qty)}
+                                                                            className={` ${theme.bg} ${fromPage ? "text-white" : "text-[#1a1a1a]"}  w-7 h-7 rounded-full flex items-center justify-center cursor-pointer shadow-sm`}
+                                                                        >
+                                                                            <span className="text-lg font-bold leading-none">+</span>
+                                                                        </button>
                                                                     </div>
-
-                                                                    {/* Plus Button - Brand Yellow */}
-                                                                    <button
-                                                                        onClick={() => updateProduct(roomName, rIdx, prod, qty)}
-                                                                        className={` ${theme.bg} ${fromPage ? "text-white" : "text-[#1a1a1a]"}  w-7 h-7 rounded-full flex items-center justify-center cursor-pointer shadow-sm`}
-                                                                    >
-                                                                        <span className="text-lg font-bold leading-none">+</span>
-                                                                    </button>
                                                                 </div>
-                                                            </div>
 
-                                                            {/* {prodInstances.map((inst, pIdx) => (
+                                                                {/* {prodInstances.map((inst, pIdx) => (
                                                                             <div key={inst.customId} className="flex items-center justify-between bg-white/10 p-2 rounded-lg mt-1 text-[9px]">
                                                                                 <span>{inst.customId}</span>
                                                                                 <button onClick={() => removeProduct(roomName, rIdx, prod.id, inst.instanceIndex)} className="text-red-400">Remove</button>
                                                                             </div>
                                                                         ))} */}
 
-                                                            {/* Instances List (Chips style) */}
-                                                            <div className="space-y-2 max-h-[150px] overflow-y-auto no-scrollbar">
-                                                                {prodInstances.map((inst, pIdx) => (
-                                                                    <div
-                                                                        key={inst.customId}
-                                                                        className="flex items-center justify-between bg-white border border-gray-100 p-2 rounded-xl text-[9px] font-bold shadow-sm"
-                                                                    >
-                                                                        <span className="text-[#1a1a1a] opacity-60">{prod.name} {pIdx + 1}</span>
-                                                                        {/* <button
+                                                                {/* Instances List (Chips style) */}
+                                                                <div className="space-y-2 max-h-[150px] overflow-y-auto no-scrollbar">
+                                                                    {prodInstances.map((inst, pIdx) => (
+                                                                        <div
+                                                                            key={inst.customId}
+                                                                            className="flex items-center justify-between bg-white border border-gray-100 p-2 rounded-xl text-[9px] font-bold shadow-sm"
+                                                                        >
+                                                                            <span className="text-[#1a1a1a] opacity-60">{prod.name} {pIdx + 1}</span>
+                                                                            {/* <button
                                                                             onClick={() => removeProduct(roomName, rIdx, prod.id, inst.instanceIndex)}
                                                                             className="text-red-500 hover:text-red-700 transition-colors uppercase text-[8px] font-black tracking-tighter"
                                                                         >
                                                                             Remove
                                                                         </button> */}
-                                                                    </div>
-                                                                ))}
-                                                            </div>
+                                                                        </div>
+                                                                    ))}
+                                                                </div>
 
-                                                        </div>
-                                                    );
-                                                })}
+                                                            </div>
+                                                        );
+                                                    })}
+                                                </div>
                                             </div>
-                                        </div>
-                                    );
-                                })}
-                            </div>
-                        ))}
-                        <section className='flex gap-2'>
+                                        );
+                                    })}
+                                </div>
+                            ))}
+                        </section>
+                        {/* <section className='flex gap-2'> */}
+                        <section className='flex gap-2 sticky bottom-0 bg-white/95 backdrop-blur-sm pt-4 pb-2 mt-auto z-20'>
+
                             {/* <button onClick={() => setStep(1)} className="w-full bg-[#1a1a1a] py-5 rounded-[25px] font-bold cursor-pointer !text-white uppercase shadow-lg shadow-[#ffc000]/20">Back</button>
                             <button onClick={() => setStep(3)} className="w-full bg-[#ffc000] py-5 rounded-[25px] font-bold cursor-pointer text-[#1a1a1a] uppercase shadow-lg shadow-[#ffc000]/20">Configure Products</button> */}
 
@@ -849,7 +857,7 @@ const CostCalculatorMain: React.FC<CostCalculationMainProps> = ({ showCloseButto
                 )}
 
                 {step === 4 && (
-                    <div className="space-y-10 animate-in fade-in slide-in-from-bottom-4">
+                    <div className="space-y-5 sm:space-y-5 animate-in fade-in slide-in-from-bottom-4">
                         <div className="space-y-2">
                             <h3 className="text-xl md:text-2xl font-bold text-[#1a1a1a]">Client Information</h3>
                             <p className="text-gray-400 text-xs font-medium uppercase tracking-widest">Verify identity to unlock your quote</p>
