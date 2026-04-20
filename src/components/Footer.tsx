@@ -61,7 +61,15 @@ const Footer: React.FC = () => {
                   </Link>
                 ))}
               </div>
-              <p className="text-sm">© {new Date().getFullYear()} VERTICAL LIVING.</p>
+              {/* <p className="text-sm">© {new Date().getFullYear()} VERTICAL LIVING.</p> */}
+
+              <div className="space-y-1">
+                <p className="text-sm font-bold uppercase">© {new Date().getFullYear()} VERTICAL LIVING.</p>
+                <p className="text-[10px] md:text-xs text-gray-600 leading-tight uppercase tracking-wider">
+                  Vertical Living is a brand of RAMS TECH CIRCLE (OPC) PRIVATE LIMITED.
+                </p>
+              </div>
+
             </div>
           </div>
 

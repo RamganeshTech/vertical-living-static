@@ -98,7 +98,7 @@ const ThankYouPage: React.FC = () => {
                                 onClick={() => navigate('/form')}
                                 className="w-full sm:w-auto px-8 h-[50px] border border-gray-300 text-[#333] rounded-full text-[11px] font-semibold uppercase tracking-widest hover:bg-gray-50 transition-all"
                             >
-                                Try Cost Calculator
+                                Request Custom Proposal
                             </button>
                         )}
                     </div>  
