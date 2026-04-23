@@ -469,28 +469,28 @@ const InquiryFormNew: React.FC<InquiryFormProps> = ({ showCalculatorLink = false
             console.log("gett pssing the fisrst mutation ", res)
 
 
-             // 🔥 New GTM DataLayer Conversion: Inquiry Form
-                if (window.dataLayer) {
-                    console.log("getin inside the window.dataLayer")
-                    // 🔥 Clean the 10-digit number and add +91
-                    const rawInput = formData["Mobile Number"].replace(/\D/g, ''); // Removes any accidental spaces/dashes
-                    const formattedPhone = `+91${rawInput}`;
-                    window.dataLayer.push({
-                        'event': 'inquiry_form_VL', // Must match GTM Trigger Name exactly
-                        'value': 1.0,
-                        'currency': 'INR',
-                        'user_name': formData["Full Name"],
-                        'location': formData["Location"],
-                        // 'phone_number': formData["Mobile Number"],
-                        'phone_number': formattedPhone,
-                        'project_category': formData["Project Category"],
-                        'property_type': formData["Property Type"],
-                        'budget': formData["Budget"],
-                        'timeline': formData["Timeline"],
-                        'service_type': formData["Service Type"]
-                    });
-                    console.log("getin inside the window.dataLayer", window?.dataLayer)
-                }
+            // 🔥 New GTM DataLayer Conversion: Inquiry Form
+            if (window.dataLayer) {
+                console.log("getin inside the window.dataLayer")
+                // 🔥 Clean the 10-digit number and add +91
+                const rawInput = formData["Mobile Number"].replace(/\D/g, ''); // Removes any accidental spaces/dashes
+                const formattedPhone = `+91${rawInput}`;
+                window.dataLayer.push({
+                    'event': 'inquiry_form_VL', // Must match GTM Trigger Name exactly
+                    'value': 1.0,
+                    'currency': 'INR',
+                    'user_name': formData["Full Name"],
+                    'location': formData["Location"],
+                    // 'phone_number': formData["Mobile Number"],
+                    'phone_number': formattedPhone,
+                    'project_category': formData["Project Category"],
+                    'property_type': formData["Property Type"],
+                    'budget': formData["Budget"],
+                    'timeline': formData["Timeline"],
+                    'service_type': formData["Service Type"]
+                });
+                console.log("getin inside the window.dataLayer", window?.dataLayer)
+            }
 
             console.log("gett pssing the ads coiode ")
 
@@ -499,7 +499,7 @@ const InquiryFormNew: React.FC<InquiryFormProps> = ({ showCalculatorLink = false
 
                 setShowSuccess(true);
 
-               
+
 
                 const customMessage = "thank you for submitting";
 
@@ -680,7 +680,8 @@ const InquiryFormNew: React.FC<InquiryFormProps> = ({ showCalculatorLink = false
                                 </button>
                             ) : (
                                 // <button type="submit" disabled={isSubmitting} className="flex-1 cursor-pointer h-[50px] bg-[#1a1a1a] text-white rounded-full text-[11px] font-bold uppercase tracking-widest shadow-md hover:bg-[#ffc000] hover:text-black transition-all disabled:opacity-50">
-                                <button type="button" onClick={nextStep} className={`flex-1 cursor-pointer h-[50px] ${theme.bg} ${theme.buttonText} rounded-full text-[11px] font-bold uppercase tracking-widest shadow-sm hover:shadow-md transition-all`}>
+                                <button type="submit" disabled={isSubmitting}
+                                    className={`flex-1 cursor-pointer h-[50px] ${theme.bg} ${theme.buttonText} rounded-full text-[11px] font-bold uppercase tracking-widest shadow-sm hover:shadow-md transition-all`}>
                                     {isSubmitting ? "Sending..." : "Submit"}
                                 </button>
                             )}
