@@ -6,10 +6,11 @@ import { Swiper as SwiperType } from 'swiper';
 
 // Import Swiper styles
 
-import img1 from '../assets/images/1.webp';
-import img2 from '../assets/images/2.webp';
-import img3 from '../assets/images/3.webp';
-import img4 from '../assets/images/4.webp';
+// import img1 from '../assets/images/1.webp';
+// import img2 from '../assets/images/2.webp';
+// import img3 from '../assets/images/3.webp';
+// import img4 from '../assets/images/4.webp';
+
 import img5 from '../assets/images/5.webp';
 
 
@@ -22,6 +23,7 @@ import img5 from '../assets/images/5.webp';
 // import img6 from '../assets/images/image6.jpeg';
 // import img7 from '../assets/images/image7.jpeg';
 // import img8 from '../assets/images/image8.jpeg';
+
 import img8 from '../assets/images/image10.webp';
 import img11 from '../assets/images/image11.webp';
 import img12 from '../assets/images/image12.webp';
@@ -34,8 +36,8 @@ import img18 from '../assets/images/image18.webp';
 
 
 
-import video1 from '../assets/videos/video1.mp4';
-import video2 from '../assets/videos/video2.mp4';
+// import video1 from '../assets/videos/video1.mp4';
+// import video2 from '../assets/videos/video2.mp4';
 import video3 from '../assets/videos/video3.mp4';
 import video4 from '../assets/videos/video4.mp4';
 
@@ -45,12 +47,12 @@ import { useNavigate } from 'react-router-dom';
 // const images = [img1, img2, img3, img4, img5, img6, img7, img8];
 // const images = [img1, img2, img3, img4, img5, img8, video1,video2, img8];
 const portfolioItems = [
-    { src: img1, type: 'image' },
-    { src: img2, type: 'image' },
-    { src: video1, type: 'video' }, // Video added
-    { src: img3, type: 'image' },
-    { src: img4, type: 'image' },
-    { src: video2, type: 'video' }, // Video added
+    // { src: img1, type: 'image' },
+    // { src: img2, type: 'image' },
+    // { src: video1, type: 'video' }, // Video added
+    // { src: img3, type: 'image' },
+    // { src: img4, type: 'image' },
+    // { src: video2, type: 'video' }, // Video added
     { src: img5, type: 'image' },
     { src: img8, type: 'image' },
     { src: img11, type: 'image' },

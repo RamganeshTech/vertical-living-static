@@ -10,30 +10,93 @@ const TESTIMONIAL_DATA = [
         name: "Rajesh Kumar",
         location: "Anna Nagar, Chennai",
         text: "The Vertical Living team transformed my 3BHK into a masterpiece. Their attention to detail in the modular kitchen is unmatched.",
-
         rating: 5,
         initials: "RK"
     },
     {
+        name: "Suresh Kannan",
+        location: "K.K Nagar, Madurai",
+        text: "Excellent workmanship and timely delivery. My home interiors came out exactly as planned, and the team was very responsive throughout the process.",
+        rating: 5,
+        initials: "SK"
+    },
+    {
+        name: "Meena Lakshmi",
+        location: "RS Puram, Coimbatore",
+        // text: "Loved their modern design approach. The wardrobe and storage solutions they provided are both stylish and highly functional.",
+        text: "Absolutely loved their modern design approach and attention to detail. The wardrobe and storage solutions are elegant and also incredibly practical, making everyday living so much easier.",
+
+        rating: 5,
+        initials: "ML"
+    },
+     {
         name: "Priya Sharma",
-        location: "Nungambakkam",
+        location: "Nungambakkam, Chennai",
         text: "Best interior firm in Chennai! The cost calculator was so accurate, and the final execution was exactly like the 3D designs.",
         rating: 5,
         initials: "PS"
     },
     {
+        name: "Rohit Verma",
+        location: "Vaishali Nagar, Jaipur",
+        // text: "Very professional team with great design sense. The 3D previews helped me visualize everything clearly before execution.",
+        text: "A highly professional team with an exceptional design sense. The 3D previews were incredibly detailed and helped me visualize every aspect perfectly before execution, giving me complete confidence in the process.",
+        rating: 4,
+        initials: "RV"
+    },
+    {
+        name: "Dhanush Gowda",
+        location: "Basavanagudi, Bengaluru",
+        // text: "From design to execution, everything was smooth. Their modular kitchen design completely changed the look of my home.",
+        text: "From initial design discussions to final execution, everything was seamless and well-coordinated. The modular kitchen they designed has completely transformed the look and functionality of my home.",
+        rating: 5,
+        initials: "DG"
+    },
+     {
         name: "Anand Viswanathan",
-        location: "Adyar",
+        location: "Adyar, Chennai",
         text: "Professional, timely, and creative. They managed the entire construction process without me having to worry about a thing.",
         rating: 4,
         initials: "AV"
     },
     {
+        name: "Amit Patil",
+        location: "Baner, Pune",
+        // text: "Great experience overall. The pricing was transparent, and the final outcome matched the promised quality.",
+        text: "An excellent experience from start to finish. The pricing was transparent, timelines were well-managed, and the final outcome not only met but exceeded the promised quality standards.",
+        rating: 4,
+        initials: "AP"
+    },
+    {
+        name: "Karthik Reddy",
+        location: "Gachibowli, Hyderabad",
+        // text: "Highly reliable and creative team. They optimized my apartment space beautifully with smart storage ideas.",
+        text: "A highly reliable and creative team that truly understands space optimization. They transformed my apartment with smart, innovative storage solutions without compromising on aesthetics.",
+        rating: 5,
+        initials: "KR"
+    },
+    {
         name: "Deepika R.",
-        location: "Besant Nagar",
+        location: "Besant Nagar, Chennai",
         text: "Working with them was a seamless experience. Their space-saving furniture solutions for my compact apartment were brilliant, maximizing every square foot without compromising on style.",
         rating: 5,
         initials: "DR"
+    },
+    {
+        name: "Neha Gupta",
+        location: "Sector 62, Noida",
+        // text: "The team was extremely cooperative and understood my requirements perfectly. The final interiors exceeded my expectations.",
+        text: "The team was extremely supportive and attentive to every detail. They understood my vision perfectly and delivered interiors that truly exceeded my expectations in both design and quality.",
+        rating: 5,
+        initials: "NG"
+    },
+    {
+        name: "Vikram Singh",
+        location: "Andheri West, Mumbai",
+        // text: "Impressed with their attention to detail and finishing quality. My living room design turned out elegant and modern.",
+        text: "Truly impressed by their attention to detail and premium finishing. The living room design turned out to be both elegant and contemporary, creating a perfect balance of style and comfort.",
+        rating: 4,
+        initials: "VS"
     }
 ];
 
@@ -62,7 +125,7 @@ export const Testimonials: React.FC<TestimonialType> = ({ showLink }) => {
 
 
                 const singleSetWidth = slider.scrollWidth / 4;
-                 if (slider.scrollLeft >= singleSetWidth) {
+                if (slider.scrollLeft >= singleSetWidth) {
                     slider.scrollLeft -= singleSetWidth;
                 }
             }
