@@ -448,7 +448,7 @@ const InquiryFormNew: React.FC<InquiryFormProps> = ({ showCalculatorLink = false
         try {
             await fetch(actionUrl, { method: 'POST', body: finalData });
 
-            const res = await createMutate({
+            await createMutate({
                 fullName: formData["Full Name"],
                 mobileNumber: formData["Mobile Number"],
                 projectCategory: formData["Project Category"],
