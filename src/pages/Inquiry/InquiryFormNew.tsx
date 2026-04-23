@@ -260,7 +260,7 @@ const actionUrl = "https://script.google.com/macros/s/AKfycbzHOjt3OivmNOJq0pUYQ9
 
 interface InquiryFormProps {
     showCalculatorLink?: boolean; // Prop to control the extra button
-    fromPage?:boolean
+    fromPage?: boolean
 }
 
 // Reusable Elegant Custom Select Component
@@ -373,7 +373,7 @@ const InquiryFormNew: React.FC<InquiryFormProps> = ({ showCalculatorLink = false
         hoverBg: fromPage ? "hover:bg-[#dc2626]" : "hover:bg-[#ffc000]",
         hoverText: fromPage ? "hover:text-white" : "hover:text-black",
     };
-    
+
     // UPDATED: Keys now match your Google Sheets doPost logic exactly
     const [formData, setFormData] = useState({
         "Full Name": "",
@@ -446,9 +446,12 @@ const InquiryFormNew: React.FC<InquiryFormProps> = ({ showCalculatorLink = false
         Object.entries(formData).forEach(([key, value]) => finalData.append(key, value));
 
         try {
-            await fetch(actionUrl, { method: 'POST', body: finalData });
+            await fetch(actionUrl, {
+                method: 'POST', body: finalData, mode: 'no-cors',
+                // important
+            });
 
-            await createMutate({
+            const res = await createMutate({
                 fullName: formData["Full Name"],
                 mobileNumber: formData["Mobile Number"],
                 projectCategory: formData["Project Category"],
@@ -459,16 +462,41 @@ const InquiryFormNew: React.FC<InquiryFormProps> = ({ showCalculatorLink = false
                 serviceType: formData["Service Type"]
             })
 
-            // if (res.ok === true) {
-                
-            // }
+             // 🔥 New GTM DataLayer Conversion: Inquiry Form
+                if (window.dataLayer) {
+                    console.log("getin inside the window.dataLayer")
+                    // 🔥 Clean the 10-digit number and add +91
+                    const rawInput = formData["Mobile Number"].replace(/\D/g, ''); // Removes any accidental spaces/dashes
+                    const formattedPhone = `+91${rawInput}`;
+                    window.dataLayer.push({
+                        'event': 'inquiry_form_VL', // Must match GTM Trigger Name exactly
+                        'value': 1.0,
+                        'currency': 'INR',
+                        'user_name': formData["Full Name"],
+                        'location': formData["Location"],
+                        // 'phone_number': formData["Mobile Number"],
+                        'phone_number': formattedPhone,
+                        'project_category': formData["Project Category"],
+                        'property_type': formData["Property Type"],
+                        'budget': formData["Budget"],
+                        'timeline': formData["Timeline"],
+                        'service_type': formData["Service Type"]
+                    });
+                    console.log("getin inside the window.dataLayer", window?.dataLayer)
+                }
 
-            setShowSuccess(true);
+            if (res.ok === true) {
+                setShowSuccess(true);
 
-                 const customMessage = "thank you for submitting";
+               
+
+                const customMessage = "thank you for submitting";
 
                 // navigate('/thank-you?source=calculator&message=thankyou');
                 navigate(`/thank-you?source=inquiry&message=${encodeURIComponent(customMessage)}`);
+
+
+            }
 
 
             // old one 
@@ -489,28 +517,7 @@ const InquiryFormNew: React.FC<InquiryFormProps> = ({ showCalculatorLink = false
             //     });
             // }
 
-            // 🔥 New GTM DataLayer Conversion: Inquiry Form
-            if (window.dataLayer) {
-                console.log("getin inside the window.dataLayer")
-                // 🔥 Clean the 10-digit number and add +91
-                const rawInput = formData["Mobile Number"].replace(/\D/g, ''); // Removes any accidental spaces/dashes
-                const formattedPhone = `+91${rawInput}`;
-                window.dataLayer.push({
-                    'event': 'inquiry_form_VL', // Must match GTM Trigger Name exactly
-                    'value': 1.0,
-                    'currency': 'INR',
-                    'user_name': formData["Full Name"],
-                    'location': formData["Location"],
-                    // 'phone_number': formData["Mobile Number"],
-                    'phone_number': formattedPhone,
-                    'project_category': formData["Project Category"],
-                    'property_type': formData["Property Type"],
-                    'budget': formData["Budget"],
-                    'timeline': formData["Timeline"],
-                    'service_type': formData["Service Type"]
-                });
-                console.log("getin inside the window.dataLayer", window?.dataLayer)
-            }
+
 
 
             // setFormData({ fullName: "", mobileNumber: "", projectCategory: "", propertyType: "", budget: "", location: "", timeline: "", serviceType: "" });
@@ -594,7 +601,7 @@ const InquiryFormNew: React.FC<InquiryFormProps> = ({ showCalculatorLink = false
                                         <input type="tel" name="Mobile Number" value={formData["Mobile Number"]} onChange={handleInputChange} maxLength={10} minLength={10} placeholder="10-digit number" className={`w-full h-[40px] md:h-[50px]  bg-white border-2 ${errors.mobileNumber ? 'border-red-400' : 'border-[#eee]'} rounded-full px-6 text-[13px] outline-none transition-all ${theme.focusBorder}`} onInput={(e) => (e.currentTarget.value = e.currentTarget.value.replace(/[^0-9]/g, ''))} />
                                         {errors.mobileNumber && <p className="text-[10px] text-red-500 ml-4 italic">{errors.mobileNumber}</p>}
                                     </div>
-                                    <ModernDropdown  fromPage={fromPage} label="Residential or Commercial project? *" name="Project Category" value={formData["Project Category"]} onChange={(val) => handleDropdownChange("Project Category", val)}
+                                    <ModernDropdown fromPage={fromPage} label="Residential or Commercial project? *" name="Project Category" value={formData["Project Category"]} onChange={(val) => handleDropdownChange("Project Category", val)}
                                         // options={["Residential", "Commercial"]} 
                                         options={["Residential (Apartment / Villa)", "Commercial (Office / Cafe / Showroom)"]}
 
@@ -605,7 +612,7 @@ const InquiryFormNew: React.FC<InquiryFormProps> = ({ showCalculatorLink = false
 
                             {step === 2 && (
                                 <motion.div key="step2" initial={{ opacity: 0, x: 15 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -15 }} className="space-y-4">
-                                    <ModernDropdown  fromPage={fromPage} label="What type of property is this project for? *" name="Property Type" value={formData["Property Type"]} onChange={(val) => handleDropdownChange("Property Type", val)}
+                                    <ModernDropdown fromPage={fromPage} label="What type of property is this project for? *" name="Property Type" value={formData["Property Type"]} onChange={(val) => handleDropdownChange("Property Type", val)}
 
                                         // options={["3BHK Apartment", "Villa / House", "Office / Cafe"]}
                                         options={["3BHK Apartment (Residential)", "Villa / Independent House (Residential)", "Office space / Showroom / Hospital / Cafe (Commercial)"]}
@@ -618,7 +625,7 @@ const InquiryFormNew: React.FC<InquiryFormProps> = ({ showCalculatorLink = false
                                         options={["5 Lakhs - 8 lakhs", "9 lakhs - 12 lakhs", "12 lakhs - 16 lakhs", "20 lakhs above"]}
 
                                         placeholder="Select Budget" error={errors.budget} />
-                                    <ModernDropdown  fromPage={fromPage} label="Which area is your project located in *" name="Location" value={formData["Location"]} onChange={(val) => handleDropdownChange("Location", val)}
+                                    <ModernDropdown fromPage={fromPage} label="Which area is your project located in *" name="Location" value={formData["Location"]} onChange={(val) => handleDropdownChange("Location", val)}
 
                                         // options={["Anna nagar", "OMR", "ECR", "Adyar", "Other"]}
                                         options={["Anna nagar", "Mogappair", "OMR", "ECR", "Adyar", "T Nagar", "Ambattur", "Other Chennai location"]}
@@ -631,14 +638,14 @@ const InquiryFormNew: React.FC<InquiryFormProps> = ({ showCalculatorLink = false
 
                             {step === 3 && (
                                 <motion.div key="step3" initial={{ opacity: 0, x: 15 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -15 }} className="space-y-4">
-                                    <ModernDropdown  fromPage={fromPage} label="When Do You Plan to Start the Project? *" name="Timeline" value={formData["Timeline"]} onChange={(val) => handleDropdownChange("Timeline", val)}
+                                    <ModernDropdown fromPage={fromPage} label="When Do You Plan to Start the Project? *" name="Timeline" value={formData["Timeline"]} onChange={(val) => handleDropdownChange("Timeline", val)}
                                         // options={["Immediate", "1–3 months", "Just exploring"]}
                                         options={["Immediate (0–30 days)", "1–3 months", "Just exploring"]}
 
 
                                         placeholder="Select Timeline" error={errors.timeline} />
 
-                                    <ModernDropdown  fromPage={fromPage} label="What kind of service are you looking for? *" name="Service Type" value={formData["Service Type"]} onChange={(val) => handleDropdownChange("Service Type", val)}
+                                    <ModernDropdown fromPage={fromPage} label="What kind of service are you looking for? *" name="Service Type" value={formData["Service Type"]} onChange={(val) => handleDropdownChange("Service Type", val)}
                                         //  options={["Design + Execution", "Design Support", "Execution Only"]} 
                                         options={["Design + Execution (Flexible Budget)", "Design Support + Execution (Fixed Budget)", "Execution only (Designs Ready)"]}
 
