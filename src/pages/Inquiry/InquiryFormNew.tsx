@@ -438,6 +438,7 @@ const InquiryFormNew: React.FC<InquiryFormProps> = ({ showCalculatorLink = false
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
+        console.log("calling before the vlaidate step")
         if (!validateStep()) return;
 
         setIsSubmitting(true);
@@ -445,11 +446,15 @@ const InquiryFormNew: React.FC<InquiryFormProps> = ({ showCalculatorLink = false
         const finalData = new FormData();
         Object.entries(formData).forEach(([key, value]) => finalData.append(key, value));
 
+
         try {
+            console.log("getting caled 1")
             await fetch(actionUrl, {
                 method: 'POST', body: finalData, mode: 'no-cors',
                 // important
             });
+
+            console.log("gett pssing the form link ")
 
             const res = await createMutate({
                 fullName: formData["Full Name"],
@@ -461,6 +466,8 @@ const InquiryFormNew: React.FC<InquiryFormProps> = ({ showCalculatorLink = false
                 timeline: formData["Timeline"],
                 serviceType: formData["Service Type"]
             })
+            console.log("gett pssing the fisrst mutation ", res)
+
 
              // 🔥 New GTM DataLayer Conversion: Inquiry Form
                 if (window.dataLayer) {
@@ -485,7 +492,11 @@ const InquiryFormNew: React.FC<InquiryFormProps> = ({ showCalculatorLink = false
                     console.log("getin inside the window.dataLayer", window?.dataLayer)
                 }
 
+            console.log("gett pssing the ads coiode ")
+
+
             if (res.ok === true) {
+
                 setShowSuccess(true);
 
                
