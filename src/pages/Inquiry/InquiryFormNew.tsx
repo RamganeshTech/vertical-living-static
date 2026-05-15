@@ -254,6 +254,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useCreatePublicLead } from '../../api/ApiLists/publicLeadCollectionApi';
 import { useNavigate } from 'react-router-dom';
+import { getLeadSource } from '../../utils/getLeadSource';
 
 // Constant for the Google Script
 const actionUrl = "https://script.google.com/macros/s/AKfycbzHOjt3OivmNOJq0pUYQ9MzM2XENCubYpDVwiR4qKBh_2x63YNkqD0KuEoIoa2WJ5Q/exec";
@@ -443,10 +444,12 @@ const InquiryFormNew: React.FC<InquiryFormProps> = ({ showCalculatorLink = false
 
         setIsSubmitting(true);
 
+        const leadSource = getLeadSource();
+
         const finalData = new FormData();
         Object.entries(formData).forEach(([key, value]) => finalData.append(key, value));
 
-
+        finalData.append("Source", leadSource);
         try {
             console.log("getting caled 1")
             await fetch(actionUrl, {
@@ -464,7 +467,8 @@ const InquiryFormNew: React.FC<InquiryFormProps> = ({ showCalculatorLink = false
                 budget: formData["Budget"],
                 location: formData["Location"],
                 timeline: formData["Timeline"],
-                serviceType: formData["Service Type"]
+                serviceType: formData["Service Type"],
+                source: leadSource // ✅ Send it to the DB
             })
             console.log("gett pssing the fisrst mutation ", res)
 

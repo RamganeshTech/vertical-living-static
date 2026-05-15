@@ -9,6 +9,7 @@ import {
 // import { downloadImage } from '../../api/ApiLists/downloadFile';
 import { phoneNumber } from '../../components/FloatingContact';
 import { useNavigate } from 'react-router-dom';
+import { getLeadSource } from '../../utils/getLeadSource';
 // import { phoneNumber } from '../../components/FloatingContact';
 
 
@@ -403,6 +404,9 @@ const CostCalculatorMain: React.FC<CostCalculationMainProps> = ({ showCloseButto
     const handleSubmit = async () => {
         if (!validate()) return;
 
+        const leadSource = getLeadSource();
+
+
         setIsSaving(true);
         const dataToSave = {
             name: clientInfo.name,
@@ -416,11 +420,14 @@ const CostCalculatorMain: React.FC<CostCalculationMainProps> = ({ showCloseButto
             // The most important part:
             // detailedConfig: JSON.stringify(config),
             config: config,
-            consent: clientInfo.consent
+            consent: clientInfo.consent,
+            source: leadSource // ✅ Send it to the DB
+
             // timestamp: new Date().toISOString()
         };
 
-        // https://script.google.com/macros/s/AKfycbyyPj39EazaNzcIwg2NsVbKROlqjDTJccbSHNYlgrPV827RIfsxuV9B7sl3mSh0lPUe5A/exec
+        console.log("dataToSave", dataToSave)
+
         try {
             // Using your existing Google Apps Script URL
             // await fetch('https://script.google.com/macros/s/AKfycby1za3iClzVCPFUxBfakDkhv19fLuM_KfiKFX_ZmSzvbLJ25Ml91NNRm4lT5OXmDdyJ/exec', { // pk22...
@@ -435,68 +442,73 @@ const CostCalculatorMain: React.FC<CostCalculationMainProps> = ({ showCloseButto
             // 2. Call the Mutation Hook
             const res = await generateQuote(dataToSave)
 
-            if (res?.ok && res?.url) {
 
-                // 🔥 Google Conversion
-                // if (typeof window.gtag === 'function') {
-                //     window.gtag('event', 'conversion', {
-                //         'send_to': 'AW-17955936522/DMRXCNqK0vobEIqyh_JC',
-                //         'value': 1.0,
-                //         'currency': 'INR',
-                //         'carpet_area': formData.carpetArea,
-                //         'home_type': formData.homeType,
-                //         'finish_quality': formData.finish,
-                //         'user_name': clientInfo.name,
-                //         'location': clientInfo.location,
-                //         'whatsapp_number': clientInfo.phone,
-                //         'estimated_value': estimate
-                //     });
-                // }
+            // 🔥 Google Conversion
+            // if (typeof window.gtag === 'function') {
+            //     window.gtag('event', 'conversion', {
+            //         'send_to': 'AW-17955936522/DMRXCNqK0vobEIqyh_JC',
+            //         'value': 1.0,
+            //         'currency': 'INR',
+            //         'carpet_area': formData.carpetArea,
+            //         'home_type': formData.homeType,
+            //         'finish_quality': formData.finish,
+            //         'user_name': clientInfo.name,
+            //         'location': clientInfo.location,
+            //         'whatsapp_number': clientInfo.phone,
+            //         'estimated_value': estimate
+            //     });
+            // }
 
-                // 🔥 New GTM DataLayer Conversion
-                if (window.dataLayer) {
-                    // console.log("getin inside the window.dataLayer")
-                    // 🔥 Clean the 10-digit number and add +91
-                    const rawCalcInput = clientInfo.phone.replace(/\D/g, '');
-                    const formattedCalcPhone = `+91${rawCalcInput}`;
-                    window.dataLayer.push({
-                        'event': 'cost_calculator_VL', // This must match your GTM Trigger name exactly
-                        'value': estimate || 1.0,
-                        'currency': 'INR',
-                        'carpet_area': formData.carpetArea,
-                        'home_type': formData.homeType,
-                        'finish_quality': formData.finish,
-                        'user_name': clientInfo.name,
-                        'location': clientInfo.location,
-                        // 'whatsapp_number': clientInfo.phone,
-                        'whatsapp_number': formattedCalcPhone, // Now sends +919808080808
-                        'estimated_value': estimate
+            // 🔥 New GTM DataLayer Conversion
+            if (window.dataLayer) {
+                // console.log("getin inside the window.dataLayer")
+                // 🔥 Clean the 10-digit number and add +91
+                const rawCalcInput = clientInfo.phone.replace(/\D/g, '');
+                const formattedCalcPhone = `+91${rawCalcInput}`;
+                window.dataLayer.push({
+                    'event': 'cost_calculator_VL', // This must match your GTM Trigger name exactly
+                    'value': estimate || 1.0,
+                    'currency': 'INR',
+                    'carpet_area': formData.carpetArea,
+                    'home_type': formData.homeType,
+                    'finish_quality': formData.finish,
+                    'user_name': clientInfo.name,
+                    'location': clientInfo.location,
+                    // 'whatsapp_number': clientInfo.phone,
+                    'whatsapp_number': formattedCalcPhone, // Now sends +919808080808
+                    'estimated_value': estimate
 
-                    });
-                    // console.log("getin inside the window.dataLayer", window?.dataLayer)
+                });
+                // console.log("getin inside the window.dataLayer", window?.dataLayer)
 
-                }
+            }
 
-                console.log("res.data", res)
+            console.log("res.data", res)
 
+            try {
                 // saving in the CRM
                 await saveQuote({
                     ...dataToSave,
                     quotationPdf: res?.data?.quotationPdf
                 })
+            } catch (crmErr) {
+                console.error("CRM Save specifically failed:", crmErr);
+            }
 
-                // Download PDF
-                // downloadImage({
-                //     src: res.url,
-                //     alt: `${clientInfo.name}_Quotation.pdf`
-                // });
+            // Download PDF
+            // downloadImage({
+            //     src: res.url,
+            //     alt: `${clientInfo.name}_Quotation.pdf`
+            // });
 
 
 
-                // // if ((res as any)?.url) { // successfully we have that url here
-                // //  res.url is the pdf link it willbe https://vertical.....
+            // // if ((res as any)?.url) { // successfully we have that url here
+            // //  res.url is the pdf link it willbe https://vertical.....
 
-                // console.log("step changed to 5");
+            // console.log("step changed to 5");
+
+            if (res?.ok && res?.url) {
 
                 setStep(5);
                 await sendToWhatsapp({ clientName: dataToSave.name, clientPhone: dataToSave.phone, pdfUrl: res?.url })
@@ -662,46 +674,46 @@ const CostCalculatorMain: React.FC<CostCalculationMainProps> = ({ showCloseButto
                         </div>
                         {/* <section className=''> */}
 
-                            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 h-full max-h-[50vh] overflow-y-auto">
-                                {(Object.keys(PRODUCT_CATALOG) as Array<keyof typeof PRODUCT_CATALOG>).map(room => {
-                                    const count = (roomCounts as any)[room] || 0;
-                                    return (
-                                        <div key={room} className={`bg-gray-50 py-2 md:py-6 px-3 sm:px-2  rounded-[30px] flex items-center justify-between border-2 border-transparent ${theme.hoverBorder} transition-all`}>
-                                            <span className="font-bold text-[#1a1a1a] uppercase text-xs sm:text-sm">{room}</span>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 h-full max-h-[50vh] overflow-y-auto">
+                            {(Object.keys(PRODUCT_CATALOG) as Array<keyof typeof PRODUCT_CATALOG>).map(room => {
+                                const count = (roomCounts as any)[room] || 0;
+                                return (
+                                    <div key={room} className={`bg-gray-50 py-2 md:py-6 px-3 sm:px-2  rounded-[30px] flex items-center justify-between border-2 border-transparent ${theme.hoverBorder} transition-all`}>
+                                        <span className="font-bold text-[#1a1a1a] uppercase text-xs sm:text-sm">{room}</span>
 
 
-                                            <div className="flex items-center gap-3 bg-white px-2 py-1.5 rounded-full shadow-inner border border-gray-100">
-                                                {/* Minus Button: Subtle Red/Gray theme */}
-                                                <button
-                                                    onClick={() => setRoomCounts((p: Record<string, number>) => ({ ...p, [room]: Math.max(0, (p[room] || 0) - 1) }))}
-                                                    className={`w-6 h-6 md:w-8 md:h-8 rounded-full flex justify-center items-center transition-all outline-none cursor-pointer font-bold
+                                        <div className="flex items-center gap-3 bg-white px-2 py-1.5 rounded-full shadow-inner border border-gray-100">
+                                            {/* Minus Button: Subtle Red/Gray theme */}
+                                            <button
+                                                onClick={() => setRoomCounts((p: Record<string, number>) => ({ ...p, [room]: Math.max(0, (p[room] || 0) - 1) }))}
+                                                className={`w-6 h-6 md:w-8 md:h-8 rounded-full flex justify-center items-center transition-all outline-none cursor-pointer font-bold
             ${count > 0
-                                                            ? "bg-red-50 text-red-500 hover:bg-red-500 hover:text-white shadow-sm"
-                                                            : "bg-gray-50 text-gray-300 cursor-not-allowed"}`}
-                                                    disabled={count === 0}
-                                                >
-                                                    <span className="text-xl mb-0.5">−</span>
-                                                </button>
+                                                        ? "bg-red-50 text-red-500 hover:bg-red-500 hover:text-white shadow-sm"
+                                                        : "bg-gray-50 text-gray-300 cursor-not-allowed"}`}
+                                                disabled={count === 0}
+                                            >
+                                                <span className="text-xl mb-0.5">−</span>
+                                            </button>
 
-                                                {/* Count: Bold and centered */}
-                                                <span className={`min-w-[20px] text-center font-bold transition-colors ${count > 0 ? "text-[#1a1a1a]" : "text-gray-400"}`}>
-                                                    {count}
-                                                </span>
+                                            {/* Count: Bold and centered */}
+                                            <span className={`min-w-[20px] text-center font-bold transition-colors ${count > 0 ? "text-[#1a1a1a]" : "text-gray-400"}`}>
+                                                {count}
+                                            </span>
 
-                                                {/* Plus Button: Brand Yellow theme */}
-                                                <button
-                                                    onClick={() => setRoomCounts((p: Record<string, number>) => ({ ...p, [room]: (p[room] || 0) + 1 }))}
-                                                    className={`w-6 h-6 md:w-8 md:h-8 ${theme.bg} ${textWhiteContent} 
+                                            {/* Plus Button: Brand Yellow theme */}
+                                            <button
+                                                onClick={() => setRoomCounts((p: Record<string, number>) => ({ ...p, [room]: (p[room] || 0) + 1 }))}
+                                                className={`w-6 h-6 md:w-8 md:h-8 ${theme.bg} ${textWhiteContent} 
                                                 rounded-full    flex justify-center items-center shadow-md hover:shadow-lg hover:scale-110 active:scale-95 transition-all outline-none cursor-pointer font-bold`}
-                                                >
-                                                    <span className="text-xl mb-0.5">+</span>
-                                                </button>
-                                            </div>
+                                            >
+                                                <span className="text-xl mb-0.5">+</span>
+                                            </button>
                                         </div>
-                                    )
-                                }
-                                )}
-                            </div>
+                                    </div>
+                                )
+                            }
+                            )}
+                        </div>
                         {/* </section> */}
 
                         {/* <section className='flex gap-2'> */}
@@ -960,7 +972,7 @@ const CostCalculatorMain: React.FC<CostCalculationMainProps> = ({ showCloseButto
                                 // onKeyDown={}
                                 type="button"
                                 // disabled={isSaving}
-                                disabled={isSaving || isPending || !clientInfo.consent}
+                                // disabled={isSaving || isPending || !clientInfo.consent}
                                 className={`w-full cursor-pointer ${theme.bg} ${fromPage ? "text-white" : "text-[#1a1a1a]"} py-3 md:py-6 rounded-2xl font-bold uppercase tracking-[2px] text-xs shadow-2xl shadow-black/20 active:scale-95 transition-all disabled:opacity-70`}
                             >
                                 {(isSaving || isPending) ? 'Processing Quote...' : <span >Get <span className="hidden md:inline">Final</span> Quote</span>}
