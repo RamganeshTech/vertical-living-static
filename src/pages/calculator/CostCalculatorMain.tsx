@@ -443,7 +443,7 @@ const CostCalculatorMain: React.FC<CostCalculationMainProps> = ({ showCloseButto
             const res = await generateQuote(dataToSave)
 
 
-            // 🔥 Google Conversion
+            // 🔥 OLD Google Conversion
             // if (typeof window.gtag === 'function') {
             //     window.gtag('event', 'conversion', {
             //         'send_to': 'AW-17955936522/DMRXCNqK0vobEIqyh_JC',
@@ -459,6 +459,11 @@ const CostCalculatorMain: React.FC<CostCalculationMainProps> = ({ showCloseButto
             //     });
             // }
 
+
+            // 🔥 NEW: Clean the estimate value for Meta (Removes commas/symbols, ensures it is > 0)
+            const cleanValue = parseFloat(String(estimate || 1.0).replace(/[^0-9.]/g, ''));
+            const finalMetaValue = cleanValue > 0 ? cleanValue : 1.0;
+
             // 🔥 New GTM DataLayer Conversion
             if (window.dataLayer) {
                 // console.log("getin inside the window.dataLayer")
@@ -467,7 +472,9 @@ const CostCalculatorMain: React.FC<CostCalculationMainProps> = ({ showCloseButto
                 const formattedCalcPhone = `+91${rawCalcInput}`;
                 window.dataLayer.push({
                     'event': 'cost_calculator_VL', // This must match your GTM Trigger name exactly
-                    'value': estimate || 1.0,
+                    // 'value': estimate || 1.0,
+                    'value': finalMetaValue,
+                    
                     'currency': 'INR',
                     'carpet_area': formData.carpetArea,
                     'home_type': formData.homeType,
@@ -483,9 +490,19 @@ const CostCalculatorMain: React.FC<CostCalculationMainProps> = ({ showCloseButto
 
             }
 
+
+            // ✅ NEW: Direct Meta Pixel Code (Fixes the ad team's frontend errors)
+            if (typeof window !== 'undefined' && (window as any).fbq) {
+                // Using trackCustom because 'Cost Calculator' is not a standard Meta event like 'Purchase'
+                (window as any).fbq('trackCustom', 'Cost Calculator', {
+                    value: finalMetaValue,
+                    currency: 'INR'
+                });
+            }
+
             console.log("res.data", res)
 
-            try {
+           try {
                 // saving in the CRM
                 await saveQuote({
                     ...dataToSave,
