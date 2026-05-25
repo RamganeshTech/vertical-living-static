@@ -3,7 +3,7 @@ import React, { useState, useMemo } from 'react';
 // import { motion, AnimatePresence } from 'framer-motion';
 import {
     useCreateCRMPublicQuote, useGeneratePublicQuote,
-    useWhatsappAutomationQuoteSend,
+    // useWhatsappAutomationQuoteSend,
     // useWhatsappAutomationQuoteSend 
 } from '../../api/ApiLists/publicQuoteCalculatorApi';
 // import { downloadImage } from '../../api/ApiLists/downloadFile';
@@ -18,124 +18,123 @@ import { getLeadSource } from '../../utils/getLeadSource';
 
 const PRODUCT_CATALOG: Record<string, any[]> = {
     "Living Room": [
-        { id: "grand_tv", label: "tv unit", name: "TV Unit", h: 8, w: 6 },
-        { id: "wardrobe", label: "wardrobe", name: "Wardrobe", h: 7, w: 6 },
-        { id: "crockery", label: "crockery unit", name: "Crockery Unit", h: 7, w: 4 },
-        { id: "bar_unit", label: "bar unit", name: "Bar Unit", h: 7, w: 3 },
-        { id: "book_shelf", label: "book shelf", name: "Book Shelf", h: 7, w: 3 },
-        { id: "wallpaper", label: "wall paper", name: "Wall Paper", h: 10, w: 10 },
-        { id: "temple", label: "pooja unit", name: "Pooja Unit", h: 5, w: 3 },
-        { id: "sofa_panel", label: "sofa back wall panelling", name: "Sofa Back Wall Panelling", h: 4, w: 10 },
-        { id: "dining_panel", label: "dining wall panelling", name: "Dining Wall Panelling", h: 8, w: 6 },
-        { id: "diamond_mirror", label: "diamond mirror wall", name: "Diamond Mirror Wall", h: 8, w: 4 },
+        { id: "grand_tv", label: "tv unit", name: "TV Unit", h: 8, w: 6, d: 1.25 },
+        { id: "wardrobe", label: "wardrobe", name: "Wardrobe", h: 7, w: 6, d: 2.5 },
+        { id: "crockery", label: "crockery unit", name: "Crockery Unit", h: 7, w: 4, d: 1.25 },
+        { id: "bar_unit", label: "bar unit", name: "Bar Unit", h: 7, w: 3, d: 1.5 },
+        { id: "book_shelf", label: "book shelf", name: "Book Shelf", h: 7, w: 3, d: 1 },
+        { id: "wallpaper", label: "wall paper", name: "Wall Paper", h: 10, w: 10, d: 0.01 },
+        { id: "temple", label: "pooja unit", name: "Pooja Unit", h: 5, w: 3, d: 1.5 },
+        { id: "sofa_panel", label: "sofa back wall panelling", name: "Sofa Back Wall Panelling", h: 4, w: 10, d: 0.1 },
+        { id: "dining_panel", label: "dining wall panelling", name: "Dining Wall Panelling", h: 8, w: 6, d: 0.1 },
+        { id: "diamond_mirror", label: "diamond mirror wall", name: "Diamond Mirror Wall", h: 8, w: 4, d: 0.5 },
     ],
     "Bedroom": [
-        { id: "grand_tv", label: "tv unit", name: "TV Unit", h: 8, w: 6 },
-        { id: "wardrobe", label: "wardrobe", name: "Wardrobe", h: 7, w: 6 },
-        { id: "crockery", label: "crockery unit", name: "Crockery Unit", h: 7, w: 4 },
-        { id: "loft", label: "loft", name: "Loft", h: 2, w: 10 },
-        { id: "dressing", label: "dressing", name: "Dressing", h: 6, w: 2 },
-        { id: "book_shelf", label: "book shelf", name: "Book Shelf", h: 7, w: 3 },
-        { id: "bed", label: "bed", name: "Bed", h: 1.5, w: 6 },
-        { id: "bed_back_fabric", label: "bed", name: "Bed Back Rest with Fabric", h: 3, w: 6 },
-        { id: "wallpaper", label: "wall paper", name: "Wall Paper", h: 10, w: 10 },
-        { id: "sofa_panel", label: "sofa back wall panelling", name: "Sofa Back Wall Panelling", h: 4, w: 10 },
+        { id: "grand_tv", label: "tv unit", name: "TV Unit", h: 8, w: 6, d: 1.25 },
+        { id: "wardrobe", label: "wardrobe", name: "Wardrobe", h: 7, w: 6, d: 2.5 },
+        { id: "crockery", label: "crockery unit", name: "Crockery Unit", h: 7, w: 4, d: 1.5 },
+        { id: "loft", label: "loft", name: "Loft", h: 2, w: 10, d: 2 },
+        { id: "dressing", label: "dressing", name: "Dressing", h: 6, w: 2, d: 1 },
+        { id: "book_shelf", label: "book shelf", name: "Book Shelf", h: 7, w: 3, d: 1 },
+        { id: "bed", label: "bed", name: "Bed", h: 1.5, w: 6, d: 6 },
+        { id: "bed_back_fabric", label: "bed", name: "Bed Back Rest with Fabric", h: 3, w: 6, d: 0.25 },
+        { id: "wallpaper", label: "wall paper", name: "Wall Paper", h: 10, w: 10, d: 0.01 },
+        { id: "sofa_panel", label: "sofa back wall panelling", name: "Sofa Back Wall Panelling", h: 4, w: 10, d: 0.1 },
 
-        { id: "dining_panel", label: "dining wall panelling", name: "Dining Wall Panelling", h: 8, w: 6 },
+        { id: "dining_panel", label: "dining wall panelling", name: "Dining Wall Panelling", h: 8, w: 6, d: 0.1 },
 
-        { id: "side_table", label: "sideboard", name: "Side Table", h: 1.5, w: 1.5 },
-        { id: "work_table", label: "study table", name: "Working Table", h: 2.5, w: 4 },
-        { id: "temple", label: "pooja unit", name: "Pooja Unit", h: 5, w: 3 },
+        { id: "side_table", label: "sideboard", name: "Side Table", h: 1.5, w: 1.5, d: 1.5 },
+        { id: "work_table", label: "study table", name: "Working Table", h: 2.5, w: 4, d: 2 },
+        { id: "temple", label: "pooja unit", name: "Pooja Unit", h: 5, w: 3, d: 1.5 },
         // { id: "mini_tv", label: "mini tv unit", name: "Mini TV Unit", h: 4, w: 4 },
-        { id: "diamond_mirror", label: "diamond mirror wall", name: "Diamond Mirror Wall", h: 8, w: 4 },
+        { id: "diamond_mirror", label: "diamond mirror wall", name: "Diamond Mirror Wall", h: 8, w: 4, d: 0.5 },
 
         // { id: "wallpaper_bed", label: "wall paper bed", name: "Wall Paper", h: 10, w: 10 },
         // { id: "laminate_panel", label: "bed back wall laminate panelling", name: "Bed Back Wall Laminate Panelling", h: 8, w: 10 },
     ],
     "Washroom": [
-        { id: "vanity", label: "vanity unit", name: "Vanity Below Handwash Counter", h: 2, w: 3 },
-        { id: "mirror_shelf", label: "mirror with shelfs behind", name: "Mirror with Shelfs Behind", h: 3, w: 2 },
-        { id: "shower_partition", label: "shower glass partition", name: "Shower Glass Partition", h: 7, w: 3 },
-        { id: "grand_tv", label: "tv unit", name: "TV Unit", h: 8, w: 6 },
-        { id: "wallpaper", label: "wall paper", name: "Wall Paper", h: 10, w: 10 },
+        { id: "vanity", label: "vanity unit", name: "Vanity Below Handwash Counter", h: 2, w: 3, d: 1.75 },
+        { id: "mirror_shelf", label: "mirror with shelfs behind", name: "Mirror with Shelfs Behind", h: 3, w: 2, d: 0.5 },
+        { id: "shower_partition", label: "shower glass partition", name: "Shower Glass Partition", h: 7, w: 3, d: 1 },
+        { id: "grand_tv", label: "tv unit", name: "TV Unit", h: 8, w: 6, d: 1.25 },
+        { id: "wallpaper", label: "wall paper", name: "Wall Paper", h: 10, w: 10, d: 0.01 },
 
 
 
-        { id: "wardrobe", label: "wardrobe", name: "Wardrobe", h: 7, w: 6 },
-        { id: "crockery", label: "crockery unit", name: "Crockery Unit", h: 7, w: 4 },
-        { id: "loft", label: "loft", name: "Loft", h: 2, w: 8 },
-        { id: "dressing", label: "dressing", name: "Dressing", h: 6, w: 2 },
-        { id: "book_shelf", label: "book shelf", name: "Book Shelf", h: 7, w: 3 },
-        { id: "temple", label: "pooja unit", name: "Pooja Unit", h: 5, w: 3 },
+        { id: "wardrobe", label: "wardrobe", name: "Wardrobe", h: 7, w: 6, d: 2.5 },
+        { id: "crockery", label: "crockery unit", name: "Crockery Unit", h: 7, w: 4, d: 1.5 },
+        { id: "loft", label: "loft", name: "Loft", h: 2, w: 8, d: 2 },
+        { id: "dressing", label: "dressing", name: "Dressing", h: 6, w: 2, d: 1 },
+        { id: "book_shelf", label: "book shelf", name: "Book Shelf", h: 7, w: 3, d: 1 },
+        { id: "temple", label: "pooja unit", name: "Pooja Unit", h: 5, w: 3, d: 1.5 },
     ],
     "Kitchen": [
         // { id: "base_cabinets", label: "kitchen", name: "Base Cabinets", h: 2.5, w: 12 },
         // { id: "wall_cabinets", label: "kitchen", name: "Wall Cabinets", h: 2, w: 12 },
         // { id: "tall_unit", label: "tall unit", name: "Tall Unit", h: 7, w: 2 },
 
-        { id: "base_cabinets", label: "kitchen base unit", name: "Base Cabinets", h: 2.5, w: 12 },
-        { id: "wall_cabinets", label: "kitchen wall unit", name: "Wall Cabinets", h: 2, w: 12 },
-        { id: "tall_cabinets", label: "kitchen tall unit", name: "Tall Cabinets", h: 7, w: 2 },
-        { id: "breakfast_counter", label: "breakfast counter", name: "Breakfast Counter", h: 3, w: 5 },
-        { id: "loft", label: "loft", name: "Loft", h: 2, w: 8 },
-        { id: "temple", label: "pooja unit", name: "Pooja Unit", h: 5, w: 3 },
-        { id: "dining_panel", label: "dining wall panelling", name: "Dining Wall Panelling", h: 8, w: 6 },
+        { id: "base_cabinets", label: "kitchen base unit", name: "Base Cabinets", h: 2.5, w: 12, d: 2 },
+        { id: "wall_cabinets", label: "kitchen wall unit", name: "Wall Cabinets", h: 2, w: 12, d: 1 },
+        { id: "tall_cabinets", label: "kitchen tall unit", name: "Tall Cabinets", h: 7, w: 2, d: 2 },
+        { id: "breakfast_counter", label: "breakfast counter", name: "Breakfast Counter", h: 3, w: 5, d: 1.75 },
+        { id: "loft", label: "loft", name: "Loft", h: 2, w: 8, d: 2 },
+        { id: "temple", label: "pooja unit", name: "Pooja Unit", h: 5, w: 3, d: 1.5 },
+        { id: "dining_panel", label: "dining wall panelling", name: "Dining Wall Panelling", h: 8, w: 6, d: 0.1 },
 
-        { id: "mirror_shelf", label: "mirror with shelfs behind", name: "Mirror with Shelfs Behind", h: 3, w: 2 },
-        { id: "shower_partition", label: "shower glass partition", name: "Shower Glass Partition", h: 7, w: 3 },
-        { id: "wardrobe", label: "wardrobe", name: "Wardrobe", h: 7, w: 6 },
-        { id: "wallpaper", label: "wall paper", name: "Wall Paper", h: 10, w: 10 },
-        { id: "grand_tv", label: "tv unit", name: "TV Unit", h: 8, w: 6 },
-        { id: "crockery", label: "crockery unit", name: "Crockery Unit", h: 7, w: 4 },
-        { id: "dressing", label: "dressing", name: "Dressing", h: 6, w: 2 },
-        { id: "book_shelf", label: "book shelf", name: "Book Shelf", h: 7, w: 3 },
+        { id: "mirror_shelf", label: "mirror with shelfs behind", name: "Mirror with Shelfs Behind", h: 3, w: 2, d: 0.5 },
+        { id: "shower_partition", label: "shower glass partition", name: "Shower Glass Partition", h: 7, w: 3, d: 1 },
+        { id: "wardrobe", label: "wardrobe", name: "Wardrobe", h: 7, w: 6, d: 2.5 },
+        { id: "wallpaper", label: "wall paper", name: "Wall Paper", h: 10, w: 10, d: 0.01 },
+        { id: "grand_tv", label: "tv unit", name: "TV Unit", h: 8, w: 6, d: 1.25 },
+        { id: "crockery", label: "crockery unit", name: "Crockery Unit", h: 7, w: 4, d: 1.5 },
+        { id: "dressing", label: "dressing", name: "Dressing", h: 6, w: 2, d: 1 },
+        { id: "book_shelf", label: "book shelf", name: "Book Shelf", h: 7, w: 3, d: 1 },
     ],
     "Foyer Area": [
         // { id: "base_cabinets", label: "kitchen", name: "Base Cabinets", h: 2.5, w: 12 },
         // { id: "wall_cabinets", label: "kitchen", name: "Wall Cabinets", h: 2, w: 12 },
         // { id: "tall_unit", label: "tall unit", name: "Tall Unit", h: 7, w: 2 },
-        // { id: "breakfast_counter", label: "breakfast counter", name: "Breakfast Counter", h: 3, w: 5 },
-        { id: "shoe_rack", label: "shoe rack", name: "Shoe Rack", h: 3, w: 4 },
-        { id: "foyer_panelling", label: "foyer wall panelling", name: "Foyer Wall Panelling", h: 8, w: 4 },
-        { id: "temple", label: "pooja unit", name: "Pooja Unit", h: 5, w: 3 },
-        { id: "loft", label: "loft", name: "Loft", h: 2, w: 8 },
-        { id: "dining_panel", label: "dining wall panelling", name: "Dining Wall Panelling", h: 8, w: 6 },
+        // { id: "breakfast_counter", label: "breakfast counter", name: "Breakfast Counter", h: 3, w: 5 , d: 1.75},
+        { id: "shoe_rack", label: "shoe rack", name: "Shoe Rack", h: 3, w: 4, d: 1.25 },
+        { id: "foyer_panelling", label: "foyer wall panelling", name: "Foyer Wall Panelling", h: 8, w: 4, d: 0.01 },
+        { id: "temple", label: "pooja unit", name: "Pooja Unit", h: 5, w: 3, d: 1.5 },
+        { id: "loft", label: "loft", name: "Loft", h: 2, w: 8, d: 2 },
+        { id: "dining_panel", label: "dining wall panelling", name: "Dining Wall Panelling", h: 8, w: 6, d: 0.1 },
 
-        { id: "mirror_shelf", label: "mirror with shelfs behind", name: "Mirror with Shelfs Behind", h: 3, w: 2 },
-        // { id: "shower_partition", label: "shower glass partition", name: "Shower Glass Partition", h: 7, w: 3 },
-        { id: "wardrobe", label: "wardrobe", name: "Wardrobe", h: 7, w: 6 },
-        { id: "wallpaper", label: "wall paper", name: "Wall Paper", h: 10, w: 10 },
-        { id: "grand_tv", label: "tv unit", name: "TV Unit", h: 8, w: 6 },
-        // { id: "crockery", label: "crockery unit", name: "Crockery Unit", h: 7, w: 4 },
-        // { id: "dressing", label: "dressing", name: "Dressing", h: 6, w: 2 },
-        // { id: "book_shelf", label: "book shelf", name: "Book Shelf", h: 7, w: 3 },
+        { id: "mirror_shelf", label: "mirror with shelfs behind", name: "Mirror with Shelfs Behind", h: 3, w: 2, d: 0.5 },
+        // { id: "shower_partition", label: "shower glass partition", name: "Shower Glass Partition", h: 7, w: 3 , d: 1,  d: 1},
+        { id: "wardrobe", label: "wardrobe", name: "Wardrobe", h: 7, w: 6, d: 2.5 },
+        { id: "wallpaper", label: "wall paper", name: "Wall Paper", h: 10, w: 10, d: 0.01 },
+        { id: "grand_tv", label: "tv unit", name: "TV Unit", h: 8, w: 6, d: 1.25 },
+        // { id: "crockery", label: "crockery unit", name: "Crockery Unit", h: 7, w: 4  ,d: 1.5 },
+        // { id: "dressing", label: "dressing", name: "Dressing", h: 6, w: 2 , d: 1},
+        // { id: "book_shelf", label: "book shelf", name: "Book Shelf", h: 7, w: 3 , d: 1},
     ],
     "Balcony": [
         // { id: "base_cabinets", label: "kitchen", name: "Base Cabinets", h: 2.5, w: 12 },
         // { id: "wall_cabinets", label: "kitchen", name: "Wall Cabinets", h: 2, w: 12 },
         // { id: "tall_unit", label: "tall unit", name: "Tall Unit", h: 7, w: 2 },
-        { id: "storage_unit", label: "storage unit", name: "Outdoor Utility Storage", h: 7, w: 3 },
-        { id: "wardrobe", label: "wardrobe", name: "Wardrobe", h: 7, w: 6 },
-        { id: "loft", label: "loft", name: "Loft", h: 2, w: 8 },
-        { id: "temple", label: "pooja unit", name: "Pooja Unit", h: 5, w: 3 },
+        { id: "storage_unit", label: "storage unit", name: "Outdoor Utility Storage", h: 7, w: 3, d: 1.25 },
+        { id: "wardrobe", label: "wardrobe", name: "Wardrobe", h: 7, w: 6, d: 2.5 },
+        { id: "loft", label: "loft", name: "Loft", h: 2, w: 8, d: 2 },
+        { id: "temple", label: "pooja unit", name: "Pooja Unit", h: 5, w: 3, d: 1.5 },
 
         // { id: "base_cabinets", label: "kitchen base unit", name: "Base Cabinets", h: 2.5, w: 12 },
         // { id: "wall_cabinets", label: "kitchen wall unit", name: "Wall Cabinets", h: 2, w: 12 },
 
         // { id: "tall_cabinets", label: "kitchen tall unit", name: "Tall Cabinets", h: 7, w: 2 },
 
-        // { id: "breakfast_counter", label: "breakfast counter", name: "Breakfast Counter", h: 3, w: 5 },
-        // { id: "loft", label: "loft", name: "Loft", h: 2, w: 8 },
-        { id: "dining_panel", label: "dining wall panelling", name: "Dining Wall Panelling", h: 8, w: 6 },
-        { id: "mirror_shelf", label: "mirror with shelfs behind", name: "Mirror with Shelfs Behind", h: 3, w: 2 },
-        { id: "shower_partition", label: "shower glass partition", name: "Shower Glass Partition", h: 7, w: 3 },
-        { id: "wallpaper", label: "wall paper", name: "Wall Paper", h: 10, w: 10 },
-        // { id: "grand_tv", label: "tv unit", name: "TV Unit", h: 8, w: 6 },
-        // { id: "crockery", label: "crockery unit", name: "Crockery Unit", h: 7, w: 4 },
-        // { id: "dressing", label: "dressing", name: "Dressing", h: 6, w: 2 },
-        { id: "book_shelf", label: "book shelf", name: "Book Shelf", h: 7, w: 3 },
+        // { id: "breakfast_counter", label: "breakfast counter", name: "Breakfast Counter", h: 3, w: 5 , d: 1.75},
+        // { id: "loft", label: "loft", name: "Loft", h: 2, w: 8 , d: 2},
+        { id: "dining_panel", label: "dining wall panelling", name: "Dining Wall Panelling", h: 8, w: 6, d: 0.1 },
+        { id: "mirror_shelf", label: "mirror with shelfs behind", name: "Mirror with Shelfs Behind", h: 3, w: 2, d: 0.5 },
+        { id: "shower_partition", label: "shower glass partition", name: "Shower Glass Partition", h: 7, w: 3, d: 1 },
+        { id: "wallpaper", label: "wall paper", name: "Wall Paper", h: 10, w: 10, d: 0.01 },
+        // { id: "grand_tv", label: "tv unit", name: "TV Unit", h: 8, w: 6 , d: 1.25 },
+        // { id: "crockery", label: "crockery unit", name: "Crockery Unit", h: 7, w: 4  ,d: 1.5 },
+        // { id: "dressing", label: "dressing", name: "Dressing", h: 6, w: 2 , d: 1},
+        { id: "book_shelf", label: "book shelf", name: "Book Shelf", h: 7, w: 3, d: 1 },
     ],
-
 };
 
 // OLD VERSION
@@ -164,9 +163,9 @@ const ESTIMATION_CONFIG = {
     },
 
     // SQFT_RATES: {
-    //     'Standard': 1800, // ₹1800 per sqft // Gurjan Plywood 16mm
-    //     'Premium': 2259,  // ₹2259 per sqft // Sharon Prima 710 16mm
-    //     'Luxury': 2402    // ₹2402 per sqft // Century Club Prime BWP 710 16mm
+    //     'Standard': 1800, // ₹1800 per sqft  // Gurjan Plywood 16mm
+    //     'Premium': 2259,  // ₹2259 per sqft  // Sharon Prima 710 16mm
+    //     'Luxury': 2402    // ₹2402 per sqft  // Century Club Prime BWP 710 16mm
     // },
 
 
@@ -229,7 +228,7 @@ const CostCalculatorMain: React.FC<CostCalculationMainProps> = ({ showCloseButto
     const textWhiteContent = fromPage ? "text-white" : "text-[#1a1a1a]"
 
     const [step, setStep] = useState(1);
-    const [formData, setFormData] = useState({ carpetArea: 0, homeType: '2 BHK', finish: 'Core' });
+    const [formData, setFormData] = useState({ carpetArea: 0, homeType: '2 BHK', finish: 'Core' as any });
     const [roomCounts, setRoomCounts] = useState({});
     const [config, setConfig] = useState({});
     const [clientInfo, setClientInfo] = useState({ name: '', phone: '', location: '', consent: true });
@@ -253,7 +252,7 @@ const CostCalculatorMain: React.FC<CostCalculationMainProps> = ({ showCloseButto
 
 
     const { mutateAsync: generateQuote, isPending } = useGeneratePublicQuote();
-    const { mutateAsync: sendToWhatsapp } = useWhatsappAutomationQuoteSend();
+    // const { mutateAsync: sendToWhatsapp } = useWhatsappAutomationQuoteSend();
     const { mutateAsync: saveQuote } = useCreateCRMPublicQuote();
 
     const validate = () => {
@@ -343,10 +342,23 @@ const CostCalculatorMain: React.FC<CostCalculationMainProps> = ({ showCloseButto
         roomName: string,
         roomIdx: number,
         prod: any, // This comes from your PRODUCT_CATALOG
-        pIdx: number
+        pIdx: number,
+        selectedFinish: 'Basic' | 'Core' | 'Prime' // Pass the selected package here
     ) => {
         const roomCustomId = `${roomName}-${roomIdx}`;
         const prodCustomId = `${prod.id}-${pIdx}`;
+
+        // 1. Ensure dimensions are numbers. Add depth (d), defaulting to 0 if not in catalog.
+        const h = Number(prod.h) || 0;
+        const w = Number(prod.w) || 0;
+        const d = Number(prod.d) || 0; // Capture depth
+
+
+        // 2. Calculate the Total Amount for this specific product
+        const sqftArea = h * w;
+        const ratePerSqft = ESTIMATION_CONFIG.SQFT_RATES[selectedFinish];
+        const baseCost = sqftArea * ratePerSqft;
+        const totalAmount = Math.round(baseCost * ESTIMATION_CONFIG.PROFIT_MARGIN);
 
         setConfig((prev: ConfigState) => ({
             ...prev,
@@ -361,8 +373,10 @@ const CostCalculatorMain: React.FC<CostCalculationMainProps> = ({ showCloseButto
                         customId: prodCustomId,
                         instanceIndex: pIdx,
                         // ...newDims // overrides h and w
-                        h: Number(prod.h), // Ensure it's a number for calculation
-                        w: Number(prod.w)
+                        h: h,
+                        w: w,
+                        d: d, // Store depth in payload
+                        total: totalAmount // Store calculated total in payload
                     }
                 }
             }
@@ -442,7 +456,7 @@ const CostCalculatorMain: React.FC<CostCalculationMainProps> = ({ showCloseButto
             // 2. Call the Mutation Hook
             const res = await generateQuote(dataToSave)
 
-
+            // return
             // 🔥 OLD Google Conversion
             // if (typeof window.gtag === 'function') {
             //     window.gtag('event', 'conversion', {
@@ -474,7 +488,7 @@ const CostCalculatorMain: React.FC<CostCalculationMainProps> = ({ showCloseButto
                     'event': 'cost_calculator_VL', // This must match your GTM Trigger name exactly
                     // 'value': estimate || 1.0,
                     'value': finalMetaValue,
-                    
+
                     'currency': 'INR',
                     'carpet_area': formData.carpetArea,
                     'home_type': formData.homeType,
@@ -502,7 +516,7 @@ const CostCalculatorMain: React.FC<CostCalculationMainProps> = ({ showCloseButto
 
             console.log("res.data", res)
 
-           try {
+            try {
                 // saving in the CRM
                 await saveQuote({
                     ...dataToSave,
@@ -528,7 +542,7 @@ const CostCalculatorMain: React.FC<CostCalculationMainProps> = ({ showCloseButto
             if (res?.ok && res?.url) {
 
                 setStep(5);
-                await sendToWhatsapp({ clientName: dataToSave.name, clientPhone: dataToSave.phone, pdfUrl: res?.url })
+                // await sendToWhatsapp({ clientName: dataToSave.name, clientPhone: dataToSave.phone, pdfUrl: res?.url })
 
                 // // }
                 const customMessage = "thank you for submitting";
@@ -829,7 +843,7 @@ const CostCalculatorMain: React.FC<CostCalculationMainProps> = ({ showCloseButto
 
                                                                         {/* Plus Button - Brand Yellow */}
                                                                         <button
-                                                                            onClick={() => updateProduct(roomName, rIdx, prod, qty)}
+                                                                            onClick={() => updateProduct(roomName, rIdx, prod, qty,formData.finish)}
                                                                             className={` ${theme.bg} ${fromPage ? "text-white" : "text-[#1a1a1a]"}  w-7 h-7 rounded-full flex items-center justify-center cursor-pointer shadow-sm`}
                                                                         >
                                                                             <span className="text-lg font-bold leading-none">+</span>
