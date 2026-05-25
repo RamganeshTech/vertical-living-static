@@ -4,7 +4,7 @@ import React, { useState, useMemo } from 'react';
 import {
     useCreateCRMPublicQuote, useGeneratePublicQuote,
     // useWhatsappAutomationQuoteSend,
-    // useWhatsappAutomationQuoteSend 
+    useWhatsappAutomationQuoteSend 
 } from '../../api/ApiLists/publicQuoteCalculatorApi';
 // import { downloadImage } from '../../api/ApiLists/downloadFile';
 import { phoneNumber } from '../../components/FloatingContact';
@@ -252,7 +252,7 @@ const CostCalculatorMain: React.FC<CostCalculationMainProps> = ({ showCloseButto
 
 
     const { mutateAsync: generateQuote, isPending } = useGeneratePublicQuote();
-    // const { mutateAsync: sendToWhatsapp } = useWhatsappAutomationQuoteSend();
+    const { mutateAsync: sendToWhatsapp } = useWhatsappAutomationQuoteSend();
     const { mutateAsync: saveQuote } = useCreateCRMPublicQuote();
 
     const validate = () => {
@@ -544,7 +544,7 @@ const CostCalculatorMain: React.FC<CostCalculationMainProps> = ({ showCloseButto
             if (res?.ok && res?.url) {
 
                 setStep(5);
-                // await sendToWhatsapp({ clientName: dataToSave.name, clientPhone: dataToSave.phone, pdfUrl: res?.url })
+                await sendToWhatsapp({ clientName: dataToSave.name, clientPhone: dataToSave.phone, pdfUrl: res?.url })
 
                 // // }
                 const customMessage = "thank you for submitting";
