@@ -445,18 +445,20 @@ const CostCalculatorMain: React.FC<CostCalculationMainProps> = ({ showCloseButto
         try {
             // Using your existing Google Apps Script URL
             // await fetch('https://script.google.com/macros/s/AKfycby1za3iClzVCPFUxBfakDkhv19fLuM_KfiKFX_ZmSzvbLJ25Ml91NNRm4lT5OXmDdyJ/exec', { // pk22...
-            await fetch('https://script.google.com/macros/s/AKfycbyyPj39EazaNzcIwg2NsVbKROlqjDTJccbSHNYlgrPV827RIfsxuV9B7sl3mSh0lPUe5A/exec', { //ramstechpro....
-                method: 'POST',
-                mode: 'no-cors', // Mandatory for Google Apps Script
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(dataToSave),
-            });
+            // await fetch('https://script.google.com/macros/s/AKfycbyyPj39EazaNzcIwg2NsVbKROlqjDTJccbSHNYlgrPV827RIfsxuV9B7sl3mSh0lPUe5A/exec', { //ramstechpro....
+            //     method: 'POST',
+            //     mode: 'no-cors', // Mandatory for Google Apps Script
+            //     headers: { 'Content-Type': 'application/json' },
+            //     body: JSON.stringify(dataToSave),
+            // });
 
 
             // 2. Call the Mutation Hook
             const res = await generateQuote(dataToSave)
 
-            // return
+
+            // return;
+
             // 🔥 OLD Google Conversion
             // if (typeof window.gtag === 'function') {
             //     window.gtag('event', 'conversion', {
