@@ -4,7 +4,7 @@ import React, { useState, useMemo } from 'react';
 import {
     useCreateCRMPublicQuote, useGeneratePublicQuote,
     // useWhatsappAutomationQuoteSend,
-    useWhatsappAutomationQuoteSend 
+    useWhatsappAutomationQuoteSend
 } from '../../api/ApiLists/publicQuoteCalculatorApi';
 // import { downloadImage } from '../../api/ApiLists/downloadFile';
 import { phoneNumber } from '../../components/FloatingContact';
@@ -475,29 +475,30 @@ const CostCalculatorMain: React.FC<CostCalculationMainProps> = ({ showCloseButto
             //     });
             // }
 
+            // 1. Create a unique Event ID for deduplication (Fixes the Double Counting)
+            const uniqueEventId = `lead_${Date.now()}_${clientInfo.phone.replace(/\D/g, '')}`;
 
-            // 🔥 NEW: Clean the estimate value for Meta (Removes commas/symbols, ensures it is > 0)
+            // NEW: Clean the estimate value for Meta (Removes commas/symbols, ensures it is > 0)
             const cleanValue = parseFloat(String(estimate || 1.0).replace(/[^0-9.]/g, ''));
             const finalMetaValue = cleanValue > 0 ? cleanValue : 1.0;
 
-            // 🔥 New GTM DataLayer Conversion
+            // New GTM DataLayer Conversion
             if (window.dataLayer) {
                 // console.log("getin inside the window.dataLayer")
-                // 🔥 Clean the 10-digit number and add +91
+                // Clean the 10-digit number and add +91
                 const rawCalcInput = clientInfo.phone.replace(/\D/g, '');
                 const formattedCalcPhone = `+91${rawCalcInput}`;
                 window.dataLayer.push({
                     'event': 'cost_calculator_VL', // This must match your GTM Trigger name exactly
                     // 'value': estimate || 1.0,
                     'value': finalMetaValue,
-
+                    'event_id': uniqueEventId, // ✅ Pass event_id to GTM/CAPI
                     'currency': 'INR',
                     'carpet_area': formData.carpetArea,
                     'home_type': formData.homeType,
                     'finish_quality': formData.finish,
                     'user_name': clientInfo.name,
                     'location': clientInfo.location,
-                    // 'whatsapp_number': clientInfo.phone,
                     'whatsapp_number': formattedCalcPhone, // Now sends +919808080808
                     'estimated_value': estimate
 
@@ -513,7 +514,12 @@ const CostCalculatorMain: React.FC<CostCalculationMainProps> = ({ showCloseButto
                 (window as any).fbq('trackCustom', 'Cost Calculator', {
                     value: finalMetaValue,
                     currency: 'INR'
-                });
+                },
+                    {
+                        eventID: uniqueEventId // ✅ Passing the EXACT SAME eventID to the Pixel
+                    }
+
+                );
             }
 
             console.log("res.data", res)
@@ -845,7 +851,7 @@ const CostCalculatorMain: React.FC<CostCalculationMainProps> = ({ showCloseButto
 
                                                                         {/* Plus Button - Brand Yellow */}
                                                                         <button
-                                                                            onClick={() => updateProduct(roomName, rIdx, prod, qty,formData.finish)}
+                                                                            onClick={() => updateProduct(roomName, rIdx, prod, qty, formData.finish)}
                                                                             className={` ${theme.bg} ${fromPage ? "text-white" : "text-[#1a1a1a]"}  w-7 h-7 rounded-full flex items-center justify-center cursor-pointer shadow-sm`}
                                                                         >
                                                                             <span className="text-lg font-bold leading-none">+</span>
