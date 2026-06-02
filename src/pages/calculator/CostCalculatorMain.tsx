@@ -509,18 +509,18 @@ const CostCalculatorMain: React.FC<CostCalculationMainProps> = ({ showCloseButto
 
 
             // ✅ NEW: Direct Meta Pixel Code (Fixes the ad team's frontend errors)
-            if (typeof window !== 'undefined' && (window as any).fbq) {
-                // Using trackCustom because 'Cost Calculator' is not a standard Meta event like 'Purchase'
-                (window as any).fbq('trackCustom', 'Cost Calculator', {
-                    value: finalMetaValue,
-                    currency: 'INR'
-                },
-                    {
-                        eventID: uniqueEventId // ✅ Passing the EXACT SAME eventID to the Pixel
-                    }
+            // if (typeof window !== 'undefined' && (window as any).fbq) {
+            //     // Using trackCustom because 'Cost Calculator' is not a standard Meta event like 'Purchase'
+            //     (window as any).fbq('trackCustom', 'Cost Calculator', {
+            //         value: finalMetaValue,
+            //         currency: 'INR'
+            //     },
+            //         {
+            //             eventID: uniqueEventId // ✅ Passing the EXACT SAME eventID to the Pixel
+            //         }
 
-                );
-            }
+            //     );
+            // }
 
             console.log("res.data", res)
 
