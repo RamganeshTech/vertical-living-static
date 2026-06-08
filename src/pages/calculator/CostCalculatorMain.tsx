@@ -258,7 +258,11 @@ const CostCalculatorMain: React.FC<CostCalculationMainProps> = ({ showCloseButto
     const validate = () => {
         const newErrors: Record<string, string> = {};
         if (clientInfo.name.trim().length < 3) newErrors.name = "Full name required";
-        if (!/^\d{10}$/.test(clientInfo.phone)) newErrors.phone = "Valid 10-digit number required";
+        // if (!/^\d{10}$/.test(clientInfo.phone)) newErrors.phone = "Valid 10-digit number required";
+
+          if (!/^[6-9]\d{9}$/.test(clientInfo.phone))
+        newErrors.phone = "Valid Indian mobile number required";
+
         if (clientInfo.location.trim().length < 2) newErrors.location = "Location required";
         if (!clientInfo.consent) newErrors.consent = "Consent is required to send the quote";
         setErrors(newErrors);
