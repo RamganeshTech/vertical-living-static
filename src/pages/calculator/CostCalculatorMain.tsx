@@ -315,7 +315,8 @@ const CostCalculatorMain: React.FC<CostCalculationMainProps> = ({ showCloseButto
 
         // 3. Final Calculation: Total Area * Fixed Rate * Margin
         const rawCost = totalSurfaceArea * currentRate;
-        const finalEstimate = rawCost * ESTIMATION_CONFIG.PROFIT_MARGIN;
+        // const finalEstimate = rawCost * ESTIMATION_CONFIG.PROFIT_MARGIN;
+        const finalEstimate = rawCost;
 
         return Math.round(finalEstimate);
     }, [config, formData.finish]);
@@ -363,7 +364,8 @@ const CostCalculatorMain: React.FC<CostCalculationMainProps> = ({ showCloseButto
         const sqftArea = h * w;
         const ratePerSqft = ESTIMATION_CONFIG.SQFT_RATES[selectedFinish];
         const baseCost = sqftArea * ratePerSqft;
-        const totalAmount = Math.round(baseCost * ESTIMATION_CONFIG.PROFIT_MARGIN);
+        // const totalAmount = Math.round(baseCost * ESTIMATION_CONFIG.PROFIT_MARGIN);
+        const totalAmount = Math.round(baseCost);
 
         setConfig((prev: ConfigState) => ({
             ...prev,
