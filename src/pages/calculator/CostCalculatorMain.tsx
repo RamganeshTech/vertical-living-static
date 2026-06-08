@@ -260,14 +260,15 @@ const CostCalculatorMain: React.FC<CostCalculationMainProps> = ({ showCloseButto
         if (clientInfo.name.trim().length < 3) newErrors.name = "Full name required";
         // if (!/^\d{10}$/.test(clientInfo.phone)) newErrors.phone = "Valid 10-digit number required";
 
-          if (!/^[6-9]\d{9}$/.test(clientInfo.phone))
-        newErrors.phone = "Valid Indian mobile number required";
+        if (!/^[6-9]\d{9}$/.test(clientInfo.phone))
+            newErrors.phone = "Enter Valid mobile number";
 
         if (clientInfo.location.trim().length < 2) newErrors.location = "Location required";
         if (!clientInfo.consent) newErrors.consent = "Consent is required to send the quote";
         setErrors(newErrors);
         return Object.keys(newErrors).length === 0;
     };
+
 
     // const estimate = useMemo(() => {
     //     const area = Number(formData.carpetArea) || 0;
