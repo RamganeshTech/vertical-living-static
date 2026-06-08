@@ -973,7 +973,11 @@ const CostCalculatorMain: React.FC<CostCalculationMainProps> = ({ showCloseButto
                                     placeholder="Project Location (City)"
                                     className={`w-full p-3 md:p-6 rounded-2xl bg-gray-50 border-2 outline-none font-semibold md:font-bold ${errors.location ? 'border-red-500' : `border-transparent ${theme.focusBorder}`}`}
                                     value={clientInfo.location}
-                                    onChange={(e) => setClientInfo({ ...clientInfo, location: e.target.value })}
+                                    // onChange={(e) => setClientInfo({ ...clientInfo, location: e.target.value })}
+                                    onChange={(e) => {
+                                        const value = e.target.value.replace(/[^a-zA-Z\s]/g, '');
+                                        setClientInfo({ ...clientInfo, location: value });
+                                    }}
                                     onKeyDown={(e) => handleEnterKey(e, handleSubmit)}
                                 />
                                 {errors.location && (
