@@ -206,6 +206,7 @@ const STEP_ICONS = [
     { id: 5, icon: "fa fa-file-text", label: "Quote" },
 ];
 
+
 const CostCalculatorMain: React.FC<CostCalculationMainProps> = ({ showCloseButton, fromPage, handleClose }) => {
 
     // bg-[#ffc000]
@@ -231,7 +232,13 @@ const CostCalculatorMain: React.FC<CostCalculationMainProps> = ({ showCloseButto
     const [formData, setFormData] = useState({ carpetArea: 0, homeType: '2 BHK', finish: 'Core' as any });
     const [roomCounts, setRoomCounts] = useState({});
     const [config, setConfig] = useState({});
-    const [clientInfo, setClientInfo] = useState({ name: '', phone: '', location: '', consent: true });
+    const [clientInfo, setClientInfo] = useState({
+        name: '', phone: '', location: '',
+        detailedAddress: '',     // Optional: For the courier/postal code
+        bestTimeFrom: '',        // Optional: User selects start time
+        bestTimeTo: '',          // Optional: User selects end time
+        consent: true
+    });
     const [errors, setErrors] = useState<Record<string, string>>({});
     const [isSaving, setIsSaving] = useState(false);
 
@@ -245,7 +252,13 @@ const CostCalculatorMain: React.FC<CostCalculationMainProps> = ({ showCloseButto
         setFormData({ carpetArea: 0, homeType: '2 BHK', finish: 'Core' })
         setRoomCounts({})
         setConfig({})
-        setClientInfo({ name: '', phone: '', location: '', consent: true })
+        setClientInfo({
+            name: '', phone: '', location: '', consent: true,
+
+            detailedAddress: '',     // Optional: For the courier/postal code
+            bestTimeFrom: '',        // Optional: User selects start time
+            bestTimeTo: '',
+        })
     }
 
 
@@ -438,6 +451,10 @@ const CostCalculatorMain: React.FC<CostCalculationMainProps> = ({ showCloseButto
             finish: formData.finish,
             estimate: estimate, // The dynamically calculated price
 
+            detailedAddress: clientInfo.detailedAddress || "",
+            bestTimeFrom: clientInfo.bestTimeFrom || "",
+            bestTimeTo: clientInfo.bestTimeTo || "",
+
             // The most important part:
             // detailedConfig: JSON.stringify(config),
             config: config,
@@ -447,7 +464,9 @@ const CostCalculatorMain: React.FC<CostCalculationMainProps> = ({ showCloseButto
             // timestamp: new Date().toISOString()
         };
 
-        console.log("dataToSave", dataToSave)
+        // console.log("dataToSave", dataToSave)
+
+
 
         try {
             // Using your existing Google Apps Script URL
@@ -458,7 +477,6 @@ const CostCalculatorMain: React.FC<CostCalculationMainProps> = ({ showCloseButto
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(dataToSave),
             });
-
 
             // 2. Call the Mutation Hook
             const res = await generateQuote(dataToSave)
@@ -924,67 +942,151 @@ const CostCalculatorMain: React.FC<CostCalculationMainProps> = ({ showCloseButto
                         <div className="space-y-5">
                             {/* <input type="text" placeholder="Your Full Name" className={`w-full p-6 rounded-2xl bg-gray-50 border-2 outline-none font-bold ${errors.name ? 'border-red-500' : 'border-transparent focus:border-[#ffc000]'}`} onChange={(e) => setClientInfo({ ...clientInfo, name: e.target.value })} /> */}
 
-                            <div className="space-y-1">
-                                <input
-                                    type="text"
-                                    placeholder="Your Full Name"
-                                    className={`w-full p-3 md:p-6 rounded-2xl bg-gray-50 border-2 outline-none font-semibold md:font-bold ${errors.name ? 'border-red-500' : `border-transparent ${theme.focusBorder}`}`}
-                                    value={clientInfo.name}
-                                    onChange={(e) => setClientInfo({ ...clientInfo, name: e.target.value })}
-                                />
-                                {errors.name && (
-                                    <p className="text-red-500 text-[10px] font-bold uppercase tracking-widest ml-4">
-                                        {errors.name}
-                                    </p>
-                                )}
-                            </div>
-                            {/* <input type="tel" placeholder="WhatsApp Number (10 digits)" className={`w-full p-6 rounded-2xl bg-gray-50 border-2 outline-none font-bold ${errors.phone ? 'border-red-500' : 'border-transparent focus:border-[#ffc000]'}`} onChange={(e) => setClientInfo({...clientInfo, phone: e.target.value})} /> */}
-                            <div className="space-y-1">
-                                <input
-                                    type="tel"
-                                    placeholder="WhatsApp Number (10 digits)"
-                                    maxLength={10}
-                                    className={`w-full p-3 md:p-6 rounded-2xl bg-gray-50 border-2 outline-none font-semibold md:font-bold ${errors.phone ? 'border-red-500' : `border-transparent ${theme.focusBorder}`}`}
-                                    value={clientInfo.phone}
-                                    onChange={(e) => {
-                                        // Regex: Replace anything that is NOT a digit with an empty string
-                                        const val = e.target.value.replace(/\D/g, "");
-                                        setClientInfo({ ...clientInfo, phone: val });
-                                    }}
-                                />
-                                {errors.phone && (
-                                    <p className="text-red-500 text-[10px] font-bold uppercase tracking-widest ml-4">
-                                        {errors.phone}
-                                    </p>
-                                )}
+                            <section className='flex flex-col md:flex-row w-full gap-3'>
 
-                                {/* <p>Enter your whatsapp number, the pdf will be shared to the provided number</p> */}
-                                <p className="text-gray-400 text-[10px] md:text-xs font-medium ml-4">
-                                    * Enter your WhatsApp number. The PDF quote will be shared to your whatsapp number.
-                                </p>
-                            </div>
+                                <div className="space-y-1 w-full">
+                                    <label className="block text-gray-500 text-xs font-bold tracking-wider ml-2">
+                                        Name
+                                    </label>
+                                    <input
+                                        type="text"
+                                        placeholder="Your Full Name"
+                                        className={`w-full p-3 md:p-6 rounded-2xl bg-gray-50 border-2 outline-none font-semibold md:font-bold ${errors.name ? 'border-red-500' : `border-transparent ${theme.focusBorder}`}`}
+                                        value={clientInfo.name}
+                                        onChange={(e) => setClientInfo({ ...clientInfo, name: e.target.value })}
+                                    />
+                                    {errors.name && (
+                                        <p className="text-red-500 text-[10px] font-bold uppercase tracking-widest ml-4">
+                                            {errors.name}
+                                        </p>
+                                    )}
+                                </div>
+                                {/* <input type="tel" placeholder="WhatsApp Number (10 digits)" className={`w-full p-6 rounded-2xl bg-gray-50 border-2 outline-none font-bold ${errors.phone ? 'border-red-500' : 'border-transparent focus:border-[#ffc000]'}`} onChange={(e) => setClientInfo({...clientInfo, phone: e.target.value})} /> */}
+                                <div className="space-y-1 w-full">
+                                    <label className="block text-gray-500 text-xs font-bold  tracking-wider ml-2">
+                                        Whatsapp Number
+                                    </label>
+                                    <input
+                                        type="tel"
+                                        placeholder="WhatsApp Number (10 digits)"
+                                        maxLength={10}
+                                        className={`w-full p-3 md:p-6 rounded-2xl bg-gray-50 border-2 outline-none font-semibold md:font-bold ${errors.phone ? 'border-red-500' : `border-transparent ${theme.focusBorder}`}`}
+                                        value={clientInfo.phone}
+                                        onChange={(e) => {
+                                            // Regex: Replace anything that is NOT a digit with an empty string
+                                            const val = e.target.value.replace(/\D/g, "");
+                                            setClientInfo({ ...clientInfo, phone: val });
+                                        }}
+                                    />
+                                    {errors.phone && (
+                                        <p className="text-red-500 text-[10px] font-bold uppercase tracking-widest ml-4">
+                                            {errors.phone}
+                                        </p>
+                                    )}
+
+                                    {/* <p>Enter your whatsapp number, the pdf will be shared to the provided number</p> */}
+                                    <p className="text-gray-400 text-[10px] md:text-xs font-medium ml-4">
+                                        * Enter your WhatsApp number. The PDF quote will be shared to your whatsapp number.
+                                    </p>
+                                </div>
+                            </section>
+
 
                             {/* <input type="text" placeholder="Project Location (City)" className={`w-full p-3 md:p-6 rounded-2xl bg-gray-50 border-2 outline-none font-bold ${errors.location ? 'border-red-500' : 'border-transparent focus:border-[#ffc000]'}`} onChange={(e) => setClientInfo({ ...clientInfo, location: e.target.value })} /> */}
 
-                            {/* Project Location Field */}
-                            <div className="space-y-1">
-                                <input
-                                    type="text"
-                                    placeholder="Project Location (City)"
-                                    className={`w-full p-3 md:p-6 rounded-2xl bg-gray-50 border-2 outline-none font-semibold md:font-bold ${errors.location ? 'border-red-500' : `border-transparent ${theme.focusBorder}`}`}
-                                    value={clientInfo.location}
-                                    // onChange={(e) => setClientInfo({ ...clientInfo, location: e.target.value })}
-                                    onChange={(e) => {
-                                        const value = e.target.value.replace(/[^a-zA-Z\s]/g, '');
-                                        setClientInfo({ ...clientInfo, location: value });
-                                    }}
-                                    onKeyDown={(e) => handleEnterKey(e, handleSubmit)}
-                                />
-                                {errors.location && (
-                                    <p className="text-red-500 text-[10px] font-bold uppercase tracking-widest ml-4">
-                                        {errors.location}
-                                    </p>
-                                )}
+                            <section className='flex flex-col md:flex-row w-full gap-3'>
+
+                                <div className="space-y-1 w-full">
+                                    <label className="block text-gray-500 text-xs font-bold tracking-wider ml-2">
+                                        Detailed Address
+                                    </label>
+                                    <textarea
+                                        placeholder="Detailed Address"
+                                        className={`w-full p-3 md:p-6 rounded-2xl bg-gray-50 border-2 outline-none font-semibold md:font-bold border-transparent ${theme.focusBorder}`}
+                                        value={clientInfo.detailedAddress}
+                                        onChange={(e) => setClientInfo({ ...clientInfo, detailedAddress: e.target.value })}
+                                    />
+                                </div>
+
+                                {/* Project Location Field */}
+                                <div className="space-y-1 w-full">
+                                    <label className="block text-gray-500 text-xs font-bold tracking-wider ml-2">
+                                        Project Location City
+                                    </label>
+                                    <input
+                                        type="text"
+                                        placeholder="Project Location (City)"
+                                        className={`w-full p-3 md:p-6 rounded-2xl bg-gray-50 border-2 outline-none font-semibold md:font-bold ${errors.location ? 'border-red-500' : `border-transparent ${theme.focusBorder}`}`}
+                                        value={clientInfo.location}
+                                        // onChange={(e) => setClientInfo({ ...clientInfo, location: e.target.value })}
+                                        onChange={(e) => {
+                                            const value = e.target.value.replace(/[^a-zA-Z\s]/g, '');
+                                            setClientInfo({ ...clientInfo, location: value });
+                                        }}
+                                        onKeyDown={(e) => handleEnterKey(e, handleSubmit)}
+                                    />
+                                    {errors.location && (
+                                        <p className="text-red-500 text-[10px] font-bold uppercase tracking-widest ml-4">
+                                            {errors.location}
+                                        </p>
+                                    )}
+                                </div>
+                            </section>
+
+
+                            <div className="space-y-2">
+
+                                {/* <div className="flex gap-3"> */}
+                                <div className="flex flex-col md:flex-row gap-3">
+                                    {/* From Time */}
+                                    <div className="w-full space-y-1.5">
+                                        <label className="block text-gray-500 text-xs font-bold tracking-wider ml-2">
+                                            From
+                                        </label>
+                                        <input
+                                            type="time"
+                                            min="09:00"
+                                            max="18:00"
+                                            className={`w-full pl-14 p-3 md:p-6 rounded-2xl bg-gray-50 border-2 outline-none font-semibold md:font-bold text-gray-600 border-transparent ${theme.focusBorder}`}
+                                            value={clientInfo.bestTimeFrom}
+                                            // onChange={(e) => setClientInfo({ ...clientInfo, bestTimeFrom: e.target.value })}
+                                            onChange={(e) => {
+                                                const value = e.target.value;
+
+                                                if (value >= "09:00" && value <= "18:00") {
+                                                    setClientInfo({ ...clientInfo, bestTimeFrom: value });
+                                                }
+                                            }}
+                                        />
+                                    </div>
+
+                                    {/* To Time */}
+                                    {/* <div className="w-full space-y-1 relative"> */}
+                                    <div className="w-full space-y-1.5">
+                                        <label className="block text-gray-500 text-xs font-bold tracking-wider ml-2">
+                                            To
+                                        </label>
+                                        <input
+                                            type="time"
+                                            min="09:00"
+                                            max="18:00"
+                                            className={`w-full pl-10 p-3 md:p-6 rounded-2xl bg-gray-50 border-2 outline-none font-semibold md:font-bold text-gray-600 border-transparent ${theme.focusBorder}`}
+                                            value={clientInfo.bestTimeTo}
+                                            // onChange={(e) => setClientInfo({ ...clientInfo, bestTimeTo: e.target.value })}
+                                            onChange={(e) => {
+                                                const value = e.target.value;
+
+                                                if (value >= "09:00" && value <= "18:00") {
+                                                    setClientInfo({ ...clientInfo, bestTimeTo: value });
+                                                }
+                                            }}
+                                        />
+                                    </div>
+                                </div>
+
+                                <p className="text-gray-400 text-[10px] md:text-xs font-medium ml-4">
+                                    Best time to contact you (select between 9:00 AM to 6:00 PM)
+                                </p>
                             </div>
                         </div>
 
