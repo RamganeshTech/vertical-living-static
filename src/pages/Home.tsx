@@ -3,7 +3,8 @@ import React, { useEffect } from 'react';
 
 
 // Asset Imports
-import bannerBg from '../assets/images/banner-01-bg.jpg';
+// import bannerBg from '../assets/images/banner-01-bg.jpg';
+import bannerBg from '../assets/images/banner-01-bg.webp';
 
 import { motion, type Variants } from 'framer-motion';
 import Portfolio from './Portfolio';

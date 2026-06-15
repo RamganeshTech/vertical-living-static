@@ -547,7 +547,7 @@ const CostCalculatorMain: React.FC<CostCalculationMainProps> = ({ showCloseButto
             //     );
             // }
 
-            console.log("res.data", res)
+            // console.log("res.data", res)
 
             try {
                 // saving in the CRM
@@ -674,7 +674,7 @@ const CostCalculatorMain: React.FC<CostCalculationMainProps> = ({ showCloseButto
 
             <div className="p-5 md:px-10 flex-1 overflow-y-auto">
                 {step === 1 && (
-                    <div className="space-y-5 md:space-y-10 animate-in fade-in slide-in-from-bottom-4">
+                    <div className="space-y-5 md:space-y-6 animate-in fade-in slide-in-from-bottom-4">
                         <div className="space-y-2">
                             <label className="text-[12px] md:text-[14px] font-bold uppercase tracking-[1px] text-gray-800">1. Carpet Area</label>
                             <div className="relative">
@@ -682,7 +682,7 @@ const CostCalculatorMain: React.FC<CostCalculationMainProps> = ({ showCloseButto
                                     type="number"
                                     placeholder="Enter sqft"
                                     autoFocus
-                                    className={`w-full bg-gray-50 rounded-2xl p-3  md:p-6  text-xl md:text-2xl font-bold outline-none border-2 transition-all ${errors.carpetArea ? 'border-red-500' : `border-transparent ${theme.focusBorder}`}`}
+                                    className={`w-full bg-gray-50 rounded-2xl p-3  md:p-4  text-xl md:text-2xl font-bold outline-none border-2 transition-all ${errors.carpetArea ? 'border-red-500' : `border-transparent ${theme.focusBorder}`}`}
                                     value={formData.carpetArea || ""}
                                     onKeyDown={(e) => handleEnterKey(e, handleNext)}
                                     onChange={(e) => {
