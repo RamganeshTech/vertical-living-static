@@ -472,8 +472,8 @@ const InquiryFormNew: React.FC<InquiryFormProps> = ({ showCalculatorLink = false
 
         finalData.append("Source", leadSource);
 
-        console.log("formData location", formData["Location"])
-        return;
+        // console.log("formData location", formData["Location"])
+        // return;
 
         try {
             await fetch(actionUrl, {
