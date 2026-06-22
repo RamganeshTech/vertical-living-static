@@ -388,6 +388,19 @@ const InquiryFormNew: React.FC<InquiryFormProps> = ({ showCalculatorLink = false
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
+
+
+        if (name === "Location") {
+            const onlyAlphabets = value.replace(/[^a-zA-Z\s]/g, "");
+
+            setFormData(prev => ({
+                ...prev,
+                [name]: onlyAlphabets
+            }));
+
+            return;
+        }
+
         setFormData(prev => ({ ...prev, [name]: value }));
         if (errors[name]) setErrors(prev => {
             const newErrs = { ...prev };
@@ -409,7 +422,17 @@ const InquiryFormNew: React.FC<InquiryFormProps> = ({ showCalculatorLink = false
         const newErrors: Record<string, string> = {};
         if (step === 1) {
             if (!formData["Full Name"].trim()) newErrors.fullName = "Full name is required";
-            if (formData["Mobile Number"].length !== 10) newErrors.mobileNumber = "10-digit number required";
+            // if (formData["Mobile Number"].length !== 10) newErrors.mobileNumber = "10-digit number required";
+
+            const mobileNumber = formData["Mobile Number"].trim();
+
+            if (!mobileNumber) {
+                newErrors.mobileNumber = "Mobile number is required";
+            }
+            else if (!/^[6-9]\d{9}$/.test(mobileNumber)) {
+                newErrors.mobileNumber = "Enter a valid 10-digit Indian mobile number";
+            }
+
             if (!formData["Project Category"]) newErrors.projectCategory = "Select a category";
         } else if (step === 2) {
             if (!formData["Property Type"]) newErrors.propertyType = "Select property type";
@@ -448,6 +471,10 @@ const InquiryFormNew: React.FC<InquiryFormProps> = ({ showCalculatorLink = false
         Object.entries(formData).forEach(([key, value]) => finalData.append(key, value));
 
         finalData.append("Source", leadSource);
+
+        console.log("formData location", formData["Location"])
+        return;
+
         try {
             await fetch(actionUrl, {
                 method: 'POST', body: finalData, mode: 'no-cors',
@@ -611,8 +638,8 @@ const InquiryFormNew: React.FC<InquiryFormProps> = ({ showCalculatorLink = false
                                         {errors.mobileNumber && <p className="text-[10px] text-red-500 ml-4 italic">{errors.mobileNumber}</p>}
                                     </div>
                                     <ModernDropdown fromPage={fromPage} label="Residential or Commercial project? *"
-                                    //  name="Project Category" 
-                                     value={formData["Project Category"]} onChange={(val) => handleDropdownChange("Project Category", val)}
+                                        //  name="Project Category" 
+                                        value={formData["Project Category"]} onChange={(val) => handleDropdownChange("Project Category", val)}
                                         // options={["Residential", "Commercial"]} 
                                         options={["Residential (Apartment / Villa)", "Commercial (Office / Cafe / Showroom)"]}
 
@@ -624,23 +651,24 @@ const InquiryFormNew: React.FC<InquiryFormProps> = ({ showCalculatorLink = false
                             {step === 2 && (
                                 <motion.div key="step2" initial={{ opacity: 0, x: 15 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -15 }} className="space-y-4">
                                     <ModernDropdown fromPage={fromPage} label="What type of property is this project for? *"
-                                    //  name="Property Type"
-                                     value={formData["Property Type"]} onChange={(val) => handleDropdownChange("Property Type", val)}
+                                        //  name="Property Type"
+                                        value={formData["Property Type"]} onChange={(val) => handleDropdownChange("Property Type", val)}
 
                                         // options={["3BHK Apartment", "Villa / House", "Office / Cafe"]}
                                         options={["3BHK Apartment (Residential)", "Villa / Independent House (Residential)", "Office space / Showroom / Hospital / Cafe (Commercial)"]}
 
                                         placeholder="Select Type" error={errors.propertyType} />
 
-                                    <ModernDropdown fromPage={fromPage} label="Mention Your Budget *" 
-                                    // name="Budget"
-                                     value={formData["Budget"]} onChange={(val) => handleDropdownChange("Budget", val)}
+                                    <ModernDropdown fromPage={fromPage} label="Mention Your Budget *"
+                                        // name="Budget"
+                                        value={formData["Budget"]} onChange={(val) => handleDropdownChange("Budget", val)}
 
                                         // options={["5L - 8L", "9L - 12L", "12L - 16L", "20L+"]}
                                         options={["5 Lakhs - 8 lakhs", "9 lakhs - 12 lakhs", "12 lakhs - 16 lakhs", "20 lakhs above"]}
 
                                         placeholder="Select Budget" error={errors.budget} />
-                                    <ModernDropdown fromPage={fromPage} label="Which area is your project located in *" 
+
+                                    {/* <ModernDropdown fromPage={fromPage} label="Which area is your project located in *" 
                                     // name="Location"
                                      value={formData["Location"]} onChange={(val) => handleDropdownChange("Location", val)}
 
@@ -649,24 +677,32 @@ const InquiryFormNew: React.FC<InquiryFormProps> = ({ showCalculatorLink = false
 
 
 
-                                        placeholder="Select Area" error={errors.location} />
+                                        placeholder="Select Area" error={errors.location} /> */}
+
+                                    <div className="space-y-1.5">
+                                        <label className="text-[10px] font-semibold uppercase tracking-[1.5px] text-[#666] ml-2 block">Which area is your project located in *</label>
+                                        <input type="text" name="Location" value={formData["Location"]}
+                                            onChange={handleInputChange} placeholder="Ex: Anna nagar"
+                                            className={`w-full h-[40px] md:h-[50px] px-6 text-[13px] bg-white border-2 ${errors.Location ? 'border-red-400' : 'border-[#eee]'} rounded-full  outline-none transition-all ${theme.focusBorder}`} />
+                                        {errors.Location && <p className="text-[10px] text-red-500 ml-4 italic">{errors.Location}</p>}
+                                    </div>
                                 </motion.div>
                             )}
 
                             {step === 3 && (
                                 <motion.div key="step3" initial={{ opacity: 0, x: 15 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -15 }} className="space-y-4">
                                     <ModernDropdown fromPage={fromPage} label="When Do You Plan to Start the Project? *"
-                                    //  name="Timeline"
-                                      value={formData["Timeline"]} onChange={(val) => handleDropdownChange("Timeline", val)}
+                                        //  name="Timeline"
+                                        value={formData["Timeline"]} onChange={(val) => handleDropdownChange("Timeline", val)}
                                         // options={["Immediate", "1–3 months", "Just exploring"]}
                                         options={["Immediate (0–30 days)", "1–3 months", "Just exploring"]}
 
 
                                         placeholder="Select Timeline" error={errors.timeline} />
 
-                                    <ModernDropdown fromPage={fromPage} label="What kind of service are you looking for? *" 
-                                    // name="Service Type"
-                                     value={formData["Service Type"]} onChange={(val) => handleDropdownChange("Service Type", val)}
+                                    <ModernDropdown fromPage={fromPage} label="What kind of service are you looking for? *"
+                                        // name="Service Type"
+                                        value={formData["Service Type"]} onChange={(val) => handleDropdownChange("Service Type", val)}
                                         //  options={["Design + Execution", "Design Support", "Execution Only"]} 
                                         options={["Design + Execution (Flexible Budget)", "Design Support + Execution (Fixed Budget)", "Execution only (Designs Ready)"]}
 

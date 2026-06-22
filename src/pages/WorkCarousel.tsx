@@ -97,10 +97,10 @@ const WorkCarousel: React.FC<WorkCarouseltype> = ({ showLink }) => {
             swiper.autoplay.stop();
 
             // LAZY LOAD INJECTION: Only give it the source when it's active
-        if (!activeVideo.src) {
-            activeVideo.src = activeVideo.getAttribute('data-src') || '';
-            activeVideo.load();
-        }
+            if (!activeVideo.src) {
+                activeVideo.src = activeVideo.getAttribute('data-src') || '';
+                activeVideo.load();
+            }
 
 
             activeVideo.play().catch(err => console.log("Autoplay blocked:", err));
@@ -178,7 +178,7 @@ const WorkCarousel: React.FC<WorkCarouseltype> = ({ showLink }) => {
                     }}
                     className="w-full py-10"
                 >
-                    {portfolioItems.map((item, index) => {
+                    {/* {portfolioItems.map((item, index) => {
                         // PERFORMANCE FIX: Only eagerly load the first 2 slides. Lazy load the rest.
                         const isVisibleInitially = index <= 1;
 
@@ -196,8 +196,6 @@ const WorkCarousel: React.FC<WorkCarouseltype> = ({ showLink }) => {
                                         muted
                                         playsInline
                                         // preload="auto"
-                                        /* PERFORMANCE FIX: Changed 'auto' to 'metadata'. 
-                                               This stops the browser from downloading the whole video immediately. */
                                             // preload="metadata"
                                             preload="none" // Completely stop loading until commanded
 
@@ -215,7 +213,6 @@ const WorkCarousel: React.FC<WorkCarouseltype> = ({ showLink }) => {
                                         alt={`Project ${index + 1}`}
                                         className="w-full h-full object-cover"
                                         // loading="eager"
-                                        /* PERFORMANCE FIX: Conditional loading */
                                             loading={isVisibleInitially ? "eager" : "lazy"}
                                         // fetchPriority="high"
                                         fetchPriority={isVisibleInitially ? "high" : "auto"}
@@ -226,7 +223,53 @@ const WorkCarousel: React.FC<WorkCarouseltype> = ({ showLink }) => {
                         </SwiperSlide>
                     )
                     }
-                )}
+                )} */}
+
+
+                    {portfolioItems.map((item, index) => {
+                        // PERFORMANCE FIX: Only eagerly load the first 2 slides. Lazy load the rest.
+                        const isVisibleInitially = index <= 1;
+
+                        return (
+                            <SwiperSlide key={index} className="px-4">
+                                {/* We MUST use this Swiper render prop to know if the slide is on screen */}
+                                {({ isActive, isVisible }) => (
+                                    // Added a neutral background color (bg-gray-200) to look nice while the video loads
+                                    <div className="w-full h-[400px] md:h-[550px] rounded-[40px] overflow-hidden shadow-2xl transition-transform duration-500 bg-gray-200">
+
+                                        {item.type === 'video' ? (
+                                            <video
+                                                // THE MAGIC TRICK: If the slide is visible, load the video. 
+                                                // If it is a hidden clone, leave the src empty!
+                                                src={isActive || isVisible ? item.src : ""}
+                                                className="w-full h-full object-cover"
+                                                disablePictureInPicture
+                                                muted
+                                                playsInline
+                                                preload="none"
+                                                // Use React to force autoplay only when active
+                                                autoPlay={isActive}
+                                                onEnded={() => {
+                                                    swiperRef.current?.autoplay.start();
+                                                    swiperRef.current?.slideNext();
+                                                }}
+                                            />
+                                        ) : (
+                                            <img
+                                                src={item.src}
+                                                alt={`Project ${index + 1}`}
+                                                className="w-full h-full object-cover"
+                                                loading={isVisibleInitially ? "eager" : "lazy"}
+                                                fetchPriority={isVisibleInitially ? "high" : "auto"}
+                                                decoding="async"
+                                            />
+                                        )}
+                                    </div>
+                                )}
+                            </SwiperSlide>
+                        );
+                    })}
+
                 </Swiper>
 
                 {/* Custom Navigation Arrows (No progress dots provided) */}
