@@ -134,6 +134,7 @@ function App() {
               <CostCalculatorMain
                 showCloseButton={true}
                 handleClose={()=> setIsCalcOpen(false)}
+                
               
               />
             </motion.div>

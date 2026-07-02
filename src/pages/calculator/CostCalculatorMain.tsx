@@ -1,5 +1,5 @@
 
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 // import { motion, AnimatePresence } from 'framer-motion';
 import {
     useCreateCRMPublicQuote, useGeneratePublicQuote,
@@ -10,6 +10,7 @@ import {
 import { phoneNumber } from '../../components/FloatingContact';
 import { useNavigate } from 'react-router-dom';
 import { getLeadSource } from '../../utils/getLeadSource';
+import { useGenerateCostCalculatorOtp, useVerifyCostCalculatorOtp } from '../../api/ApiLists/otpApi';
 // import { phoneNumber } from '../../components/FloatingContact';
 
 
@@ -207,6 +208,18 @@ const STEP_ICONS = [
 ];
 
 
+
+//  making the otp changes
+
+//  sldjflksdj
+
+// lksdfkljskl
+
+// lsdf lsdjflksdj lskdjf s
+// sdlnfs abcdefghijklmnopqrstuvwxyz
+
+
+
 const CostCalculatorMain: React.FC<CostCalculationMainProps> = ({ showCloseButton, fromPage, handleClose }) => {
 
     // bg-[#ffc000]
@@ -239,6 +252,11 @@ const CostCalculatorMain: React.FC<CostCalculationMainProps> = ({ showCloseButto
         bestTimeTo: '',          // Optional: User selects end time
         consent: true
     });
+    const [otpInput, setOtpInput] = useState("");
+    const [resendTimer, setResendTimer] = useState(30); // NEW: 30 second timer
+    const [requestOtpError, setRequestOtpError] = useState("");
+    const [otpError, setOtpError] = useState("");
+
     const [errors, setErrors] = useState<Record<string, string>>({});
     const [isSaving, setIsSaving] = useState(false);
 
@@ -266,7 +284,12 @@ const CostCalculatorMain: React.FC<CostCalculationMainProps> = ({ showCloseButto
 
     const { mutateAsync: generateQuote, isPending } = useGeneratePublicQuote();
     const { mutateAsync: sendToWhatsapp } = useWhatsappAutomationQuoteSend();
+
     const { mutateAsync: saveQuote } = useCreateCRMPublicQuote();
+
+    // Initialize your new React Query hooks
+    const { mutateAsync: generateOtp, isPending: isGeneratingOtp } = useGenerateCostCalculatorOtp();
+    const { mutateAsync: verifyOtp, isPending: isVerifyingOtp } = useVerifyCostCalculatorOtp();
 
     const validate = () => {
         const newErrors: Record<string, string> = {};
@@ -281,6 +304,18 @@ const CostCalculatorMain: React.FC<CostCalculationMainProps> = ({ showCloseButto
         setErrors(newErrors);
         return Object.keys(newErrors).length === 0;
     };
+
+    // NEW: Countdown effect
+    useEffect(() => {
+        let interval: any;
+        // Only run the timer if we are on the OTP step and the timer is > 0
+        if (step === 5 && resendTimer > 0) {
+            interval = setInterval(() => {
+                setResendTimer((prev) => prev - 1);
+            }, 1000);
+        }
+        return () => clearInterval(interval); // Cleanup on unmount or re-render
+    }, [step, resendTimer]);
 
 
     // const estimate = useMemo(() => {
@@ -434,6 +469,99 @@ const CostCalculatorMain: React.FC<CostCalculationMainProps> = ({ showCloseButto
         });
     };
 
+
+    // --- NEW OTP LOGIC ---
+    const handleRequestOtp = async () => {
+        try {
+            // 1. Run your existing validation first (checks name, phone, consent, etc.)
+            if (!validate()) return;
+
+            // Clear any previous errors before trying
+            setRequestOtpError("");
+            setOtpError(""); // Clear Step 5 errors just in case
+
+            // 2. Call the backend to generate and send the WhatsApp OTP
+            // await generateOtp(
+            //     { name: clientInfo.name, phone: clientInfo.phone },
+            //     {
+            //         onSuccess: () => {
+            //             setStep(5); // Move to the new OTP Verification step
+            //             setOtpInput(""); // Clear any previous input
+            //             setResendTimer(30); // NEW: Reset the timer to 30 on success
+            //         },
+            //         onError: (error: any) => {
+            //             // You can replace this with your custom toast/alert component
+            //             // alert(error.message || "Failed to send WhatsApp code. Please try again.");
+            //             // setOtpError(error.message || "Invalid access key. Please try again.");
+            //             setOtpError(error.message || "Failed to send code. Please try again.");
+            //         }
+            //     }
+            // );
+
+
+            try {
+                // 2. Await the async mutation
+                await generateOtp({ name: clientInfo.name, phone: clientInfo.phone });
+
+                // 3. If it succeeds, move to Step 5 and reset the timer
+                setStep(5);
+                setOtpInput("");
+                setResendTimer(30);
+
+            } catch (error: any) {
+                console.log("otp generation error", error.message);
+                // 4. If it fails, display the error in the UI
+                setRequestOtpError(error.message || "Failed to send code. Please try again.");
+            }
+        }
+        catch (error: any) {
+
+            // console.log("otp generation error", error)
+            setOtpError(error.message || "Failed to send code. Please try again.");
+
+        }
+    };
+
+    const handleVerifyOtp = async () => {
+        try {
+            if (otpInput.length !== 6) {
+                alert("Please enter a valid 6-digit access key.");
+                return;
+            }
+
+            setOtpError(""); // Clear any previous errors before trying
+
+            // 1. Verify the OTP
+            await verifyOtp(
+                { phone: clientInfo.phone, otp: otpInput },
+                // {
+                //     onSuccess: () => {
+                //         // 2. If successful, trigger the ACTUAL quote generation
+                //         handleSubmit();
+                //     },
+                //     onError: (error: any) => {
+                //         // alert(error.message || "Invalid access key. Please try again.");
+                //         console.log("onerror match message", error)
+
+                //         setOtpError(error.message || "Invalid access key. Please try again.");
+
+                //     }
+                // }
+            );
+            handleSubmit();
+
+
+
+        }
+        catch (error: any) {
+            console.log("catch eerror messate", error)
+            // console.log("otp generation error", error)
+            setOtpError(error.message || "Invalid access key. Please try again.");
+
+
+        }
+    };
+
     // SAVING LOGIC INTEGRATION
     const handleSubmit = async () => {
         if (!validate()) return;
@@ -478,6 +606,9 @@ const CostCalculatorMain: React.FC<CostCalculationMainProps> = ({ showCloseButto
                 body: JSON.stringify(dataToSave),
             });
 
+
+
+            // return;
             // 2. Call the Mutation Hook
             const res = await generateQuote(dataToSave)
 
@@ -574,7 +705,9 @@ const CostCalculatorMain: React.FC<CostCalculationMainProps> = ({ showCloseButto
 
             if (res?.ok && res?.url) {
 
-                setStep(5);
+                // setStep(5);
+                setStep(6);
+
                 await sendToWhatsapp({ clientName: dataToSave.name, clientPhone: dataToSave.phone, pdfUrl: res?.url })
 
                 // // }
@@ -1112,14 +1245,24 @@ const CostCalculatorMain: React.FC<CostCalculationMainProps> = ({ showCloseButto
                         </div>
                         {/* -------------------------------------- */}
 
-                        <div className="flex gap-2 justify-between items-center">
-                            <button
-                                className={`w-full cursor-pointer bg-[#1a1a1a] ${fromPage ? "text-white" : "text-[#ffc000]"} py-3 md:py-6 rounded-2xl font-bold uppercase tracking-[4px] text-xs shadow-2xl shadow-black/20 active:scale-95 transition-all disabled:opacity-70`}
+                        <div className="flex flex-col gap-3">
+                            {/* Prominent Error Message for Step 4 */}
+                            {requestOtpError && (
+                                <p className="text-red-500 text-[10px] font-bold uppercase tracking-widest text-center animate-in fade-in zoom-in-95">
+                                    {requestOtpError}
+                                </p>
+                            )}
 
-                                onClick={() => setStep(3)}>
-                                Back
-                            </button>
-                            <button
+                            <div className="flex gap-2 justify-between items-center">
+
+
+                                <button
+                                    className={`w-full cursor-pointer bg-[#1a1a1a] ${fromPage ? "text-white" : "text-[#ffc000]"} py-3 md:py-6 rounded-2xl font-bold uppercase tracking-[4px] text-xs shadow-2xl shadow-black/20 active:scale-95 transition-all disabled:opacity-70`}
+
+                                    onClick={() => setStep(3)}>
+                                    Back
+                                </button>
+                                {/* <button
                                 onClick={handleSubmit}
                                 // onKeyDown={}
                                 type="button"
@@ -1128,50 +1271,103 @@ const CostCalculatorMain: React.FC<CostCalculationMainProps> = ({ showCloseButto
                                 className={`w-full cursor-pointer ${theme.bg} ${fromPage ? "text-white" : "text-[#1a1a1a]"} py-3 md:py-6 rounded-2xl font-bold uppercase tracking-[2px] text-xs shadow-2xl shadow-black/20 active:scale-95 transition-all disabled:opacity-70`}
                             >
                                 {(isSaving || isPending) ? 'Processing Quote...' : <span >Get <span className="hidden md:inline">Final</span> Quote</span>}
-                            </button>
-                            {/* <button onClick={() => setStep(1)} className="w-full text-gray-400 font-bold uppercase tracking-widest text-[9px] hover:text-black">Modify project specs</button> */}
+                            </button> */}
+
+
+
+                                <button
+                                    onClick={handleRequestOtp}
+                                    // Disabled if API is pending OR if the timer is still running
+                                    disabled={isGeneratingOtp}
+                                    className={`w-full text-[14px] font-bold uppercase tracking-widest transition-colors
+                                        ${theme.bg} ${fromPage ? "text-white" : "text-[#1a1a1a]"} py-3 md:py-6 rounded-2xl font-bold uppercase cursor-pointer
+                                        
+                                        `}
+                                >
+                                    {isGeneratingOtp
+                                        ? 'Submitting...'
+                                        : "Submit"
+                                    }
+                                </button>
+
+                            </div>
                         </div>
                     </div>
                 )}
 
+
                 {step === 5 && (
+                    <div className="space-y-5 sm:space-y-5 animate-in fade-in slide-in-from-bottom-4">
+                        <div className="space-y-2 text-center">
+                            <h3 className="text-xl md:text-2xl font-bold text-[#1a1a1a]">Verification Required</h3>
+                            <p className="text-gray-500 text-xs font-medium uppercase tracking-widest mt-2">
+                                We've sent an OTP to <br /><span className="font-bold text-[#1a1a1a]">+{clientInfo.phone}</span> on WhatsApp, which is valid for 15 min.
+                            </p>
+                        </div>
 
-                    // <div className="text-center space-y-5 animate-in fade-in zoom-in-95">
-                    //     <div className="w-15 h-15 md:w-20 md:h-20 bg-green-50 text-green-500 rounded-full flex items-center justify-center mx-auto text-4xl shadow-sm border border-green-100">
-                    //         <i className="fa fa-check-circle"></i>
-                    //     </div>
-                    //     <div>
-                    //         <span className="text-[10px] font-bold uppercase  tracking-widest md:tracking-[8px] text-[#ffc000]">Valuation Certified</span>
-                    //         <div className="text-3xl md:text-5xl font-bold  text-[#1a1a1a] mt-4 leading-none">
-                    //             ₹{estimate.toLocaleString('en-IN')}
-                    //         </div>
-                    //         {/* <p className="text-gray-900 text-[10px] uppercase font-bold tracking-[4px] mt-3 opacity-60">Estimated for {formData.carpetArea} Sqft {formData.homeType}</p> */}
-                    //     </div>
+                        <div className="space-y-5 max-w-xs mx-auto mt-6">
+                            <div className="relative space-y-2">
+                                <input
+                                    type="text"
+                                    maxLength={6}
+                                    placeholder="000000"
+                                    className={`w-full p-4 text-center tracking-[12px] text-3xl rounded-2xl bg-gray-50 border-2 outline-none font-bold border-transparent ${theme.focusBorder} transition-colors`}
+                                    value={otpInput}
+                                    onChange={(e) => setOtpInput(e.target.value.replace(/\D/g, ''))}
+                                />
 
-                    //     <div className="bg-gray-50 rounded-3xl p-8 text-left space-y-5 border border-gray-100">
-                    //         <div className="flex justify-between border-b border-gray-200 pb-4">
-                    //             <span className="text-[10px] text-gray-800 font-bold uppercase tracking-widest">Execution Type</span>
-                    //             <span className="text-xs text-[#1a1a1a] font-bold uppercase">{formData.homeType} | {formData.finish}</span>
-                    //         </div>
-                    //         <div className="flex justify-between">
-                    //             <span className="text-[10px] text-gray-800 font-bold uppercase tracking-widest">Location</span>
-                    //             <span className="text-xs text-[#1a1a1a] font-bold uppercase">{clientInfo.location}</span>
-                    //         </div>
-                    //     </div>
+                                {/* Prominent Error Message */}
+                                {otpError && (
+                                    <p className="text-red-500 text-[10px] font-bold uppercase tracking-widest text-center animate-in fade-in zoom-in-95">
+                                        {otpError}
+                                    </p>
+                                )}
+                            </div>
 
-                    //     <div className="space-y-4 pt-4">
-                    //         <button onClick={() => window.open(`https://wa.me/919363993814?text=Hi Vertical Living, I just generated a quote for my ${formData.homeType} in ${clientInfo.location}. Area: ${formData.carpetArea} sqft, Finish: ${formData.finish}. Estimate: ₹${estimate.toLocaleString('en-IN')}.`, '_blank')} className="w-full bg-[#25D366] text-white py-5 rounded-2xl font-bold uppercase tracking-widest text-[11px] flex items-center justify-center gap-4 shadow-xl shadow-green-100">
-                    //             <i className="fa-brands fa-whatsapp text-2xl"></i> Connect for Technical BOQ
-                    //         </button>
-                    //         <button onClick={() => {
-                    //             setStep(1)
-                    //             handleClear()
+                            <div className="flex gap-3 justify-between items-center mt-6">
+                                <button
+                                    className={`w-full cursor-pointer bg-[#1a1a1a] ${fromPage ? "text-white" : "text-[#ffc000]"} py-4 rounded-2xl font-bold uppercase tracking-[2px] text-xs shadow-2xl shadow-black/20 active:scale-95 transition-all disabled:opacity-70`}
+                                    onClick={() => {
+                                        setStep(4)
+                                        setOtpError(""); // Clear error if they go back
+                                    }}
+                                    disabled={isVerifyingOtp || isSaving || isPending}
+                                >
+                                    Back
+                                </button>
 
-                    //             // onClose?.()
+                                <button
+                                    onClick={handleVerifyOtp}
+                                    disabled={isVerifyingOtp || otpInput.length < 6 || isSaving || isPending}
+                                    className={`w-full cursor-pointer ${theme.bg} ${fromPage ? "text-white" : "text-[#1a1a1a]"} py-4 rounded-2xl font-bold uppercase tracking-[2px] text-xs shadow-2xl shadow-black/20 active:scale-95 transition-all disabled:opacity-70`}
+                                >
+                                    {(isVerifyingOtp || isSaving || isPending) ? 'Verifying...' : 'Confirm'}
+                                </button>
+                            </div>
 
-                    //         }} className="w-full text-gray-800 font-bold uppercase tracking-widest text-[9px] hover:text-black cursor-pointer">Close Report</button>
-                    //     </div>
-                    // </div>
+                            {/* --- UPDATED TIMER & RESEND SECTION --- */}
+                            {/* Adding a fixed height (h-8) prevents the layout from jumping when swapping text for the button */}
+                            <div className="text-center mt-6 h-8 flex flex-col justify-center items-center">
+                                {resendTimer > 0 ? (
+                                    <p className="text-gray-400 text-[10px] font-bold uppercase tracking-widest animate-in fade-in">
+                                        Resend available in <span className="text-[#1a1a1a]">00:{resendTimer.toString().padStart(2, '0')}</span>
+                                    </p>
+                                ) : (
+                                    <button
+                                        onClick={handleRequestOtp}
+                                        disabled={isGeneratingOtp}
+                                        className="text-[10px] text-gray-400 font-bold uppercase tracking-widest hover:text-[#1a1a1a] transition-colors cursor-pointer animate-in fade-in"
+                                    >
+                                        {isGeneratingOtp ? 'Sending...' : "Didn't receive it? Resend Key"}
+                                    </button>
+                                )}
+                            </div>
+                        </div>
+                    </div>
+                )}
+
+                {step === 6 && (
+
 
 
                     <div className="text-center space-y-4 animate-in fade-in zoom-in-95">
