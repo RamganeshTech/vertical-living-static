@@ -495,10 +495,10 @@ const InquiryFormNew: React.FC<InquiryFormProps> = ({ showCalculatorLink = false
             })
 
 
-            // 🔥 New GTM DataLayer Conversion: Inquiry Form
+            //  New GTM DataLayer Conversion: Inquiry Form
             if (window.dataLayer) {
                 // console.log("getin inside the window.dataLayer")
-                // 🔥 Clean the 10-digit number and add +91
+                // Clean the 10-digit number and add +91
                 const rawInput = formData["Mobile Number"].replace(/\D/g, ''); // Removes any accidental spaces/dashes
                 const formattedPhone = `+91${rawInput}`;
                 window.dataLayer.push({

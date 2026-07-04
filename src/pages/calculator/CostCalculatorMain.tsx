@@ -24,7 +24,7 @@ const PRODUCT_CATALOG: Record<string, any[]> = {
         { id: "crockery", label: "crockery unit", name: "Crockery Unit", h: 7, w: 4, d: 1.25 },
         { id: "bar_unit", label: "bar unit", name: "Bar Unit", h: 7, w: 3, d: 1.5 },
         { id: "book_shelf", label: "book shelf", name: "Book Shelf", h: 7, w: 3, d: 1 },
-        { id: "wallpaper", label: "wall paper", name: "Wall Paper", h: 10, w: 10, d: 0.01 },
+        // { id: "wallpaper", label: "wall paper", name: "Wall Paper", h: 10, w: 10, d: 0.01 },
         { id: "temple", label: "pooja unit", name: "Pooja Unit", h: 5, w: 3, d: 1.5 },
         { id: "sofa_panel", label: "sofa back wall panelling", name: "Sofa Back Wall Panelling", h: 4, w: 10, d: 0.1 },
         { id: "dining_panel", label: "dining wall panelling", name: "Dining Wall Panelling", h: 8, w: 6, d: 0.1 },
@@ -39,7 +39,7 @@ const PRODUCT_CATALOG: Record<string, any[]> = {
         { id: "book_shelf", label: "book shelf", name: "Book Shelf", h: 7, w: 3, d: 1 },
         { id: "bed", label: "bed", name: "Bed", h: 1.5, w: 6, d: 6 },
         { id: "bed_back_fabric", label: "bed", name: "Bed Back Rest with Fabric", h: 3, w: 6, d: 0.25 },
-        { id: "wallpaper", label: "wall paper", name: "Wall Paper", h: 10, w: 10, d: 0.01 },
+        // { id: "wallpaper", label: "wall paper", name: "Wall Paper", h: 10, w: 10, d: 0.01 },
         { id: "sofa_panel", label: "sofa back wall panelling", name: "Sofa Back Wall Panelling", h: 4, w: 10, d: 0.1 },
 
         { id: "dining_panel", label: "dining wall panelling", name: "Dining Wall Panelling", h: 8, w: 6, d: 0.1 },
@@ -53,22 +53,22 @@ const PRODUCT_CATALOG: Record<string, any[]> = {
         // { id: "wallpaper_bed", label: "wall paper bed", name: "Wall Paper", h: 10, w: 10 },
         // { id: "laminate_panel", label: "bed back wall laminate panelling", name: "Bed Back Wall Laminate Panelling", h: 8, w: 10 },
     ],
-    "Washroom": [
-        { id: "vanity", label: "vanity unit", name: "Vanity Below Handwash Counter", h: 2, w: 3, d: 1.75 },
-        { id: "mirror_shelf", label: "mirror with shelfs behind", name: "Mirror with Shelfs Behind", h: 3, w: 2, d: 0.5 },
-        { id: "shower_partition", label: "shower glass partition", name: "Shower Glass Partition", h: 7, w: 3, d: 1 },
-        { id: "grand_tv", label: "tv unit", name: "TV Unit", h: 8, w: 6, d: 1.25 },
-        { id: "wallpaper", label: "wall paper", name: "Wall Paper", h: 10, w: 10, d: 0.01 },
+    // "Washroom": [
+    //     { id: "vanity", label: "vanity unit", name: "Vanity Below Handwash Counter", h: 2, w: 3, d: 1.75 },
+    //     { id: "mirror_shelf", label: "mirror with shelfs behind", name: "Mirror with Shelfs Behind", h: 3, w: 2, d: 0.5 },
+    //     { id: "shower_partition", label: "shower glass partition", name: "Shower Glass Partition", h: 7, w: 3, d: 1 },
+    //     { id: "grand_tv", label: "tv unit", name: "TV Unit", h: 8, w: 6, d: 1.25 },
+    //     // { id: "wallpaper", label: "wall paper", name: "Wall Paper", h: 10, w: 10, d: 0.01 },
 
 
 
-        { id: "wardrobe", label: "wardrobe", name: "Wardrobe", h: 7, w: 6, d: 2.5 },
-        { id: "crockery", label: "crockery unit", name: "Crockery Unit", h: 7, w: 4, d: 1.5 },
-        { id: "loft", label: "loft", name: "Loft", h: 2, w: 8, d: 2 },
-        { id: "dressing", label: "dressing", name: "Dressing", h: 6, w: 2, d: 1 },
-        { id: "book_shelf", label: "book shelf", name: "Book Shelf", h: 7, w: 3, d: 1 },
-        { id: "temple", label: "pooja unit", name: "Pooja Unit", h: 5, w: 3, d: 1.5 },
-    ],
+    //     { id: "wardrobe", label: "wardrobe", name: "Wardrobe", h: 7, w: 6, d: 2.5 },
+    //     { id: "crockery", label: "crockery unit", name: "Crockery Unit", h: 7, w: 4, d: 1.5 },
+    //     { id: "loft", label: "loft", name: "Loft", h: 2, w: 8, d: 2 },
+    //     { id: "dressing", label: "dressing", name: "Dressing", h: 6, w: 2, d: 1 },
+    //     { id: "book_shelf", label: "book shelf", name: "Book Shelf", h: 7, w: 3, d: 1 },
+    //     { id: "temple", label: "pooja unit", name: "Pooja Unit", h: 5, w: 3, d: 1.5 },
+    // ],
     "Kitchen": [
         // { id: "base_cabinets", label: "kitchen", name: "Base Cabinets", h: 2.5, w: 12 },
         // { id: "wall_cabinets", label: "kitchen", name: "Wall Cabinets", h: 2, w: 12 },
@@ -85,7 +85,7 @@ const PRODUCT_CATALOG: Record<string, any[]> = {
         { id: "mirror_shelf", label: "mirror with shelfs behind", name: "Mirror with Shelfs Behind", h: 3, w: 2, d: 0.5 },
         { id: "shower_partition", label: "shower glass partition", name: "Shower Glass Partition", h: 7, w: 3, d: 1 },
         { id: "wardrobe", label: "wardrobe", name: "Wardrobe", h: 7, w: 6, d: 2.5 },
-        { id: "wallpaper", label: "wall paper", name: "Wall Paper", h: 10, w: 10, d: 0.01 },
+        // { id: "wallpaper", label: "wall paper", name: "Wall Paper", h: 10, w: 10, d: 0.01 },
         { id: "grand_tv", label: "tv unit", name: "TV Unit", h: 8, w: 6, d: 1.25 },
         { id: "crockery", label: "crockery unit", name: "Crockery Unit", h: 7, w: 4, d: 1.5 },
         { id: "dressing", label: "dressing", name: "Dressing", h: 6, w: 2, d: 1 },
@@ -105,7 +105,7 @@ const PRODUCT_CATALOG: Record<string, any[]> = {
         { id: "mirror_shelf", label: "mirror with shelfs behind", name: "Mirror with Shelfs Behind", h: 3, w: 2, d: 0.5 },
         // { id: "shower_partition", label: "shower glass partition", name: "Shower Glass Partition", h: 7, w: 3 , d: 1,  d: 1},
         { id: "wardrobe", label: "wardrobe", name: "Wardrobe", h: 7, w: 6, d: 2.5 },
-        { id: "wallpaper", label: "wall paper", name: "Wall Paper", h: 10, w: 10, d: 0.01 },
+        // { id: "wallpaper", label: "wall paper", name: "Wall Paper", h: 10, w: 10, d: 0.01 },
         { id: "grand_tv", label: "tv unit", name: "TV Unit", h: 8, w: 6, d: 1.25 },
         // { id: "crockery", label: "crockery unit", name: "Crockery Unit", h: 7, w: 4  ,d: 1.5 },
         // { id: "dressing", label: "dressing", name: "Dressing", h: 6, w: 2 , d: 1},
@@ -130,7 +130,7 @@ const PRODUCT_CATALOG: Record<string, any[]> = {
         { id: "dining_panel", label: "dining wall panelling", name: "Dining Wall Panelling", h: 8, w: 6, d: 0.1 },
         { id: "mirror_shelf", label: "mirror with shelfs behind", name: "Mirror with Shelfs Behind", h: 3, w: 2, d: 0.5 },
         { id: "shower_partition", label: "shower glass partition", name: "Shower Glass Partition", h: 7, w: 3, d: 1 },
-        { id: "wallpaper", label: "wall paper", name: "Wall Paper", h: 10, w: 10, d: 0.01 },
+        // { id: "wallpaper", label: "wall paper", name: "Wall Paper", h: 10, w: 10, d: 0.01 },
         // { id: "grand_tv", label: "tv unit", name: "TV Unit", h: 8, w: 6 , d: 1.25 },
         // { id: "crockery", label: "crockery unit", name: "Crockery Unit", h: 7, w: 4  ,d: 1.5 },
         // { id: "dressing", label: "dressing", name: "Dressing", h: 6, w: 2 , d: 1},
@@ -305,6 +305,8 @@ const CostCalculatorMain: React.FC<CostCalculationMainProps> = ({ showCloseButto
         return Object.keys(newErrors).length === 0;
     };
 
+
+
     // NEW: Countdown effect
     useEffect(() => {
         let interval: any;
@@ -390,6 +392,19 @@ const CostCalculatorMain: React.FC<CostCalculationMainProps> = ({ showCloseButto
 
 
     // --- HELPER FUNCTIONS FOR IDENTIFICATION ---
+    const isWardrobeProduct = (prod: any) => {
+        return  prod?.id?.toLowerCase().includes('wardrobe');
+    };
+
+    const MAX_QTY_RULES: Record<string, number> = {
+        wardrobe: 1,
+    };
+
+    const getMaxQty = (prod: any) => {
+        // console.log("getting max qty", prod)
+        if (isWardrobeProduct(prod)) return MAX_QTY_RULES.wardrobe;
+        return Infinity;
+    };
 
     const updateProduct = (
         // roomName, roomIdx, prod, pIdx
@@ -472,6 +487,8 @@ const CostCalculatorMain: React.FC<CostCalculationMainProps> = ({ showCloseButto
 
     // --- NEW OTP LOGIC ---
     const handleRequestOtp = async () => {
+
+        console.log("config", config)
         try {
             // 1. Run your existing validation first (checks name, phone, consent, etc.)
             if (!validate()) return;
@@ -593,6 +610,10 @@ const CostCalculatorMain: React.FC<CostCalculationMainProps> = ({ showCloseButto
         };
 
         // console.log("dataToSave", dataToSave)
+        // return;
+
+
+
 
 
 
@@ -966,6 +987,10 @@ const CostCalculatorMain: React.FC<CostCalculationMainProps> = ({ showCloseButto
                                                         const prodInstances = Object.values(productsInRoom).filter(p => p.id === prod.id);
                                                         const qty = prodInstances.length;
 
+                                                        // NEW
+                                                        const maxQty = getMaxQty(prod);
+                                                        const canAddMore = qty < maxQty;
+
                                                         return (
                                                             <div key={prod.id} className={`px-2 py-4 rounded-2xl border-2 transition-all ${qty > 0 ? `${theme.border} bg-[#ffc000]/5 shadow-md ${theme.shadow}` : `border-2 bg-white hover:border-gray-200`}`}>
                                                                 <div className="flex justify-between items-center">
@@ -1008,12 +1033,15 @@ const CostCalculatorMain: React.FC<CostCalculationMainProps> = ({ showCloseButto
                                                                         </div>
 
                                                                         {/* Plus Button - Brand Yellow */}
-                                                                        <button
-                                                                            onClick={() => updateProduct(roomName, rIdx, prod, qty, formData.finish)}
-                                                                            className={` ${theme.bg} ${fromPage ? "text-white" : "text-[#1a1a1a]"}  w-7 h-7 rounded-full flex items-center justify-center cursor-pointer shadow-sm`}
-                                                                        >
-                                                                            <span className="text-lg font-bold leading-none">+</span>
-                                                                        </button>
+                                                                        {canAddMore && (
+
+                                                                            <button
+                                                                                onClick={() => updateProduct(roomName, rIdx, prod, qty, formData.finish)}
+                                                                                className={` ${theme.bg} ${fromPage ? "text-white" : "text-[#1a1a1a]"}  w-7 h-7 rounded-full flex items-center justify-center cursor-pointer shadow-sm`}
+                                                                            >
+                                                                                <span className="text-lg font-bold leading-none">+</span>
+                                                                            </button>
+                                                                        )}
                                                                     </div>
                                                                 </div>
 
