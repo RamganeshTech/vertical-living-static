@@ -518,7 +518,7 @@ const CostCalculatorMain: React.FC<CostCalculationMainProps> = ({ showCloseButto
 
             try {
                 // 2. Await the async mutation
-                await generateOtp({ name: clientInfo.name, phone: clientInfo.phone });
+                await generateOtp({ name: clientInfo.name, phone: clientInfo.phone, formSource: "cost_calculator" });
 
                 // 3. If it succeeds, move to Step 5 and reset the timer
                 setStep(5);
@@ -550,7 +550,7 @@ const CostCalculatorMain: React.FC<CostCalculationMainProps> = ({ showCloseButto
 
             // 1. Verify the OTP
             await verifyOtp(
-                { phone: clientInfo.phone, otp: otpInput },
+                { phone: clientInfo.phone, otp: otpInput, formSource: "cost_calculator" },
                 // {
                 //     onSuccess: () => {
                 //         // 2. If successful, trigger the ACTUAL quote generation

@@ -1,252 +1,3 @@
-// import React, { useEffect, useRef, useState } from 'react';
-// import { motion, AnimatePresence } from 'framer-motion';
-// import heroImage from '../../assets/images/vertical_living_hero_img.png';
-
-// // Reusable Elegant Custom Select Component for a modern, neat look
-// const ModernDropdown = ({ label, name, options, placeholder }: { label: string, name: string, options: string[], placeholder: string }) => {
-//     const [isOpen, setIsOpen] = useState(false);
-//     const [selected, setSelected] = useState("");
-
-
-//     // 1. Create a reference to the dropdown container
-//     const dropdownRef = useRef<HTMLDivElement>(null);
-
-//     // 2. Add the click-outside listener
-//     useEffect(() => {
-//         const handleClickOutside = (event: MouseEvent) => {
-//             if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
-//                 setIsOpen(false);
-//             }
-//         };
-
-//         // Attach the listener to the document
-//         document.addEventListener("mousedown", handleClickOutside);
-
-//         // Clean up the listener when the component unmounts
-//         return () => {
-//             document.removeEventListener("mousedown", handleClickOutside);
-//         };
-//     }, []);
-
-
-//     return (
-//         <div ref={dropdownRef} className="relative w-full space-y-2">
-//             <label className="text-[10px] font-bold uppercase tracking-[2px] text-[#555] ml-2 block">
-//                 {label}
-//             </label>
-//             <input type="hidden" name={name} value={selected} required />
-
-//             <div
-//                 onClick={() => setIsOpen(!isOpen)}
-//                 className={`w-full h-[50px] bg-white border-2 rounded-full px-5 flex items-center justify-between cursor-pointer transition-all duration-300 ${isOpen ? 'border-[#ffc000] shadow-[0_0_15px_rgba(255,192,0,0.2)]' : 'border-[#eee] hover:border-[#ffc000]'
-//                     }`}
-//             >
-//                 <span className={`text-[13px] ${selected ? 'text-black font-semibold' : 'text-gray-400'}`}>
-//                     {selected || placeholder}
-//                 </span>
-//                 <motion.i
-//                     animate={{ rotate: isOpen ? 180 : 0 }}
-//                     className="fa fa-chevron-down text-[#ffc000] text-xs"
-//                 />
-//             </div>
-
-//             <AnimatePresence>
-//                 {isOpen && (
-//                     <motion.div
-//                         initial={{ opacity: 0, y: -10 }}
-//                         animate={{ opacity: 1, y: 5 }}
-//                         exit={{ opacity: 0, y: -10 }}
-//                         className="absolute z-[100] w-full bg-white border border-[#eee] rounded-[20px] shadow-2xl overflow-hidden py-2"
-//                     >
-//                         {options.map((opt) => (
-//                             <div
-//                                 key={opt}
-//                                 onClick={() => { setSelected(opt); setIsOpen(false); }}
-//                                 className="px-5 py-3 text-[13px] hover:bg-[#ffc000] hover:text-black transition-colors cursor-pointer"
-//                             >
-//                                 {opt}
-//                             </div>
-//                         ))}
-//                     </motion.div>
-//                 )}
-//             </AnimatePresence>
-//         </div>
-//     );
-// };
-
-// const InquiryFormNew: React.FC = () => {
-//     const [isSubmitting, setIsSubmitting] = useState(false);
-//     const [showSuccess, setShowSuccess] = useState(false);
-
-//     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-//         e.preventDefault();
-//         setIsSubmitting(true);
-//         const formData = new FormData(e.currentTarget);
-//         const actionUrl = "https://script.google.com/macros/s/AKfycbzHOjt3OivmNOJq0pUYQ9MzM2XENCubYpDVwiR4qKBh_2x63YNkqD0KuEoIoa2WJ5Q/exec";
-
-//         try {
-//             await fetch(actionUrl, { method: 'POST', body: formData });
-//             setShowSuccess(true);
-//             (e.target as HTMLFormElement).reset();
-//             setTimeout(() => setShowSuccess(false), 4000);
-//         } catch (error) {
-//             alert("Submission failed. Please check your connection.");
-//         } finally {
-//             setIsSubmitting(false);
-//         }
-//     };
-
-//     // bg-[#f9f9f9]
-//     return (
-//         <section id="contact" className="w-full bg-white py-16 md:py-24 font-inter">
-//             <div className="container mx-auto px-4">
-//                 {/* <div className="max-w-[1200px] mx-auto bg-white rounded-[40px] overflow-hidden shadow-[0_30px_60px_-15px_rgba(0,0,0,0.1)] flex flex-col md:flex-row border border-gray-50"> */}
-//                 <div className="max-w-[1200px]  mx-auto bg-white rounded-[40px] overflow-visible shadow-[0_30px_60px_-15px_rgba(0,0,0,0.1)] flex flex-col md:flex-row border border-gray-50">
-
-//                     {/* IMAGE SIDE */}
-//                     {/* <div className="hidden md:block md:w-1/2 relative group">
-//             <img src={heroImage} className="absolute inset-0 w-full h-full object-cover" alt="Interior" />
-//             <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
-//             <div className="absolute bottom-12 left-12 text-white border-l-4 border-[#ffc000] pl-6">
-//               <h3 className="text-4xl font-black uppercase tracking-widest leading-none">
-//                 Crafting<br /><span className="text-[#ffc000]">Excellence</span>
-//               </h3>
-//             </div>
-//           </div> */}
-
-//                     {/* IMAGE SIDE - Added rounding and height fixes */}
-//                     <div className="hidden md:block md:w-1/2 relative group rounded-l-[40px] overflow-hidden min-h-[600px] md:min-h-[850px]">
-//                         <img
-//                             src={heroImage}
-//                             className="absolute inset-0 w-full h-full object-cover rounded-l-[40px]"
-//                             alt="Interior"
-//                         />
-//                         <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
-//                         <div className="absolute bottom-12 left-12 text-white border-l-4 border-[#ffc000] pl-6">
-//                             <h3 className="text-4xl font-black uppercase tracking-widest leading-none">
-//                                 Crafting<br /><span className="text-[#ffc000]">Excellence</span>
-//                             </h3>
-//                         </div>
-//                     </div>
-
-//                     {/* FORM SIDE */}
-//                     <div className="w-full md:w-1/2 p-8 md:p-14 relative">
-
-//                         {/* RESPONSIVE Top Right Corner Accent */}
-//                         <div className="absolute top-0 right-0 
-//                     w-16 h-16          /* Smaller on mobile */
-//                     md:w-24 md:h-24    /* Original size on desktop */
-//                     bg-[#ffc000] 
-//                     transition-transform duration-500 hover:scale-110 
-//                     z-0"               /* Ensures it stays behind text */
-//                             style={{ clipPath: 'polygon(100% 0, 0 0, 100% 100%)' }}>
-//                         </div>
-
-
-//                         <div className="mb-10 text-left">
-//                             <h2 className="text-[20px] md:text-[25px] lg:text-[30px] font-black uppercase tracking-tight text-[#1a1a1a]">Tell Us About Your Project</h2>
-//                             <div className="w-12 h-1.5 bg-[#ffc000] rounded-full mt-2"></div>
-//                             <p className="text-gray-400 text-[14px] mt-4 font-medium tracking-wide">Bring your vision to life with bespoke interior solutions.</p>
-//                         </div>
-
-//                         <form onSubmit={handleSubmit} className="space-y-5">
-//                             {/* Full Name */}
-//                             <div className="space-y-2">
-//                                 <label className="text-[10px] font-bold uppercase tracking-[2px] text-[#555] ml-2 block">Your Full Name *</label>
-//                                 <input
-//                                     type="text" name="Full Name" required placeholder="Your answer"
-//                                     className="w-full h-[50px] bg-white border-2 border-[#eee] rounded-full px-6 text-[13px] outline-none transition-all focus:border-[#ffc000] focus:shadow-[0_0_15px_rgba(255,192,0,0.1)]"
-//                                 />
-//                             </div>
-
-//                             {/* Mobile Number */}
-//                             <div className="space-y-2">
-//                                 <label className="text-[10px] font-bold uppercase tracking-[2px] text-[#555] ml-2 block">Your Mobile Number * (we will call to confirm your project details)</label>
-//                                 <input
-//                                     type="tel" name="Mobile Number" required maxLength={10} minLength={10} placeholder="10-digit mobile number"
-//                                     className="w-full h-[50px] bg-white border-2 border-[#eee] rounded-full px-6 text-[13px] outline-none transition-all focus:border-[#ffc000]"
-//                                     onInput={(e) => (e.currentTarget.value = e.currentTarget.value.replace(/[^0-9]/g, ''))}
-//                                 />
-//                             </div>
-
-//                             {/* Project Category */}
-//                             <ModernDropdown
-//                                 label="Residential or Commercial project? *"
-//                                 name="Project Category"
-//                                 options={["Residential (Apartment / Villa)", "Commercial (Office / Cafe / Showroom)"]}
-//                                 placeholder="Select an option"
-//                             />
-
-//                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-//                                 {/* Property Type */}
-//                                 <ModernDropdown
-//                                     label="What type of property is this project for? *"
-//                                     name="Property Type"
-//                                     options={["3BHK Apartment (Residential)", "Villa / Independent House (Residential)", "Office space / Showroom / Hospital / Cafe (Commercial)"]}
-//                                     placeholder="Select property type"
-//                                 />
-//                                 {/* Budget */}
-//                                 <ModernDropdown
-//                                     label="Mention Your Budget *"
-//                                     name="Budget"
-//                                     options={["5 Lakhs - 8 lakhs", "9 lakhs - 12 lakhs", "12 lakhs - 16 lakhs", "20 lakhs above"]}
-//                                     placeholder="Select Budget Range"
-//                                 />
-//                             </div>
-
-//                             {/* Location */}
-//                             <ModernDropdown
-//                                 label="Which area is your project located in *"
-//                                 name="Location"
-//                                 options={["Anna nagar", "Mogappair", "OMR", "ECR", "Adyar", "T Nagar", "Ambattur", "Other Chennai location"]}
-//                                 placeholder="Select Area"
-//                             />
-
-//                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-//                                 {/* Timeline */}
-//                                 <ModernDropdown
-//                                     label="When Do You Plan to Start the Project? *"
-//                                     name="Timeline"
-//                                     options={["Immediate (0–30 days)", "1–3 months", "Just exploring"]}
-//                                     placeholder="Select Timeline"
-//                                 />
-//                                 {/* Service Type */}
-//                                 <ModernDropdown
-//                                     label="What kind of service are you looking for? *"
-//                                     name="Service Type"
-//                                     options={["Design + Execution (Flexible Budget)", "Design Support + Execution (Fixed Budget)", "Execution only (Designs Ready)"]}
-//                                     placeholder="Select Service Type"
-//                                 />
-//                             </div>
-
-//                             <motion.button
-//                                 whileHover={{ scale: 1.02 }}
-//                                 whileTap={{ scale: 0.98 }}
-//                                 disabled={isSubmitting}
-//                                 className="w-full bg-[#1a1a1a] cursor-pointer text-white py-4 rounded-full font-extrabold uppercase tracking-[3px] text-sm mt-4 shadow-xl hover:bg-[#ffc000] hover:text-black transition-all duration-300 disabled:opacity-50"
-//                             >
-//                                 {isSubmitting ? "Processing..." : "Submit Inquiry"}
-//                             </motion.button>
-
-//                             {showSuccess && (
-//                                 <motion.div
-//                                     initial={{ opacity: 0, x: -10 }}
-//                                     animate={{ opacity: 1, x: 0 }}
-//                                     className="bg-green-50 text-[#28a745] font-bold text-center text-xs uppercase p-4 rounded-2xl border-l-4 border-[#28a745]"
-//                                 >
-//                                     Information submitted! We will contact you soon.
-//                                 </motion.div>
-//                             )}
-//                         </form>
-//                     </div>
-//                 </div>
-//             </div>
-//         </section>
-//     );
-// };
-
-// export default InquiryFormNew;
-
 
 
 //  SECOND VERSION
@@ -255,6 +6,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useCreatePublicLead } from '../../api/ApiLists/publicLeadCollectionApi';
 import { useNavigate } from 'react-router-dom';
 import { getLeadSource } from '../../utils/getLeadSource';
+import { useGenerateCostCalculatorOtp, useVerifyCostCalculatorOtp } from '../../api/ApiLists/otpApi';
 
 // Constant for the Google Script
 const actionUrl = "https://script.google.com/macros/s/AKfycbzHOjt3OivmNOJq0pUYQ9MzM2XENCubYpDVwiR4qKBh_2x63YNkqD0KuEoIoa2WJ5Q/exec";
@@ -361,7 +113,16 @@ const InquiryFormNew: React.FC<InquiryFormProps> = ({ showCalculatorLink = false
     const [showSuccess, setShowSuccess] = useState(false);
     const [errors, setErrors] = useState<Record<string, string>>({});
 
+    const [otpInput, setOtpInput] = useState("");
+    const [otpError, setOtpError] = useState("");
+    const [isSendingOtp, setIsSendingOtp] = useState(false);
+    // const [isVerifyingOtp, setIsVerifyingOtp] = useState(false);
+    const [resendCooldown, setResendCooldown] = useState(0);
+
     const { mutateAsync: createMutate } = useCreatePublicLead()
+    const { mutateAsync: generateOtp, } = useGenerateCostCalculatorOtp();
+    const { mutateAsync: verifyOtp, isPending: isVerifyingOtp } = useVerifyCostCalculatorOtp();
+
     const navigate = useNavigate()
 
     // --- DYNAMIC THEME CONFIGURATION ---
@@ -385,6 +146,15 @@ const InquiryFormNew: React.FC<InquiryFormProps> = ({ showCalculatorLink = false
         "Timeline": "",
         "Service Type": ""
     });
+
+
+    useEffect(() => {
+        if (resendCooldown <= 0) return;
+        const timer = setInterval(() => {
+            setResendCooldown((prev) => (prev <= 1 ? 0 : prev - 1));
+        }, 1000);
+        return () => clearInterval(timer);
+    }, [resendCooldown]);
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
@@ -459,9 +229,9 @@ const InquiryFormNew: React.FC<InquiryFormProps> = ({ showCalculatorLink = false
         setErrors({}); // Clear errors when going back
     };
 
-    const handleSubmit = async (e: React.FormEvent) => {
-        e.preventDefault();
-        if (!validateStep()) return;
+    const handleSubmit = async () => {
+        // e.preventDefault();
+        // if (!validateStep()) return;
 
         setIsSubmitting(true);
 
@@ -472,7 +242,7 @@ const InquiryFormNew: React.FC<InquiryFormProps> = ({ showCalculatorLink = false
 
         finalData.append("Source", leadSource);
 
-        // console.log("formData location", formData["Location"])
+        console.log("formData Location", formData["Location"])
         // return;
 
         try {
@@ -527,7 +297,6 @@ const InquiryFormNew: React.FC<InquiryFormProps> = ({ showCalculatorLink = false
 
 
                 const customMessage = "thank you for submitting";
-
                 // navigate('/thank-you?source=calculator&message=thankyou');
                 navigate(`/thank-you?source=inquiry&message=${encodeURIComponent(customMessage)}`);
 
@@ -562,7 +331,8 @@ const InquiryFormNew: React.FC<InquiryFormProps> = ({ showCalculatorLink = false
 
             // setStep(1);
             if (showCalculatorLink) {
-                setStep(4);
+                // setStep(4);
+                setStep(5);
             }
             else {
                 setStep(1);
@@ -575,6 +345,88 @@ const InquiryFormNew: React.FC<InquiryFormProps> = ({ showCalculatorLink = false
             // alert("Submission failed. Check your connection.");
         } finally {
             setIsSubmitting(false);
+        }
+    };
+
+
+    // NEW — replaces the step-3 submit button's old behavior
+    const handleRequestOtp = async () => {
+        if (!validateStep()) return; // validates step 3 fields as before
+
+        setIsSendingOtp(true);
+        setOtpError("");
+        try {
+            const res = await generateOtp({
+                name: formData["Full Name"],
+                phone: formData["Mobile Number"],
+                formSource: "inquiry_form"
+            });
+
+            if (res?.ok) {
+                setStep(4);
+                setResendCooldown(30);
+            } else {
+                setOtpError(res?.message || "Failed to send OTP");
+            }
+        } catch (err: any) {
+            const msg = err?.message || "Failed to send OTP";
+            setOtpError(msg);
+            // if (err?.response?.data?.retryAfterMs) {
+            //     setResendCooldown(Math.ceil(err.response.data.retryAfterMs / 1000));
+            // }
+        } finally {
+            setIsSendingOtp(false);
+        }
+    };
+
+    const handleResendOtp = async () => {
+        if (resendCooldown > 0) return;
+        setIsSendingOtp(true);
+        setOtpError("");
+        try {
+            const res = await generateOtp({
+                name: formData["Full Name"],
+                phone: formData["Mobile Number"],
+                formSource: "inquiry_form"
+            });
+            if (res?.ok) {
+                setResendCooldown(30);
+            } else {
+                setOtpError(res?.message || "Failed to resend OTP");
+            }
+        } catch (err: any) {
+            setOtpError(err?.message || "Failed to resend OTP");
+            // if (err?.response?.data?.retryAfterMs) {
+            //     setResendCooldown(Math.ceil(err.response.data.retryAfterMs / 1000));
+            // }
+        } finally {
+            setIsSendingOtp(false);
+        }
+    };
+
+    const handleVerifyOtp = async () => {
+        if (otpInput.length !== 6) {
+            setOtpError("Enter the 6-digit OTP");
+            return;
+        }
+        // setIsVerifyingOtp(true);
+        setOtpError("");
+        try {
+            const res = await verifyOtp({
+                phone: formData["Mobile Number"],
+                otp: otpInput,
+                formSource: "inquiry_form"
+            });
+
+            if (res?.ok) {
+                await handleSubmit(); // fires the real save+tracking, then moves to success step
+            } else {
+                setOtpError(res?.message || "Incorrect OTP");
+            }
+        } catch (err: any) {
+            setOtpError(err?.message || "Verification failed");
+        } finally {
+            // setIsVerifyingOtp(false);
         }
     };
 
@@ -623,7 +475,7 @@ const InquiryFormNew: React.FC<InquiryFormProps> = ({ showCalculatorLink = false
                         {step !== 4 && <div className={`w-10 h-1 ${theme.bg} rounded-full mt-2 mx-auto`}></div>}
                     </div>
 
-                    <form onSubmit={handleSubmit} className="space-y-5">
+                    <form onSubmit={(e) => e.preventDefault()} className="space-y-5">
                         <AnimatePresence mode="wait">
                             {step === 1 && (
                                 <motion.div key="step1" initial={{ opacity: 0, x: 15 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -15 }} className="space-y-4">
@@ -725,13 +577,72 @@ const InquiryFormNew: React.FC<InquiryFormProps> = ({ showCalculatorLink = false
                                     Next Step
                                 </button>
                             ) : (
-                                // <button type="submit" disabled={isSubmitting} className="flex-1 cursor-pointer h-[50px] bg-[#1a1a1a] text-white rounded-full text-[11px] font-bold uppercase tracking-widest shadow-md hover:bg-[#ffc000] hover:text-black transition-all disabled:opacity-50">
-                                <button type="submit" disabled={isSubmitting}
-                                    className={`flex-1 cursor-pointer h-[50px] ${theme.bg} ${theme.buttonText} rounded-full text-[11px] font-bold uppercase tracking-widest shadow-sm hover:shadow-md transition-all`}>
-                                    {isSubmitting ? "Sending..." : "Submit"}
+                                // <button type="submit" disabled={isSubmitting}
+                                //     className={`flex-1 cursor-pointer h-[50px] ${theme.bg} ${theme.buttonText} rounded-full text-[11px] font-bold uppercase tracking-widest shadow-sm hover:shadow-md transition-all`}>
+                                //     {isSubmitting ? "Sending..." : "Submit"}
+                                // </button>
+
+                                <button
+                                    type="button"
+                                    onClick={handleRequestOtp}
+                                    disabled={isSendingOtp}
+                                    className={`flex-1 cursor-pointer h-[50px] ${theme.bg} ${theme.buttonText} rounded-full text-[11px] font-bold uppercase tracking-widest shadow-sm hover:shadow-md transition-all disabled:opacity-50`}
+                                >
+                                    {isSendingOtp ? "Sending OTP..." : "Get OTP"}
                                 </button>
                             )}
                         </div>}
+
+
+
+                        {step === 4 && (
+                            <motion.div key="step4-otp" initial={{ opacity: 0, x: 15 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -15 }} className="space-y-4">
+                                <div className="text-center space-y-1 mb-2">
+                                    <p className="text-[12px] text-gray-500">
+                                        We've sent a 6-digit OTP to WhatsApp <span className="font-bold text-[#1a1a1a]">+91{formData["Mobile Number"]}</span>
+                                    </p>
+                                </div>
+
+                                <div className="space-y-1.5">
+                                    <input
+                                        type="text"
+                                        inputMode="numeric"
+                                        maxLength={6}
+                                        value={otpInput}
+                                        onChange={(e) => setOtpInput(e.target.value.replace(/\D/g, ""))}
+                                        placeholder="Enter 6-digit OTP"
+                                        className={`w-full h-[40px] md:h-[50px] px-6 text-center tracking-[8px] text-[15px] font-bold bg-white border-2 ${otpError ? 'border-red-400' : 'border-[#eee]'} rounded-full outline-none transition-all ${theme.focusBorder}`}
+                                    />
+                                    {otpError && <p className="text-[10px] text-red-500 ml-4 italic text-center">{otpError}</p>}
+                                </div>
+
+                                <div className="flex justify-center">
+                                    <button
+                                        type="button"
+                                        onClick={handleResendOtp}
+                                        disabled={resendCooldown > 0 || isSendingOtp}
+                                        className="text-[10px] font-bold uppercase tracking-widest text-gray-400 disabled:opacity-60 hover:text-[#1a1a1a] transition-colors"
+                                    >
+                                        {resendCooldown > 0 ? `Resend OTP in ${resendCooldown}s` : (isSendingOtp ? "Sending..." : "Resend OTP")}
+                                    </button>
+                                </div>
+
+                                <div className="flex gap-4 pt-4">
+                                    <button type="button" onClick={() => { setStep(3); setOtpInput(""); setOtpError(""); }} className="flex-1 cursor-pointer h-[50px] border border-gray-300 text-[#333] rounded-full text-[11px] font-semibold uppercase tracking-widest hover:bg-gray-50 transition-all">
+                                        Back
+                                    </button>
+                                    <button
+                                        type="button"
+                                        onClick={handleVerifyOtp}
+                                        disabled={isVerifyingOtp || isSubmitting}
+                                        className={`flex-1 cursor-pointer h-[50px] ${theme.bg} ${theme.buttonText} rounded-full text-[11px] font-bold uppercase tracking-widest shadow-sm hover:shadow-md transition-all disabled:opacity-50`}
+                                    >
+                                        {isVerifyingOtp ? "Verifying..." : isSubmitting ? "Submitting..." : "Verify & Submit"}
+                                    </button>
+                                </div>
+                            </motion.div>
+                        )}
+
 
                         {(showSuccess && !showCalculatorLink) && (
                             <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} className="bg-green-50 text-[#28a745] font-semibold text-center text-[10px] uppercase p-3 rounded-xl border border-green-100 mt-4">
@@ -739,8 +650,7 @@ const InquiryFormNew: React.FC<InquiryFormProps> = ({ showCalculatorLink = false
                             </motion.div>
                         )}
 
-
-                        {(showCalculatorLink && step === 4) && (
+                        {(showCalculatorLink && step === 5) && (
                             /* UPDATED SUCCESS VIEW WITH CALCULATOR CTA */
                             <motion.div
                                 initial={{ opacity: 0, scale: 0.95 }}

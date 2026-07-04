@@ -7,7 +7,7 @@ import { api } from "../axiosInstance";
  * Generate Public Cost Calculator otp
  */
 export const generateCostCalculatorOtp = async (
-    payload: { name: string, phone: string }
+    payload: { name: string, phone: string , formSource: string}
 ): Promise<any> => {
     // const { data } = await api.post(
 
@@ -39,7 +39,7 @@ export const generateCostCalculatorOtp = async (
  */
 export const useGenerateCostCalculatorOtp = () => {
     return useMutation({
-        mutationFn: async (payload: { name: string, phone: string }) =>
+        mutationFn: async (payload: { name: string, phone: string, formSource: string }) =>
             await generateCostCalculatorOtp(payload),
 
         // onSuccess: (data) => {
@@ -63,7 +63,7 @@ export const useGenerateCostCalculatorOtp = () => {
  * Generate Public Cost Calculator otp
  */
 export const verifyCostCalculatorOtp = async (
-    payload: { otp: string, phone: string }
+    payload: { otp: string, phone: string , formSource: string}
 ): Promise<any> => {
     try {
         const { data } = await api.post("api/v1/otp/verify", payload);
@@ -86,7 +86,7 @@ export const verifyCostCalculatorOtp = async (
  */
 export const useVerifyCostCalculatorOtp = () => {
     return useMutation({
-        mutationFn: async (payload: { otp: string, phone: string }) =>
+        mutationFn: async (payload: { otp: string, phone: string, formSource: string }) =>
             await verifyCostCalculatorOtp(payload),
 
         // onSuccess: (data) => {
