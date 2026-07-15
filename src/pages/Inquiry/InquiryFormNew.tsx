@@ -245,7 +245,9 @@ const InquiryFormNew: React.FC<InquiryFormProps> = ({ showCalculatorLink = false
         console.log("formData Location", formData["Location"])
         // return;
 
+        
         try {
+            const uniqueEventId = `inquiry_${Date.now()}_${formData["Mobile Number"].replace(/\D/g, '')}`;
             await fetch(actionUrl, {
                 method: 'POST', body: finalData, mode: 'no-cors',
                 // important
@@ -278,6 +280,8 @@ const InquiryFormNew: React.FC<InquiryFormProps> = ({ showCalculatorLink = false
                     'user_name': formData["Full Name"],
                     'location': formData["Location"],
                     // 'phone_number': formData["Mobile Number"],
+                    'event_id': uniqueEventId, // ✅ Pass event_id to GTM/CAPI
+
                     'phone_number': formattedPhone,
                     'project_category': formData["Project Category"],
                     'property_type': formData["Property Type"],
