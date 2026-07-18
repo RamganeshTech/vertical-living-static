@@ -5,59 +5,8 @@
 
 import { motion } from 'framer-motion';
 import { Link, useNavigate } from 'react-router-dom';
-import img1 from '../../assets/images/1.webp';
-import img2 from '../../assets/images/2.webp';
-import img3 from '../../assets/images/3.webp';
-import img9 from '../../assets/images/img9.webp';
-import img10 from '../../assets/images/img10.webp';
+import { allPackages } from '../../constants/constants';
 
-export const allPackages = [
-    {
-        id: "basic",
-        name: "Basic Living",
-        price: "5 – 6 Lakhs",
-        suitable: "Short-term interiors / Rental homes",
-        img: img1,
-        specs: ["MDF Board Carcass", "Laminate Finish", "Standard Soft-Close Hinges"],
-        nature: "Budget-friendly essentials"
-    },
-    {
-        id: "core",
-        name: "Core Living",
-        price: "6 – 7 Lakhs",
-        suitable: "Budget-conscious homeowners",
-        img: img2,
-        specs: ["Non-Branded Comm. Ply", "1mm Laminate", "Standard Branded Hinges"],
-        nature: "Functional and durable"
-    },
-    {
-        id: "prime",
-        name: "Prime Living",
-        price: "7.5 – 9 Lakhs",
-        suitable: "Mid-segment apartment owners",
-        img: img9,
-        specs: ["Branded BWR Ply", "Premium Laminate", "Hettich / Hafele Hardware"],
-        nature: "Balanced luxury"
-    },
-    {
-        id: "signature",
-        name: "Signature Living",
-        price: "9 – 12 Lakhs",
-        suitable: "Long-term homeowners",
-        img: img3,
-        specs: ["Branded BWR Ply", "BWP Kitchen / Marine Ply", "Tandem Box Systems"],
-        nature: "⭐ Most Preferred"
-    },
-    {
-        id: "elite",
-        name: "Elite Living",
-        price: "12 – 15 Lakhs+",
-        suitable: "Premium apartment / villa clients",
-        img: img10,
-        specs: ["Full BWP / Marine Ply", "Acrylic / PU / Veneer", "Blum / Premium Systems"],
-        nature: "Exquisite finishing"
-    }
-];
 
 
 type PackagesNewtype = {

@@ -14,6 +14,7 @@ const actionUrl = "https://script.google.com/macros/s/AKfycbzHOjt3OivmNOJq0pUYQ9
 interface InquiryFormProps {
     showCalculatorLink?: boolean; // Prop to control the extra button
     fromPage?: boolean
+    showBgOverlay?: boolean
 }
 
 // Reusable Elegant Custom Select Component
@@ -107,7 +108,7 @@ const ModernDropdown = ({
 
 
 
-const InquiryFormNew: React.FC<InquiryFormProps> = ({ showCalculatorLink = false, fromPage }) => {
+const InquiryFormNew: React.FC<InquiryFormProps> = ({ showCalculatorLink = false, fromPage, showBgOverlay=true }) => {
     const [step, setStep] = useState(1);
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [showSuccess, setShowSuccess] = useState(false);
@@ -242,7 +243,7 @@ const InquiryFormNew: React.FC<InquiryFormProps> = ({ showCalculatorLink = false
 
         finalData.append("Source", leadSource);
 
-        console.log("formData Location", formData["Location"])
+        // console.log("formData Location", formData["Location"])
         // return;
 
         
@@ -437,7 +438,7 @@ const InquiryFormNew: React.FC<InquiryFormProps> = ({ showCalculatorLink = false
     const stepTitles = ["Basic Details", "Property Info", "Final Details"];
 
     return (
-        <section id="contact" className="w-full bg-[#fcfcfc] py-8 md:py-24 font-inter flex items-center">
+        <section id="contact" className={`w-full ${showBgOverlay ? "bg-[#fcfcfc] py-8 md:py-24" : ""} font-inter flex items-center`}>
             <div className="container mx-auto px-2 md:px-4">
                 {/* Fixed: Removed overflow-hidden to allow dropdown to visible outside */}
                 <div className="max-w-[650px] mx-auto bg-white rounded-[35px] shadow-[0_20px_50px_-15px_rgba(0,0,0,0.05)] border border-gray-100 p-4 md:p-12 relative">

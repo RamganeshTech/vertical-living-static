@@ -22,6 +22,7 @@ import PackagesNew from './packages/PakagesNew';
 import { Testimonials } from './Testimonials';
 import { Helmet } from 'react-helmet-async';
 import { COMPANY_NAME } from '../constants/constants';
+import WhyChooseUs from './whychooseus/WhyChooseUs';
 // import CaseStudies from './CaseStudies';
 // import CostCalculatorMain from './calculator/CostCalculatorMain';
 
@@ -172,12 +173,10 @@ const Home: React.FC = () => {
 
 
 
-        <section className="relative  min-h-[900px] flex items-center justify-center overflow-hidden bg-white py-20 font-poppins">
-          {/* LEFT SIDE: High-Visibility Architectural Line & Diamond Textures */}
+        {/* <section className="relative  min-h-[900px] flex items-center justify-center overflow-hidden bg-white py-20 font-poppins">
           <div className="absolute inset-0 overflow-hidden pointer-events-none">
             <div className="absolute left-0 top-0 bottom-0 w-[25%] pointer-events-none hidden xl:block">
 
-              {/* 1. Solid Black Horizontal Technical Lines - High Opacity */}
               <div className="absolute left-0 top-1/2 -translate-y-1/2 flex flex-col gap-6 w-32">
                 {[...Array(5)].map((_, i) => (
                   <motion.div
@@ -190,7 +189,6 @@ const Home: React.FC = () => {
                 ))}
               </div>
 
-              {/* 2. Bold Gold Diamond Structural Frames - High Visibility */}
               <div className="absolute -left-10 top-1/4 flex flex-col gap-4">
                 <motion.div
                   animate={{ rotate: [45, 50, 45] }}
@@ -204,7 +202,6 @@ const Home: React.FC = () => {
                 />
               </div>
 
-              {/* 3. Solid Black Vertical Accent - Clearly Visible */}
               <motion.div
                 initial={{ scaleY: 0 }}
                 whileInView={{ scaleY: 1 }}
@@ -212,15 +209,12 @@ const Home: React.FC = () => {
                 className="absolute left-0 top-1/3 bottom-1/3 w-2 bg-[#1a1a1a] rounded-r-3xl" // Increased width and opacity
               />
 
-              {/* 4. Bold Architectural Angle (Black) */}
 
             </div>
           </div>
 
 
-          {/* RIGHT SIDE: Brand Gold Grid & Technical Shapes */}
           <div className="absolute right-0 top-0 bottom-0 w-[25%] pointer-events-none hidden xl:block">
-            {/* Solid Gold Dot Matrix Grid - Very visible */}
             <div className="absolute right-10 top-1/2 -translate-y-1/2 grid grid-cols-5 gap-6">
               {[...Array(25)].map((_, i) => (
                 <motion.div
@@ -233,14 +227,11 @@ const Home: React.FC = () => {
               ))}
             </div>
 
-            {/* Gold Technical Circle Segment */}
             <div className="absolute -right-20 top-1/4 w-80 h-80 border-[2px] border-[#ffc000] rounded-full opacity-20" />
 
-            {/* Solid Black accent at the very edge */}
             <div className="absolute right-0 top-1/3 bottom-1/3 w-2 bg-[#1a1a1a] rounded-l-full" />
           </div>
 
-          {/* MAIN FORM CONTENT */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -248,28 +239,24 @@ const Home: React.FC = () => {
             className="relative z-10 w-full max-w-7xl px-4 flex justify-center"
           >
             <div className="relative">
-              {/* A strong Gold shadow under the form to ground it */}
               <div className="absolute -inset-4 bg-[#ffc000]/10 blur-[60px] rounded-[40px] -z-10" />
               <InquiryFormNew fromPage={false} />
             </div>
           </motion.div>
 
-        </section>
+        </section> */}
 
 
         {/* HERO SECTION */}
-        <section className="relative w-full h-[600px] md:h-[800px] overflow-hidden flex items-center justify-center">
-          {/* Background Image - Absolute Positioned */}
+        {/* <section className="relative w-full h-[600px] md:h-[800px] overflow-hidden flex items-center justify-center">
           <img
             src={bannerBg}
             alt="Banner"
             className="absolute inset-0 w-full h-full object-cover z-0"
           />
 
-          {/* DARK OVERLAY - This makes the white text readable */}
           <div className="absolute inset-0 bg-black/30 z-[1]"></div>
 
-          {/* CONTENT - Placed above the overlay */}
           <div className="relative z-10 w-full max-w-[870px] px-4 text-center">
             <motion.div
               initial="hidden"
@@ -284,13 +271,8 @@ const Home: React.FC = () => {
                 End-to-end interior design for homes & offices.
               </p>
 
-              {/* <p className="text-white text-[20px] md:text-[25px] pt-[37px] pb-[40px] leading-[1.2] font-medium">
-              From 3D design to execution with clear pricing & timeline.
-            </p> */}
-
-              {/* Supporting Detail - Smaller and more refined */}
+            
               <div className="flex justify-center items-center gap-3  pb-[40px]">
-                {/* <div className="w-8 h-[1px] bg-[#ffc000]"></div> Small accent line */}
                 <p className="text-gray-300 text-[14px] md:text-[16px] uppercase tracking-[2px] font-medium ">
                   From 3D design to execution with <span className="text-white">clear pricing & timeline.</span>
                 </p>
@@ -303,8 +285,58 @@ const Home: React.FC = () => {
               </Link>
             </motion.div>
           </div>
-        </section>
+        </section> */}
 
+
+        <section className="relative w-full min-h-[600px] md:min-h-[800px] overflow-hidden flex items-center">
+          <img
+            src={bannerBg}
+            alt="Banner"
+            className="absolute inset-0 w-full h-full object-cover z-0"
+          />
+          <div className="absolute inset-0 bg-black/30 z-[1]"></div>
+
+          {/* CONTENT - two columns */}
+          <div className="relative z-10 w-full max-w-[1300px] mx-auto px-4 py-8 flex flex-col md:flex-row items-center gap-10 md:gap-6">
+            {/* LEFT: Hero text */}
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              variants={fadeInLeft}
+              className="w-full md:w-1/2 text-center md:text-left"
+            >
+              <h1 className="font-luxe text-white text-[42px] md:text-[60px] font-[700] leading-[1]">
+                {/* <span className="text-[#ffc000]">Design,</span> Build, Deliver */}
+                   <span className="text-[#ffc000]">We Design</span>, 
+                  <br />
+                   We Elevate, You Live.
+
+              </h1>
+              <p className="text-white text-[18px] md:text-[22px] pt-[30px] pb-[30px] leading-[1.2] font-semibold">
+                End-to-end interior design for homes & offices.
+              </p>
+
+              <div className="flex justify-center md:justify-start items-center gap-3 pb-[30px]">
+                <p className="text-gray-300 text-[14px] md:text-[16px] uppercase tracking-[2px] font-medium">
+                  From 3D design to execution with <span className="text-white">clear pricing & timeline.</span>
+                </p>
+              </div>
+
+              <Link
+                to="#service"
+                className="bg-[#ffc000] hover:bg-white text-black px-[40px] py-[18px] uppercase font-bold tracking-[1px] transition-all duration-500 inline-block shadow-lg"
+              >
+                Explore More
+              </Link>
+            </motion.div>
+
+            {/* RIGHT: Inquiry form */}
+            <div className="w-full md:w-1/2 flex justify-center md:justify-end">
+              <InquiryFormNew showBgOverlay={false} />
+            </div>
+          </div>
+        </section>
 
 
         <section className="bg-[#ffc000]  py-[60px] relative z-20">
@@ -391,9 +423,43 @@ const Home: React.FC = () => {
           </div>
         </section>
 
+        <WhyChooseUs />
+
+        <div id="about" className="container mx-auto px-4 py-10">
+          <motion.div
+            className="mb-[80px] max-w-4xl"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={fadeInRight}
+          >
+            {/* Heading Style: Matching your other sections */}
+            <div className="mb-10">
+              <h2 className="font-poppins text-[25px] md:text-[35px] font-light uppercase leading-[1.2] text-[#1a1a1a]">
+                About <br />
+                <span className="text-[#ffc000] font-semibold text-[25px] md:text-[45px]">Vertical Living</span>
+              </h2>
+            </div>
+
+            {/* Content: Using your new Residential & Commercial focus */}
+            <div className="font-poppins text-[14px] md:text-[22px] leading-[1.6] text-gray-800 font-medium font-poppins">
+              Vertical Living provides <span className="text-[#1a1a1a] font-bold">bespoke interior design solutions</span> for residential and commercial projects.
+              We are dedicated to transforming your vision into reality with precision and architectural excellence.
+            </div>
+
+            {/* Call to Action line inside the About section */}
+            <div className="mt-4 md:mt-8 pt-4 md:pt-8 border-t border-gray-100">
+              <p className="font-poppins text-[14px] uppercase md:tracking-widest font-semibold text-gray-400">
+                Get an instant valuation and technical quote for your dream project today.
+              </p>
+            </div>
+          </motion.div>
+        </div>
+
+
 
         {/* ABOUT SECTION: Exact padding and headings */}
-        <section className="pt-[100px] pb-[20px]">
+        <section className="pt-[20px] pb-[20px]">
           <div className="mx-auto">
             {/* <motion.div
             className="mb-[80px]"
@@ -464,36 +530,6 @@ const Home: React.FC = () => {
         {/* <CaseStudies  /> */}
 
 
-        <div id="about" className="container mx-auto px-4 py-20">
-          <motion.div
-            className="mb-[80px] max-w-4xl"
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={fadeInRight}
-          >
-            {/* Heading Style: Matching your other sections */}
-            <div className="mb-10">
-              <h2 className="font-poppins text-[25px] md:text-[35px] font-light uppercase leading-[1.2] text-[#1a1a1a]">
-                About <br />
-                <span className="text-[#ffc000] font-semibold text-[25px] md:text-[45px]">Vertical Living</span>
-              </h2>
-            </div>
-
-            {/* Content: Using your new Residential & Commercial focus */}
-            <div className="font-poppins text-[14px] md:text-[22px] leading-[1.6] text-gray-800 font-medium font-poppins">
-              Vertical Living provides <span className="text-[#1a1a1a] font-bold">bespoke interior design solutions</span> for residential and commercial projects.
-              We are dedicated to transforming your vision into reality with precision and architectural excellence.
-            </div>
-
-            {/* Call to Action line inside the About section */}
-            <div className="mt-4 md:mt-8 pt-4 md:pt-8 border-t border-gray-100">
-              <p className="font-poppins text-[14px] uppercase md:tracking-widest font-semibold text-gray-400">
-                Get an instant valuation and technical quote for your dream project today.
-              </p>
-            </div>
-          </motion.div>
-        </div>
 
 
 

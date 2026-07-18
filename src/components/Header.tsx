@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import logo from '../assets/images/logo.png'; // Import the image file
+import logo from '../assets/images/logo.webp'; // Import the image file
 import { Link } from 'react-router-dom';
 
 const navLinks = [

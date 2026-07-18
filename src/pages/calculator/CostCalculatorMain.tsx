@@ -526,7 +526,7 @@ const CostCalculatorMain: React.FC<CostCalculationMainProps> = ({ showCloseButto
                 setResendTimer(30);
 
             } catch (error: any) {
-                console.log("otp generation error", error.message);
+                // console.log("otp generation error", error.message);
                 // 4. If it fails, display the error in the UI
                 setRequestOtpError(error.message || "Failed to send code. Please try again.");
             }
@@ -571,7 +571,7 @@ const CostCalculatorMain: React.FC<CostCalculationMainProps> = ({ showCloseButto
 
         }
         catch (error: any) {
-            console.log("catch eerror messate", error)
+            // console.log("catch eerror messate", error)
             // console.log("otp generation error", error)
             setOtpError(error.message || "Invalid access key. Please try again.");
 

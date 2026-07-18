@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 // import { PACKAGES } from '../constants/constants'; // Adjust path to your allPackages data
 import Booking from '../Payment/Booking';
-import { allPackages } from './PakagesNew';
 import { motion } from 'framer-motion';
+import { allPackages } from '../../constants/constants';
 
 const PackageSectionSingle: React.FC = () => {
     const { planId } = useParams<{ planId: string }>();

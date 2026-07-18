@@ -1,25 +1,27 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { motion, AnimatePresence, type Variants } from 'framer-motion';
 
-// Asset Imports
-// import img1 from '../assets/images/image1.jpeg';
-// import img2 from '../assets/images/image2.jpeg';
-// import img3 from '../assets/images/image3.jpeg';
-// import img4 from '../assets/images/image4.jpeg';
-// import img5 from '../assets/images/image5.jpeg';
-// import img6 from '../assets/images/image6.jpeg';
-// import img7 from '../assets/images/image7.jpeg';
-// import img8 from '../assets/images/image8.jpeg';
+
+// PREVIOSU IMPORTS
+// import img11 from '../assets/images/image11.webp';
+// import img12 from '../assets/images/image12.webp';
+// import img13 from '../assets/images/image13.webp';
+// import img14 from '../assets/images/image14.webp';
+// import img15 from '../assets/images/image15.webp';
+// import img16 from '../assets/images/image16.webp';
+// import img17 from '../assets/images/image17.webp';
+// import img18 from '../assets/images/image18.webp';
 
 
-import img11 from '../assets/images/image11.webp';
-import img12 from '../assets/images/image12.webp';
-import img13 from '../assets/images/image13.webp';
-import img14 from '../assets/images/image14.webp';
-import img15 from '../assets/images/image15.webp';
-import img16 from '../assets/images/image16.webp';
-import img17 from '../assets/images/image17.webp';
-import img18 from '../assets/images/image18.webp';
+
+import img11 from '../assets/optimized/image11.webp';
+import img12 from '../assets/optimized/image12.webp';
+import img13 from '../assets/optimized/image13.webp';
+import img14 from '../assets/optimized/image14.webp';
+import img15 from '../assets/optimized/image15.webp';
+import img16 from '../assets/optimized/image16.webp';
+import img17 from '../assets/optimized/image17.webp';
+import img18 from '../assets/optimized/image18.webp';
 
 
 

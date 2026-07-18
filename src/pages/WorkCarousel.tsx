@@ -11,7 +11,9 @@ import { Swiper as SwiperType } from 'swiper';
 // import img3 from '../assets/images/3.webp';
 // import img4 from '../assets/images/4.webp';
 
-import img5 from '../assets/images/5.webp';
+//  previous used imports
+// import img5 from '../assets/images/5.webp';
+import img5 from '../assets/optimized/5.webp';
 
 
 
@@ -24,16 +26,29 @@ import img5 from '../assets/images/5.webp';
 // import img7 from '../assets/images/image7.jpeg';
 // import img8 from '../assets/images/image8.jpeg';
 
-import img8 from '../assets/images/image10.webp';
-import img11 from '../assets/images/image11.webp';
-import img12 from '../assets/images/image12.webp';
-import img13 from '../assets/images/image13.webp';
-import img14 from '../assets/images/image14.webp';
-import img15 from '../assets/images/image15.webp';
-import img16 from '../assets/images/image16.webp';
-import img17 from '../assets/images/image17.webp';
-import img18 from '../assets/images/image18.webp';
 
+//  previous used imports
+// import img8 from '../assets/images/image10.webp';
+// import img11 from '../assets/images/image11.webp';
+// import img12 from '../assets/images/image12.webp';
+// import img13 from '../assets/images/image13.webp';
+// import img14 from '../assets/images/image14.webp';
+// import img15 from '../assets/images/image15.webp';
+// import img16 from '../assets/images/image16.webp';
+// import img17 from '../assets/images/image17.webp';
+// import img18 from '../assets/images/image18.webp';
+
+
+
+import img8 from '../assets/optimized/image10.webp';
+import img11 from '../assets/optimized/image11.webp';
+import img12 from '../assets/optimized/image12.webp';
+import img13 from '../assets/optimized/image13.webp';
+import img14 from '../assets/optimized/image14.webp';
+import img15 from '../assets/optimized/image15.webp';
+import img16 from '../assets/optimized/image16.webp';
+import img17 from '../assets/optimized/image17.webp';
+import img18 from '../assets/optimized/image18.webp';
 
 
 // import video1 from '../assets/videos/video1.mp4';
@@ -102,8 +117,8 @@ const WorkCarousel: React.FC<WorkCarouseltype> = ({ showLink }) => {
                 activeVideo.load();
             }
 
-
-            activeVideo.play().catch(err => console.log("Autoplay blocked:", err));
+            // activeVideo.play().catch(err => console.log("Autoplay blocked:", err));
+            activeVideo.play().catch(() => { });
         } else {
             // 5. If center is an image, restart the 3-second timer
             swiper.autoplay.start();

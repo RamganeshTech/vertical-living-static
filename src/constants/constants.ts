@@ -1,16 +1,38 @@
 export const actionUrl = "https://script.google.com/macros/s/AKfycbzHOjt3OivmNOJq0pUYQ9MzM2XENCubYpDVwiR4qKBh_2x63YNkqD0KuEoIoa2WJ5Q/exec";
 
-import img1 from '../assets/images/1.webp';
-import img2 from '../assets/images/2.webp';
-import img3 from '../assets/images/3.webp';
-import img4 from '../assets/images/img9.webp';
+// import img1 from '../assets/images/1.webp';
+// import img2 from '../assets/images/2.webp';
+// import img3 from '../assets/images/3.webp';
+// import img4 from '../assets/images/img9.webp';
+
+// import consultant from '../assets/images/consultation.jpg';
+// import design from '../assets/images/design.webp';
+// import poojaunit from '../assets/images/poojaunitwithoutWM.webp';
+// import crockeryunit from '../assets/images/crockeryimgWithoutWM.webp';
+// import kitchenBaseCabinets from '../assets/images/kitchenbasecabinets.webp';
+// import shoeRack from '../assets/images/shoeRack.webp';
+// import vanityStorage1 from '../assets/images/vanityStorage1.jpg';
+// import dressingunit from '../assets/images/dressingunit.jpg';
+// import studyCabinet1 from '../assets/images/studyCabinet1.jpg';
+// import bookshelf from '../assets/images/bookShelf.jpg';
+// import foyerArea from '../assets/images/foyerArea.jpg';
+// import windowSeating from '../assets/images/windowSeating.jpg';
+// import wallpaper from '../assets/images/wallpaper.jpg';
+// import roomPartition from '../assets/images/roompartition.jpg';
+
+
+
+import img1 from '../assets/optimized/1.webp';
+import img2 from '../assets/optimized/2.webp';
+import img3 from '../assets/optimized/3.webp';
+import img4 from '../assets/optimized/img9.webp';
 
 import consultant from '../assets/images/consultation.jpg';
-import design from '../assets/images/design.webp';
-import poojaunit from '../assets/images/poojaunitwithoutWM.webp';
-import crockeryunit from '../assets/images/crockeryimgWithoutWM.webp';
-import kitchenBaseCabinets from '../assets/images/kitchenbasecabinets.webp';
-import shoeRack from '../assets/images/shoeRack.webp';
+import design from '../assets/optimized/design.webp';
+import poojaunit from '../assets/optimized/poojaunitwithoutWM.webp';
+import crockeryunit from '../assets/optimized/crockeryimgWithoutWM.webp';
+import kitchenBaseCabinets from '../assets/optimized/kitchenbasecabinets.webp';
+import shoeRack from '../assets/optimized/shoeRack.webp';
 import vanityStorage1 from '../assets/images/vanityStorage1.jpg';
 import dressingunit from '../assets/images/dressingunit.jpg';
 import studyCabinet1 from '../assets/images/studyCabinet1.jpg';
@@ -19,6 +41,15 @@ import foyerArea from '../assets/images/foyerArea.jpg';
 import windowSeating from '../assets/images/windowSeating.jpg';
 import wallpaper from '../assets/images/wallpaper.jpg';
 import roomPartition from '../assets/images/roompartition.jpg';
+
+
+// import img1 from '../../assets/images/1.webp';
+// import img2 from '../../assets/images/2.webp';
+// import img3 from '../../assets/images/3.webp';
+import img9 from '../assets/optimized/img9.webp';
+import img10 from '../assets/optimized/img10.webp';
+
+
 
 export const COMPANY_NAME = "Vertical Living"
 
@@ -234,6 +265,60 @@ export const PACKAGES = [
     }
 ];
 
+
+
+export const allPackages = [
+    {
+        id: "basic",
+        name: "Basic Living",
+        // price: "5 – 6 Lakhs",
+        price: "Starts from ₹5L*",
+        suitable: "Short-term interiors / Rental homes",
+        img: img1,
+        specs: ["MDF Board Carcass", "Laminate Finish", "Standard Soft-Close Hinges"],
+        nature: "Budget-friendly essentials"
+    },
+    {
+        id: "core",
+        name: "Core Living",
+        // price: "6 – 7 Lakhs",
+        price: "Starts from ₹6L*",
+        suitable: "Budget-conscious homeowners",
+        img: img2,
+        specs: ["Non-Branded Comm. Ply", "1mm Laminate", "Standard Branded Hinges"],
+        nature: "Functional and durable"
+    },
+    {
+        id: "prime",
+        name: "Prime Living",
+        // price: "7.5 – 9 Lakhs",
+        price: "Starts from ₹7.5L*",
+        suitable: "Mid-segment apartment owners",
+        img: img9,
+        specs: ["Branded BWR Ply", "Premium Laminate", "Hettich / Hafele Hardware"],
+        nature: "Balanced luxury"
+    },
+    {
+        id: "signature",
+        name: "Signature Living",
+        // price: "9 – 12 Lakhs",
+        price: "Starts from ₹9L*",
+        suitable: "Long-term homeowners",
+        img: img3,
+        specs: ["Branded BWR Ply", "BWP Kitchen / Marine Ply", "Tandem Box Systems"],
+        nature: "⭐ Most Preferred"
+    },
+    {
+        id: "elite",
+        name: "Elite Living",
+        // price: "12 – 15 Lakhs+",
+        price: "Starts from ₹12L*",
+        suitable: "Premium apartment / villa clients",
+        img: img10,
+        specs: ["Full BWP / Marine Ply", "Acrylic / PU / Veneer", "Blum / Premium Systems"],
+        nature: "Exquisite finishing"
+    }
+];
 
 
 export const CASE_STUDIES_DATA = [
