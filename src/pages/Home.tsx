@@ -308,9 +308,9 @@ const Home: React.FC = () => {
             >
               <h1 className="font-luxe text-white text-[42px] md:text-[60px] font-[700] leading-[1]">
                 {/* <span className="text-[#ffc000]">Design,</span> Build, Deliver */}
-                   <span className="text-[#ffc000]">We Design</span>, 
-                  <br />
-                   We Elevate, You Live.
+                <span className="text-[#ffc000]">We Design</span>,
+                <br />
+                We Elevate, You Live.
 
               </h1>
               <p className="text-white text-[18px] md:text-[22px] pt-[30px] pb-[30px] leading-[1.2] font-semibold">
@@ -427,7 +427,7 @@ const Home: React.FC = () => {
 
         <div id="about" className="container mx-auto px-4 py-10">
           <motion.div
-            className="mb-[80px] max-w-4xl"
+            className="mb-[10px] max-w-4xl"
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
@@ -491,7 +491,6 @@ const Home: React.FC = () => {
           </div> */}
 
             <div className='w-full h-full px-4 md:px-10'>
-
               <PackagesSection showLink={true} />
             </div>
 

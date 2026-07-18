@@ -27,7 +27,8 @@ import img2 from '../assets/optimized/2.webp';
 import img3 from '../assets/optimized/3.webp';
 import img4 from '../assets/optimized/img9.webp';
 
-import consultant from '../assets/images/consultation.jpg';
+// import consultant from '../assets/images/consultation.jpg';
+import consultant from '../assets/images/consultation.webp';
 import design from '../assets/optimized/design.webp';
 import poojaunit from '../assets/optimized/poojaunitwithoutWM.webp';
 import crockeryunit from '../assets/optimized/crockeryimgWithoutWM.webp';

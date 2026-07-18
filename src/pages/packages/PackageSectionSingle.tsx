@@ -64,7 +64,7 @@ const PackageSectionSingle: React.FC = () => {
                     <div className="flex flex-col md:flex-row md:items-center gap-6 mt-8">
                         {/* Price highlight in signature gold */}
                         <p className="text-4xl md:text-6xl font-bold text-[#ffc000]">
-                            ₹{selectedPackage.price.toLocaleString()}
+                            {selectedPackage.price.toLocaleString()}
                         </p>
                         {/* Architectural accent line */}
                         <div className="hidden md:block h-[2px] w-20 bg-[#ffc000]"></div>

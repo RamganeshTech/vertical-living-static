@@ -54,7 +54,7 @@ const Booking = ({ planId, PLANS }: { planId: string, PLANS: any[] }) => {
                         <h1 className="text-[22px] md:text-[28px] font-black uppercase tracking-tight text-[#1a1a1a]">Confirm Booking</h1>
                         <div className="w-10 h-1 bg-[#ffc000] rounded-full mt-2 mx-auto"></div>
                         <p className="text-gray-400 text-xs mt-4 font-bold uppercase tracking-widest">
-                            {selectedPlan.name} — <span className="text-[#1a1a1a]">₹{selectedPlan.price}</span>
+                            {selectedPlan.name} — <span className="text-[#1a1a1a]">{selectedPlan.price}</span>
                         </p>
                     </div>
 
@@ -125,7 +125,8 @@ const Booking = ({ planId, PLANS }: { planId: string, PLANS: any[] }) => {
                                 disabled={isLoading}
                                 className="w-full h-[60px] bg-[#1a1a1a] text-white rounded-full text-[12px] font-bold uppercase tracking-[3px] shadow-xl hover:bg-[#ffc000] hover:text-black transition-all duration-300 disabled:opacity-50"
                             >
-                                {isLoading ? "Processing..." : `Secure Payment — ₹${selectedPlan.price}`}
+                                {/* {isLoading ? "Processing..." : `Secure Payment — ${selectedPlan.price}`} */}
+                                {isLoading ? "Processing..." : `Submit`}
                             </button>
                         </div>
 

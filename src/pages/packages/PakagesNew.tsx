@@ -6,15 +6,16 @@
 import { motion } from 'framer-motion';
 import { Link, useNavigate } from 'react-router-dom';
 import { allPackages } from '../../constants/constants';
+import QuoteButton from '../../components/QuoteButton';
 
 
 
 type PackagesNewtype = {
-    showLink?:boolean
+    showLink?: boolean
 }
 
 
-const PackagesNew:React.FC<PackagesNewtype> = ({showLink}) => {
+const PackagesNew: React.FC<PackagesNewtype> = ({ showLink }) => {
 
     const navigate = useNavigate()
 
@@ -23,7 +24,7 @@ const PackagesNew:React.FC<PackagesNewtype> = ({showLink}) => {
             <div className="container mx-auto px-4">
 
                 {/* Section Header */}
-                <div className="mb-12 md:mb-20 text-center">
+                {/* <div className="mb-12 md:mb-20 text-center">
                     <h2 onClick={() => navigate('/portfolio')} className="text-3xl flex items-center justify-center gap-3 cursor-pointer md:text-5xl font-bold tracking-tighter text-[#1a1a1a]">
                         Our <span className="text-[#ffc000]">Packages</span>
                         {showLink && <i className="fa-solid fa-link text-xl md:text-2xl text-[#ffc000] mt-1 group-hover:scale-110 transition-transform"></i>}
@@ -32,6 +33,42 @@ const PackagesNew:React.FC<PackagesNewtype> = ({showLink}) => {
                     <p className="mt-4 md:mt-8 text-gray-500 font-semibold text-[16px] md:text-[18px] font-poppins">
                         Check out our comprehensive interior solutions
                     </p>
+                </div> */}
+
+                <div className="mb-12 md:mb-20 flex flex-col items-center w-full relative text-center">
+
+                    {/* TOP ROW: Heading (Centered) + Button (Absolute Right on Desktop) */}
+                    <div className="w-full relative flex flex-col sm:flex-row items-center justify-center">
+
+                        {/* The Heading */}
+                        <h2
+                            onClick={() => navigate('/portfolio')}
+                            className="text-3xl md:text-5xl flex items-center justify-center gap-3 cursor-pointer font-bold tracking-tighter text-[#1a1a1a]"
+                        >
+                            Our <span className="text-[#ffc000]">Packages</span>
+                            {showLink && (
+                                <i className="fa-solid fa-link text-xl md:text-2xl text-[#ffc000] mt-1 group-hover:scale-110 transition-transform"></i>
+                            )}
+                        </h2>
+
+                        {/* The Button Wrapper */}
+                        {showLink && (
+                            /* Note: standard Tailwind doesn't have a 'right-70' class, so I used arbitrary values like lg:right-[15%] or you can use right-72. Adjust the values to fit your container! */
+                            <div className="mt-5 sm:mt-0 sm:absolute sm:right-10 md:right-5 lg:right-[10%] xl:right-[15%]">
+                                <QuoteButton />
+                            </div>
+                        )}
+
+                    </div>
+
+                    {/* THE UNDERLINE: Isolated and perfectly centered */}
+                    <div className="w-16 md:w-24 h-1.5 md:h-2 bg-[#ffc000] mt-4 md:mt-6 rounded-full shadow-md"></div>
+
+                    {/* THE PARAGRAPH: Stays centered below the underline */}
+                    <p className="mt-4 md:mt-8 text-gray-500 font-semibold text-[16px] md:text-[18px] font-poppins">
+                        Check out our comprehensive interior solutions
+                    </p>
+
                 </div>
 
                 {/* Unified Dynamic Grid */}
@@ -69,7 +106,7 @@ const PackagesNew:React.FC<PackagesNewtype> = ({showLink}) => {
                                     {plan.name}
                                 </h3>
                                 <div className="flex items-center gap-2 md:gap-3 mb-4 md:mb-6">
-                                    <p className="text-[#ffc000] font-bold text-xl md:text-2xl tracking-tighter">₹{plan.price}</p>
+                                    <p className="text-[#ffc000] font-bold text-xl md:text-2xl tracking-tighter">{plan.price}</p>
                                 </div>
                                 <p className="text-[10px] md:text-[11px] text-gray-300 font-bold uppercase tracking-widest italic leading-relaxed">
                                     {plan.suitable}

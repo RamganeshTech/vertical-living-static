@@ -25,7 +25,7 @@ export const useCreatePublicOrder = () => {
   return useMutation({
     mutationFn: async (payload: CreateOrderPayload) => {
       const {data} = await axios.post(`${DOMAIN_URL}${BASE_URL}/createorder`, payload);
-      console.log("data", data)
+      // console.log("data", data)
       return data;
     },
   });

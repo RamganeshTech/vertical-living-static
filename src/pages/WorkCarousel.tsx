@@ -58,6 +58,7 @@ import video4 from '../assets/videos/video4.mp4';
 
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
+import QuoteButton from '../components/QuoteButton';
 
 // const images = [img1, img2, img3, img4, img5, img6, img7, img8];
 // const images = [img1, img2, img3, img4, img5, img8, video1,video2, img8];
@@ -138,11 +139,33 @@ const WorkCarousel: React.FC<WorkCarouseltype> = ({ showLink }) => {
 
             <div className="container mx-auto px-4  mb-16 text-center">
                 {/* Refined Header */}
-                <h2 onClick={() => navigate('/portfolio')} className="text-3xl flex items-center justify-center gap-3 cursor-pointer md:text-5xl font-bold tracking-tight text-[#1a1a1a]">
+                {/* <h2 onClick={() => navigate('/portfolio')} className="text-3xl flex items-center justify-center gap-3 cursor-pointer md:text-5xl font-bold tracking-tight text-[#1a1a1a]">
                     Our <span className="text-[#ffc000]">Portfolio</span>
                     {showLink && <i className="fa-solid fa-link text-xl md:text-2xl text-[#ffc000] mt-1 group-hover:scale-110 transition-transform"></i>}
 
-                </h2>
+                </h2> */}
+
+                <div className="w-full relative flex flex-col sm:flex-row items-center justify-center">
+
+                    {/* The Heading */}
+                    <h2
+                        onClick={() => navigate('/portfolio')}
+                        className="text-3xl md:text-5xl flex items-center justify-center gap-3 cursor-pointer font-bold tracking-tight text-[#1a1a1a]"
+                    >
+                        Our <span className="text-[#ffc000]">Portfolio</span>
+                        {showLink && (
+                            <i className="fa-solid fa-link text-xl md:text-2xl text-[#ffc000] mt-1 group-hover:scale-110 transition-transform"></i>
+                        )}
+                    </h2>
+
+                    {/* The Button Wrapper */}
+                    {showLink && (
+                        <div className="mt-5 sm:mt-0 sm:absolute sm:right-10 md:right-5 lg:right-[10%] xl:right-[15%]">
+                            <QuoteButton />
+                        </div>
+                    )}
+
+                </div>
                 <div className="w-26 h-1.5 bg-[#ffc000] mx-auto mt-3 rounded-full shadow-[0_5px_15px_rgba(255,192,0,0.3)]"></div>
 
 

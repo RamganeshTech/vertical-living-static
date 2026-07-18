@@ -6,6 +6,7 @@ import { motion } from 'framer-motion';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Swiper as SwiperType } from 'swiper';
 import { Autoplay, Navigation, Pagination } from 'swiper/modules';
+import QuoteButton from '../../components/QuoteButton';
 
 type PackagesSectiontype = {
     showLink?: boolean
@@ -21,14 +22,46 @@ const PackagesSection: React.FC<PackagesSectiontype> = ({ showLink }) => {
         <section id="service" className="py-20  bg-white">
             <div className="mx-auto px-1 md:px-4 mb-12 text-center">
 
-                <h2 onClick={() => navigate('/service-packages')} className="text-xl sm:text-3xl md:text-5xl flex items-center justify-center  gap-2 md:gap-3 cursor-pointer  font-bold tracking-tight text-[#1a1a1a]">
+                {/* <h2 onClick={() => navigate('/service-packages')} className="text-xl w-fit mx-auto sm:text-3xl md:text-5xl flex items-center justify-center  
+                gap-2 md:gap-3 cursor-pointer  font-bold tracking-tight text-[#1a1a1a]">
                     Our <span className="text-[#ffc000]">Service Packages</span>
                     {showLink && <i className="fa-solid fa-link text-xl md:text-2xl text-[#ffc000] mt-1 group-hover:scale-110 transition-transform"></i>}
-
                 </h2>
-                <div className="w-24 h-1.5 bg-[#ffc000] mx-auto mt-6 rounded-full shadow-[0_5px_15px_rgba(255,192,0,0.3)]"></div>
+                {showLink && <QuoteButton />}
+                <div className="w-24 h-1.5 bg-[#ffc000] mx-auto mt-6 rounded-full shadow-[0_5px_15px_rgba(255,192,0,0.3)]"></div> */}
 
+                {/* Parent Wrapper to align the Heading and the Button */}
+                <div className="flex flex-col items-center w-full relative">
 
+                    {/* TOP ROW: Heading (Always Centered) + Button (Right on Desktop, Below on Mobile) */}
+                    <div className="w-full relative flex flex-col sm:flex-row items-center justify-center">
+
+                        {/* The Heading */}
+                        <h2
+                            onClick={() => navigate('/service-packages')}
+                            className="text-xl sm:text-3xl md:text-5xl flex items-center justify-center 
+                 gap-2 md:gap-3 cursor-pointer font-bold tracking-tight text-[#1a1a1a]"
+                        >
+                            Our <span className="text-[#ffc000]">Service Packages</span>
+                            {showLink && (
+                                <i className="fa-solid fa-link text-xl md:text-2xl text-[#ffc000] mt-1 group-hover:scale-110 transition-transform"></i>
+                            )}
+                        </h2>
+
+                        {/* The Button Wrapper */}
+                        {showLink && (
+                            // <div className="mt-5 sm:mt-0 sm:absolute sm:right-10 md:right-5 lg:right-70">
+                            <div className="mt-5 sm:mt-0 sm:absolute sm:right-10 md:right-20 lg:right-[5%] xl:right-[15%]">
+                                <QuoteButton />
+                            </div>
+                        )}
+
+                    </div>
+
+                    {/* THE UNDERLINE: Now sits completely isolated and perfectly centered under the heading */}
+                    <div className="w-24 h-1.5 bg-[#ffc000] mt-6 rounded-full shadow-[0_5px_15px_rgba(255,192,0,0.3)]"></div>
+
+                </div>
 
                 <p className="mt-6 !text-center  text-gray-500 font-semibold text-[12px] md:text-[18px] tracking-widest font-poppins">
                     Available individually or as part of a larger project engagement.
@@ -43,7 +76,7 @@ const PackagesSection: React.FC<PackagesSectiontype> = ({ showLink }) => {
                     spaceBetween={30}
                     // Loop ensures infinite scrolling
                     loop={true}
-                    
+
                     autoplay={{
                         delay: 2000,
                         disableOnInteraction: false, // Keep scrolling after user interaction
@@ -81,7 +114,7 @@ const PackagesSection: React.FC<PackagesSectiontype> = ({ showLink }) => {
                                     src={pkg.img}
                                     className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                                     alt={pkg.name}
-                                    // decoding="async" // <-- ADD THIS FOR BETTER PAINT PERFORMANCE
+                                // decoding="async" // <-- ADD THIS FOR BETTER PAINT PERFORMANCE
                                 />
 
                                 {/* Darkened Gradient Overlay */}
