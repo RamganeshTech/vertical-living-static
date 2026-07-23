@@ -216,52 +216,7 @@ const WorkCarousel: React.FC<WorkCarouseltype> = ({ showLink }) => {
                     }}
                     className="w-full py-10"
                 >
-                    {/* {portfolioItems.map((item, index) => {
-                        // PERFORMANCE FIX: Only eagerly load the first 2 slides. Lazy load the rest.
-                        const isVisibleInitially = index <= 1;
 
-                        return(
-                        <SwiperSlide key={index} className="px-4">
-                            <div className="w-full h-[400px] md:h-[550px] rounded-[40px] overflow-hidden shadow-2xl transition-transform duration-500">
-                               
-
-                                {item.type === 'video' ? (
-                                    <video
-                                        src={item.src}
-                                        className="w-full h-full object-cover"
-                                        disablePictureInPicture   // Disables the 'Pop-out' icon
-                                        // autoPlay
-                                        muted
-                                        playsInline
-                                        // preload="auto"
-                                            // preload="metadata"
-                                            preload="none" // Completely stop loading until commanded
-
-                                        onEnded={() => {
-                                            // When video ends, move to next and restart autoplay
-                                            swiperRef.current?.autoplay.start();
-                                            swiperRef.current?.slideNext();
-                                        }}
-                                    // onPlay={() => swiperRef.current?.autoplay.stop()}
-                                    // onPause={() => swiperRef.current?.autoplay.start()}
-                                    />
-                                ) : (
-                                    <img
-                                        src={item.src}
-                                        alt={`Project ${index + 1}`}
-                                        className="w-full h-full object-cover"
-                                        // loading="eager"
-                                            loading={isVisibleInitially ? "eager" : "lazy"}
-                                        // fetchPriority="high"
-                                        fetchPriority={isVisibleInitially ? "high" : "auto"}
-                                        decoding="async"
-                                    />
-                                )}
-                            </div>
-                        </SwiperSlide>
-                    )
-                    }
-                )} */}
 
 
                     {portfolioItems.map((item, index) => {
@@ -281,6 +236,8 @@ const WorkCarousel: React.FC<WorkCarouseltype> = ({ showLink }) => {
                                                 // If it is a hidden clone, leave the src empty!
                                                 src={isActive || isVisible ? item.src : ""}
                                                 className="w-full h-full object-cover"
+                                                aria-label={`Vertical Living Interior Design Showcase Video ${index + 1} Chennai`}
+                                                title={`Vertical Living Interior Design Showcase Video ${index + 1} Chennai`}
                                                 disablePictureInPicture
                                                 muted
                                                 playsInline
@@ -296,6 +253,7 @@ const WorkCarousel: React.FC<WorkCarouseltype> = ({ showLink }) => {
                                             <img
                                                 src={item.src}
                                                 alt={`Project ${index + 1}`}
+                                                // alt={item.title ? `${item.title} - Interior Design Project in Chennai` : `Modern Interior Design Project ${index + 1} Chennai`}
                                                 className="w-full h-full object-cover"
                                                 loading={isVisibleInitially ? "eager" : "lazy"}
                                                 fetchPriority={isVisibleInitially ? "high" : "auto"}

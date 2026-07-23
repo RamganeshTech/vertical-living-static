@@ -9,5 +9,8 @@ export default defineConfig({
     tailwindcss(),
 
   ],
+  build: {
+    target: 'es2020',
+  },
   // base: '/vertical-living-static/', // Must match your repo name exactly
 })

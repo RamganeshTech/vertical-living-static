@@ -419,7 +419,9 @@ const ServiceSectionSingle: React.FC = () => {
                         </div>
                     </div>
                     <div className="hidden md:block md:col-span-5 h-[400px] rounded-[40px] overflow-hidden">
-                        <img src={selectedPackage.img} className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700" alt="Detail view" />
+                        <img src={selectedPackage.img} 
+                        className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700" 
+                        alt="Detail view" />
                     </div>
                 </div>
 

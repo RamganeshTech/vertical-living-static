@@ -113,7 +113,8 @@ const PackagesSection: React.FC<PackagesSectiontype> = ({ showLink }) => {
                                 <img
                                     src={pkg.img}
                                     className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                                    alt={pkg.name}
+                                    // alt={pkg.name}
+                                    alt={`${pkg.name} - Interior Design Packages in Chennai`}
                                 // decoding="async" // <-- ADD THIS FOR BETTER PAINT PERFORMANCE
                                 />
 

@@ -129,6 +129,7 @@ const Portfolio: React.FC = () => {
                                     muted
                                     playsInline
                                     onEnded={handleNext} // FIX: Go to next only when video ends
+                                    aria-label={`Vertical Living interior design showcase video ${index + 1} Chennai`}
                                     initial={{ opacity: 0 }}
                                     animate={{ opacity: 1 }}
                                     exit={{ opacity: 0 }}
@@ -143,6 +144,8 @@ const Portfolio: React.FC = () => {
                                 <motion.img
                                     key={infiniteImages[index]}
                                     src={infiniteImages[index]}
+                                    // alt={`Interior Design Package in Chennai`}
+                                    alt={`Vertical Living interior design portfolio image ${index + 1} Chennai`}
                                     initial={{ opacity: 0 }}
                                     animate={{ opacity: 1 }}
                                     exit={{ opacity: 0 }}

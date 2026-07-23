@@ -4,22 +4,27 @@ import { Link } from 'react-router-dom';
 
 const socialLinks = [
   {
+    name: 'Facebook', 
     icon: 'fa-brands fa-facebook',
     link: 'https://www.facebook.com/photo/?fbid=122102241110267512&set=a.122102237984267512'
   },
   {
+    name: 'Instagram',
     icon: 'fa-brands fa-instagram',
     link: 'https://www.instagram.com/living.vertical/'
   },
   {
+    name: 'YouTube',
     icon: 'fa-brands fa-youtube',
     link: 'https://youtube.com/@Verticalliving-Lifestyle?si=YAXRXVs5H6EuZOmg'
   },
   {
+    name: 'LinkedIn',
     icon: 'fa-brands fa-linkedin',
     link: 'https://www.linkedin.com/company/theverticalliving' // Added LinkedIn placeholder as requested
   },
   {
+    name: 'Email Contact',
     icon: 'fa-solid fa-envelope',
     link: 'mailto:info@theverticalliving.com'
   }
@@ -55,6 +60,7 @@ const Footer: React.FC = () => {
                   <Link
                     key={social.icon}
                     to={social.link}
+                    aria-label={social.name}
                     className="w-10 h-10 rounded-full bg-black text-white flex items-center justify-center hover:bg-[#ffc000] hover:text-black duration-300 transition-all"
                   >
                     <i className={`${social.icon}`}></i>

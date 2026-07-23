@@ -4,7 +4,7 @@ import React, { useEffect } from 'react';
 
 // Asset Imports
 // import bannerBg from '../assets/images/banner-01-bg.jpg';
-import bannerBg from '../assets/images/banner-01-bg.webp';
+// import bannerBg from '../assets/images/banner-01-bg.webp';
 
 import { motion, type Variants } from 'framer-motion';
 import Portfolio from './Portfolio';
@@ -287,11 +287,13 @@ const Home: React.FC = () => {
           </div>
         </section> */}
 
-
+``
         <section className="relative w-full min-h-[600px] md:min-h-[800px] overflow-hidden flex items-center">
           <img
-            src={bannerBg}
+            // src={bannerBg}
+            src="/banner-01-bg.webp"
             alt="Banner"
+            fetchPriority='high'
             className="absolute inset-0 w-full h-full object-cover z-0"
           />
           <div className="absolute inset-0 bg-black/30 z-[1]"></div>

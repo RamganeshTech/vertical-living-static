@@ -23,23 +23,6 @@ const Chatbot = () => {
         }
     }, [history, isPending]);
 
-    // const handleSendMessage = () => {
-    //     if (!input.trim() || isPending) return;
-
-    //     const userMessage: ChatMessage = { role: 'user', parts: [{ text: input }] };
-    //     const updatedHistory = [...history, userMessage];
-
-    //     setHistory(updatedHistory);
-    //     setInput('');
-
-    //     mutate({ message: input, history: updatedHistory }, {
-    //         onSuccess: (data) => {
-    //             setHistory(prev => [...prev, { role: 'model', parts: [{ text: data.reply }] }]);
-    //         }
-    //     });
-    // };
-
-
     const handleSendMessage = () => {
         if (!input.trim() || isPending) return;
 
@@ -96,7 +79,9 @@ const Chatbot = () => {
                                 <div className="w-2 h-2 bg-[#ffc000] rounded-full animate-pulse"></div>
                                 <span className="text-white text-xs font-black uppercase tracking-[2px]">Vertical AI</span>
                             </div>
-                            <button onClick={() => setIsOpen(false)} className="text-white/50 hover:text-[#ffc000] transition-colors">
+                            <button onClick={() => setIsOpen(false)}
+                                aria-label="Close chat"
+                                className="text-white/50 hover:text-[#ffc000] transition-colors">
                                 <i className="fa fa-times text-lg"></i>
                             </button>
                         </div>
@@ -142,6 +127,7 @@ const Chatbot = () => {
                             <button
                                 onClick={handleSendMessage}
                                 disabled={isPending}
+                                aria-label="Send message"
                                 className="bg-[#1a1a1a] text-[#ffc000] w-10 h-10 rounded-xl flex items-center justify-center hover:bg-black transition-all disabled:opacity-50"
                             >
                                 <i className="fa fa-paper-plane"></i>
@@ -188,6 +174,7 @@ const Chatbot = () => {
 
                 {/* Toggle Button - Now it will stay pinned to the right */}
                 <motion.button
+                    aria-label={isOpen ? "Close chat window" : "Open chat window"} // <-- ADD THIS
                     whileHover={{ scale: 1.1, rotate: 5 }}
                     whileTap={{ scale: 0.9 }}
                     onClick={() => setIsOpen(!isOpen)}
